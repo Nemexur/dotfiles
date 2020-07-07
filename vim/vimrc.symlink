@@ -22,10 +22,11 @@ filetype plugin indent on    " required
 
 execute pathogen#infect()
 
-" theme
+" Start theme
 " ----
 syntax on
-" colorscheme wombat
+set termguicolors
+colorscheme wombat
 " ----
 " End theme
 
@@ -41,9 +42,91 @@ set laststatus=2
 
 " Set line number
 set number
+set relativenumber
+
+" Show existing tab with 4 spaces width
+set tabstop=4
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
+" When indenting with '>', use 4 spaces width
+set shiftwidth=4
+
+" On pressing tab, insert 4 spaces
+set expandtab
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" UI Config
+set showcmd
+
+" Set cursorline
+set cursorline
+
+" Access clipboard not only from vim
+set clipboard=unnamed
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Configure window splitting
+set splitbelow
+set splitright
+
+" Split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" Python
+" ------
+" Setup PEP
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+" Also make code look pretty with python
+let python_highlight_all=1
+" ------
+
+" Setup for another filetypes
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
+" Avoid extraneous whitespace
+" ------
+" Flagging Unnecessary Whitespace
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" ------
 
 " Nerdtree Settings
 set mouse=a
@@ -60,3 +143,29 @@ set ttyfast
 set lazyredraw
 map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
 map [] :TagbarToggle<CR> "click [] to toggle Tagbar
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" Prefer clangd
+let g:ycm_use_clangd = 0
+
+" Remember info about open buffers on close
+set viminfo^=%
+
+" Setup underline highlight
+hi clear CursorLine
+hi CursorLine gui=underline cterm=underline
+
+" Setup spelling
+" ------
+" Add ё to dictionary
+set spelllang=ru_yo,en_us
+set spell
+hi clear SpellBad
+hi SpellBad cterm=underline, gui=underline
+nmap '' z=
+" ------

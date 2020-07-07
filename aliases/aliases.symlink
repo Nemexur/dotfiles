@@ -3,9 +3,12 @@ alias ls="colorls --sd -A"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias config='/usr/bin/git --git-dir=/Users/$(whoami)/.cfg/ --work-tree=/Users/$(whoami)'
-alias h3="/usr/local/bin/tmp/helm"
-alias badwifi='k config use-context docker-for-desktop'
-alias jdk8s='k config use-context jdk8s-us'
 alias js='~/bin/show-struct.py'
-#acs-engine
-alias acse="/usr/local/bin/acs-engine"
+alias cur_dir="echo ${PWD##*/}"
+alias reload="source ~/.bashrc"
+alias pssrc='ps aux | grep'
+alias chsize='ls -lh'
+alias chdirsize='du -hs'
+alias topndir='du -sxh ./* | sort -rh'
+alias isscreen='echo $STY'
+alias chnumber='ls -1 | wc -l'

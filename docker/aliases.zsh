@@ -1,2 +1,6 @@
 alias d='docker $*'
 alias d-c='docker-compose $*'
+alias delcnts='docker rm $(docker ps -a -q -f status=exited)'
+alias cleandocker='docker system prune -a'
+alias hardcleandocker='docker volume ls -qf dangling=true | xargs docker volume rm'
+alias cleandanglingdocker='docker rmi -f $(docker images -f "dangling=true" -q)'

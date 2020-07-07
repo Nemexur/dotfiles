@@ -120,57 +120,10 @@ install_dotfiles () {
   done
 }
 
-add_cron () {
-  local frequency="*/15 * * * *"
-  local command=$1
-  local job="$frequency $command"
-  cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
-}
-
-add_line () {
-  local command=$1
-  local job="$command"
-  cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
-}
-
 setup_gitconfig
 install_dotfiles
 
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  info "installing dependencies"
-  if source bin/dot | while read -r data; do info "$data"; done
-  then
-    success "dependencies installed"
-    echo ''
-    echo "Now updating dependencies..."
-    pip3 install --upgrade setuptools
-  else
-    fail "error installing dependencies"
-  fi
-fi
-
-jldeenMods () {
-  info "starting jldeen mods"
-  #backup old bin, if exists
-  if [ -d $HOME/bin ]; then
-    info "current $HOME/bin folder, checking for existing symlink"
-    if [ ! -L $HOME/bin ]; then
-      info "current $HOME/bin is not a symlink, creating backup"
-      sudo mv $HOME/bin bin_old
-      success "backup folder created"
-    else info "$HOME/bin symlink already exists"
-    fi
-  else
-      info "No current $HOME/bin folder found, starting symlink creation"
-  fi
-}
-
-jd_Symlinks () {
-  # symlink .dotfiles bin to ~
-  ln -s $HOME/.dotfiles/bin $HOME/bin && success "symlink for $HOME/bin folder created"
-
+setupSymlinks () {
   # symlink .dotfiles tmux to ~
   ln -s $HOME/.dotfiles/tmux $HOME/.tmux && success "symlink for $HOME/.tmux folder created"
 
@@ -178,66 +131,23 @@ jd_Symlinks () {
   if [ -d $HOME/Library/Application\ Support/Code/User ] ; then
     echo "Making backup of current settings.json and creating symlink..."
     echo ''
-    mv $HOME/Library/Application\ Support/Code/User/settings.json $HOME/Library/Application\ Support/Code/User/settings.old.json && success "settings.old.json created"
     ln -s $HOME/.dotfiles/code/settings.json $HOME/Library/Application\ Support/Code/User/settings.json && success "settings.json for vs code symlink created"
+    ln -s $HOME/.dotfiles/code/settings.json $HOME/Library/Application\ Support/Code/User/keybindings.json && success "keybindings.json for vs code symlink created"
+    ln -s $HOME/.dotfiles/code/snippets/ $HOME/Library/Application\ Support/Code/User/snippets/ && success "/snippets/ for vs code symlink created"
   else
     info "symlink for vs code settings not created"
     echo "VS Code does not appear to be installed or has not been launched yet. Cannot create symlink for VS Code User settings..."
   fi
-
-  # airport symlink
-  if ! [ -f /usr/local/bin/airport ]
-    then
-      sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/local/bin/airport
-      success "symlink for airport created"
-    else 
-      info "symlink for airport already exists"
-    fi
 }
 
-jdcolors () {
+colors () {
   # colorls setup
   sudo gem install colorls && success 'ls colors have been configured'
 }
 
-jdcrontab () {
-  #crontab additions
-  add_line "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-    if [[ $? -eq 0 ]]
-    then
-    success "$PATH added to crontab"
-    else
-    info "ERROR $PATH could not be added to crontab"
-    fi
-
-  add_cron "speedtest-cli --simple > ~/bin/bandwidth.log"
-    if [[ $? -eq 0 ]]
-    then
-    success "crontab created for speedtest cli --simple"
-    else
-    info "ERROR crontab could not be created for speedtest cli --simple"
-    fi
-
-  add_cron "speedtest-cli --json > ~/bin/bandwidth.json"
-    if [[ $? -eq 0 ]]
-    then
-    success "crontab created for speedtest cli --json"
-    else
-    info "ERROR crontab could not be created for speedtest cli --json"
-    fi
-
-  # first run of speedtest-cli
-  echo "Running speedtest-cli for tmux status bar data now..."
-  speedtest-cli --simple > ~/bin/bandwidth.log
-  success "speedtest-cli bandwidth.log created"
-
-  speedtest-cli --json > ~/bin/bandwidth.json
-  success "speedtest-cli bandwidth.json created"
-}
-
-jditermConfig () {
+itermConfig () {
   # iterm2 config
-  read -p "Do you currently use iTerm2 and would you like to set jldeen's custom colors? y/n " -n 1 -r
+  read -p "Do you currently use iTerm2 and would you like to set custom colors? y/n " -n 1 -r
   echo ''
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
@@ -247,22 +157,24 @@ jditermConfig () {
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
       if [[ $? -eq 0 ]]
       then
-          success "successfully configured iTerm2 to use jldeen's custom colors..."
+          success "successfully configured iTerm2 to use custom colors..."
       else
-          fail "failed to apply jldeen's custom colors..." >&2
+          fail "failed to apply custom colors..." >&2
   fi
   else 
-      info "You chose not to use iTerm2 or jldeen's custom colors."
+      info "You chose not to use iTerm2 or custom colors."
   fi
 }
 
-jdFontSetup () {
+fontSetup () {
   # install Source Code Pro nerd font
-  sudo cp $HOME/.dotfiles/Source\ Code\ Pro\ Nerd\ Font\ Complete.ttf /Library/Fonts
+  for font in $HOME/.dotfiles/fonts/*; do
+    sudo cp $font /Library/Fonts
+  done
   success "Source Code Pro font copied successfully!"
 }
 
-jdconfigFix () {
+configFix () {
   # .config permissions fix
   if [ ! -d "$HOME/.config" ]; then
     info "$HOME/.config doesn't exist, nothing to fix"
@@ -272,12 +184,10 @@ jdconfigFix () {
   fi
 }
 
-jldeenMods
-jd_Symlinks
-jdcolors
-#jdcrontab
-jditermConfig
-jdFontSetup
-jdconfigFix
+setup_symlinks
+colors
+itermConfig
+fontSetup
+configFix
 
-success 'Badass macOS terminal installed!'
+success 'macOS terminal installed!'

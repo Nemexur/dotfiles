@@ -1,0 +1,101 @@
+{
+    // Environment Settings
+    "terminal.integrated.shell.osx": "/bin/bash",
+    "workbench.colorTheme": "SynthWave '84",
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.renderWhitespace": "all",
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "window.zoomLevel": 0,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "todo-tree.tree.showScanModeButton": false,
+    "files.associations": {
+        "*.rmd": "markdown"
+    },
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-utilities.countWord.format": "${words} Words",
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 150,
+    // Spelling settings
+    "cSpell.language": "en,ru",
+    "jsonnet.executablePath": "",
+    // Files settings
+    "files.insertFinalNewline": true,
+    "editor.scrollBeyondLastLine": false,
+    // Docstring settings
+    "autoDocstring.docstringFormat": "numpy",
+    "autoDocstring.customTemplatePath": "$HOME/.dotfiles/custom_numpy.mustache",
+    "autoDocstring.generateDocstringOnEnter": true,
+    "autoDocstring.guessTypes": true,
+    "autoDocstring.startOnNewLine": true,
+    "autoDocstring.quoteStyle": "\"\"\"",
+    // Highlight TODO, FIXME
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "gear",
+        "iconColour": "green"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "pin",
+            "type": "text-and-comment",
+            "foreground": "green",
+            "background": "white",
+            "opacity": 20,
+            "iconColour": "orange",
+        },
+        "FIXME": {
+            "icon": "tools",
+            "type": "text-and-comment",
+            "foreground": "yellow",
+            "background": "white",
+            "opacity": 20,
+            "iconColour": "yellow"
+        }
+    },
+    "todo-tree.filtering.ignoreGitSubmodules": true,
+    "todo-tree.filtering.useBuiltInExcludes": "file excludes",
+    "todo-tree.filtering.excludeGlobs": [
+        "**/venv/**",
+        "**/env/**",
+        "**/.vscode/**"
+    ],
+    // Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // ESLint
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    // Specific language settings
+    "[python]": {
+        // Controls if quick suggestions should show up while typing
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": false
+        },
+        // Controls if suggestions should be accepted on 'Enter' - in addition to 'Tab'. Helps to avoid ambiguity between inserting new lines or accepting suggestions. The value 'smart' means only accept a suggestion with Enter when it makes a textual change
+        "editor.acceptSuggestionOnEnter": "on",
+        // Controls the delay in ms after which quick suggestions will show up.
+        "editor.quickSuggestionsDelay": 10,
+        // Controls if suggestions should automatically show up when typing trigger characters
+        "editor.suggestOnTriggerCharacters": true,
+        // Controls if pressing tab inserts the best suggestion and if tab cycles through other suggestions
+        "editor.tabCompletion": "on",
+        // Controls whether sorting favours words that appear close to the cursor
+        "editor.suggest.localityBonus": true,
+        // Controls how suggestions are pre-selected when showing the suggest list
+        "editor.suggestSelection": "recentlyUsed",
+        // Enable word based suggestions
+        "editor.wordBasedSuggestions": true,
+        // Enable parameter hints
+        "editor.parameterHints.enabled": true,
+        // AutoComplete Brackets
+        "editor.autoClosingBrackets": "always"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.autoClosingBrackets": "always"
+    },
+    "[latex]": {
+        "editor.autoClosingBrackets": "never"
+    },
+}
