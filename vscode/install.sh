@@ -8,13 +8,10 @@ code --install-extension esbenp.prettier-vscode
 code --install-extension golang.go
 code --install-extension Gruntfuggly.todo-tree
 code --install-extension heptio.jsonnet
-code --install-extension Hridoy.r-development
-code --install-extension Ikuyadeu.r
 code --install-extension ionutvmi.path-autocomplete
 code --install-extension James-Yu.latex-workshop
 code --install-extension Jeff-Tian.tex-workshop
 code --install-extension KevinRose.vsc-python-indent
-code --install-extension Mikhail-Arkhipov.r
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
 code --install-extension ms-python.python
@@ -25,7 +22,6 @@ code --install-extension nickfode.latex-formatter
 code --install-extension njpwerner.autodocstring
 code --install-extension randrade23.beautify-json
 code --install-extension redhat.vscode-yaml
-code --install-extension REditorSupport.r-lsp
 code --install-extension RobbOwen.synthwave-vscode
 code --install-extension shd101wyy.markdown-preview-enhanced
 code --install-extension streetsidesoftware.code-spell-checker
