@@ -136,9 +136,6 @@ then
 fi
 
 setupSymlinks () {
-  # symlink .dotfiles tmux to ~
-  ln -s $HOME/.dotfiles/tmux $HOME/.tmux && success "symlink for $HOME/.tmux folder created"
-
   # symlink VSCode User Settings
   if [ -d $HOME/Library/Application\ Support/Code/User ] ; then
     echo "Creating symlinks for VSCode..."
