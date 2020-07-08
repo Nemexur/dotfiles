@@ -28,7 +28,7 @@ brewUpdate () {
 
 zshInstall () {
     # zsh install
-    # todo add in check for macOS 10.15 since zsh is default
+    # TODO: add in check for macOS 10.15 since zsh is default
     if test $(which zsh); then
         info "zsh already installed..."
     else
@@ -131,7 +131,7 @@ tmuxTpmInstall () {
 
 fubectlInstall () {
     # fubectl install
-    # todo - move to after ~/bin check on bootstrap
+    # TODO: - move to after ~/bin check on bootstrap
     if [ -f "$HOME/bin/fubectl.source" ]; then
         info 'fubectl.source already exists'
     else
