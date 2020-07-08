@@ -5,7 +5,7 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 alias config='/usr/bin/git --git-dir=/Users/$(whoami)/.cfg/ --work-tree=/Users/$(whoami)'
 alias js='~/bin/show-struct.py'
 alias cur_dir="echo ${PWD##*/}"
-alias reload="source ~/.bashrc"
+alias reload="source ~/.zshrc"
 alias pssrc='ps aux | grep'
 alias chsize='ls -lh'
 alias chdirsize='du -hs'

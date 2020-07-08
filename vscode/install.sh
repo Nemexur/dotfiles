@@ -34,3 +34,5 @@ code --install-extension tecosaur.latex-utilities
 code --install-extension torn4dom4n.latex-support
 code --install-extension twday.bibmanager
 code --install-extension xrc-inc.jsonnet-formatter
+code --install-extension donjayamanne.githistory
+code --install-extension eamodio.gitlens

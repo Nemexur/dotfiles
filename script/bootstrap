@@ -123,17 +123,30 @@ install_dotfiles () {
 setup_gitconfig
 install_dotfiles
 
+# If we're on a Mac, let's install and setup homebrew.
+if [ "$(uname -s)" == "Darwin" ]
+then
+  info "installing dependencies"
+  if source $HOME/.dotfiles/bin/dot | while read -r data; do info "$data"; done
+  then
+    success "dependencies installed"
+  else
+    fail "error installing dependencies"
+  fi
+fi
+
 setupSymlinks () {
   # symlink .dotfiles tmux to ~
   ln -s $HOME/.dotfiles/tmux $HOME/.tmux && success "symlink for $HOME/.tmux folder created"
 
   # symlink VSCode User Settings
   if [ -d $HOME/Library/Application\ Support/Code/User ] ; then
-    echo "Making backup of current settings.json and creating symlink..."
+    echo "Creating symlinks for VSCode..."
     echo ''
-    ln -s $HOME/.dotfiles/code/settings.json $HOME/Library/Application\ Support/Code/User/settings.json && success "settings.json for vs code symlink created"
-    ln -s $HOME/.dotfiles/code/settings.json $HOME/Library/Application\ Support/Code/User/keybindings.json && success "keybindings.json for vs code symlink created"
-    ln -s $HOME/.dotfiles/code/snippets/ $HOME/Library/Application\ Support/Code/User/snippets/ && success "/snippets/ for vs code symlink created"
+    rm -rf $HOME/Library/Application\ Support/Code/User/settings.json
+    rm -rf $HOME/Library/Application\ Support/Code/User/keybindings.json 
+    rm -rf $HOME/Library/Application\ Support/Code/User/snippets/ 
+    ln -s $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json && success "settings.json for vs code symlink created"
   else
     info "symlink for vs code settings not created"
     echo "VS Code does not appear to be installed or has not been launched yet. Cannot create symlink for VS Code User settings..."
@@ -142,7 +155,7 @@ setupSymlinks () {
 
 colors () {
   # colorls setup
-  sudo gem install colorls && success 'ls colors have been configured'
+  sudo gem install colorls -n /usr/local/bin && success 'ls colors have been configured'
 }
 
 itermConfig () {
@@ -184,7 +197,7 @@ configFix () {
   fi
 }
 
-setup_symlinks
+setupSymlinks
 colors
 itermConfig
 fontSetup

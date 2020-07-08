@@ -1,11 +1,39 @@
 {
     // Environment Settings
-    "terminal.integrated.shell.osx": "/bin/bash",
-    "workbench.colorTheme": "SynthWave '84",
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.renderWhitespace": "all",
-    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.fontSize": 11,
+    "workbench.startupEditor": "newUntitledFile",
+    "typescript.check.npmIsInstalled": false,
     "window.zoomLevel": 0,
+    "git.autofetch": true,
+    // Color Override for terminal
+    "workbench.colorCustomizations": {
+        "activityBarBadge.background": "#E86100",
+        "list.activeSelectionForeground": "#E86100",
+        "list.inactiveSelectionForeground": "#E86100",
+        "list.highlightForeground": "#E86100",
+        "scrollbarSlider.activeBackground": "#E8610050",
+        "editorSuggestWidget.highlightForeground": "#E86100",
+        "textLink.foreground": "#E86100",
+        "progressBar.background": "#E86100",
+        "pickerGroup.foreground": "#E86100",
+        "tab.activeBorder": "#E86100",
+        "notificationLink.foreground": "#E86100",
+        "editorWidget.resizeBorder": "#E86100",
+        "editorWidget.border": "#E86100",
+        "settings.modifiedItemIndicator": "#E86100",
+        "settings.headerForeground": "#E86100",
+        "panelTitle.activeBorder": "#E86100",
+        "breadcrumb.activeSelectionForeground": "#E86100",
+        "menu.selectionForeground": "#E86100",
+        "menubar.selectionForeground": "#E86100"
+    },
+    "workbench.colorTheme": "SynthWave '84",
+    "workbench.activityBar.visible": true,
+    "workbench.sideBar.location": "left",
+    "editor.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "editor.renderWhitespace": "all",
     "diffEditor.ignoreTrimWhitespace": false,
     "todo-tree.tree.showScanModeButton": false,
     "files.associations": {
@@ -97,5 +125,5 @@
     },
     "[latex]": {
         "editor.autoClosingBrackets": "never"
-    },
+    }
 }
