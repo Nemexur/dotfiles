@@ -51,7 +51,7 @@
     "editor.scrollBeyondLastLine": false,
     // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
-    "autoDocstring.customTemplatePath": "$HOME/.dotfiles/custom_numpy.mustache",
+    "autoDocstring.customTemplatePath": "/Users/a.n.milogradskiy/.dotfiles/vscode/custom_numpy.mustache",
     "autoDocstring.generateDocstringOnEnter": true,
     "autoDocstring.guessTypes": true,
     "autoDocstring.startOnNewLine": true,
