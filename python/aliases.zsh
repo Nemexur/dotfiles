@@ -40,7 +40,7 @@ setkernel() {
 }
 poetrykernel() {
     poetry add -D ipykernel
-    poetry run python -m ipykernel install --user --name --display-name "$1"
+    poetry run python -m ipykernel install --user --name "$1"
 }
 # Jupyter
 jupscrpoetry() {
