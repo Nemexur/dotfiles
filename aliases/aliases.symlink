@@ -1,3 +1,5 @@
+alias clr='clear'
+alias trash='rmtrash'
 alias lc='colorls -la'
 alias ls="colorls --sd -A"
 alias zshconfig="code ~/.zshrc"

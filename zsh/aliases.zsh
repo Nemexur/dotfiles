@@ -1,6 +1,5 @@
 alias reload!='. ~/.zshrc'
-
-alias cls='clear' # Good 'ol Clear Screen command
+unalias hs
 
 echoInfo () {
   printf "\r  [ \033[00;34m..\033[0m ] $1\n"

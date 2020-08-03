@@ -125,5 +125,6 @@
     },
     "[latex]": {
         "editor.autoClosingBrackets": "never"
-    }
+    },
+    "editor.renderControlCharacters": false
 }
