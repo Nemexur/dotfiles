@@ -34,10 +34,12 @@
     "editor.fontFamily": "JetBrains Mono",
     "terminal.integrated.fontFamily": "Hack Nerd Font",
     "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "todo-tree.tree.showScanModeButton": false,
     "files.associations": {
-        "*.rmd": "markdown"
+        "*.rmd": "markdown",
+        "*.toml": "ini"
     },
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-utilities.countWord.format": "${words} Words",
@@ -126,5 +128,4 @@
     "[latex]": {
         "editor.autoClosingBrackets": "never"
     },
-    "editor.renderControlCharacters": false
 }
