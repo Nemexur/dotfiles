@@ -13,4 +13,5 @@ bin/kubectl
 bin/bandwidth.json
 bin/bandwidth.log
 
+private/
 git/gitconfig.local.symlink

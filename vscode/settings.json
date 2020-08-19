@@ -94,6 +94,42 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    // Vim VScode
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.debug.silent": true,
+    "vim.leader": "<space>",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<leader>", "u"],
+            "after": ["<C-r>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-n>"],
+            "commands": [":nohl"]
+        }
+    ],
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    // Code-Runner
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "python": "python",
+        "go": "go run",
+    },
     // Specific language settings
     "[python]": {
         // Controls if quick suggestions should show up while typing

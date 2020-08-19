@@ -4,8 +4,13 @@ code --install-extension austin.code-gnu-global
 code --install-extension danielpinto8zz6.c-cpp-compile-run
 code --install-extension DavidAnson.vscode-markdownlint
 code --install-extension dawhite.mustache
+code --install-extension donjayamanne.githistory
+code --install-extension eamodio.gitlens
+code --install-extension ericadamski.carbon-now-sh
 code --install-extension esbenp.prettier-vscode
+code --install-extension formulahendry.code-runner
 code --install-extension golang.go
+code --install-extension GrapeCity.gc-excelviewer
 code --install-extension Gruntfuggly.todo-tree
 code --install-extension heptio.jsonnet
 code --install-extension ionutvmi.path-autocomplete
@@ -29,6 +34,5 @@ code --install-extension streetsidesoftware.code-spell-checker-russian
 code --install-extension tecosaur.latex-utilities
 code --install-extension torn4dom4n.latex-support
 code --install-extension twday.bibmanager
+code --install-extension vscodevim.vim
 code --install-extension xrc-inc.jsonnet-formatter
-code --install-extension donjayamanne.githistory
-code --install-extension eamodio.gitlens
