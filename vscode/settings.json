@@ -1,12 +1,32 @@
 {
+    // Editor Setup
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "SynthWave '84",
+    "workbench.sideBar.location": "left",
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": false,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 150,
+    "editor.scrollBeyondLastLine": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    /// Prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    /// ESLint
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
     // Environment Settings
     "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
     "typescript.check.npmIsInstalled": false,
     "window.zoomLevel": 0,
     "git.autofetch": true,
-    // Color Override for terminal
+    // Color Override
     "workbench.colorCustomizations": {
         "activityBarBadge.background": "#E86100",
         "list.activeSelectionForeground": "#E86100",
@@ -28,29 +48,21 @@
         "menu.selectionForeground": "#E86100",
         "menubar.selectionForeground": "#E86100"
     },
-    "workbench.colorTheme": "SynthWave '84",
-    "workbench.activityBar.visible": true,
-    "workbench.sideBar.location": "left",
-    "editor.fontFamily": "JetBrains Mono",
-    "terminal.integrated.fontFamily": "Hack Nerd Font",
-    "editor.renderWhitespace": "all",
-    "editor.renderControlCharacters": false,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "todo-tree.tree.showScanModeButton": false,
-    "files.associations": {
-        "*.rmd": "markdown",
-        "*.toml": "ini"
-    },
+    // Material Theme/Icon
+    "materialTheme.accent": "Indigo",
+    "material-icon-theme.folders.theme": "classic",
+    // Latex Setup
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-utilities.countWord.format": "${words} Words",
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 150,
     // Spelling settings
     "cSpell.language": "en,ru",
     "jsonnet.executablePath": "",
     // Files settings
     "files.insertFinalNewline": true,
-    "editor.scrollBeyondLastLine": false,
+    "files.associations": {
+        "*.rmd": "markdown",
+        "*.toml": "ini"
+    },
     // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
     "autoDocstring.customTemplatePath": "/Users/a.n.milogradskiy/.dotfiles/vscode/custom_numpy.mustache",
@@ -59,6 +71,7 @@
     "autoDocstring.startOnNewLine": true,
     "autoDocstring.quoteStyle": "\"\"\"",
     // Highlight TODO, FIXME
+    "todo-tree.tree.showScanModeButton": false,
     "todo-tree.highlights.defaultHighlight": {
         "icon": "gear",
         "iconColour": "green"
@@ -70,7 +83,7 @@
             "foreground": "green",
             "background": "white",
             "opacity": 20,
-            "iconColour": "orange",
+            "iconColour": "orange"
         },
         "FIXME": {
             "icon": "tools",
@@ -88,14 +101,11 @@
         "**/env/**",
         "**/.vscode/**"
     ],
-    // Prettier
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    // ESLint
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
     // Vim VScode
+    /// EasyMotion
     "vim.easymotion": true,
+    "vim.easymotionDimBackground": true,
+    "vim.easymotionMarkerBackgroundColor": "#E86200",
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
@@ -118,6 +128,14 @@
         {
             "before": ["<C-n>"],
             "commands": [":nohl"]
+        },
+        {
+            "before": ["Z", "Z"],
+            "commands": [":wq"]
+        },
+        {
+            "before": ["<leader>", "o"],
+            "after": ["o", "<Esc>"]
         }
     ],
     "vim.handleKeys": {
@@ -127,8 +145,8 @@
     // Code-Runner
     "code-runner.clearPreviousOutput": true,
     "code-runner.executorMap": {
-        "python": "python",
-        "go": "go run",
+        "python": "$pythonPath -u $fullFileName",
+        "go": "go run"
     },
     // Specific language settings
     "[python]": {
@@ -163,5 +181,5 @@
     },
     "[latex]": {
         "editor.autoClosingBrackets": "never"
-    },
+    }
 }

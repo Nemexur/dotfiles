@@ -1,17 +1,7 @@
-atom.symlink/.apm
-atom.symlink/.node-gyp
-atom.symlink/.storage
-atom.symlink/blob-store
-atom.symlink/compile-cache/
-atom.symlink/packages
-atom.symlink/storage
-atom.symlink/themes
-atom.symlink/blob-store
-atom.symlink/recovery
-
 bin/kubectl
 bin/bandwidth.json
 bin/bandwidth.log
 
 private/
 git/gitconfig.local.symlink
+
