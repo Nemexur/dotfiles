@@ -7,8 +7,9 @@ set -e
 cd "$(dirname $0)"/..
 
 # Run Homebrew through the Brewfile
+# Add true at the end in case some apps already installed or up to date.
 echo "› brew bundle"
-brew bundle
+brew bundle || true
 
 # find the installers and run them iteratively
 find . -name install.sh | while read installer ; do bash -c "${installer}" ; done

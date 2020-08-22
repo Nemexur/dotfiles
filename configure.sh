@@ -208,15 +208,13 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo ''
-	echo "Now pulling down Nemexur dotfiles..."
-	git clone https://github.com/Nemexur/dotfiles.git ~/.dotfiles
-	echo ''
-	cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
-	echo ''
-	echo "Checking out macOS branch..." && git checkout mac
-	echo ''
-	echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
+    echo "Now pulling down Nemexur dotfiles..." && git clone https://github.com/Nemexur/dotfiles.git ~/.dotfiles
     echo ''
+    cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
+    echo ''
+    echo "Checking out macOS branch..." && git checkout mac
+    echo ''
+    echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
 
     if [[ $? -eq 0 ]]
     then

@@ -1,10 +1,9 @@
 {
-    // Editor Setup
-    "workbench.iconTheme": "material-icon-theme",
     "workbench.activityBar.visible": true,
     "workbench.colorTheme": "SynthWave '84",
     "workbench.sideBar.location": "left",
     "editor.fontFamily": "JetBrains Mono",
+    "workbench.iconTheme": "material-icon-theme",
     "editor.renderWhitespace": "all",
     "editor.renderControlCharacters": false,
     "editor.formatOnPaste": true,
@@ -109,7 +108,7 @@
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
+    "vim.hlsearch": false,
     "vim.debug.silent": true,
     "vim.leader": "<space>",
     "vim.insertModeKeyBindings": [
