@@ -104,7 +104,6 @@
     /// EasyMotion
     "vim.easymotion": true,
     "vim.easymotionDimBackground": true,
-    "vim.easymotionMarkerBackgroundColor": "#E86200",
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
@@ -172,7 +171,7 @@
         // Enable parameter hints
         "editor.parameterHints.enabled": true,
         // AutoComplete Brackets
-        "editor.autoClosingBrackets": "always"
+        "editor.autoClosingBrackets": "languageDefined"
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
