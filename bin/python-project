@@ -64,10 +64,10 @@ setupJupyter() {
 
 setupVSCodeSettings() {
     info "Setup VSCode settings.json if needed."
+    mkdir -p .vscode
     read -p "Do you want to use default VSCode settings.json (y/n)? " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        mkdir -p .vscode
         cp $HOME/.dotfiles/vscode/python/settings.json .vscode/settings.json
         # Install flake8 for linting
         source venv/bin/activate
@@ -75,7 +75,6 @@ setupVSCodeSettings() {
         success "Successfully configured default VSCode settings.json."
     else
         info "You chose to setup custom VSCode settings.json."
-        mkdir -p .vscode
         touch .vscode/settings.json
     fi
 }
