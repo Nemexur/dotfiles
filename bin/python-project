@@ -67,7 +67,7 @@ setupVSCodeSettings() {
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mkdir -p .vscode
-        cp $HOME/.dotfiles/vscode/python_project_settings.json .vscode/settings.json
+        cp $HOME/.dotfiles/vscode/python/settings.json .vscode/settings.json
         # Install flake8 for linting
         source venv/bin/activate
         pip install flake8
