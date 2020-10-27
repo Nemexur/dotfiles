@@ -5,8 +5,8 @@
 source $HOME/.dotfiles/script/prompt
 
 setupPython() {
-    info "Setup Python version and venv"
-    user ' - Which python version to use?'
+    info "Setup Python version and venv."
+    user " - Which python version to use?"
     read -e python_version
     # Setup PyEnv
     pyenv install -s $python_version
@@ -17,13 +17,14 @@ setupPython() {
 
 
 setupRequirements() {
+    info "Setup Python requirements."
     # Activate venv
     source venv/bin/activate
     # Adding requiretments for python project and saving it to txt
     if [ -d requirements.txt ] ; then
-        info "requirements.txt already exists"
-        read -p "Create new requirements (y/n)?" -n 1 -r
-        echo ''
+        info "requirements.txt already exists."
+        read -p "Create new requirements (y/n)? " -n 1 -r
+        echo ""
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             rm -rf requirements.txt
             touch requirements.txt
@@ -32,7 +33,7 @@ setupRequirements() {
         rm -rf requirements.txt
         touch requirements.txt
     fi
-    user "Enter python project packages:"
+    user " - Enter python project packages:"
     while read -r package
     do
         # break if the line is empty
@@ -41,39 +42,39 @@ setupRequirements() {
     done
     # Load them
     pip install -r requirements.txt
+    success "Successfully installed Python requirements."
 }
 
 
 setupJupyter() {
-    read -p "Do you want to setup Jupyter and IPython for your project (y/n)?" -n 1 -r
+    info "Setup Jupyter and IPython if needed."
+    read -p "Do you want to setup Jupyter and IPython for your project (y/n)? " -n 1 -r
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         source venv/bin/activate
         pip install ipython jupyterlab
         pip install ipykernel
         python -m ipykernel install --user --name venv --display-name `echo ${PWD##*/}`-venv
-        success "Successfully configured Jupyter and IPython..."
+        success "Successfully configured Jupyter and IPython."
     else
-        info "You chose not to Jupyter and IPython."
+        info "You chose not to setup Jupyter and IPython."
     fi
 }
 
 
 setupVSCodeSettings() {
-    # Optional setup of settings json
-    # Whether to use default or not
-    # And change venv path in it
-    read -p "Do you want to use default VSCode settings.json (y/n)?" -n 1 -r
-    echo ''
+    info "Setup VSCode settings.json if needed."
+    read -p "Do you want to use default VSCode settings.json (y/n)? " -n 1 -r
+    echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mkdir -p .vscode
         cp $HOME/.dotfiles/vscode/python/settings.json .vscode/settings.json
         # Install flake8 for linting
         source venv/bin/activate
         pip install flake8
-        success "Successfully configured default VSCode settings.json..."
+        success "Successfully configured default VSCode settings.json."
     else
-        info "You chose to setup cusom VSCode settings.json."
+        info "You chose to setup custom VSCode settings.json."
         mkdir -p .vscode
         touch .vscode/settings.json
     fi
