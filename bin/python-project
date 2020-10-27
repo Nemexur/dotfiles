@@ -11,7 +11,7 @@ setupPython() {
     # Setup PyEnv
     pyenv install -s $python_version
     pyenv local $python_version
-    # Create Virtual Env
+    # Create Python Virtual Env
     python -m venv venv
 }
 
