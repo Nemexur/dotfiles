@@ -223,14 +223,14 @@ then
         echo "Nemexur's macOS dotfiles were not applied successfully..." >&2
 fi
 else 
-	echo ''
+    echo ''
     echo "You chose not to apply Nemexur's macOS dotfiles. You will need to configure your environment manually..."
-	echo ''
-	echo "Setting defaults for .zshrc and .bashrc..."
-	echo ''
-	echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-syntax-highlighting to .zshrc..."
-	echo ''
-	echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-autosuggestions to .zshrc..."
-	echo ''
+    echo ''
+    echo "Setting defaults for .zshrc and .bashrc..."
+    echo ''
+    echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-syntax-highlighting to .zshrc..."
+    echo ''
+    echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-autosuggestions to .zshrc..."
+    echo ''
     echo "[ -f ~/bin/fubectl.source ] && source ~/bin/fubectl.source" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added fubectl to .zshrc..."
 fi
