@@ -22,7 +22,7 @@ setupRequirements() {
     # Adding requiretments for python project and saving it to txt
     if [ -d requirements.txt ] ; then
         info "requirements.txt already exists"
-        read -p "Create new requirements? y/n " -n 1 -r
+        read -p "Create new requirements (y/n)?" -n 1 -r
         echo ''
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             rm -rf requirements.txt
@@ -45,7 +45,7 @@ setupRequirements() {
 
 
 setupJupyter() {
-    read -p "Do you want to setup Jupyter and IPython for your project? y/n " -n 1 -r
+    read -p "Do you want to setup Jupyter and IPython for your project (y/n)?" -n 1 -r
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         source venv/bin/activate
@@ -63,7 +63,7 @@ setupVSCodeSettings() {
     # Optional setup of settings json
     # Whether to use default or not
     # And change venv path in it
-    read -p "Do you want to use default VSCode settings.json? y/n " -n 1 -r
+    read -p "Do you want to use default VSCode settings.json (y/n)?" -n 1 -r
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mkdir -p .vscode
@@ -71,6 +71,7 @@ setupVSCodeSettings() {
         # Install flake8 for linting
         source venv/bin/activate
         pip install flake8
+        success "Successfully configured default VSCode settings.json..."
     else
         info "You chose to setup cusom VSCode settings.json."
         mkdir -p .vscode

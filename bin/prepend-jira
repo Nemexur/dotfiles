@@ -9,11 +9,11 @@ DIR=${1:-.}
 
 HOOK_FILENAME="${DIR}/.git/hooks/prepare-commit-msg"
 if [ ! -d "${DIR}/.git" ]; then
-    echoFail "This is not git repository root"
+    fail "This is not git repository root"
 fi
 
 if [ ! -d "${DIR}/.git/hooks" ]; then
-    echoInfo "Creating hooks directory"
+    info "Creating hooks directory"
     mkdir ${DIR}/.git/hooks
 fi
 
@@ -37,5 +37,5 @@ else
 fi
 ' > $HOOK_FILENAME
 
-echoSuccess "Created hook $HOOK_FILENAME"
+success "Created hook $HOOK_FILENAME"
 chmod +x $HOOK_FILENAME
