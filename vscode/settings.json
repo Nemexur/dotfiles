@@ -80,7 +80,6 @@
             "icon": "pin",
             "type": "text-and-comment",
             "foreground": "green",
-            "background": "white",
             "opacity": 20,
             "iconColour": "orange"
         },
@@ -88,7 +87,6 @@
             "icon": "tools",
             "type": "text-and-comment",
             "foreground": "yellow",
-            "background": "white",
             "opacity": 20,
             "iconColour": "yellow"
         }

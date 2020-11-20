@@ -13,6 +13,16 @@ setupPython() {
     pyenv local $python_version
     # Create Python Virtual Env
     python -m venv venv
+    # Add custom pip.conf to venv if needed
+    read -p "Add custom pip.conf (y/n)? " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        user " - pip.conf title in dotfiles private:"
+        read -e custom_pip_conf
+        cp $HOME/.dotfiles/private/pip_confs/$custom_pip_conf venv/pip.conf
+    else
+        info "You chose not to add custom pip.conf for Python Virtual Env."
+    fi
 }
 
 
@@ -21,13 +31,16 @@ setupRequirements() {
     # Activate venv
     source venv/bin/activate
     # Adding requiretments for python project and saving it to txt
-    if [ -d requirements.txt ] ; then
+    if [ -f requirements.txt ] ; then
         info "requirements.txt already exists."
         read -p "Create new requirements (y/n)? " -n 1 -r
         echo ""
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             rm -rf requirements.txt
             touch requirements.txt
+        else
+            installRequirements
+            return
         fi
     else
         rm -rf requirements.txt
@@ -40,8 +53,15 @@ setupRequirements() {
         [ -z "$package" ] && break
         echo "$package" >> "requirements.txt"
     done
+    installRequirements
+}
+
+
+installRequirements() {
     # Load them
     pip install -r requirements.txt
+    # Additionally install flake8 for linting
+    pip install flake8
     success "Successfully installed Python requirements."
 }
 
@@ -71,7 +91,6 @@ setupVSCodeSettings() {
         cp $HOME/.dotfiles/vscode/python/settings.json .vscode/settings.json
         # Install flake8 for linting
         source venv/bin/activate
-        pip install flake8
         success "Successfully configured default VSCode settings.json."
     else
         info "You chose to setup custom VSCode settings.json."
