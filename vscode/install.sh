@@ -6,8 +6,11 @@ code --install-extension DavidAnson.vscode-markdownlint
 code --install-extension dawhite.mustache
 code --install-extension donjayamanne.githistory
 code --install-extension eamodio.gitlens
+code --install-extension dracula-theme.theme-dracula
+code --install-extension Equinusocio.vsc-material-theme
 code --install-extension ericadamski.carbon-now-sh
 code --install-extension esbenp.prettier-vscode
+code --install-extension extr0py.vscode-relative-line-numbers
 code --install-extension formulahendry.code-runner
 code --install-extension golang.go
 code --install-extension GrapeCity.gc-excelviewer
@@ -20,11 +23,13 @@ code --install-extension KevinRose.vsc-python-indent
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
 code --install-extension ms-python.python
+code --install-extension ms-toolsai.jupyter
 code --install-extension ms-vscode-remote.remote-ssh
 code --install-extension ms-vscode-remote.remote-ssh-edit
 code --install-extension ms-vscode.cpptools
 code --install-extension nickfode.latex-formatter
 code --install-extension njpwerner.autodocstring
+code --install-extension PKief.material-icon-theme
 code --install-extension randrade23.beautify-json
 code --install-extension redhat.vscode-yaml
 code --install-extension RobbOwen.synthwave-vscode
@@ -36,3 +41,4 @@ code --install-extension torn4dom4n.latex-support
 code --install-extension twday.bibmanager
 code --install-extension vscodevim.vim
 code --install-extension xrc-inc.jsonnet-formatter
+code --install-extension zxh404.vscode-proto3

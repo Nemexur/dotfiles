@@ -107,7 +107,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=79 |
+    \ set textwidth=100 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
@@ -168,4 +168,12 @@ set spell
 hi clear SpellBad
 hi SpellBad cterm=underline, gui=underline
 nmap '' z=
+" ------
+
+" Remapping
+" ------
+let mapleader = " "
+imap jj <Esc>
+nnoremap <leader>u <C-r>
+nnoremap <leader>o o<Esc>
 " ------

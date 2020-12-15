@@ -105,7 +105,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=240
 
 
 #---- Export ----
-export PATH=$PATH:/Users/jessicadeen/bin
+export PATH=$PATH:/Users/a.n.milogradskiy/bin
 export GOPATH=~/go 
 export PATH=$GOPATH/bin:$PATH
 export GOROOT=/usr/local/opt/go/libexec
