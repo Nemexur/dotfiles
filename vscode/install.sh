@@ -42,3 +42,4 @@ code --install-extension twday.bibmanager
 code --install-extension vscodevim.vim
 code --install-extension xrc-inc.jsonnet-formatter
 code --install-extension zxh404.vscode-proto3
+code --install-extension ms-python.vscode-pylance

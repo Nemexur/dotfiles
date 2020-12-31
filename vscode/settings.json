@@ -144,6 +144,9 @@
         "python": "$pythonPath -u $fullFileName",
         "go": "go run"
     },
+    // Pylance
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
     // Specific language settings
     "[python]": {
         // Controls if quick suggestions should show up while typing
@@ -169,7 +172,9 @@
         // Enable parameter hints
         "editor.parameterHints.enabled": true,
         // AutoComplete Brackets
-        "editor.autoClosingBrackets": "languageDefined"
+        "editor.autoClosingBrackets": "languageDefined",
+        // Disable semantic highlithing for Pylance
+        "editor.semanticHighlighting.enabled": false
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",

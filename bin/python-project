@@ -11,25 +11,54 @@ setupPython() {
     # Setup PyEnv
     pyenv install -s $python_version
     pyenv local $python_version
-    # Create Python Virtual Env
-    python -m venv venv
-    # Add custom pip.conf to venv if needed
+}
+
+addPipConfIfNeeded() {
     read -p "Add custom pip.conf (y/n)? " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         user " - pip.conf title in dotfiles private:"
         read -e custom_pip_conf
-        cp $HOME/.dotfiles/private/pip_confs/$custom_pip_conf venv/pip.conf
+        cp $HOME/.dotfiles/private/pip_confs/$custom_pip_conf .venv/pip.conf
     else
         info "You chose not to add custom pip.conf for Python Virtual Env."
     fi
+}
+
+setupPythonVenv() {
+    # Create Python Virtual Env
+    python -m venv .venv
+    # Add custom pip.conf to venv if needed
+    addPipConfIfNeeded
+}
+
+setupPoetry() {
+    info "Setup Poetry."
+    pip install poetry -U
+    # Clear cache in advance without interaction
+    poetry cache clear --all -n .
+    # Poetry Venv inside project
+    poetry config --local virtualenvs.in-project true
+    # Init Poetry without interaction with selected python version
+    poetry init -n --python "~`cat .python-version`"
+    # Add venv beforehand
+    poetry show -v
+    # Add custom pip.conf to venv if needed
+    addPipConfIfNeeded
+    user " - Enter python project packages (to Poetry):"
+    while read -r package
+    do
+        # break if the line is empty
+        [ -z "$package" ] && break
+        poetry add $package
+    done
 }
 
 
 setupRequirements() {
     info "Setup Python requirements."
     # Activate venv
-    source venv/bin/activate
+    source .venv/bin/activate
     # Adding requiretments for python project and saving it to txt
     if [ -f requirements.txt ] ; then
         info "requirements.txt already exists."
@@ -67,14 +96,18 @@ installRequirements() {
 
 
 setupJupyter() {
+    if [ -f pyproject.toml ] ; then
+        local install_func="poetry add --dev"
+    else
+        local install_func="pip install"
+    fi
     info "Setup Jupyter and IPython if needed."
     read -p "Do you want to setup Jupyter and IPython for your project (y/n)? " -n 1 -r
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        source venv/bin/activate
-        pip install ipython jupyterlab
-        pip install ipykernel
-        python -m ipykernel install --user --name venv --display-name `echo ${PWD##*/}`-venv
+        source .venv/bin/activate
+        $install_func ipython jupyterlab ipykernel
+        python -m ipykernel install --user --name `echo ${PWD##*/}`-venv
         success "Successfully configured Jupyter and IPython."
     else
         info "You chose not to setup Jupyter and IPython."
@@ -90,7 +123,7 @@ setupVSCodeSettings() {
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         cp $HOME/.dotfiles/vscode/python/settings.json .vscode/settings.json
         # Install flake8 for linting
-        source venv/bin/activate
+        source .venv/bin/activate
         success "Successfully configured default VSCode settings.json."
     else
         info "You chose to setup custom VSCode settings.json."
@@ -100,6 +133,13 @@ setupVSCodeSettings() {
 
 
 setupPython
-setupRequirements
+read -p "Use Poetry in project (y/n)? " -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    setupPoetry
+else
+    setupPythonVenv
+    setupRequirements
+fi
 setupJupyter
 setupVSCodeSettings

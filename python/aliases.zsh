@@ -1,15 +1,15 @@
-alias jupstart='jupyter lab'
-alias jupstartpoetry='poetry run jupyter lab'
+alias jupstart="jupyter lab"
+alias jupstartpoetry="poetry run jupyter lab"
 
 # Virtual Environment
 crvenv() {
-    local venv_nm=venv
+    local venv_nm=.venv
     local python_ver=3.7.3
     while [[ "$#" -gt 0 ]]
     do
         case $1 in
         -v|--version) local python_ver=${2:-3} ;;
-        -n|--name) local venv_nm=${2:-venv} ;;
+        -n|--name) local venv_nm=${2:-.venv} ;;
         esac
         shift
     done
@@ -35,7 +35,7 @@ crpoetry() {
 }
 
 launchvenv() {
-    local venv_nm=${1:-venv}
+    local venv_nm=${1:-.venv}
     source "$venv_nm"/bin/activate
 }
 
@@ -54,11 +54,11 @@ poetrykernel() {
 
 # Jupyter
 jupscrpoetry() {
-    echoInfo "Creating screen `cur_dir`_screen"
+    echoInfo "Creating screen `cur_dir`-screen"
     screen -dmS `cur_dir`-screen poetry run jupyter lab
 }
 
 jupscr() {
-    echoInfo "Creating screen `cur_dir`_screen"
+    echoInfo "Creating screen `cur_dir`-screen"
     screen -dmS `cur_dir`-screen jupyter lab
 }
