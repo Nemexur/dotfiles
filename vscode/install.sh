@@ -32,7 +32,6 @@ code --install-extension njpwerner.autodocstring
 code --install-extension PKief.material-icon-theme
 code --install-extension randrade23.beautify-json
 code --install-extension redhat.vscode-yaml
-code --install-extension RobbOwen.synthwave-vscode
 code --install-extension shd101wyy.markdown-preview-enhanced
 code --install-extension streetsidesoftware.code-spell-checker
 code --install-extension streetsidesoftware.code-spell-checker-russian
