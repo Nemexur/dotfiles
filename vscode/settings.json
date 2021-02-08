@@ -71,6 +71,7 @@
     "autoDocstring.startOnNewLine": true,
     "autoDocstring.quoteStyle": "\"\"\"",
     // Highlight TODO, FIXME
+    "todo-tree.general.statusBar": "total",
     "todo-tree.tree.showScanModeButton": false,
     "todo-tree.highlights.defaultHighlight": {
         "icon": "gear",
@@ -95,9 +96,8 @@
     "todo-tree.filtering.ignoreGitSubmodules": true,
     "todo-tree.filtering.useBuiltInExcludes": "file excludes",
     "todo-tree.filtering.excludeGlobs": [
-        "**/venv/**",
-        "**/env/**",
-        "**/.vscode/**"
+        "**/.venv/**",
+        "**/.vscode/**",
     ],
     // Vim VScode
     /// EasyMotion
@@ -146,7 +146,7 @@
         "go": "go run"
     },
     // Pylance
-    "python.languageServer": "Pylance",
+    "python.languageServer": "Jedi",
     "python.analysis.typeCheckingMode": "basic",
     // Specific language settings
     "[python]": {
@@ -183,5 +183,15 @@
     },
     "[latex]": {
         "editor.autoClosingBrackets": "never"
+    },
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.snippetSuggestions": "none",
+        "editor.defaultFormatter": "golang.go",
+        "editor.insertSpaces": false,
+        "editor.autoClosingBrackets": "languageDefined",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
     }
 }

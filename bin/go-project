@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# Helper script to quickly setup project in Golang.
+
+source $HOME/.dotfiles/script/prompt
+
+
+setupDependencyManagement() {
+    ask_user " - Enter package name:"
+    read -e -r go_package_name
+    go mod init $go_package_name
+}
+
+
+setupVSCodeSettings() {
+    mkdir -p .vscode
+    ask_user " - Do you want to use default VSCode settings (y/n)?"
+    read -n 1 -r action
+    if [[ $action =~ ^[Yy]$ ]]; then
+        cp $HOME/.dotfiles/vscode/golang/* .vscode
+    elif [[ $action =~ ^[Nn]$ ]]; then
+        info "You chose to setup custom VSCode settings."
+        touch .vscode/settings.json .vscode/launch.json
+    else
+        fail "Invalid user input."
+    fi
+}
+
+
+setupGoLinters() {
+    ask_user " - Do you want to use default Golangci-lint (y/n)?"
+    read -n 1 -r action
+    if [[ $action =~ ^[Yy]$ ]]; then
+        cp $HOME/.dotfiles/go/.golangci.yml ./
+    elif [[ $action =~ ^[Nn]$ ]]; then
+        info "You chose to setup custom Golangci-lint."
+        touch .golangci.yml
+    else
+        fail "Invalid user input."
+    fi
+}
+
+
+setupDependencyManagement
+setupGoLinters
+setupVSCodeSettings
