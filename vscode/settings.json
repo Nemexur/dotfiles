@@ -97,7 +97,7 @@
     "todo-tree.filtering.useBuiltInExcludes": "file excludes",
     "todo-tree.filtering.excludeGlobs": [
         "**/.venv/**",
-        "**/.vscode/**",
+        "**/.vscode/**"
     ],
     // Vim VScode
     /// EasyMotion
