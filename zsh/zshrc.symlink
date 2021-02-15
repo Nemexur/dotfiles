@@ -114,6 +114,8 @@ export PATH="/usr/local/opt/node@8/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export MONGO_PATH=/usr/local/mongodb 
 export PATH=$PATH:$MONGO_PATH/bin
+export CDPATH=.:$HOME:$GOROOT/src:$GOPATH/src/golang.org:$GOPATH/src/github.com
+
 #---- End Export ----
 
 #---- Source ----
