@@ -62,6 +62,9 @@ bind -n C-j run-shell "if $is_vim ; then tmux send-keys C-j; else tmux select-pa
 bind -n C-h run-shell "if $is_vim ; then tmux send-keys C-h; else tmux select-pane -L; fi"
 bind -n C-l run-shell "if $is_vim ; then tmux send-keys C-l; else tmux select-pane -R; fi"
 
+# Change split layout. Meta key is right alt
+bind M-f move-pane -t '.-'
+bind M-r move-pane -h -t '.-'
 
 # Don't auto remname my windows
 set-option -g allow-rename off

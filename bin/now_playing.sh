@@ -1,5 +1,5 @@
 #!/bin/bash
-# Source: https://www.tylerewing.co/tmux-now-playing 
+# Source: https://github.com/jdxcode/tmux-spotify-info
 
 NOW_PLAYING=$(osascript <<EOF
 tell application "Spotify"
