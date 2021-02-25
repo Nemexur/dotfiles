@@ -10,7 +10,7 @@ set -e
 
 echo ''
 
-setup_gitconfig () {
+setupGitconfig () {
   if ! [ -f git/gitconfig.local.symlink ]
   then
     info 'setup gitconfig'
@@ -108,7 +108,7 @@ link_file () {
   fi
 }
 
-install_dotfiles () {
+installDotfiles () {
   info 'installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
@@ -120,8 +120,8 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
+setupGitconfig
+installDotfiles
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
@@ -136,6 +136,12 @@ then
 fi
 
 setupSymlinks () {
+  # symlink .dotfiles tmux to ~
+  rm -rf $HOME/.tmux/responsive
+  ln -s $HOME/.dotfiles/tmux/responsive $HOME/.tmux/responsive && success "symlink for $HOME/.tmux/responsive created"
+  # nvim symlink
+  rm -rf $HOME/.config/nvim/init.vim
+  ln -s $HOME/.dotfiles/vim/vimrc.symlink $HOME/.config/nvim/init.vim && success "symlink for nvim config created"
   # symlink VSCode User Settings
   if [ -d $HOME/Library/Application\ Support/Code/User ] ; then
     echo "Creating symlinks for VSCode..."

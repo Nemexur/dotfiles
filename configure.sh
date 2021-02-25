@@ -140,6 +140,16 @@ fubectlInstall () {
     fi
 }
 
+tmuxTpmInstall () {
+    # tmux tpm install
+    if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+        info 'tmux tpm already installed'
+    else
+        echo "Now installing Tmux TPM manager..."
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && success 'tmux tpm manager installed'
+    fi
+}
+
 vundleInstall () {
     if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
         info 'vundle already exists'
@@ -194,6 +204,7 @@ zshZInstall
 ohmyzshPluginInstall
 pl9kInstall
 pl10kInstall
+tmuxTpmInstall
 
 #vim setup
 vundleInstall

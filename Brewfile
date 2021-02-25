@@ -110,6 +110,8 @@ brew "tree"
 brew "unrar"
 # Vi 'workalike' with many additional features
 brew "vim"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Internet file retriever

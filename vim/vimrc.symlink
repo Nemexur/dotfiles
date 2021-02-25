@@ -3,42 +3,44 @@ filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'  " required
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'rstacruz/sparkup'
+" Themes
 Plugin 'dracula/vim'
-Plugin 'nightsense/seabird'
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'joshdick/onedark.vim'
+" NERDTree
+Plugin 'preservim/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ryanoasis/vim-devicons'
+" tmux
 Plugin 'christoomey/vim-tmux-navigator'
-call vundle#end()            " required
+" Status line
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'luochen1990/rainbow'
+Plugin 'tpope/vim-commentary'
+call vundle#end()
+
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-
-" Put your non-Plugin stuff after this line
-
-execute pathogen#infect()
+"
 
 " Start theme
 " ----
 syntax on
 set termguicolors
-colorscheme wombat
+colorscheme dracula
 " ----
 " End theme
-
-" Airline
-let g:airline_theme='bubblegum'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-
-" Always show statusline
-" ------
-set laststatus=2
-" ------
 
 " Set line number
 set number
@@ -133,16 +135,14 @@ set mouse=a
 autocmd VimEnter * NERDTree | wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+vmap ++ <plug>NERDCommenterToggle
+nmap ++ <plug>NERDCommenterToggl
 let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 set ttyfast
 set lazyredraw
-map tt :NERDTreeToggle<CR> "double click t button to toggle NerdTree
-map [] :TagbarToggle<CR> "click [] to toggle Tagbar
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -162,13 +162,53 @@ hi CursorLine gui=underline cterm=underline
 
 " Setup spelling
 " ------
-" Add ё to dictionary
 set spelllang=ru_yo,en_us
 set spell
 hi clear SpellBad
 hi SpellBad cterm=underline, gui=underline
 nmap '' z=
 " ------
+
+" Status line configuration
+set noshowmode
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+" Open new split panes to right and below
+" Works with nvim only
+set splitright
+set splitbelow
+" Turn terminal to normal mode with jj
+tnoremap jj <C-\><C-n>
+function! OpenTerminal()
+  split term://zsh
+  resize 10
+endfunction
+nnoremap <c-i> :call OpenTerminal()<CR>
+
+" tmux navigation
+function! TmuxMove(direction)
+    let wnr = winnr()
+    silent! execute 'wincmd ' . a:direction
+    " If the winnr is still the same after we moved, it is the last pane
+    if wnr == winnr()
+        call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
+    end
+endfunction
+
+nnoremap <silent> <c-h> :call TmuxMove('h')<cr>
+nnoremap <silent> <c-j> :call TmuxMove('j')<cr>
+nnoremap <silent> <c-k> :call TmuxMove('k')<cr>
+nnoremap <silent> <c-l> :call TmuxMove('l')<cr>
 
 " Remapping
 " ------

@@ -99,8 +99,10 @@
         "**/.venv/**",
         "**/.vscode/**"
     ],
-    // Vim VScode
+    // Vim VSCode
     /// EasyMotion
+    "vim.enableNeovim": true,
+    "vim.neovimUseConfigFile": true,
     "vim.easymotion": true,
     "vim.easymotionDimBackground": true,
     "vim.incsearch": true,
