@@ -107,18 +107,18 @@ setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=c
 
 # Plugins
 # List of plugins
- set -g @tpm_plugins '                \
-   tmux-plugins/tpm                   \
-   tmux-plugins/tmux-open             \
-   tmux-plugins/tmux-copycat          \
-   tmux-plugins/tmux-resurrect        \
-   tmux-plugins/tmux-continuum        \
-   tmux-plugins/tmux-sessionist       \
-   tmux-plugins/tmux-prefix-highlight \
-   xamut/tmux-weather                 \
-   chriszarate/tmux-tasks             \
-   christoomey/vim-tmux-navigator     \
-   soyuka/tmux-current-pane-hostname  \
+set -g @tpm_plugins '                \
+  tmux-plugins/tpm                   \
+  tmux-plugins/tmux-open             \
+  tmux-plugins/tmux-copycat          \
+  tmux-plugins/tmux-resurrect        \
+  tmux-plugins/tmux-continuum        \
+  tmux-plugins/tmux-sessionist       \
+  tmux-plugins/tmux-prefix-highlight \
+  xamut/tmux-weather                 \
+  chriszarate/tmux-tasks             \
+  christoomey/vim-tmux-navigator     \
+  soyuka/tmux-current-pane-hostname  \
 '
 
 # Other examples:

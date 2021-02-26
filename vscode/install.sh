@@ -42,7 +42,6 @@ code --install-extension xrc-inc.jsonnet-formatter
 # For VSCode
 code --install-extension vscodevim.vim
 code --install-extension DavidAnson.vscode-markdownlint
-code --install-extension extr0py.vscode-relative-line-numbers
 code --install-extension sensourceinc.vscode-sql-beautify
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
