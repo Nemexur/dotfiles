@@ -89,10 +89,6 @@ set -g @tasks_format_end '#{default}'
 set -g @tasks_icon_urgent '⧗ '
 set -g @tasks_icon_outstanding '+ '
 
-# Notify
-set -g @tnotify-verbose 'on'
-set -g @tnotify-verbose-msg 'Task finished in #S:#W'
-
 # Status bar -------------------------------------------------------------
 # set-option -g status on
 set-option -g set-titles on
@@ -126,7 +122,6 @@ setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=c
    tmux-plugins/tmux-sessionist       \
    tmux-plugins/tmux-prefix-highlight \
    xamut/tmux-weather                 \
-   ChanderG/tmux-notify               \
    chriszarate/tmux-tasks             \
    christoomey/vim-tmux-navigator     \
    soyuka/tmux-current-pane-hostname  \
