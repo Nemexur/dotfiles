@@ -122,6 +122,10 @@ brew "yarn"
 brew "youtube-dl"
 # Distributed search & analytics engine
 brew "elastic/tap/elasticsearch-full"
+# TaskWarrior setup
+brew "task"
+brew "taskd"
+brew "tasksh"
 
 cask "google-chrome"
 cask "handbrake"
@@ -134,3 +138,4 @@ cask "1password"
 cask "mactex"
 cask "transmission" 
 cask "visual-studio-code"
+cask "karabiner-elements"
