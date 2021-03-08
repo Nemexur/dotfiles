@@ -20,6 +20,14 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'ryanoasis/vim-devicons'
 " tmux
 Plugin 'christoomey/vim-tmux-navigator'
+" vimwiki
+Plugin 'vimwiki/vimwiki'
+Plugin 'instant-markdown/vim-instant-markdown', {'rtp': 'after'}
+" vimtex
+Plugin 'lervag/vimtex'
+Plugin 'sirver/ultisnips'
+" YoCompleteMe
+Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 " Status line
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-surround'
@@ -32,7 +40,35 @@ call vundle#end()
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
+
+" Status line configuration
+set noshowmode
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
+
+" Highlight search
+" highlight incremental searches
+set incsearch
+" to use with <tab> cnoremaps
+set wildcharm=<C-z>
+" tab to cycle search candidates
+cnoremap <expr> <Tab>   getcmdtype() =~ "[/?]" ? "<C-g>" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() =~ "[/?]" ? "<C-t>" : "<S-Tab>"
 
 " Start theme
 " ----
@@ -99,9 +135,6 @@ nnoremap <C-H> <C-W><C-H>
 set foldmethod=indent
 set foldlevel=99
 
-" Enable folding with the spacebar
-nnoremap <space> za
-
 " Python
 " ------
 " Setup PEP
@@ -117,11 +150,14 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 " ------
 
-" Setup for another filetypes
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
+" Setup for tex
+au BufNewFile,BufRead *.tex 
+    \ set wrap |
+    \ set linebreak |
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=73
 
 " Avoid extraneous whitespace
 " ------
@@ -132,12 +168,9 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Nerdtree Settings
 set mouse=a
-autocmd VimEnter * NERDTree | wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
-nmap ++ <plug>NERDCommenterToggl
-let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -160,6 +193,11 @@ set viminfo^=%
 hi clear CursorLine
 hi CursorLine gui=underline cterm=underline
 
+" Cursor setup
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+set guicursor+=a:blinkon100
+
 " Setup spelling
 " ------
 set spelllang=ru_yo,en_us
@@ -168,32 +206,6 @@ hi clear SpellBad
 hi SpellBad cterm=underline, gui=underline
 nmap '' z=
 " ------
-
-" Status line configuration
-set noshowmode
-set laststatus=2
-let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-" Open new split panes to right and below
-" Works with nvim only
-set splitright
-set splitbelow
-" Turn terminal to normal mode with jj
-tnoremap jj <C-\><C-n>
-function! OpenTerminal()
-  split term://zsh
-  resize 10
-endfunction
-nnoremap <c-i> :call OpenTerminal()<CR>
 
 " tmux navigation
 function! TmuxMove(direction)
@@ -214,6 +226,41 @@ nnoremap <silent> <c-l> :call TmuxMove('l')<cr>
 " ------
 let mapleader = " "
 imap jj <Esc>
+cnoremap <C-j> <C-C>
+nnoremap <CR> :noh<CR><CR>
 nnoremap <leader>u <C-r>
 nnoremap <leader>o o<Esc>
+nnoremap <leader>f za " Enable folding with the spacebar
 " ------
+
+" Snippets
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+" Better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" Vimtex
+let g:tex_flavor='latexmk'
+let g:vimtex_view_method='skim'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents',
+  \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_listsym_rejected = '✗'
+" vim-instant-markdown - Instant Markdown previews from Vim
+" https://github.com/suan/vim-instant-markdown
+let g:instant_markdown_autostart = 0	" disable autostart
+map <leader>md :InstantMarkdownPreview<CR>
+autocmd FileType vimwiki set ft=markdown

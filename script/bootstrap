@@ -162,6 +162,11 @@ setupSymlinks () {
   fi
 }
 
+setupZathura() {
+  mkdir -p $(brew --prefix zathura)/lib/zathura
+  ln -s $(brew --prefix zathura-pdf-poppler)/libpdf-poppler.dylib $(brew --prefix zathura)/lib/zathura/libpdf-poppler.dylib
+}
+
 colors () {
   # colorls setup
   sudo gem install colorls -n /usr/local/bin && success 'ls colors have been configured'
@@ -207,6 +212,7 @@ configFix () {
 }
 
 setupSymlinks
+setupZathura
 colors
 itermConfig
 fontSetup
