@@ -125,6 +125,23 @@ set ffs=unix,dos,mac
 set splitbelow
 set splitright
 
+" Language mapping
+" We can automate it but it we do not need to run it very often
+" so function is all right
+function! SetupVIMKeymap()
+    let keymaps = $VIMRUNTIME . "/keymap"
+    if !filereadable(keymaps . "/russian-jcukenwintype.vim")
+        execute "silent !cp ~/.dotfiles/vim/russian-jcukenwintype.vim " . keymaps
+        echo "Finished"
+    endif
+endfunction
+set keymap=russian-jcukenwintype
+set iminsert=0 " Чтобы при старте ввод был на английском, а не русском (start > i)
+set imsearch=0 " Чтобы при старте поиск был на английском, а не русском (start > /)
+" Дополнительно можно добавить:
+inoremap <C-l> <C-^>
+highlight lCursor guifg=NONE guibg=Cyan " Смена цвета курсора
+
 " Split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -158,6 +175,13 @@ au BufNewFile,BufRead *.tex
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
     \ set textwidth=73
+
+au BufNewFile,BufRead *.md
+    \ set wrap |
+    \ set linebreak |
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
 
 " Avoid extraneous whitespace
 " ------
