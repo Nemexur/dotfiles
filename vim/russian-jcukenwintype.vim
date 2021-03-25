@@ -2,10 +2,8 @@
 " (slightly incompatible with XFree86 'ru' keymap - makes use of NUMERO SIGN)
 " Useful mainly with utf-8 but may work with other encodings
 
-" Derived from russian-jcuken.vim by Artem Chuprina <ran@ran.pp.ru>
-" Typewriter variant of standart russian layout
-" Maintainer:   Denis Proskurin <danwerspb@gmail.com>
-" Last Changed: 2015 May 15
+" Derived from russian-jcuken.vim by Aleksandr Milogradsky
+" Typewriter variant of standard russian layout
 
 " All characters are given literally, conversion to another encoding (e.g.,
 " UTF-8) should work.
@@ -98,6 +96,18 @@ $	;
 8	_
 9	?
 0	%
+!   1
+@   2
+#   3
+$   4
+%   5
+^   6
+&   7
+*   8
+(   9
+)   0
+_   =
++   \
 -	!
 =	;
 \\	)

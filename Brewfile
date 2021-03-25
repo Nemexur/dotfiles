@@ -5,7 +5,7 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "elastic/tap"
 tap "minio/stable"
-tap "zegervdv/zathura"
+tap "railwaycat/emacsmacport"
 
 # Search tool like grep, but optimized for programmers
 brew "ack"
@@ -127,9 +127,8 @@ brew "elastic/tap/elasticsearch-full"
 brew "task"
 brew "taskd"
 brew "tasksh"
-# PDF viewer
-brew "zathura"
-brew "zathura-pdf-poppler"
+# Emacs
+brew "emacs-mac", args: ["with-modules"]
 
 cask "google-chrome"
 cask "handbrake"

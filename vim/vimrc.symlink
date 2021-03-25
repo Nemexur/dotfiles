@@ -1,4 +1,5 @@
 set nocompatible              " be iMproved, required
+syntax enable
 filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -78,6 +79,10 @@ colorscheme dracula
 " ----
 " End theme
 
+" Setup path and finding files
+set path+=**
+set wildmenu
+
 " Set line number
 set number
 set relativenumber
@@ -101,7 +106,10 @@ set wrap "Wrap lines
 set showcmd
 
 " Set cursorline
-set cursorline
+" Visual Mode Orange Background, Black Text
+hi Visual          guifg=#000000 guibg=#FD971F
+" Default Colors for CursorLine
+highlight Cursor guibg=#A6E22E;
 
 " Access clipboard not only from vim
 set clipboard=unnamed
@@ -181,7 +189,8 @@ au BufNewFile,BufRead *.md
     \ set linebreak |
     \ set tabstop=2 |
     \ set softtabstop=2 |
-    \ set shiftwidth=2
+    \ set shiftwidth=2 |
+    \ set textwidth=100
 
 " Avoid extraneous whitespace
 " ------
@@ -214,8 +223,8 @@ let g:ycm_use_clangd = 0
 set viminfo^=%
 
 " Setup underline highlight
-hi clear CursorLine
-hi CursorLine gui=underline cterm=underline
+" hi clear CursorLine
+" hi CursorLine gui=underline cterm=underline
 
 " Cursor setup
 autocmd InsertEnter * set cul
@@ -224,11 +233,13 @@ set guicursor+=a:blinkon100
 
 " Setup spelling
 " ------
-set spelllang=ru_yo,en_us
 set spell
+set spelllang=ru_yo,en_us
+nmap '' z=
+" Highlight spelling
 hi clear SpellBad
 hi SpellBad cterm=underline, gui=underline
-nmap '' z=
+
 " ------
 
 " tmux navigation
@@ -255,6 +266,7 @@ nnoremap <CR> :noh<CR><CR>
 nnoremap <leader>u <C-r>
 nnoremap <leader>o o<Esc>
 nnoremap <leader>f za " Enable folding with the spacebar
+nmap <leader>ld F[df]f(ds(
 " ------
 
 " Snippets
