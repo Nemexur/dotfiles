@@ -137,7 +137,8 @@ fi
 
 setupSymlinks () {
   # symlink .dotfiles tmux to ~
-  rm -rf $HOME/.tmux/responsive
+  rm -rf $HOME/.tmux
+  mkdir $HOME/.tmux
   ln -s $HOME/.dotfiles/tmux/responsive $HOME/.tmux/responsive && success "symlink for $HOME/.tmux/responsive created"
   # nvim symlink
   rm -rf $HOME/.config/nvim/init.vim
@@ -166,6 +167,10 @@ setupSymlinks () {
 setupDoomEmacs() {
   git clone https://github.com/hlissner/doom-emacs $HOME/.emacs.d
   $HOME/.emacs.d/bin/doom install
+}
+
+setupTmux() {
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 colors () {
@@ -213,6 +218,7 @@ configFix () {
 }
 
 setupSymlinks
+setupTmux
 setupDoomEmacs
 colors
 itermConfig
