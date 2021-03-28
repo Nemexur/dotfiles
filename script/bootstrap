@@ -164,15 +164,6 @@ setupSymlinks () {
   fi
 }
 
-setupDoomEmacs() {
-  git clone https://github.com/hlissner/doom-emacs $HOME/.emacs.d
-  $HOME/.emacs.d/bin/doom install
-}
-
-setupTmux() {
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-}
-
 colors () {
   # colorls setup
   sudo gem install colorls -n /usr/local/bin && success 'ls colors have been configured'
@@ -218,7 +209,6 @@ configFix () {
 }
 
 setupSymlinks
-setupTmux
 setupDoomEmacs
 colors
 itermConfig

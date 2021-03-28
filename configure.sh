@@ -119,6 +119,11 @@ pl10kInstall () {
     fi
 }
 
+doomEmacsInstall() {
+  git clone https://github.com/hlissner/doom-emacs $HOME/.emacs.d
+  $HOME/.emacs.d/bin/doom install
+}
+
 tmuxTpmInstall () {
     # tmux tpm install
     if [ -d "$HOME/.tmux/plugins/tpm" ]; then
@@ -137,16 +142,6 @@ fubectlInstall () {
     else
         echo "Now installing fubectl..."
         curl -o "$HOME/bin/fubectl.source" -LO https://rawgit.com/kubermatic/fubectl/master/fubectl.source && success "fubectl placed in $HOME/bin"
-    fi
-}
-
-tmuxTpmInstall () {
-    # tmux tpm install
-    if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-        info 'tmux tpm already installed'
-    else
-        echo "Now installing Tmux TPM manager..."
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && success 'tmux tpm manager installed'
     fi
 }
 
@@ -211,6 +206,9 @@ vundleInstall
 pathogenInstall
 nerdtreeInstall
 wombatColorSchemeInstall
+
+# emacs setup
+doomEmacsInstall
 
 # Pull down personal dotfiles
 echo ''
