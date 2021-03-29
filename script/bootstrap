@@ -173,6 +173,11 @@ configureDoomEmacs() {
   $HOME/.emacs.d/bin/doom install
 }
 
+configureVim() {
+  nvim +PluginInstall +qa
+  cd $HOME/.vim/bundle/YouCompleteMe && python3 install.py --all
+}
+
 itermConfig () {
   # iterm2 config
   read -p "Do you currently use iTerm2 and would you like to set custom colors? y/n " -n 1 -r
@@ -214,6 +219,7 @@ configFix () {
 
 setupSymlinks
 configureDoomEmacs
+configureVim
 colors
 itermConfig
 fontSetup
