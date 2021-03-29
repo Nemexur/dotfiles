@@ -169,6 +169,10 @@ colors () {
   sudo gem install colorls -n /usr/local/bin && success 'ls colors have been configured'
 }
 
+configureDoomEmacs() {
+  $HOME/.emacs.d/bin/doom install
+}
+
 itermConfig () {
   # iterm2 config
   read -p "Do you currently use iTerm2 and would you like to set custom colors? y/n " -n 1 -r
@@ -209,7 +213,7 @@ configFix () {
 }
 
 setupSymlinks
-setupDoomEmacs
+configureDoomEmacs
 colors
 itermConfig
 fontSetup

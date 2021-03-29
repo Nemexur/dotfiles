@@ -10,20 +10,20 @@ brewInstall () {
         if test "$(uname)" = "Darwin"
         then
             ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-            success 'brew installed'
+            success "brew installed"
         elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
         then
             ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-            success 'brew installed'
+            success "brew installed"
         fi
     else
-        info 'brew is already installed'
+        info "brew is already installed"
     fi
 }
 
 brewUpdate () {
     brew update
-    success 'brew updated'
+    success "brew updated"
 }
 
 zshInstall () {
@@ -33,7 +33,7 @@ zshInstall () {
         info "zsh already installed..."
     else
         brew install zsh zsh-completions
-        success 'zsh and zsh-completions installed'
+        success "zsh and zsh-completions installed"
     fi
 }
 
@@ -43,7 +43,7 @@ zshZInstall () {
         info "zsh-z already exists..."
     else
         git clone https://github.com/agkozak/zsh-z ~/.oh-my-zsh/custom/plugins/zsh-z
-        success 'zsh-z installed'
+        success "zsh-z installed"
     fi
 }
 
@@ -53,14 +53,14 @@ configureGitCompletion () {
     success "git-completion for $GIT_VERSION downloaded"
     if ! curl "$URL" --silent --output "$HOME/.git-completion.bash"; then
         echo "ERROR: Couldn't download completion script. Make sure you have a working internet connection." && exit 1
-        fail 'git completion download failed'
+        fail "git completion download failed"
     fi
 }
 
 ohmyzshInstall () {
     # oh-my-zsh install
     if [ -d ~/.oh-my-zsh/ ] ; then
-    info 'oh-my-zsh is already installed...'
+    info "oh-my-zsh is already installed..."
     read -p "Would you like to update oh-my-zsh now? y/n " -n 1 -r
     echo ''
         if [[ $REPLY =~ ^[Yy]$ ]] ; then
@@ -74,60 +74,44 @@ ohmyzshInstall () {
         fi
     else
     echo "oh-my-zsh not found, now installing oh-my-zsh..."
-    echo ''
+    echo ""
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-    success 'oh-my-zsh installed'
+    success "oh-my-zsh installed"
     fi
 }
 
 ohmyzshPluginInstall () {
     # oh-my-zsh plugin install
     if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
-        info 'zsh-completions already installed'
+        info "zsh-completions already installed"
     else
         git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions && success 'zsh-completions installed'
     fi
     if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
-        info 'zsh-autosuggestions already installed'
+        info "zsh-autosuggestions already installed"
     else
-        git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && success 'zsh-autosuggestions installed'
+        git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && success "zsh-autosuggestions installed"
     fi
     if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
-        info 'zsh-syntax-highlighting already installed'
+        info "zsh-syntax-highlighting already installed"
     else
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && success 'zsh-syntax-highlighting installed'
-    fi
-}
-
-pl9kInstall () {
-    # powerlevel9k install
-    if [ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel9k" ]; then
-        info 'powerlevel9k already installed'
-    else
-        echo "Now installing powerlevel9k..."
-    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k && success 'powerlevel9k installed'
-    fi
-}
-
-pl10kInstall () {
-    # powerlevel10k install
-    if [ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
-        info 'powerlevel10k already installed'
-    else
-        echo "Now installing powerlevel10k..."
-        git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k && success 'powerlevel10k installed'
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && success "zsh-syntax-highlighting installed"
     fi
 }
 
 doomEmacsInstall() {
-  git clone https://github.com/hlissner/doom-emacs $HOME/.emacs.d
-  $HOME/.emacs.d/bin/doom install
+    if [ -d "$HOME/.emacs.d" ]; then
+        info "doom emacs already installed"
+    else
+        echo "Now installing Doom Emacs..."
+        git clone https://github.com/hlissner/doom-emacs $HOME/.emacs.d
+    fi
 }
 
 tmuxTpmInstall () {
     # tmux tpm install
     if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-        info 'tmux tpm already installed'
+        info "tmux tpm already installed"
     else
         echo "Now installing Tmux TPM manager..."
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && success 'tmux tpm manager installed'
@@ -138,7 +122,7 @@ fubectlInstall () {
     # fubectl install
     # TODO: - move to after ~/bin check on bootstrap
     if [ -f "$HOME/bin/fubectl.source" ]; then
-        info 'fubectl.source already exists'
+        info "fubectl.source already exists"
     else
         echo "Now installing fubectl..."
         curl -o "$HOME/bin/fubectl.source" -LO https://rawgit.com/kubermatic/fubectl/master/fubectl.source && success "fubectl placed in $HOME/bin"
@@ -147,19 +131,19 @@ fubectlInstall () {
 
 vundleInstall () {
     if [ -d "$HOME/.vim/bundle/Vundle.vim" ]; then
-        info 'vundle already exists'
+        info "vundle already exists"
     else
         # vimrc vundle install
-        echo ''
+        echo ""
         echo "Now installing vundle..."
-        echo ''
+        echo ""
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && success 'vundle installed'
     fi
 }
 
 pathogenInstall () {
     if [ -f "$HOME/.vim/autoload/pathogen.vim" ]; then
-        info 'pathogen already installed'
+        info "pathogen already installed"
     else
         mkdir -p ~/.vim/autoload ~/.vim/bundle && \
             curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim && success 'pathogen installed'
@@ -168,7 +152,7 @@ pathogenInstall () {
 
 nerdtreeInstall () {
     if [ -d "$HOME/.vim/bundle/nerdtree" ]; then
-        info 'vim nerdtree already installed'
+        info "vim nerdtree already installed"
     else
         git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree && success 'vim nerdtree installed'
     fi
@@ -181,7 +165,7 @@ wombatColorSchemeInstall () {
         # Vim color scheme install
         git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat 
         mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
-        success 'vim wombat color scheme installed'
+        success "vim wombat color scheme installed"
     fi
 }
 
@@ -211,18 +195,22 @@ wombatColorSchemeInstall
 doomEmacsInstall
 
 # Pull down personal dotfiles
-echo ''
+echo ""
 read -p "Do you want to use Nemexur's dotfiles? y/n" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    echo ''
-    echo "Now pulling down Nemexur dotfiles..." && git clone https://github.com/Nemexur/dotfiles.git ~/.dotfiles
-    echo ''
+    echo ""
+    if [ -d "$HOME/.dotfiles" ]; then
+        info "Nemexur dotfiles already installed"
+    else
+        echo "Now pulling down Nemexur dotfiles..." && git clone https://github.com/Nemexur/dotfiles.git ~/.dotfiles
+    fi
+    echo ""
     cd $HOME/.dotfiles && echo "switched to .dotfiles dir..."
-    echo ''
+    echo ""
     echo "Checking out macOS branch..." && git checkout mac
-    echo ''
+    echo ""
     echo "Now configuring symlinks..." && $HOME/.dotfiles/script/bootstrap
 
     if [[ $? -eq 0 ]]
@@ -232,14 +220,14 @@ then
         echo "Nemexur's macOS dotfiles were not applied successfully..." >&2
 fi
 else 
-    echo ''
+    echo ""
     echo "You chose not to apply Nemexur's macOS dotfiles. You will need to configure your environment manually..."
-    echo ''
+    echo ""
     echo "Setting defaults for .zshrc and .bashrc..."
-    echo ''
+    echo ""
     echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-syntax-highlighting to .zshrc..."
-    echo ''
+    echo ""
     echo "source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added zsh-autosuggestions to .zshrc..."
-    echo ''
+    echo ""
     echo "[ -f ~/bin/fubectl.source ] && source ~/bin/fubectl.source" >> ${ZDOTDIR:-$HOME}/.zshrc && echo "added fubectl to .zshrc..."
 fi
