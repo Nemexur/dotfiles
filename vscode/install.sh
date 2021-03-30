@@ -10,6 +10,7 @@ code --install-extension austin.code-gnu-global
 code --install-extension aaron-bond.better-comments
 code --install-extension esbenp.prettier-vscode
 code --install-extension Gruntfuggly.todo-tree
+code --install-extension mattn.Lisp
 # Remote
 code --install-extension ms-vscode-remote.remote-ssh
 code --install-extension ms-vscode-remote.remote-ssh-edit

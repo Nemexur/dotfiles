@@ -8,27 +8,27 @@ DOTFILES_ROOT=$(pwd -P)
 
 set -e
 
-echo ''
+echo ""
 
 setupGitconfig () {
   if ! [ -f git/gitconfig.local.symlink ]
   then
-    info 'setup gitconfig'
+    info "setup gitconfig"
 
-    git_credential='cache'
+    git_credential="cache"
     if [ "$(uname -s)" == "Darwin" ]
     then
-      git_credential='osxkeychain'
+      git_credential="osxkeychain"
     fi
 
-    user ' - What is your github author name?'
+    user " - What is your github author name?"
     read -e git_authorname
-    user ' - What is your github author email?'
+    user " - What is your github author email?"
     read -e git_authoremail
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
-    success 'gitconfig'
+    success "gitconfig"
   fi
 }
 
@@ -109,7 +109,7 @@ link_file () {
 }
 
 installDotfiles () {
-  info 'installing dotfiles'
+  info "installing dotfiles"
 
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -145,15 +145,17 @@ setupSymlinks () {
   ln -s $HOME/.dotfiles/vim/vimrc.symlink $HOME/.config/nvim/init.vim && success "symlink for nvim config created"
   # Karabiner symlink
   rm -rf $HOME/.config/karabiner
-  ln -s $HOME/.dotfiles/karabiner $HOME/.config/karabiner
-  success "symlink for karabiner config created"
-  # Setup symlink for Emacs
+  ln -s $HOME/.dotfiles/karabiner $HOME/.config/karabiner && success "symlink for karabiner config created"
+  # symlink for Emacs App
   rm -rf /Applications/Emacs.app
-  ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app
+  ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications/Emacs.app && success "symlink for better GNU Emacs created"
+  # symlink for Doom-Emacs config
+  rm -rf $HOME/.doom.d
+  ln -s $HOME/emacs $HOME/.doom.d && success "symlink for Doom-Emacs created"
   # symlink VSCode User Settings
   if [ -d $HOME/Library/Application\ Support/Code/User ] ; then
     echo "Creating symlinks for VSCode..."
-    echo ''
+    echo ""
     rm -rf $HOME/Library/Application\ Support/Code/User/settings.json
     rm -rf $HOME/Library/Application\ Support/Code/User/keybindings.json
     ln -s $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json && success "settings.json for vs code symlink created"
@@ -166,7 +168,7 @@ setupSymlinks () {
 
 colors () {
   # colorls setup
-  sudo gem install colorls -n /usr/local/bin && success 'ls colors have been configured'
+  sudo gem install colorls -n /usr/local/bin && success "ls colors have been configured"
 }
 
 configureDoomEmacs() {
@@ -175,13 +177,13 @@ configureDoomEmacs() {
 
 configureVim() {
   nvim +PluginInstall +qa
-  cd $HOME/.vim/bundle/YouCompleteMe && python3 install.py --all
+  cd $HOME/.vim/bundle/YouCompleteMe && python3 install.py --all && ./install.py
 }
 
 itermConfig () {
   # iterm2 config
   read -p "Do you currently use iTerm2 and would you like to set custom colors? y/n " -n 1 -r
-  echo ''
+  echo ""
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     # Specify the preferences directory
@@ -213,16 +215,16 @@ configFix () {
     info "$HOME/.config doesn't exist, nothing to fix"
   else
     sudo chown $(whoami) $HOME/.config 
-    success '.config permissions fixed'
+    success ".config permissions fixed"
   fi
 }
 
-setupSymlinks
-configureDoomEmacs
 configureVim
+configureDoomEmacs
+setupSymlinks
 colors
 itermConfig
 fontSetup
 configFix
 
-success 'macOS terminal installed!'
+success "macOS terminal installed!"
