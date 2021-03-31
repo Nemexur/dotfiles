@@ -10,7 +10,7 @@ set -e
 
 echo ""
 
-setupGitconfig () {
+setupGitconfig() {
   if ! [ -f git/gitconfig.local.symlink ]
   then
     info "setup gitconfig"
@@ -33,7 +33,7 @@ setupGitconfig () {
 }
 
 
-link_file () {
+link_file() {
   local src=$1 dst=$2
 
   local overwrite= backup= skip=
@@ -108,7 +108,7 @@ link_file () {
   fi
 }
 
-installDotfiles () {
+installDotfiles() {
   info "installing dotfiles"
 
   local overwrite_all=false backup_all=false skip_all=false
@@ -135,7 +135,7 @@ then
   fi
 fi
 
-setupSymlinks () {
+setupSymlinks() {
   # symlink .dotfiles tmux to ~
   rm -rf $HOME/.tmux
   mkdir $HOME/.tmux
@@ -166,7 +166,7 @@ setupSymlinks () {
   fi
 }
 
-colors () {
+colors() {
   # colorls setup
   sudo gem install colorls -n /usr/local/bin && success "ls colors have been configured"
 }
@@ -180,7 +180,7 @@ configureVim() {
   cd $HOME/.vim/bundle/YouCompleteMe && python3 install.py --all && ./install.py
 }
 
-itermConfig () {
+itermConfig() {
   # iterm2 config
   read -p "Do you currently use iTerm2 and would you like to set custom colors? y/n " -n 1 -r
   echo ""
@@ -201,7 +201,7 @@ itermConfig () {
   fi
 }
 
-fontSetup () {
+fontSetup() {
   # install Source Code Pro nerd font
   for font in $HOME/.dotfiles/fonts/*; do
     sudo cp $font /Library/Fonts
@@ -209,7 +209,15 @@ fontSetup () {
   success "Source Code Pro font copied successfully!"
 }
 
-configFix () {
+keyboardLayoutSetup() {
+  # Add Russian typewriter keyboard to Mac
+  for layout in $HOME/.dotfiles/keyboard-layouts/*; do
+    sudo cp $layout "/Library/Keyboard Layouts"
+  done
+  success "Custom keyboard copied successfully!"
+}
+
+configFix() {
   # .config permissions fix
   if [ ! -d "$HOME/.config" ]; then
     info "$HOME/.config doesn't exist, nothing to fix"
@@ -225,6 +233,7 @@ setupSymlinks
 colors
 itermConfig
 fontSetup
+keyboardLayoutSetup
 configFix
 
 success "macOS terminal installed!"
