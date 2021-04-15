@@ -123,6 +123,8 @@ brew "yarn"
 brew "youtube-dl"
 # Simplified and community-driven man pages
 brew "tldr"
+# NCurses Disk Usage
+brew "ncdu"
 # Distributed search & analytics engine
 brew "elastic/tap/elasticsearch-full"
 # TaskWarrior setup
