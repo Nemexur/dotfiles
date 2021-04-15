@@ -10,24 +10,35 @@ set -e
 
 echo ""
 
+_setupGitconfig() {
+  local gitconfig_path=$1
+
+  info "setup gitconfig: $2"
+
+  git_credential="cache"
+  if [ "$(uname -s)" == "Darwin" ]
+  then
+    git_credential="osxkeychain"
+  fi
+
+  user " - What is your github author name?"
+  read -e git_authorname
+  user " - What is your github author email?"
+  read -e git_authoremail
+
+  sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > $gitconfig_path
+}
+
 setupGitconfig() {
   if ! [ -f git/gitconfig.local.symlink ]
   then
-    info "setup gitconfig"
-
-    git_credential="cache"
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential="osxkeychain"
-    fi
-
-    user " - What is your github author name?"
-    read -e git_authorname
-    user " - What is your github author email?"
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
+    # Configure personal config
+    _setupGitconfig git/gitconfig.local.symlink personal
+    # Configure work config if needed
+    user " - Setup work gitconfig (y/n)?"
+    read -n 1 -r action
+    if [[ $action =~ ^[Yy]$ ]]; then
+      _setupGitconfig git/gitconfig-work.local.symlink work
     success "gitconfig"
   fi
 }

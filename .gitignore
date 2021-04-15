@@ -4,5 +4,6 @@ bin/bandwidth.log
 
 private/
 git/gitconfig.local.symlink
+git/gitconfig-work.local.symlink
 
 karabiner/automatic_backups
