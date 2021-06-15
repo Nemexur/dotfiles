@@ -120,3 +120,8 @@
  (">" ?Ю)
  ("?" ?Ё)
  )
+
+;; Maintain the obsolete name for now.
+(push (cons "cyrillic-jcuken"
+	    (cdr (assoc "russian-typewriter" quail-package-alist)))
+      quail-package-alist)

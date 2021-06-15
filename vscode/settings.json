@@ -7,7 +7,7 @@
     "editor.renderWhitespace": "all",
     "editor.renderControlCharacters": false,
     "editor.formatOnPaste": true,
-    "editor.wordWrap": "bounded",
+    "editor.wordWrap": "off",
     "editor.wordWrapColumn": 150,
     "editor.scrollBeyondLastLine": false,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -111,12 +111,6 @@
     "vim.hlsearch": false,
     "vim.debug.silent": true,
     "vim.leader": "<space>",
-    "vim.insertModeKeyBindings": [
-        {
-            "before": ["j", "j"],
-            "after": ["<Esc>"]
-        }
-    ],
     "vim.normalModeKeyBindings": [
         {
             "before": ["<leader>", "u"],
@@ -196,10 +190,22 @@
             "source.organizeImports": true
         }
     },
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ]
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "editor.tabSize": 8,
+    "editor.cursorStyle": "line",
+    "editor.insertSpaces": false,
+    "editor.lineNumbers": "on",
+    "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-"
 }

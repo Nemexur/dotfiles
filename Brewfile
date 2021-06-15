@@ -125,6 +125,8 @@ brew "youtube-dl"
 brew "tldr"
 # NCurses Disk Usage
 brew "ncdu"
+# Password manager
+brew "pass"
 # Distributed search & analytics engine
 brew "elastic/tap/elasticsearch-full"
 # TaskWarrior setup
@@ -136,6 +138,7 @@ brew "emacs-mac", args: ["with-modules"]
 
 cask "google-chrome"
 cask "brave-browser"
+cask "qutebrowser"
 cask "handbrake"
 cask "iterm2"
 cask "alfred"
