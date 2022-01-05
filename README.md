@@ -68,13 +68,13 @@ There's a few special files in the hierarchy.
 - **files/topic/completion.zsh**: Any file named `completion.zsh` is loaded
   last and is expected to setup autocomplete.
 - **files/topic/install.sh**: Any file named `install.sh` is executed when you run
-  `ansible-playbook main.yml -K --tags installs or scripts/dot --tags installs`.
+  `ansible-playbook main.yml --ask-become-pass --tags installs`.
   To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
 - **files/topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run
-  `ansible-playbook main.yml -K --tags symlinks or scripts/dot --tags symlinks`.
+  `ansible-playbook main.yml --ask-become-pass --tags symlinks`.
 
 ## Running a specific set of tagged tasks
 
@@ -94,15 +94,13 @@ You can filter which part of the provisioning process to run by specifying a set
 You can find configuration for each task in `tasks` folder.
 
 ```bash
-ansible-playbook main.yml -K --tags "homebrew,installs"
-or
-scripts/dot --tags "homebrew,installs"
+ansible-playbook main.yml --ask-become-pass --tags "homebrew,installs"
 ```
 
 ## Extra
 
 `scripts/dot` is a simple script that configures everything.
-It is considered a simply alias for `ansible-playbook main.yml -K`.
+It is considered a simply alias for `ansible-playbook main.yml --ask-become-pass`.
 However, it additionally checks for gitconfig files.
 
 [badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml/badge.svg?branch=main&event=push
