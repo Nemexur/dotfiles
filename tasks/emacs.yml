@@ -11,7 +11,7 @@
 - name: Ensure Doom Emacs is installed
   git:
     repo: "{{ doom_emacs_repo }}"
-    version: develop
+    version: master
     dest: "{{ doom_emacs_install_path }}"
     update: false
     depth: 1
@@ -20,6 +20,13 @@
   stat: "path={{ doom_emacs_config_dir }}"
   register: doom_emacs_dir
   check_mode: false
+
+- name: Ensure proper permissions and ownership on doom_emacs_binary.
+  file:
+    path: "{{ doom_emacs_binary }}/doom"
+    state: file
+    mode: 0775
+  when: not doom_emacs_dir.stat.exists
 
 - name: Install Doom Emacs
   expect:
