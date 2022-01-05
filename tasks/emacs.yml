@@ -23,7 +23,7 @@
 
 - name: Install Doom Emacs
   expect:
-    command: doom install
+    command: "{{ doom_emacs_binary }}/doom install"
     responses:
       (.*)envar(.*): "y"
       (.*)fonts(.*): "y"
