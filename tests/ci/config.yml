@@ -6,7 +6,7 @@ homebrew_taps:
   - railwaycat/emacsmacport
   - homebrew/cask-drivers
 
-homebrew_packages:
+homebrew_installed_packages:
   - ack
   - openssl@3
   - bash-completion
