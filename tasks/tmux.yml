@@ -1,14 +1,14 @@
 ---
-- name: Ensure tmux is installed
+- name: Ensure tmux is installed.
   homebrew: name=tmux state=present
 
-- name: Ensure tmux directory exists
+- name: Ensure tmux directory exists.
   file:
     path: "{{ tmux_plugins_dir }}"
     state: directory
     mode: 0755
 
-- name: Ensure tpm for tmux plugins is installed
+- name: Ensure tpm for tmux plugins is installed.
   git:
     repo: "{{ tpm_repo }}"
     dest: "{{ tpm_install_path }}"

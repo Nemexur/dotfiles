@@ -1,5 +1,5 @@
 ---
-- name: Ensure Vim exists
+- name: Ensure Vim exists.
   homebrew: name=vim state=present
 
 - name: Ensure Vim directories exist.

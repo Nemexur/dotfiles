@@ -1,5 +1,5 @@
 ---
-- name: Collect Symlink Files
+- name: Collect symlink files.
   command: "find -H {{ dotfiles_files }} -maxdepth 2 -name '*.symlink' -not -path '*.git'"
   register: symlink_files
   failed_when: false

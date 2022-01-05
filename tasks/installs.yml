@@ -1,5 +1,5 @@
 ---
-- name: Collect Install Files
+- name: Collect install files.
   command: "find -H {{ dotfiles_files }} -name 'install.sh'"
   register: install_files
   failed_when: false
@@ -8,7 +8,7 @@
 
 # In each install.sh script we check for the existence of a module.
 # So if it is okay we do not install anything.
-- name: Run Install Files
+- name: Run install files.
   command: "{{ item }}"
   with_items: "{{ install_files.stdout_lines }}"
   changed_when: false

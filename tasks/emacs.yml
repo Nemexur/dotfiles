@@ -1,8 +1,8 @@
 ---
-- name: Ensure Emacs-Mac tap is present
+- name: Ensure Emacs-Mac tap is present.
   homebrew_tap: name=railwaycat/emacsmacport state=present
 
-- name: Ensure Emacs-Mac is installed
+- name: Ensure Emacs-Mac is installed.
   homebrew:
     name: emacs-mac
     state: present
@@ -14,12 +14,12 @@
   check_mode: false
 
 - block:
-  - name: Ensure doom_emacs_install_path does not exist
+  - name: Ensure doom_emacs_install_path does not exist.
     file:
       path: "{{ doom_emacs_install_path }}"
       state: absent
 
-  - name: Ensure Doom Emacs is installed
+  - name: Ensure Doom Emacs is installed.
     git:
       repo: "{{ doom_emacs_repo }}"
       version: develop
@@ -27,13 +27,13 @@
       update: false
       depth: 1
 
-  - name: Ensure proper permissions on doom_emacs_binary
+  - name: Ensure proper permissions on doom_emacs_binary.
     file:
       path: "{{ doom_emacs_binary }}/doom"
       state: file
       mode: 0775
 
-  - name: Install Doom Emacs
+  - name: Install Doom Emacs.
     expect:
       command: "{{ doom_emacs_binary }}/doom install"
       responses:

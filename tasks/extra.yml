@@ -1,11 +1,11 @@
 ---
-- name: Install fubectl.source for kubectl
+- name: Install fubectl.source for kubectl.
   get_url:
     url: "{{ fubectl_install_url }}"
     dest: "{{ fubectl_install_path }}"
     mode: 0744
 
-# - name: Configure git-completions for zsh
+# - name: Configure git-completions for zsh.
 #   block:
 #     - name: Get current git version
 #       shell: "git --version | awk '{ print $3 }'"
