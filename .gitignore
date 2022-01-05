@@ -3,6 +3,6 @@
 *.retry
 roles*
 collections*
-config.yml
+./config.yml
 
 files/git/gitconfig.*.symlink
