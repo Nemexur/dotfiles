@@ -1,0 +1,23 @@
+---
+- name: Define personal gitconfig variables
+  set_fact:
+    git_config_name: "{{ __git_config_name_local }}"
+    git_config_email: "{{ __git_config_email_local }}"
+
+- name: Copy personal gitconfig file
+  template:
+    src: "{{ dotfiles_templates }}/git/gitconfig.example.symlink.j2"
+    dest: "{{ dotfiles_files }}/git/gitconfig.local.symlink"
+    mode: 0700
+
+- name: Define work gitconfig variables
+  set_fact:
+    git_config_name: "{{ __git_config_name_work }}"
+    git_config_email: "{{ __git_config_email_work }}"
+  when: gitconfig_set_work_config
+
+- name: Copy work gitconfig file
+  template:
+    src: "{{ dotfiles_templates }}/git/gitconfig.example.symlink.j2"
+    dest: "{{ dotfiles_files }}/git/gitconfig.work.symlink"
+    mode: 0700

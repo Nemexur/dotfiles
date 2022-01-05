@@ -1,0 +1,10 @@
+---
+symlink_specific_files:
+  - src: "{{ dotfiles_files }}/tmux/responsive"
+    dest: "{{ home_prefix }}/.tmux/responsive"
+  - src: "{{ dotfiles_files }}/karabiner"
+    dest: "{{ home_prefix }}/.config/karabiner"
+  - src: "{{ dotfiles_files }}/vscode/settings.json"
+    dest: "{{ home_prefix }}/Library/Application\\ Support/Code/User/settings.json"
+  - src: "{{ dotfiles_files }}/vscode/keybindings.json"
+    dest: "{{ home_prefix }}/Library/Application\\ Support/Code/User/keybindings.json"

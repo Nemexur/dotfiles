@@ -1,0 +1,297 @@
+set nocompatible              " be iMproved, required
+syntax enable
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'  " required
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'rstacruz/sparkup'
+" Themes
+Plugin 'dracula/vim'
+Plugin 'joshdick/onedark.vim'
+" NERDTree
+Plugin 'preservim/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ryanoasis/vim-devicons'
+" tmux
+Plugin 'christoomey/vim-tmux-navigator'
+" vimwiki
+Plugin 'vimwiki/vimwiki'
+Plugin 'instant-markdown/vim-instant-markdown', {'rtp': 'after'}
+" vimtex
+Plugin 'lervag/vimtex'
+Plugin 'sirver/ultisnips'
+" Status line
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'luochen1990/rainbow'
+Plugin 'tpope/vim-commentary'
+call vundle#end()
+
+
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+" Status line configuration
+set noshowmode
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
+
+" Highlight search
+" highlight incremental searches
+set incsearch
+" to use with <tab> cnoremaps
+set wildcharm=<C-z>
+" tab to cycle search candidates
+cnoremap <expr> <Tab>   getcmdtype() =~ "[/?]" ? "<C-g>" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() =~ "[/?]" ? "<C-t>" : "<S-Tab>"
+
+" Start theme
+" ----
+syntax on
+set termguicolors
+colorscheme dracula
+" ----
+" End theme
+
+" Setup path and finding files
+set path+=**
+set wildmenu
+
+" Set line number
+set number
+set relativenumber
+
+" Show existing tab with 4 spaces width
+set tabstop=4
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" When indenting with '>', use 4 spaces width
+set shiftwidth=4
+
+" On pressing tab, insert 4 spaces
+set expandtab
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+" UI Config
+set showcmd
+
+" Set cursorline
+" Visual Mode Orange Background, Black Text
+hi Visual          guifg=#000000 guibg=#FD971F
+
+" Access clipboard not only from vim
+set clipboard=unnamed
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Configure window splitting
+set splitbelow
+set splitright
+
+" Language mapping
+" We can automate it but it we do not need to run it very often
+" so function is all right
+function! SetupVIMKeymap()
+    let keymaps = $VIMRUNTIME . "/keymap"
+    if !filereadable(keymaps . "/russian-jcukenwintype.vim")
+        execute "silent !cp ~/.dotfiles/vim/russian-jcukenwintype.vim " . keymaps
+        echo "Finished"
+    endif
+endfunction
+set keymap=russian-jcukenwintype
+set iminsert=0 " Чтобы при старте ввод был на английском, а не русском (start > i)
+set imsearch=0 " Чтобы при старте поиск был на английском, а не русском (start > /)
+" Дополнительно можно добавить:
+inoremap <C-l> <C-^>
+highlight lCursor guifg=NONE guibg=Cyan " Смена цвета курсора
+
+" Split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Python
+" ------
+" Setup PEP
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=100 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+" Also make code look pretty with python
+let python_highlight_all=1
+" ------
+
+" Setup for tex
+au BufNewFile,BufRead *.tex 
+    \ set wrap |
+    \ set linebreak |
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=73
+
+au BufNewFile,BufRead *.md
+    \ set wrap |
+    \ set linebreak |
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set textwidth=100
+
+" Avoid extraneous whitespace
+" ------
+" Flagging Unnecessary Whitespace
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" ------
+
+" Nerdtree Settings
+set mouse=a
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>
+vmap ++ <plug>NERDCommenterToggle
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+set ttyfast
+set lazyredraw
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" Prefer clangd
+let g:ycm_use_clangd = 0
+
+" Remember info about open buffers on close
+set viminfo^=%
+
+" Setup underline highlight
+" hi clear CursorLine
+" hi CursorLine gui=underline cterm=underline
+
+" Cursor setup
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+set guicursor+=a:blinkon100
+
+" Setup spelling
+" ------
+set spell
+set spelllang=ru_yo,en_us
+nmap '' z=
+" Highlight spelling
+hi clear SpellBad
+hi SpellBad cterm=underline, gui=underline
+
+" ------
+
+" tmux navigation
+function! TmuxMove(direction)
+    let wnr = winnr()
+    silent! execute 'wincmd ' . a:direction
+    " If the winnr is still the same after we moved, it is the last pane
+    if wnr == winnr()
+        call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
+    end
+endfunction
+
+nnoremap <silent> <c-h> :call TmuxMove('h')<cr>
+nnoremap <silent> <c-j> :call TmuxMove('j')<cr>
+nnoremap <silent> <c-k> :call TmuxMove('k')<cr>
+nnoremap <silent> <c-l> :call TmuxMove('l')<cr>
+
+" Remapping
+" ------
+let mapleader = " "
+imap jj <Esc>
+cnoremap <C-j> <C-C>
+nnoremap <CR> :noh<CR><CR>
+nnoremap <leader>u <C-r>
+nnoremap <leader>o o<Esc>
+nnoremap <leader>f za " Enable folding with the spacebar
+nmap <leader>ld F[df]f(ds(
+" ------
+
+" Snippets
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+" Better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" Vimtex
+let g:tex_flavor='latexmk'
+let g:vimtex_view_method='skim'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents',
+  \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_listsym_rejected = '✗'
+" vim-instant-markdown - Instant Markdown previews from Vim
+" https://github.com/suan/vim-instant-markdown
+let g:instant_markdown_autostart = 0	" disable autostart
+map <leader>md :InstantMarkdownPreview<CR>
+autocmd FileType vimwiki set ft=markdown

@@ -1,0 +1,41 @@
+---
+- name: Collect Symlink Files
+  command: "find -H {{ dotfiles_files }} -maxdepth 2 -name '*.symlink' -not -path '*.git'"
+  register: symlink_files
+  failed_when: false
+  check_mode: false
+  changed_when: false
+
+- name: Ensure all configured dotfiles are links.
+  command: >
+    {% if 'dest' in item %}
+    ls -F {{ item.dest }}
+    {% else %}
+    ls -F {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
+    {% endif %}
+  register: existing_dotfile_info
+  failed_when: false
+  check_mode: false
+  changed_when: false
+  with_items: "{{ symlink_files.stdout_lines + symlink_specific_files }}"
+
+- name: Remove existing dotfiles file if a replacement is being linked.
+  file:
+    path: "{{ item.stdout }}"
+    state: absent
+  when: "'@' not in item.stdout"
+  with_items: "{{ existing_dotfile_info.results }}"
+
+- name: Link dotfiles.
+  file:
+    src: "{{ item.src | default(item) }}"
+    dest: >
+      {% if 'dest' in item %}
+      {{ item.dest }}
+      {% else %}
+      {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
+      {% endif %}
+    state: link
+    mode: 0644
+  become: false
+  with_items: "{{ symlink_files.stdout_lines + symlink_specific_files }}"

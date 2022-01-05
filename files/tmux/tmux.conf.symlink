@@ -1,0 +1,130 @@
+# remap prefix to Control + space
+set -g prefix C-Space
+unbind C-b
+bind C-Space send-prefix
+
+# force a reload of the config file
+bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+
+set -g default-terminal "xterm-256color"
+# set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+set-option -g history-limit 50000
+
+# use vi style keybindings
+setw -g mode-keys vi
+
+# xterm-style function key sequences
+setw -g xterm-keys on
+
+# Mouse support ----------------------------------------------------------
+set -g mouse on
+
+bind-key -T copy-mode-vi WheelUpPane send -X scroll-up
+bind-key -T copy-mode-vi WheelDownPane send -X scroll-down
+
+# # Vi copypaste
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy" \; display-message "highlighted selection copied to system clipboard"
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -T copy-mode-vi Enter
+bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+
+# Easy-to-remember split pane commands
+unbind % # Split vertically
+unbind '"' # Split horizontally
+
+bind \\ split-window -h -c '#{pane_current_path}' # vertical pane
+bind - split-window -v -c '#{pane_current_path}' # horizontal pane
+
+# Easy-to-remember window commands
+bind c confirm new-window
+bind C-k confirm kill-window
+bind K confirm kill-server
+bind a last-window
+bind q killp
+bind space command-prompt -p index "select-window"
+unbind &
+
+# Move between splits
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
+
+# Moving with vim
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'" 
+bind -n C-k run-shell "if $is_vim ; then tmux send-keys C-k ; else tmux select-pane -U; fi"
+bind -n C-j run-shell "if $is_vim ; then tmux send-keys C-j; else tmux select-pane -D; fi"
+bind -n C-h run-shell "if $is_vim ; then tmux send-keys C-h; else tmux select-pane -L; fi"
+bind -n C-l run-shell "if $is_vim ; then tmux send-keys C-l; else tmux select-pane -R; fi"
+
+# Change split layout. Meta key is right alt
+bind M-f move-pane -t '.-'
+bind M-r move-pane -h -t '.-'
+
+# Don't auto remname my windows
+set-option -g allow-rename off
+
+# Easy-to-remember session commands
+bind C confirm new-session
+
+# Task manager
+set -g @tasks_manager 'taskwarrior'
+
+# Colors
+set -g @tasks_format_begin '#{default}'
+set -g @tasks_format_end '#{default}'
+
+# Icons
+set -g @tasks_icon_urgent '⧗ '
+set -g @tasks_icon_outstanding '+ '
+
+# Status bar -------------------------------------------------------------
+# set-option -g status on
+set-option -g set-titles on
+set -g status-interval 1
+set-option -g update-environment "SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION DISPLAY"
+
+set -g status-position bottom
+set -g status-style 'none'
+set -g status-left '#[fg=colour197,bold]#(~/.dotfiles/bin/battery.sh)#[fg=white,bold]#{tasks_status}'
+set -g status-right '#{prefix_highlight} #{weather} #(eval ~/.tmux/responsive `tmux display -p "#{client_width}"`)#[fg=colour051]'
+set -g status-right-length 100
+set -g status-left-length 80
+
+set-window-option -g aggressive-resize
+
+setw -g window-status-current-style fg=colour170,bg=colour239,bold
+
+setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour170]#F '
+
+set-option -g set-titles-string 'tmux stuff | #S | #W'
+setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour170]#F '
+
+# Plugins
+# List of plugins
+set -g @tpm_plugins '                \
+  tmux-plugins/tpm                   \
+  tmux-plugins/tmux-open             \
+  tmux-plugins/tmux-copycat          \
+  tmux-plugins/tmux-resurrect        \
+  tmux-plugins/tmux-continuum        \
+  tmux-plugins/tmux-sessionist       \
+  tmux-plugins/tmux-prefix-highlight \
+  xamut/tmux-weather                 \
+  chriszarate/tmux-tasks             \
+  christoomey/vim-tmux-navigator     \
+  soyuka/tmux-current-pane-hostname  \
+'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

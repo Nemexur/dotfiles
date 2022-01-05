@@ -1,0 +1,64 @@
+---
+- hosts: all
+
+  vars:
+    home_prefix: "~"
+    dotfiles_home: "{{ playbook_dir }}"
+    dotfiles_files: "{{ dotfiles_home }}/files"
+    dotfiles_templates: "{{ dotfiles_home }}/templates"
+
+  vars_files:
+    - vars/gitconfig.yml
+    - vars/homebrew.yml
+    - vars/zsh.yml
+    - vars/tmux.yml
+    - vars/vim.yml
+    - vars/emacs.yml
+    - vars/symlinks.yml
+    - vars/macos.yml
+    - vars/extra.yml
+
+  handlers:
+    - import_tasks: handlers/main.yml
+
+  pre_tasks:
+    - name: Include playbook configuration
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
+  roles:
+    - role: elliotweiser.osx-command-line-tools
+    - role: geerlingguy.mac.homebrew
+      tags: ['homebrew']
+
+  tasks:
+    - import_tasks: tasks/gitconfig.yml
+      when: setup_gitconfig
+      tags: ['gitconfig']
+
+    - import_tasks: tasks/zsh.yml
+      tags: ['zsh']
+
+    - import_tasks: tasks/tmux.yml
+      tags: ['tmux']
+
+    - import_tasks: tasks/vim.yml
+      tags: ['vim']
+
+    - import_tasks: tasks/emacs.yml
+      tags: ['emacs']
+
+    - import_tasks: tasks/symlinks.yml
+      tags: ['symlinks']
+
+    - import_tasks: tasks/installs.yml
+      tags: ['installs']
+
+    - import_tasks: tasks/macos.yml
+      tags: ['macos']
+
+    - import_tasks: tasks/extra.yml
+      when: setup_extra
+      tags: ['extra']

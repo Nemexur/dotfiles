@@ -1,0 +1,189 @@
+---
+homebrew_use_brewfile: false
+
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/core
+  - homebrew/bundle
+  - elastic/tap
+  - minio/stable
+  - railwaycat/emacsmacport
+  - homebrew/cask-drivers
+
+homebrew_installed_packages:
+  # Zsh requirements
+  - zsh
+  - zsh-completions
+  # Search tool like grep, but optimized for programmers
+  - ack
+  # Cryptography and SSL/TLS Toolkit
+  - openssl@3
+  # Library for command-line editing
+  - readline
+  # General-purpose data compression with high compression ratio
+  - xz
+  # Search tool for Doom Emacs
+  - rg
+  # Correct spelling errors within Emacs
+  - aspell
+  # Simple, fast and user-friendly alternative to find
+  - fd
+  # Microsoft Azure CLI 2.0
+  - azure-cli
+  # Programmable completion for Bash 3.2
+  - bash-completion
+  # Validating, recursive, caching DNS resolver
+  - unbound
+  # GNU Transport Layer Security (TLS) Library
+  - gnutls
+  # Emacs dependency management
+  - cask
+  # Cross-platform make
+  - cmake
+  # GNU File, Shell, and Text utilities
+  - coreutils
+  # Tool for exploring each layer in a docker image
+  - dive
+  # Command-line fuzzy finder written in Go
+  - fzf
+  # GNU compiler collection
+  - gcc
+  # Distributed revision control system
+  - git
+  # Tcl/Tk UI for the git revision control system
+  - git-gui
+  # Interpreted, interactive, object-oriented programming language
+  - python@3.9
+  # Core application library for C
+  - glib
+  # Open source programming language to build simple/reliable/efficient software
+  - go
+  # Colorize logfiles and command output
+  - grc
+  # Improved top (interactive process viewer)
+  - htop
+  # Add GitHub support to git on the command-line
+  - hub
+  # Tools and libraries to manipulate images in many formats
+  - imagemagick
+  # Convert JPG images to ASCII
+  - jp2a
+  # Lightweight and flexible command-line JSON processor
+  - jq
+  # Domain specific configuration language for defining JSON data
+  - jsonnet
+  # Network authentication protocol
+  - krb5
+  # Kubernetes command-line interface
+  - kubernetes-cli
+  # Tool that can switch between kubectl contexts easily and create aliases
+  - kubectx
+  # C library of Git core methods that is re-entrant and linkable
+  - libgit2
+  # Platform built on V8 to build network applications
+  - node
+  # Highly capable, feature-rich programming language
+  - perl
+  # Object-relational database system
+  - postgresql
+  # Object-relational database system
+  - postgresql@12
+  # Python version management
+  - pyenv
+  # Install various Ruby versions and implementations
+  - ruby-build
+  # Ruby version manager
+  - rbenv
+  # Reattach process (e.g., tmux) to background
+  - reattach-to-user-namespace
+  # Powerful, clean, object-oriented scripting language
+  - ruby
+  # Command-line interface for Spotify on a Mac
+  - shpotify
+  # Diff images from the command-line
+  - spaceman-diff
+  # User interface to the TELNET protocol
+  - telnet
+  # Text interface for Git repositories
+  - tig
+  # Terminal multiplexer
+  - tmux
+  # Display directories as trees (with optional color/HTML output)
+  - tree
+  # Vi 'workalike' with many additional features
+  - vim
+  # Executes a program periodically, showing output fullscreen
+  - watch
+  # Internet file retriever
+  - wget
+  # JavaScript package manager
+  - yarn
+  # Download YouTube videos from the command-line
+  - youtube-dl
+  # Simplified and community-driven man pages
+  - tldr
+  # NCurses Disk Usage
+  - ncdu
+  # Create and view interactive cheat sheets for *nix commands
+  - cheat
+  # Clone of cat(1) with syntax highlighting and Git integration
+  - bat
+  # Password manager
+  - pass
+  # Ultimate template for K8s
+  - helm
+  # Terminal notifier for timers
+  - terminal-notifier
+  # S3Cmd
+  - s3cmd
+  # Official Amazon AWS command-line interface
+  - awscli
+  # Editorconfig for better collaboration
+  - editorconfig
+  # Text-to-HTML conversion tool
+  - markdown
+  # Static analysis and lint tool, for (ba)sh scripts
+  - shellcheck
+  # Python dependency management tool
+  - pipenv
+  # Automate deployment, configuration, and upgrading
+  - ansible
+  - ansible-lint
+  - molecule
+  - yamllint
+  # Distributed search & analytics engine
+  - elastic/tap/elasticsearch-full
+  # TaskWarrior setup
+  - task
+  - taskd
+  - tasksh
+  # Emacs
+  - name: emacs-mac
+    install_options: with-modules
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - brave-browser
+  - qutebrowser
+  - handbrake
+  - iterm2
+  - alfred
+  - notion
+  - spotify
+  - 1password
+  - mactex
+  - skim
+  - dropbox
+  - docker
+  - synergy
+  - grammarly
+  - rectangle
+  - transmission
+  - visual-studio-code
+  - karabiner-elements
+  - logitech-options
+  - dbeaver-community
+  - virtualbox
+  - virtualbox-extension-pack
+  - vagrant
+  - vagrant-manager

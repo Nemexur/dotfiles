@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+#
+# bootstrap installs things.
+source $HOME/new-dotfiles/scripts/prompt
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd -P)
+
+set -e
+
+echo ""
+
+_setupGitconfig() {
+  local namespace=$2
+
+  info "Setup gitconfig: $2"
+
+  user " - What is your github author name?"
+  read -e git_name
+  user " - What is your github author email?"
+  read -e git_email
+
+  eval "$1+='__git_config_name_$namespace=$git_name __git_config_email_$namespace=$git_email'"
+}
+
+setupGitconfig() {
+  local extra_vars=""
+  if ! [ -f git/gitconfig.local.symlink ]; then
+    # Configure personal config
+    _setupGitconfig extra_vars "local"
+    # Configure work config if needed
+    success "personal gitconfig"
+  fi
+  if ! [ -f git/gitconfig.work.symlink ]; then
+    user " - Setup work gitconfig (y/n)?"
+    read -n 1 -r action
+    if [[ $action =~ ^[Yy]$ ]]; then
+      extra_vars+=" "
+      _setupGitconfig extra_vars "work"
+    fi
+    success "work gitconfig"
+  fi
+  if ! [ -z $extra_vars ]; then
+    extra_vars+=" setup_gitconfig=True"
+    ansible-playbook $HOME/.dotfiles/ansible/main.yml --ask-become-pass --tags gitconfig -e $extra_vars
+  fi
+}
+
+runBootstrap() {
+  local extra=""
+  if ! [ -z $1 ]; then
+    extra="--tags $1"
+  fi
+  setupGitconfig
+  ansible-galaxy install -r $HOME/new-dotfiles/ansible/requirements.yml
+  ansible-playbook $HOME/new-dotfiles/ansible/main.yml --ask-become-pass $extra
+}
+
+displayUsageAndExit() {
+  echo "dot-bootstrap -- dotfiles management"
+  echo ""
+  echo "Usage: dot-bootstrap [options]"
+  echo ""
+  echo "Options:"
+  echo "  -h, --help    Show this help message and exit."
+  echo "  -t, --tags    Dotfiles tags for partial update."
+  exit 0
+}
+
+while test $# -gt 0; do
+    case "$1" in
+        "-h"|"--help")
+            displayUsageAndExit
+            ;;
+        "-t"|"--tags")
+            runBootstrap $2
+            exit
+            ;;
+        *)
+            echo "Invalid option: $1"
+            echo ""
+            displayUsageAndExit
+            ;;
+    esac
+    shift
+done
+
+runBootstrap ""

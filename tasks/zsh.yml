@@ -1,0 +1,32 @@
+---
+- name: Ensure packages for zsh are installed.
+  homebrew: "name={{ item }} state=present"
+  loop:
+    - zsh
+    - zsh-completions
+
+- name: Check if Oh-My-Zsh is already in place.
+  stat: "path={{ oh_my_zsh_install_path }}"
+  register: oh_my_zsh_dir
+  check_mode: false
+
+- name: Install Oh-My-Zsh.
+  raw: >
+    sh -c
+    "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  when: not oh_my_zsh_dir.stat.exists
+
+- name: Install Oh-My-Zsh plugins.
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: master
+    update: false
+    depth: 1
+  loop: "{{ oh_my_zsh_plugins }}"
+
+- name: Set user shell to zsh.
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  become: yes

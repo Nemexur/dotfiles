@@ -1,0 +1,2 @@
+---
+macos_files: "{{ dotfiles_files }}/macos"

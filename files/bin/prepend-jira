@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# Helper script to prepend Jira Task
+# at the beginnnig of git branch to commit
+
+source $HOME/.dotfiles/scripts/prompt
+
+DIR=${1:-.}
+
+HOOK_FILENAME="${DIR}/.git/hooks/prepare-commit-msg"
+if [ ! -d "${DIR}/.git" ]; then
+    fail "This is not git repository root"
+fi
+
+if [ ! -d "${DIR}/.git/hooks" ]; then
+    info "Creating hooks directory"
+    mkdir ${DIR}/.git/hooks
+fi
+
+
+echo '#!/bin/bash
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+HAS_JIRA_TASK=$(echo $BRANCH_NAME | grep -cE "^[a-zA-Z]{2,}-[0-9]+")
+if [[ $HAS_JIRA_TASK == 0 ]]; then
+    echo "This branch is not connected to any JIRA task"
+else
+    JIRA_TASK=$(echo $BRANCH_NAME | grep -oE "^[a-zA-Z]{2,}-[0-9]+")
+    JIRA_ID=$(grep -oE "^[a-zA-Z]{2,}-[0-9]+" $1)
+    if [[ -z $JIRA_ID ]]; then
+        IS_BRANCH_OR_JIRA_IN_COMMIT=$(grep -cE "(?:$BRANCH_NAME|$JIRA_TASK)" $1)
+        if [[ $IS_BRANCH_OR_JIRA_IN_COMMIT == 0 ]]; then
+            sed -i.bak -e "1s/^/$JIRA_TASK /" $1
+            echo "Prepended JIRA task to commit."
+        fi
+    fi
+fi
+' > $HOOK_FILENAME
+
+success "Created hook $HOOK_FILENAME"
+chmod +x $HOOK_FILENAME

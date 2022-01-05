@@ -1,0 +1,15 @@
+---
+oh_my_zsh_prefix: "{{ home_prefix }}"
+oh_my_zsh_repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+oh_my_zsh_install_path: "{{ oh_my_zsh_prefix }}/.oh-my-zsh"
+oh_my_zsh_plugins_path: "{{ oh_my_zsh_install_path }}/custom/plugins"
+
+oh_my_zsh_plugins:
+  - repo: "https://github.com/agkozak/zsh-z.git"
+    dest: "{{ oh_my_zsh_plugins_path }}/zsh-z"
+  - repo: "https://github.com/zsh-users/zsh-completions.git"
+    dest: "{{ oh_my_zsh_plugins_path }}/zsh-completions"
+  - repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+    dest: "{{ oh_my_zsh_plugins_path }}/zsh-autosuggestions"
+  - repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    dest: "{{ oh_my_zsh_plugins_path }}/zsh-syntax-highlighting.git"

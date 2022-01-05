@@ -1,0 +1,13 @@
+---
+- name: clear homebrew cache
+  file:
+    path: "{{ homebrew_cache_path.stdout | trim }}"
+    state: absent
+  when: homebrew_clear_cache | bool
+
+- name: doom health
+  command: "{{ doom_emacs_binary }}/doom {{ item }}"
+  with_items:
+    - clean
+    - env
+    - doctor

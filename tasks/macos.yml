@@ -1,0 +1,38 @@
+---
+- name: Configure MacOS defaults
+  command: "{{ macos_files }}/set-defaults.sh"
+  changed_when: false
+
+- name: Ensure config directory exists
+  file:
+    path: "{{ home_prefix }}/.config"
+    state: directory
+    mode: 0755
+
+- name: Add fonts
+  copy:
+    src: "{{ macos_files }}/fonts/"
+    dest: "/Library/Fonts"
+    mode: 0775
+
+- name: Add keyboard layouts
+  copy:
+    src: "{{ macos_files }}/keyboard-layouts/"
+    dest: "/Library/Keyboard\\ Layouts"
+    mode: 0775
+
+- name: Get current iTerm profile
+  command: defaults read com.googlecode.iterm2 PrefsCustomFolder
+  register: terminal_config
+  changed_when: false
+  check_mode: false
+
+- name: Configure iTerm
+  shell: >
+    defaults write com.googlecode.iterm2 PrefsCustomFolder
+    -string "{{ home_prefix }}/.itermcfg/"
+    &&
+    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder
+    -bool true
+  changed_when: false
+  when: "'.itermcfg' not in terminal_config.stdout"

@@ -1,0 +1,33 @@
+---
+- name: Ensure Vim exists
+  homebrew: name=vim state=present
+
+- name: Ensure Vim directories exist.
+  file:
+    path: "{{ vim_prefix }}/{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - bundle
+    - autoload
+
+- name: Ensure Vundle is installed.
+  git:
+    repo: "{{ vundle_repo }}"
+    dest: "{{ vundle_install_path }}"
+    version: master
+    update: false
+    depth: 1
+
+- name: Ensure Pathogen is installed.
+  get_url:
+    url: "{{ pathogen_url }}"
+    dest: "{{ pathogen_install_path }}"
+
+- name: Ensure NerdTree is installed.
+  git:
+    repo: "{{ nerdtree_repo }}"
+    dest: "{{ nerdtree_install_path }}"
+    version: master
+    update: false
+    depth: 1

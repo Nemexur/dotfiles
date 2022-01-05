@@ -1,0 +1,19 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "cmd+,",
+        "command": "workbench.action.openSettingsJson"
+    },
+    {
+        "key": "cmd+,",
+        "command": "-workbench.action.openSettings"
+    },
+    {
+        "key": "cmd+i",
+        "command": "code-runner.run"
+    },
+    {
+        "key": "ctrl+alt+n",
+        "command": "-code-runner.run"
+    }
+]

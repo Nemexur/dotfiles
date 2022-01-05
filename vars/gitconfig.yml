@@ -1,0 +1,3 @@
+---
+setup_gitconfig: false
+gitconfig_set_work_config: true
