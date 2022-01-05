@@ -1,5 +1,7 @@
 # dotfiles
 
+[![CI][badge-gh-actions]][link-gh-actions]
+
 ## Configuration
 
 Run the following to configure macOS from scratch...
