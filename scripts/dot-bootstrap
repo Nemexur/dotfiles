@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # bootstrap installs things.
-source $HOME/new-dotfiles/scripts/prompt
+source $HOME/.dotfiles/scripts/prompt
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
@@ -25,13 +25,13 @@ _setupGitconfig() {
 
 setupGitconfig() {
   local extra_vars=""
-  if ! [ -f git/gitconfig.local.symlink ]; then
+  if ! [ -f $HOME/.dotfiles/files/git/gitconfig.local.symlink ]; then
     # Configure personal config
     _setupGitconfig extra_vars "local"
     # Configure work config if needed
     success "personal gitconfig"
   fi
-  if ! [ -f git/gitconfig.work.symlink ]; then
+  if ! [ -f $HOME/.dotfiles/files/git/gitconfig.work.symlink ]; then
     user " - Setup work gitconfig (y/n)?"
     read -n 1 -r action
     if [[ $action =~ ^[Yy]$ ]]; then
@@ -42,7 +42,7 @@ setupGitconfig() {
   fi
   if ! [ -z $extra_vars ]; then
     extra_vars+=" setup_gitconfig=True"
-    ansible-playbook $HOME/.dotfiles/ansible/main.yml --ask-become-pass --tags gitconfig -e $extra_vars
+    ansible-playbook $HOME/.dotfiles/main.yml --ask-become-pass --tags gitconfig -e $extra_vars
   fi
 }
 
@@ -52,8 +52,8 @@ runBootstrap() {
     extra="--tags $1"
   fi
   setupGitconfig
-  ansible-galaxy install -r $HOME/new-dotfiles/ansible/requirements.yml
-  ansible-playbook $HOME/new-dotfiles/ansible/main.yml --ask-become-pass $extra
+  ansible-galaxy install -r $HOME/.dotfiles/requirements.yml
+  ansible-playbook $HOME/.dotfiles/main.yml --ask-become-pass $extra
 }
 
 displayUsageAndExit() {

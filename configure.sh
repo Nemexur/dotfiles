@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/Nemexur/dotfiles/master/scripts/prompt)"
+source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/Nemexur/dotfiles/main/scripts/prompt)"
 
 brewInstall () {
     # Install brew
@@ -19,7 +19,7 @@ brewUpdate () {
 }
 
 xcodeSelectInstall() {
-    xcode-select --install
+    xcode-select --install || true
 }
 
 ansibleInstall () {
@@ -62,7 +62,7 @@ then
     else
         echo "Nemexur's macOS dotfiles were not applied successfully..." >&2
 fi
-else 
+else
     echo ""
     echo "You chose not to apply Nemexur's macOS dotfiles. You will need to configure your environment manually..."
 fi

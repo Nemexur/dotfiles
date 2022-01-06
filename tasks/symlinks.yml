@@ -36,6 +36,6 @@
       {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}\
       {% endif %}"
     state: link
-    mode: 0644
+    mode: 0755
   become: false
   with_items: "{{ symlink_files.stdout_lines + symlink_specific_files }}"

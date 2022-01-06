@@ -16,6 +16,7 @@
     - vars/emacs.yml
     - vars/creates.yml
     - vars/symlinks.yml
+    - vars/installs.yml
     - vars/macos.yml
     - vars/extra.yml
 
