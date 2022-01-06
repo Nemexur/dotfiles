@@ -4,4 +4,4 @@
     path: "{{ item.path }}"
     state: "{{ item.state }}"
     mode: "{{ item.mode }}"
-  with_items: "{{ create_paths }}"
+  loop: "{{ create_paths }}"
