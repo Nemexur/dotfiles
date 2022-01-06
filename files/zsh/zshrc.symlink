@@ -19,7 +19,7 @@ unsetopt correct_all
 
 # all of our zsh files
 typeset -U config_files
-config_files=($_ZSH/**/*.zsh)
+config_files=($_ZSH/files/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -78,8 +78,6 @@ export EDITOR='vim'
 source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/.functions
-source $HOME/.aliases
 
 # autoload ----------------------------------------------------------------------
 autoload -Uz vcs_info 

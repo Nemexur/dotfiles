@@ -5,7 +5,7 @@
 # This installs vim dependencies to make it cool.
 
 if test $(which vim); then
-  vim -c 'BundleInstall' -c 'qa!'
+  vim +BundleInstall +qall
 fi
 
 exit 0

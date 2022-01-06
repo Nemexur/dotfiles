@@ -230,7 +230,7 @@ set guicursor+=a:blinkon100
 " Setup spelling
 " ------
 set spell
-set spelllang=ru_yo,en_us
+set spelllang=en_us
 nmap '' z=
 " Highlight spelling
 hi clear SpellBad
