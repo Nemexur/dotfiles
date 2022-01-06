@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+#
+# Doom Emacs
+#
+# This installs and configures packages from symlinked doom.d directory.
+
 if [ -d $HOME/.emacs.d/bin && -d $HOME/.doom.d ]; then
   echo " Updating Doom Emacs configuration. "
 
