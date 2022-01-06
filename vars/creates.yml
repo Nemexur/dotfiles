@@ -3,6 +3,6 @@ create_paths:
   - path: "{{ home_prefix }}/.config"
     state: directory
     mode: '0755'
-  - path: "{{ home_prefix }}/Library/Application\\ Support/Code/User"
+  - path: '{{ home_prefix }}/Library/Application Support/Code/User'
     state: directory
     mode: '0755'
