@@ -1,5 +1,5 @@
 ---
-setup_extra: false
+setup_extra: true
 
 fubectl_install_url: "https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source"
 fubectl_install_path: "/usr/local/bin/fubectl.source"

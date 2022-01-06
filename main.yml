@@ -49,7 +49,6 @@
       tags: ['vim']
 
     - import_tasks: tasks/emacs.yml
-      when: setup_doom_emacs
       tags: ['emacs']
 
     - import_tasks: tasks/creates.yml
@@ -63,6 +62,7 @@
       tags: ['installs']
 
     - import_tasks: tasks/macos.yml
+      when: setup_macos
       tags: ['macos']
 
     - import_tasks: tasks/extra.yml

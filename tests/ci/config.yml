@@ -1,6 +1,6 @@
 ---
 run_installs: false
-setup_doom_emacs: false
+setup_macos: false
 
 homebrew_taps:
   - homebrew/cask

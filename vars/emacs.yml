@@ -1,6 +1,4 @@
 ---
-setup_doom_emacs: true
-
 doom_emacs_repo: "https://github.com/hlissner/doom-emacs.git"
 
 doom_emacs_prefix: "{{ home_prefix }}"
