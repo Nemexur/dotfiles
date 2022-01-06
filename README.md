@@ -100,7 +100,7 @@ ansible-playbook main.yml --ask-become-pass --tags "homebrew,installs"
 ## Extra
 
 `scripts/dot` is a simple script that configures everything.
-It is considered a simply alias for `ansible-playbook main.yml --ask-become-pass`.
+It is considered an alias for `ansible-playbook main.yml --ask-become-pass`.
 However, it additionally checks for gitconfig files.
 
 [badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml/badge.svg?branch=main&event=push
