@@ -9,9 +9,9 @@
 - name: Ensure all configured dotfiles are links.
   command: >
     {% if 'dest' in item %}
-    ls -F {{ item.dest }}
+      ls -F {{ item.dest }}
     {% else %}
-    ls -F {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
+      ls -F {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
     {% endif %}
   register: existing_dotfile_info
   failed_when: false
@@ -31,9 +31,9 @@
     src: "{{ item.src | default(item) }}"
     dest: >
       {% if 'dest' in item %}
-      {{ item.dest }}
+        {{ item.dest }}
       {% else %}
-      {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
+        {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
       {% endif %}
     state: link
     mode: 0644
