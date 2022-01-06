@@ -1,0 +1,8 @@
+---
+create_paths:
+  - path: "{ home_prefix }}/.config"
+    state: directory
+    mode: 0775
+  - path: "{ home_prefix }}/Library/Application\\ Support/Code/User"
+    state: directory
+    mode: 0775

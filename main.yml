@@ -14,6 +14,7 @@
     - vars/tmux.yml
     - vars/vim.yml
     - vars/emacs.yml
+    - vars/creates.yml
     - vars/symlinks.yml
     - vars/macos.yml
     - vars/extra.yml
@@ -50,6 +51,9 @@
     - import_tasks: tasks/emacs.yml
       when: setup_doom_emacs
       tags: ['emacs']
+
+    - import_tasks: tasks/creates.yml
+      tags: ['creates']
 
     - import_tasks: tasks/symlinks.yml
       tags: ['symlinks']

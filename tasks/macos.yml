@@ -3,12 +3,6 @@
   command: "{{ macos_files }}/set-defaults.sh"
   changed_when: false
 
-- name: Ensure config directory exists.
-  file:
-    path: "{{ home_prefix }}/.config"
-    state: directory
-    mode: 0755
-
 - name: Add fonts.
   copy:
     src: "{{ macos_files }}/fonts/"
