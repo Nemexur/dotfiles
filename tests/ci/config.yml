@@ -1,4 +1,6 @@
 ---
+setup_doom_emacs: false
+
 homebrew_taps:
   - homebrew/cask
   - homebrew/core

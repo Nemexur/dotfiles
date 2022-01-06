@@ -48,6 +48,7 @@
       tags: ['vim']
 
     - import_tasks: tasks/emacs.yml
+      when: setup_doom_emacs
       tags: ['emacs']
 
     - import_tasks: tasks/symlinks.yml
