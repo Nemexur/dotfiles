@@ -18,19 +18,13 @@ homebrew_installed_packages:
   - ripgrep
   - coreutils
   - fd
-  - cask
   - vim
   - tmux
   - wget
   - htop
   - go
-  - python@3.9
 
 homebrew_cask_apps:
   - iterm2
   - visual-studio-code
   - karabiner-elements
-
-blacklisted_install_files:
-  - "{{ dotfiles_files }}/vscode/install.sh"
-  - "{{ dotfiles_files }}/vim/install.sh"
