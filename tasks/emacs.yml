@@ -37,6 +37,6 @@
     expect:
       command: "{{ doom_emacs_binary }}/doom install"
       responses:
-        (.*)envar(.*): "y"
+        (.*)envvar(.*): "y"
         (.*)fonts(.*): "y"
   when: not doom_emacs_dir.stat.exists
