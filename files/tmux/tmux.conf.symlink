@@ -91,7 +91,7 @@ set-option -g update-environment "SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CO
 
 set -g status-position bottom
 set -g status-style 'none'
-set -g status-left '#[fg=colour197,bold]#(~/.dotfiles/bin/battery.sh)#[fg=white,bold]#{tasks_status}'
+set -g status-left '#[fg=colour197,bold]#(~/.dotfiles/files/bin/battery.sh)#[fg=white,bold]#{tasks_status}'
 set -g status-right '#{prefix_highlight} #{weather} #(eval ~/.tmux/responsive `tmux display -p "#{client_width}"`)#[fg=colour051]'
 set -g status-right-length 100
 set -g status-left-length 80

@@ -8,7 +8,7 @@ LARGE=125
 X_LARGE=150
 
 if [ "$WIDTH" -gt "$X_LARGE" ]; then
-  MPD="#[fg=colour81]♫ $(~/.dotfiles/bin/now_playing.sh)"
+  MPD="#[fg=colour81]♫ $(~/.dotfiles/files/bin/now_playing.sh)"
   date_colour='colour41'
 fi
 
