@@ -14,7 +14,7 @@
   check_mode: false
 
 - block:
-  - name: Ensure doom_emacs_install_path does not exist.
+  - name: Ensure doom_emacs_install_path is empty.
     file:
       path: "{{ doom_emacs_install_path }}"
       state: absent
