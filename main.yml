@@ -2,7 +2,7 @@
 - hosts: all
 
   vars:
-    home_prefix: "~"
+    home_prefix: "{{ lookup('env', 'HOME') }}"
     dotfiles_home: "{{ playbook_dir }}"
     dotfiles_files: "{{ dotfiles_home }}/files"
     dotfiles_templates: "{{ dotfiles_home }}/templates"
