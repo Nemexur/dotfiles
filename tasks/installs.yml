@@ -7,8 +7,9 @@
   changed_when: false
 
 # In each install.sh script we check for the existence of a module.
-# So if it is okay we do not install anything.
+# So it is okay if we do not install anything.
 - name: Run install files.
   command: "{{ item }}"
   with_items: "{{ install_files.stdout_lines }}"
   changed_when: false
+  when: '"item" not in blacklisted_install_files'
