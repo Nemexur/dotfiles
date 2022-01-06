@@ -59,6 +59,7 @@
       tags: ['symlinks']
 
     - import_tasks: tasks/installs.yml
+      when: run_installs
       tags: ['installs']
 
     - import_tasks: tasks/macos.yml

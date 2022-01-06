@@ -1,4 +1,5 @@
 ---
+run_installs: false
 setup_doom_emacs: false
 
 homebrew_taps:
