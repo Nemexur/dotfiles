@@ -1,6 +1,6 @@
 alias reload!='. ~/.zshrc'
 alias clr='clear'
-alias dot-bootstrap='$_ZSH/scripts/dot-bootstrap'
+alias dot='$_ZSH/scripts/dot-bootstrap'
 
 echoInfo () {
   printf "\r  [ \033[00;34m..\033[0m ] $1\n"
