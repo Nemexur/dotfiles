@@ -10,7 +10,6 @@ homebrew_installed_packages:
   - ack
   - openssl@3
   - bash-completion
-  - cowsay
   - git
   - ripgrep
   - coreutils
@@ -18,8 +17,8 @@ homebrew_installed_packages:
   - vim
   - tmux
   - wget
-  - htop
   - go
+  - npm
 
 homebrew_cask_apps:
   - iterm2
