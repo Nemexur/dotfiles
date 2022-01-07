@@ -22,7 +22,7 @@
 
 - name: Remove existing dotfiles file if a replacement is being linked.
   file:
-    path: "{{ item.stdout }}"
+    path: "{{ item.cmd[-1] }}"
     state: absent
   when: "'@' not in item.stdout"
   with_items: "{{ existing_dotfile_info.results }}"
