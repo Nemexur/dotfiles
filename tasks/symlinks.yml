@@ -10,9 +10,9 @@
   command: >-
     ls -F
     {% if 'dest' in item %}
-    {{ item.dest }}
+    "{{ item.dest }}"
     {% else %}
-    {{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}
+    "{{ home_prefix }}/.{{ item.split('/')[-1] | replace('.symlink', '') }}"
     {% endif %}
   register: existing_dotfile_info
   failed_when: false
