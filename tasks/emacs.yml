@@ -36,7 +36,7 @@
   - name: Install Doom Emacs.
     expect:
       command: "{{ doom_emacs_binary }}/doom install"
-      timeout: 210
+      timeout: 1000
       responses:
         (.*)envvar(.*): "y"
         (.*)fonts(.*): "y"
