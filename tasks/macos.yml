@@ -18,7 +18,7 @@
   become: yes
 
 - name: Get current iTerm profile.
-  command: defaults read com.googlecode.iterm2 PrefsCustomFolder
+  command: defaults read com.googlecode.iterm2
   register: terminal_config
   changed_when: false
   check_mode: false
@@ -31,4 +31,4 @@
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder
     -bool true
   changed_when: false
-  when: "'.itermcfg' not in terminal_config.stdout"
+  when: "'PrefsCustomFolder' not in terminal_config.stdout"
