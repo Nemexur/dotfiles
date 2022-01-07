@@ -37,5 +37,5 @@
       {% endif %}"
     state: link
     mode: 0755
-  become: false
+  become: no
   with_items: "{{ symlink_files.stdout_lines + symlink_specific_files }}"

@@ -4,7 +4,7 @@
 #
 # This installes extenstions for VSCode.
 
-if test $(which code); then
+if command -v code &> /dev/null; then
     # Themes
     code --install-extension dracula-theme.theme-dracula
     code --install-extension Equinusocio.vsc-material-theme

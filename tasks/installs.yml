@@ -8,8 +8,8 @@
 
 # In each install.sh script we check for the existence of a module.
 # So it is okay if we do not install anything.
-- name: Run install files.
-  command: "{{ item }}"
+- name: Run install files. # noqa 305
+  shell: "{{ item }}"
   with_items: "{{ install_files.stdout | split('\n') }}"
   changed_when: false
   when: '"item" not in blacklisted_install_files'

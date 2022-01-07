@@ -4,7 +4,7 @@
 #
 # This installs some poetry to manage dependencies in Python.
 
-if test ! $(which poetry); then
+if ! command -v poetry &> /dev/null; then
   echo " Installing Poetry "
   curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 else

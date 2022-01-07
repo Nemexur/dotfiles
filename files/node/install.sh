@@ -4,7 +4,6 @@
 #
 # This installs some of the needed packages from npm.
 
-if test ! $(which spoof)
-then
+if ! command -v spoof &> /dev/null; then
   npm install spoof -g
 fi

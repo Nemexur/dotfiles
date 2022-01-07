@@ -4,11 +4,10 @@
 #
 # This installs colorls for beutiful formatting in terminal.
 
-if test ! $(which colorls); then
+if ! command -v colorls &> /dev/null; then
   echo " Installing colorls "
-  gem install colorls -n /usr/local/bin
+  sudo gem install colorls -n /usr/local/bin || true
 else
   echo " colorls is already installed. "
 fi
 
-exit 0
