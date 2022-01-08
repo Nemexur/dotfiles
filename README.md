@@ -7,7 +7,7 @@
 Run the following to configure macOS from scratch...
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/Nemexur/dotfiles/master/configure.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Nemexur/dotfiles/main/configure.sh)
 ```
 
 ## Installation
@@ -44,7 +44,7 @@ area to your forked dotfiles — say, "Java" — you can simply add a `java` dir
 and put files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run
-`scripts/dot --tags symlinks`.
+`scripts/dot-bootstrap --tags symlinks`.
 
 ## Components
 
@@ -86,6 +86,7 @@ You can filter which part of the provisioning process to run by specifying a set
 - tmux
 - vim
 - emacs
+- creates
 - symlinks
 - installs
 - macos
@@ -99,7 +100,7 @@ ansible-playbook main.yml --ask-become-pass --tags "homebrew,installs"
 
 ## Extra
 
-`scripts/dot` is a simple script that configures everything.
+`scripts/dot-bootstrap` is a simple script that configures everything.
 It is considered an alias for `ansible-playbook main.yml --ask-become-pass`.
 However, it additionally checks for gitconfig files.
 
