@@ -8,3 +8,5 @@ symlink_specific_files:
     dest: '{{ home_prefix }}/Library/Application Support/Code/User/settings.json'
   - src: "{{ dotfiles_files }}/vscode/keybindings.json"
     dest: '{{ home_prefix }}/Library/Application Support/Code/User/keybindings.json'
+  - src: /usr/local/opt/emacs-mac/Emacs.app
+    dest: /Applications/Emacs.app
