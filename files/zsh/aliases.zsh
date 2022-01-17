@@ -1,5 +1,5 @@
-alias reload!='. ~/.zshrc'
 alias clr='clear'
+alias reload='source ~/.zshrc'
 alias dot='$_ZSH/scripts/dot-bootstrap'
 
 echoInfo () {
