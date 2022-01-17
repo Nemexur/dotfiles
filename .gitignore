@@ -3,6 +3,7 @@
 *.retry
 roles*
 collections*
+secrets*
 ./config.yml
 
 files/git/gitconfig.*.symlink
