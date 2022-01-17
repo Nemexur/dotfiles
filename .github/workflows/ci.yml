@@ -55,9 +55,9 @@ jobs:
       - name: Set up the test environment.
         run: |
           cp tests/ci/ansible.cfg ./ansible.cfg
-          cp tests/ci/inventory ./inventory
+          cp tests/ci/inventory.yml ./inventory.yml
           cp tests/ci/config.yml ./config.yml
-          ansible-galaxy install -r requirements.yml
+          ansible-galaxy install -vr requirements.yml
       - name: Test the playbook's syntax.
         run: ansible-playbook main.yml --syntax-check
 
