@@ -9,6 +9,7 @@ homebrew_taps:
   - minio/stable
   - railwaycat/emacsmacport
   - homebrew/cask-drivers
+  - vectordotdev/brew
 
 homebrew_installed_packages:
   # Zsh requirements
@@ -157,6 +158,10 @@ homebrew_installed_packages:
   - task
   - taskd
   - tasksh
+  # A High-Performance Log, Metrics, and Events Router
+  - vector
+  # Persistent key-value database, with built-in net interface
+  - redis
   # Emacs
   - name: emacs-mac
     install_options: with-modules
