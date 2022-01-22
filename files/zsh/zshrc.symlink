@@ -83,6 +83,8 @@ source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -Uz vcs_info 
 autoload -Uz colors && colors
 autoload -U compinit && compinit
+# Load once again
+source $_ZSH/files/system/aliases.zsh
 
 # syntax highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
