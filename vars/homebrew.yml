@@ -188,6 +188,7 @@ homebrew_cask_apps:
   - karabiner-elements
   - logitech-options
   - dbeaver-community
+  - obsidian
   - virtualbox
   - virtualbox-extension-pack
   - vagrant
