@@ -15,6 +15,9 @@ homebrew_installed_packages:
   # Zsh requirements
   - zsh
   - zsh-completions
+  # Docker is our best friend
+  - docker
+  - colima
   # Search tool like grep, but optimized for programmers
   - ack
   # Cryptography and SSL/TLS Toolkit
@@ -179,7 +182,6 @@ homebrew_cask_apps:
   - mactex
   - skim
   - dropbox
-  - docker
   - synergy
   - grammarly
   - rectangle
