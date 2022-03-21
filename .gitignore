@@ -6,4 +6,5 @@ collections*
 secrets*
 ./config.yml
 
+files/karabiner/automatic_backups
 files/git/gitconfig.*.symlink
