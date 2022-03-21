@@ -57,9 +57,9 @@ runBootstrap() {
 }
 
 displayUsageAndExit() {
-  echo "dot-bootstrap -- dotfiles management"
+  echo "dot -- dotfiles management"
   echo ""
-  echo "Usage: dot-bootstrap [options]"
+  echo "Usage: dot [options]"
   echo ""
   echo "Options:"
   echo "  -h, --help    Show this help message and exit."
