@@ -23,7 +23,6 @@
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
     "typescript.check.npmIsInstalled": false,
-    "window.zoomLevel": 0,
     "git.autofetch": true,
     // Color Override
     "workbench.colorCustomizations": {
@@ -65,7 +64,7 @@
     },
     // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
-    "autoDocstring.customTemplatePath": "/Users/a.n.milogradskiy/.dotfiles/vscode/custom_numpy.mustache",
+    "autoDocstring.customTemplatePath": "/Users/a.n.milogradskiy/.dotfiles/files/vscode/custom_numpy.mustache",
     "autoDocstring.generateDocstringOnEnter": true,
     "autoDocstring.guessTypes": true,
     "autoDocstring.startOnNewLine": true,

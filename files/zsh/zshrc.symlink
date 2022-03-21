@@ -139,3 +139,13 @@ fi
 eval "$(pyenv init -)"
 # Load Shell integration for iTerm
 source ~/.iterm2_shell_integration.zsh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/Users/a.n.milogradskiy/yandex-cloud/path.bash.inc' ]; then source '/Users/a.n.milogradskiy/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/Users/a.n.milogradskiy/yandex-cloud/completion.zsh.inc' ]; then source '/Users/a.n.milogradskiy/yandex-cloud/completion.zsh.inc'; fi
+
