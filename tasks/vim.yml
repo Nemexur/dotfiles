@@ -20,9 +20,10 @@
     depth: 1
 
 - name: Ensure Pathogen is installed.
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ pathogen_url }}"
     dest: "{{ pathogen_install_path }}"
+    mode: 0755
 
 - name: Ensure NerdTree is installed.
   ansible.builtin.git:
