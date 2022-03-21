@@ -10,14 +10,16 @@ homebrew_taps:
   - railwaycat/emacsmacport
   - homebrew/cask-drivers
   - vectordotdev/brew
+  - hashicorp/tap
 
 homebrew_installed_packages:
   # Zsh requirements
   - zsh
   - zsh-completions
   # Docker is our best friend
-  - docker
   - colima
+  - docker
+  - docker-compose
   # Search tool like grep, but optimized for programmers
   - ack
   # Cryptography and SSL/TLS Toolkit
@@ -166,6 +168,8 @@ homebrew_installed_packages:
   # Persistent key-value database, with built-in net interface
   - redis
   # Emacs
+  # All right then, keep your secrets
+  - hashicorp/tap/vault
   - name: emacs-mac
     install_options: with-modules
 
@@ -195,3 +199,4 @@ homebrew_cask_apps:
   - virtualbox-extension-pack
   - vagrant
   - vagrant-manager
+  - google-cloud-sdk
