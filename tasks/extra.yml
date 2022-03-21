@@ -1,6 +1,6 @@
 ---
 - name: Install fubectl.source for kubectl.
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ fubectl_install_url }}"
     dest: "{{ fubectl_install_path }}"
     mode: 0744

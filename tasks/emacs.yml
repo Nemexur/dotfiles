@@ -9,18 +9,18 @@
     install_options: with-modules
 
 - name: Ensure Doom Emacs directory is in place.
-  stat: "path={{ doom_emacs_config_dir }}"
+  ansible.builtin.stat: "path={{ doom_emacs_config_dir }}"
   register: doom_emacs_dir
   check_mode: false
 
 - block:
   - name: Ensure doom_emacs_install_path is empty.
-    file:
+    ansible.builtin.file:
       path: "{{ doom_emacs_install_path }}"
       state: absent
 
   - name: Ensure Doom Emacs is installed.
-    git:
+    ansible.builtin.git:
       repo: "{{ doom_emacs_repo }}"
       version: master
       dest: "{{ doom_emacs_install_path }}"
@@ -28,13 +28,13 @@
       depth: 1
 
   - name: Ensure proper permissions on doom_emacs_binary.
-    file:
+    ansible.builtin.file:
       path: "{{ doom_emacs_binary }}/doom"
       state: file
       mode: 0775
 
   - name: Install Doom Emacs.
-    expect:
+    ansible.builtin.expect:
       command: "{{ doom_emacs_binary }}/doom install"
       timeout: 1000
       responses:

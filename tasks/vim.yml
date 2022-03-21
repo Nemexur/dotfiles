@@ -3,7 +3,7 @@
   homebrew: name=vim state=present
 
 - name: Ensure Vim directories exist.
-  file:
+  ansible.builtin.file:
     path: "{{ vim_prefix }}/{{ item }}"
     state: directory
     mode: 0755
@@ -12,7 +12,7 @@
     - autoload
 
 - name: Ensure Vundle is installed.
-  git:
+  ansible.builtin.git:
     repo: "{{ vundle_repo }}"
     dest: "{{ vundle_install_path }}"
     version: master
@@ -25,7 +25,7 @@
     dest: "{{ pathogen_install_path }}"
 
 - name: Ensure NerdTree is installed.
-  git:
+  ansible.builtin.git:
     repo: "{{ nerdtree_repo }}"
     dest: "{{ nerdtree_install_path }}"
     version: master

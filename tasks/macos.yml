@@ -1,31 +1,31 @@
 ---
 - name: Configure MacOS defaults.
-  command: "{{ macos_files }}/set-defaults.sh"
+  ansible.builtin.command: "{{ macos_files }}/set-defaults.sh"
   changed_when: false
 
 - name: Add fonts.
-  copy:
+  ansible.builtin.copy:
     src: "{{ macos_files }}/fonts/"
     dest: "/Library/Fonts"
     mode: 0775
   become: yes
 
 - name: Add keyboard layouts.
-  copy:
+  ansible.builtin.copy:
     src: "{{ macos_files }}/keyboard-layouts/"
     dest: '/Library/Keyboard\ Layouts'
     mode: 0775
   become: yes
 
 - name: Get current iTerm profile.
-  command: defaults read com.googlecode.iterm2
+  ansible.builtin.command: defaults read com.googlecode.iterm2
   register: terminal_config
   changed_when: false
   check_mode: false
   failed_when: false
 
 - name: Configure iTerm.
-  shell: >
+  ansible.builtin.shell: >
     defaults write com.googlecode.iterm2 PrefsCustomFolder
     -string "{{ home_prefix }}/.itermcfg/"
     &&

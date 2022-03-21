@@ -1,13 +1,13 @@
 ---
 - name: Collect symlink files.
-  command: "find -H {{ dotfiles_files }} -maxdepth 2 -name '*.symlink' -not -path '*.git'"
+  ansible.builtin.command: "find -H {{ dotfiles_files }} -maxdepth 2 -name '*.symlink' -not -path '*.git'"
   register: symlink_files
   failed_when: false
   check_mode: false
   changed_when: false
 
 - name: Ensure all configured dotfiles are links.
-  command: >-
+  ansible.builtin.command: >-
     ls -F
     {% if 'dest' in item %}
     "{{ item.dest }}"
@@ -21,14 +21,14 @@
   with_items: "{{ symlink_files.stdout_lines + symlink_specific_files }}"
 
 - name: Remove existing dotfiles file if a replacement is being linked.
-  file:
+  ansible.builtin.file:
     path: "{{ item.cmd[-1] }}"
     state: absent
   when: "'@' not in item.stdout"
   with_items: "{{ existing_dotfile_info.results }}"
 
 - name: Link dotfiles.
-  file:
+  ansible.builtin.file:
     src: "{{ item.src | default(item) }}"
     dest: "{% if 'dest' in item %}\
       {{ item.dest }}\

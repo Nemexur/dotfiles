@@ -1,6 +1,6 @@
 ---
 - name: Ensure files and directories exist.
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: "{{ item.state }}"
     mode: "{{ item.mode }}"

@@ -3,13 +3,13 @@
   homebrew: name=tmux state=present
 
 - name: Ensure tmux directory exists.
-  file:
+  ansible.builtin.file:
     path: "{{ tmux_plugins_dir }}"
     state: directory
     mode: 0755
 
 - name: Ensure tpm for tmux plugins is installed.
-  git:
+  ansible.builtin.git:
     repo: "{{ tpm_repo }}"
     dest: "{{ tpm_install_path }}"
     version: master
