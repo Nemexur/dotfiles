@@ -1,15 +1,15 @@
 {
-	"title": "Command/Option with Backspace",
+	"title": "Ultimate backspace to delete words.",
 	"rules": [
 		{
-			"description": "Command as Option with Backspace",
+			"description": "Alt-Backspace -> Command-Backspace",
 			"manipulators": [
 				{
 					"from": {
 						"key_code": "delete_or_backspace",
 						"modifiers": {
 							"mandatory": [
-								"command"
+								"option"
 							],
 							"optional": [
 								"any"
@@ -20,7 +20,7 @@
 						{
 							"key_code": "delete_or_backspace",
 							"modifiers": [
-								"option"
+								"command"
 							]
 						}
 					],
@@ -29,14 +29,33 @@
 			]
 		},
 		{
-			"description": "Option as Command with Backspace",
+			"description": "Backspace -> Alt-Backspace",
+			"manipulators": [
+				{
+					"from": {
+						"key_code": "delete_or_backspace"
+					},
+					"to": [
+						{
+							"key_code": "delete_or_backspace",
+							"modifiers": [
+								"left_alt"
+							]
+						}
+					],
+					"type": "basic"
+				}
+			]
+		},
+		{
+			"description": "Alt-Backspace -> Backspace",
 			"manipulators": [
 				{
 					"from": {
 						"key_code": "delete_or_backspace",
 						"modifiers": {
 							"mandatory": [
-								"option"
+								"command"
 							],
 							"optional": [
 								"any"
@@ -45,10 +64,7 @@
 					},
 					"to": [
 						{
-							"key_code": "delete_or_backspace",
-							"modifiers": [
-								"command"
-							]
+							"key_code": "delete_or_backspace"
 						}
 					],
 					"type": "basic"
