@@ -6,6 +6,14 @@ cd_with_fzf() {
     cd $HOME && cd "$(fd -t d | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
 }
 
+pass_with_fzf() {
+    password_store=${PASSWORD_STORE_DIR-~/.password-store}
+    local password="$(fd -t f -I ".gpg" ${password_store} | awk -F "/" '{ sub(".gpg", "", $NF); print $NF }' | fzf -m )" 
+    if [[ -n $password ]]; then
+        pass show -c $password 2>/dev/null
+    fi
+}
+
 _brew_install() {
     local package="$(brew formulae | fzf -m --preview="HOMEBREW_COLOR=true brew info {}" --preview-window=:hidden --bind="tab:toggle-preview")"
     if [[ -n $package ]]; then

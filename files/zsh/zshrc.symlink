@@ -65,6 +65,7 @@ plugins=(sudo git history zsh-autosuggestions zsh-completions zsh-z)
 # Useful Key Bindings
 bindkey -s '^f' 'cd_with_fzf^M'
 bindkey -s '^b' 'brew_install^M'
+bindkey -s '^g' 'pass_with_fzf^M'
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
