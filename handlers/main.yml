@@ -11,3 +11,6 @@
     - clean
     - env
     - doctor
+
+- name: reload gpg-agent
+  ansible.builtin.command: gpg-connect-agent reloadagent /bye

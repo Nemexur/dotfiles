@@ -14,6 +14,7 @@
     - vars/tmux.yml
     - vars/vim.yml
     - vars/emacs.yml
+    - vars/pass.yml
     - vars/creates.yml
     - vars/symlinks.yml
     - vars/installs.yml
@@ -51,6 +52,10 @@
 
     - import_tasks: tasks/emacs.yml
       tags: ['emacs']
+
+    - import_tasks: tasks/pass.yml
+      when: setup_password_store
+      tags: ['pass']
 
     - import_tasks: tasks/creates.yml
       tags: ['creates']

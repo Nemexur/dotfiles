@@ -1,0 +1,66 @@
+---
+- name: Ensure password manager utils are installed.
+  homebrew: "name={{ item }} state=present"
+  loop:
+    - pass
+    - gopass
+    - gnupg
+
+# TODO: Add symlink
+# - name: Ensure pass is symlinked to gopass.
+
+- name: Ensure pinentry is installed.
+  homebrew: "name={{ item }} state=present"
+  loop:
+    - pinentry
+    - pinentry-mac
+
+- name: Check if pinentry-touchid binary is present.
+  ansible.builtin.stat: "path={{ pinentry_touchid_binary_path }}"
+  register: pinentry_touchid_binary
+  check_mode: false
+
+- block:
+  - name: Ensure pass-utils is present.
+    ansible.builtin.file:
+      path: "{{ password_store_utils_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: Ensure pinentry-touchid is installed.
+    ansible.builtin.git:
+      repo: "{{ pinentry_touchid_repo }}"
+      version: "{{ pinentry_touchid_version }}"
+      dest: "{{ pinentry_touchid_install_path }}"
+      update: false
+      depth: 1
+
+  - name: Build pinentry-touchid binary.
+    ansible.builtin.shell: >
+      GOOS=darwin
+      go build -o {{ pinentry_touchid_binary_path }} main.go
+    args:
+      chdir: "{{ pinentry_touchid_install_path }}"
+
+  - name: Run pinentry-touchid fix.
+    ansible.builtin.command: "{{ pinentry_touchid_binary_path }} -fix"
+    notify:
+      - reload gpg-agent
+
+  - name: Configure MacOs defaults for pinentry.
+    ansible.builtin.shell: >
+      defaults write org.gpgtools.common DisableKeychain -bool yes
+      && defaults write org.gpgtools.common UseKeychain NO
+    changed_when: false
+  when: not pinentry_touchid_binary.stat.exists
+
+- name: Ensure password-store is in place.
+  ansible.builtin.stat: "path={{ password_store_prefix }}/.password-store"
+  register: password_store
+  check_mode: false
+
+- name: Ensure password-store is installed from git.
+  ansible.builtin.command: >
+    gopass clone {{ password_store_repo }}
+    --path {{ password_store_prefix }}/.password-store
+  when: not password_store.stat.exists
