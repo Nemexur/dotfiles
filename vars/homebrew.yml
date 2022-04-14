@@ -138,6 +138,8 @@ homebrew_installed_packages:
   - bat
   # Password manager
   - pass
+  # Just like pass but in GOOOOO
+  - gopass
   # Ultimate template for K8s
   - helm
   # Terminal notifier for timers

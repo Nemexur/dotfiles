@@ -1,16 +1,15 @@
 open_with_fzf() {
-    fd -t f -H -I | fzf -m | xargs open
+    fd -t f -H -I --strip-cwd-prefix | fzf -m | xargs open
 }
 
 cd_with_fzf() {
-    cd $HOME && cd "$(fd -t d | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
+    cd $HOME && cd "$(fd -t d --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
 }
 
 pass_with_fzf() {
-    password_store=${PASSWORD_STORE_DIR-~/.password-store}
-    local password="$(fd -t f -I ".gpg" ${password_store} | awk -F "/" '{ sub(".gpg", "", $NF); print $NF }' | fzf -m )" 
+    local password="$(gopass ls --flat | fzf -m)" 
     if [[ -n $password ]]; then
-        pass show -c $password 2>/dev/null
+        gopass show -c $password 2>/dev/null
     fi
 }
 
