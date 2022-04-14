@@ -40,6 +40,9 @@
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
+;; Iterate throught CamelCase words
+(global-subword-mode 1)
+
 ;; Setup notifier for timer
 (defvar terminal-notifier-command (executable-find "terminal-notifier") "The path to terminal-notifier.")
 
