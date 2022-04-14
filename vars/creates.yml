@@ -1,5 +1,8 @@
 ---
 create_paths:
+  - path: "{{ home_prefix }}/.gnupg"
+    state: directory
+    mode: '0700'
   - path: "{{ home_prefix }}/.config"
     state: directory
     mode: '0755'
