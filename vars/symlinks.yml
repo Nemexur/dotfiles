@@ -10,3 +10,5 @@ symlink_specific_files:
     dest: '{{ home_prefix }}/Library/Application Support/Code/User/keybindings.json'
   - src: /usr/local/opt/emacs-mac/Emacs.app
     dest: /Applications/Emacs.app
+  - src: "{{ dotfiles_files }}/gnupg/gpg-agent.conf"
+    dest: "{{ home_prefix }}/.gnupg/gpg-agent.conf"
