@@ -42,6 +42,8 @@ homebrew_installed_packages:
   - unbound
   # GNU Transport Layer Security (TLS) Library
   - gnutls
+  # GNU Pretty Good Privacy (PGP) package
+  - gnupg
   # Emacs dependency management
   - cask
   # Cross-platform make
@@ -159,6 +161,8 @@ homebrew_installed_packages:
   - yamllint
   # Distributed search & analytics engine
   - elastic/tap/elasticsearch-full
+  # Pinentry for GPG on Mac
+  - pinentry-mac
   # TaskWarrior setup
   - task
   - taskd
