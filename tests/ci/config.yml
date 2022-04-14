@@ -24,3 +24,5 @@ homebrew_cask_apps:
   - iterm2
   - visual-studio-code
   - karabiner-elements
+
+setup_password_store: false
