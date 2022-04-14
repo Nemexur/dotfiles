@@ -28,8 +28,7 @@
   ansible.builtin.shell: >
     defaults write com.googlecode.iterm2 PrefsCustomFolder
     -string "{{ home_prefix }}/.itermcfg/"
-    &&
-    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder
+    && defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder
     -bool true
   changed_when: false
   when: >
