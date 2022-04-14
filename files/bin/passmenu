@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Helper script to get password with dmenu-mac.
+
+# 1. Get stored passwords
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+password_files=$(fd -t f -I ".gpg" ${prefix} | awk -F "/" '{ sub(".gpg", "", $NF); print $NF }')
+
+# 2. Prompt user for the password
+password=$(printf '%s\n' "${password_files}" | dmenu-mac)
+
+[[ -n $password ]] || exit
+
+# 3. Copy to clipboard
+pass show -c "$password" 2>/dev/null
