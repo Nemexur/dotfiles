@@ -36,11 +36,13 @@
     ansible.builtin.shell: >
       GOOS=darwin
       go build -o {{ pinentry_touchid_binary_path }} main.go
+    changed_when: false
     args:
       chdir: "{{ pinentry_touchid_install_path }}"
 
   - name: Run pinentry-touchid fix.
     ansible.builtin.command: "{{ pinentry_touchid_binary_path }} -fix"
+    changed_when: false
     notify:
       - reload gpg-agent
 
