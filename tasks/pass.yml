@@ -6,9 +6,6 @@
     - gopass
     - gnupg
 
-# TODO: Add symlink
-# - name: Ensure pass is symlinked to gopass.
-
 - name: Ensure pinentry is installed.
   homebrew: "name={{ item }} state=present"
   loop:
