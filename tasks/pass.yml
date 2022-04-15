@@ -40,9 +40,15 @@
     args:
       chdir: "{{ pinentry_touchid_install_path }}"
 
+  - name: Run pinentry-touchid check.
+    ansible.builtin.command: "{{ pinentry_touchid_binary_path }} -check"
+    register: pinentry_touchid_check
+    changed_when: false
+    check_mode: false
+
   - name: Run pinentry-touchid fix.
     ansible.builtin.command: "{{ pinentry_touchid_binary_path }} -fix"
-    changed_when: false
+    when: pinentry_touchid_check.rc != 0
     notify:
       - reload gpg-agent
 
