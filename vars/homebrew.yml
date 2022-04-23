@@ -106,6 +106,8 @@ homebrew_installed_packages:
   - reattach-to-user-namespace
   # Powerful, clean, object-oriented scripting language
   - ruby
+  # Programmatically correct mistyped console commands
+  - thefuck
   # Command-line interface for Spotify on a Mac
   - shpotify
   # Diff images from the command-line
@@ -154,6 +156,8 @@ homebrew_installed_packages:
   - markdown
   # Static analysis and lint tool, for (ba)sh scripts
   - shellcheck
+  # QR Code generation
+  - qrencode
   # Python dependency management tool
   - pipenv
   # Automate deployment, configuration, and upgrading
