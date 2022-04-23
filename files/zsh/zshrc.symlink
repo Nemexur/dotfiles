@@ -157,3 +157,5 @@ if [ -f '/Users/a.n.milogradskiy/yandex-cloud/path.bash.inc' ]; then source '/Us
 # The next line enables shell command completion for yc.
 if [ -f '/Users/a.n.milogradskiy/yandex-cloud/completion.zsh.inc' ]; then source '/Users/a.n.milogradskiy/yandex-cloud/completion.zsh.inc'; fi
 
+
+eval $(thefuck --alias)

@@ -156,6 +156,9 @@ nnoremap <C-H> <C-W><C-H>
 set foldmethod=indent
 set foldlevel=99
 
+" Secure passwords
+au BufNewFile,BufRead /private/**/gopass** setlocal noswapfile nobackup noundofile
+
 " Python
 " ------
 " Setup PEP
