@@ -3,7 +3,7 @@
 # bootstrap installs things.
 source $HOME/.dotfiles/scripts/prompt
 
-cd "$(dirname "$0")/.."
+cd "$_ZSH"
 DOTFILES_ROOT=$(pwd -P)
 
 set -e
@@ -48,8 +48,8 @@ setupGitconfig() {
 
 runBootstrap() {
   local extra=""
-  if ! [ -z $1 ]; then
-    extra="--tags $1"
+  if ! [[ -z ${@: 2} ]]; then
+    extra="--tags ${@: 2}"
   fi
   setupGitconfig
   ansible-galaxy install -r $HOME/.dotfiles/requirements.yml
@@ -59,7 +59,7 @@ runBootstrap() {
 displayUsageAndExit() {
   echo "dot -- dotfiles management."
   echo ""
-  echo "Usage: dot [options]"
+  echo "Usage: dot [options] [ansible-playbook options]"
   echo ""
   echo "Options:"
   echo "  -h, --help    Show this help message and exit."
@@ -68,6 +68,9 @@ displayUsageAndExit() {
   echo "                                zsh, tmux, emacs, pass,"
   echo "                                creates, symlinks,"
   echo "                                installs, macos, extra."
+  echo "Ansible-playbook options:"
+  echo "  Extra options for ansible-playbook command."
+  echo "  Works only with --tags option."
   exit 0
 }
 
@@ -77,7 +80,7 @@ while test $# -gt 0; do
             displayUsageAndExit
             ;;
         "-t"|"--tags")
-            runBootstrap $2
+            runBootstrap $@
             exit
             ;;
         *)
