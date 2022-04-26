@@ -50,8 +50,13 @@
 ;(unpin! t)
 
 ;; Emacs plugin for better tabs management.
-;; (package! centaur-tabs)
+(package! centaur-tabs)
 ;; Treemacs to outline code structure with LSP.
 (package! lsp-treemacs)
 ;; Add support to jsonnet.
 (package! jsonnet-mode)
+;; Gitlab-CI support
+(package! gitlab-ci-mode)
+(package! gitlab-ci-mode-flycheck)
+;; Manage K8s
+(package! kubernetes)

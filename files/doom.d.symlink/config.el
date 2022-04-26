@@ -125,16 +125,21 @@
 ;; Useful shortucts
 (map! :leader
       ;; For Terminal
-      :desc "Open EShell." "e s" #'eshell
+      :desc "Open EShell" "e s" #'eshell
       ;; For spelling
-      :desc "Lookup spelling corrections." "c z" #'ispell-word
+      :desc "Lookup spelling corrections" "c z" #'ispell-word
       ;; For centaur tabs
-      :desc "Toggle tabs globally." "t c" #'centaur-tabs-mode
-      :desc "Toggle tabs local display." "t C" #'centaur-tabs-local-mode
+      :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
+      :desc "Toggle tabs local display" "t C" #'centaur-tabs-local-mode
       ;; For lsp-ui
-      :desc "Show documentation in doc-frame." "d s" #'lsp-ui-doc-show
+      :desc "Show documentation in doc-frame" "d s" #'lsp-ui-doc-show
       ;; For Helm Buffers
-      :desc "Show buffers list with Counsel." "b h" #'counsel-ibuffer)
+      :desc "Show buffers list with Counsel" "b h" #'counsel-ibuffer
+      ;; For Gitlab-CI
+      :desc "Run Gitlab-CI lint" "c g" #'gitlab-ci-lint)
+
+;; Load secrets
+(load! "secrets.el")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

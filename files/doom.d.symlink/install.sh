@@ -13,5 +13,5 @@ if [[ -d "$HOME/.emacs.d/bin" && -d "$HOME/.doom.d" ]]; then
   # Just in case make doom doctor always succedd.
   $HOME/.emacs.d/bin/doom doctor || true
 else
-  echo " Doom Emacs is not installed. "
+  echo " [SKIP] Doom Emacs is not installed. "
 fi
