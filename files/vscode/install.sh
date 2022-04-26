@@ -65,7 +65,7 @@ if command -v code &> /dev/null; then
     code --install-extension shd101wyy.markdown-preview-enhanced
     code --install-extension randrade23.beautify-json
 else
-    echo " Visual Studio Code is not installed. "
+    echo " [SKIP] Visual Studio Code is not installed. "
 fi
 
 exit 0

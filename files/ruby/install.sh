@@ -8,6 +8,6 @@ if ! command -v colorls &> /dev/null; then
   echo " Installing colorls "
   sudo gem install colorls -n /usr/local/bin || true
 else
-  echo " colorls is already installed. "
+  echo " [SKIP] Colorls is already installed. "
 fi
 
