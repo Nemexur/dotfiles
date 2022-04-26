@@ -54,7 +54,7 @@ then
     echo ""
     cd $HOME/.dotfiles && echo "Switched to .dotfiles dir..."
     echo ""
-    echo "Initiate dotfiles bootstrap..." && $HOME/.dotfiles/scripts/dot-bootstrap
+    echo "Initiate dotfiles bootstrap..." && $HOME/.dotfiles/files/bin/dot
 
     if [[ $? -eq 0 ]]
     then
