@@ -181,7 +181,10 @@ homebrew_installed_packages:
   # All right then, keep your secrets
   - hashicorp/tap/vault
   - name: emacs-mac
-    install_options: with-modules
+    install_options:
+      - with-native-comp
+      - with-emacs-sexy-icon
+      - with-imagemagick
 
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps:
@@ -199,7 +202,6 @@ homebrew_cask_apps:
   - synergy
   - grammarly
   - rectangle
-  - transmission
   - visual-studio-code
   - karabiner-elements
   - logitech-options
