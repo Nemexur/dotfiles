@@ -8,3 +8,4 @@ secrets*
 
 files/karabiner/automatic_backups
 files/git/gitconfig.*.symlink
+files/**/secrets.*
