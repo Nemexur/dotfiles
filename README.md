@@ -21,7 +21,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/Nemexur/dotfiles/main/config
 
   3. Clone or download this repository to your local drive.
   4. Run `ansible-galaxy install -r requirements.yml` inside this directory to install required Ansible roles.
-  5. Run `ansible-playbook main.yml --ask-become-pass or scripts/dot` inside this directory. Enter your macOS account password when prompted for the 'BECOME' password.
+  5. Run `ansible-playbook main.yml --ask-become-pass or dot` inside this directory. Enter your macOS account password when prompted for the 'BECOME' password.
 
 ## Notes
 
@@ -44,7 +44,7 @@ area to your forked dotfiles — say, "Java" — you can simply add a `java` dir
 and put files in there. Anything with an extension of `.zsh` will get automatically
 included into your shell. Anything with an extension of `.symlink` will get
 symlinked without extension into `$HOME` when you run
-`scripts/dot-bootstrap --tags symlinks`.
+`dot --tags symlinks`.
 
 ## Components
 
@@ -100,7 +100,7 @@ ansible-playbook main.yml --ask-become-pass --tags "homebrew,installs"
 
 ## Extra
 
-`scripts/dot-bootstrap` is a simple script that configures everything.
+`dot` is a simple script that configures everything.
 It is considered an alias for `ansible-playbook main.yml --ask-become-pass`.
 However, it additionally checks for gitconfig files.
 
