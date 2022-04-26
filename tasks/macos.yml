@@ -8,14 +8,14 @@
     src: "{{ macos_files }}/fonts/"
     dest: "/Library/Fonts"
     mode: 0775
-  become: yes
+  become: true
 
 - name: Add keyboard layouts.
   ansible.builtin.copy:
     src: "{{ macos_files }}/keyboard-layouts/"
     dest: '/Library/Keyboard\ Layouts'
     mode: 0775
-  become: yes
+  become: true
 
 - name: Get current iTerm profile.
   ansible.builtin.command: defaults read com.googlecode.iterm2

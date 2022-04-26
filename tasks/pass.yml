@@ -36,9 +36,9 @@
     ansible.builtin.shell: >
       GOOS=darwin
       go build -o {{ pinentry_touchid_binary_path }} main.go
-    changed_when: false
     args:
       chdir: "{{ pinentry_touchid_install_path }}"
+      creates: "{{ pinentry_touchid_binary_path }}"
 
   - name: Run pinentry-touchid check.
     ansible.builtin.command: "{{ pinentry_touchid_binary_path }} -check"
