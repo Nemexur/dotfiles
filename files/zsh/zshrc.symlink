@@ -62,6 +62,10 @@ plugins=(sudo git history zsh-autosuggestions zsh-completions zsh-z)
 
 # User configuration
 
+# Set Open Files limits
+ulimit -n 200000
+ulimit -u 2048
+
 # Useful Key Bindings
 bindkey -s '^f' 'cd_with_fzf^M'
 bindkey -s '^b' 'brew_install^M'
