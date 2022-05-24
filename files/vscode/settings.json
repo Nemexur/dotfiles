@@ -210,5 +210,6 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         }
-    }
+    },
+    "docker.explorerRefreshInterval": 5000
 }
