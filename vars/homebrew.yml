@@ -11,6 +11,7 @@ homebrew_taps:
   - homebrew/cask-drivers
   - vectordotdev/brew
   - hashicorp/tap
+  - go-swagger/go-swagger
 
 homebrew_installed_packages:
   # Zsh requirements
@@ -66,6 +67,8 @@ homebrew_installed_packages:
   - glib
   # Open source programming language to build simple/reliable/efficient software
   - go
+  # The power of REST API representation
+  - go-swagger
   # Colorize logfiles and command output
   - grc
   # Improved top (interactive process viewer)
