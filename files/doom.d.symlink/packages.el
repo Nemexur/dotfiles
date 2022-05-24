@@ -60,3 +60,10 @@
 (package! gitlab-ci-mode-flycheck)
 ;; Manage K8s
 (package! kubernetes)
+;; Run lsp in docker containers with ease
+(package! lsp-docker)
+;; Evil Collection
+(package! evil-collection
+  :pin "11cfad9b3c01feb7848f13d5c3f5cc1787ab6eb6")
+;; Go Linter
+(package! flycheck-golangci-lint)

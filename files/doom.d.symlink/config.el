@@ -32,16 +32,29 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-dracula)
 
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
+
+;; Always use spaces
+(setq-default indent-tabs-mode t)
+
+;; Iterate throught CamelCase words
+(global-subword-mode 1)
+
+;; Remap keys for Evil
+(evil-define-key 'normal 'global "\C-u" (kbd "C-r"))
+(evil-define-key 'normal 'global "\C-o" (kbd "o <escape>"))
+(evil-define-key nil 'global "\C-h" (kbd "<backspace>"))
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
 ;; Auto next-line after 100 columns
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-
-;; Iterate throught CamelCase words
-(global-subword-mode 1)
+(add-hook! 'org-mode-hook '(lambda () (setq fill-column 100)))
+(add-hook! 'org-mode-hook 'turn-on-auto-fill)
+(add-hook! 'org-mode-hook #'format-all-mode)
 
 ;; Setup notifier for timer
 (defvar terminal-notifier-command (executable-find "terminal-notifier") "The path to terminal-notifier.")
@@ -64,13 +77,6 @@
 
 (setq org-clock-sound "/System/Library/Sounds/Blow.aiff")
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-;; Always use spaces
-(setq-default indent-tabs-mode t)
-
 ;; Automatically clean whitespaces
 (use-package! ws-butler
   :hook ((text-mode . ws-butler-mode)
@@ -80,14 +86,8 @@
 (after! lsp-ui
   (setq lsp-ui-doc-enable nil)
   (setq lsp-modeline-code-actions-enable t))
-;;   (setq lsp-ui-mode-use-webkit t
-;; 	lsp-ui-doc-use-childframe nil
-;; 	lsp-ui-doc-position 'top
-;; 	lsp-ui-doc-max-height 30
-;; 	lsp-ui-doc-max-width 40
-;; 	lsp-ui-doc-include-signature t))
 
-;; Setup python-ms language server
+;; Python
 (setq lsp-enable-file-watchers nil)
 
 (use-package! lsp-pyright
@@ -99,8 +99,17 @@
 		   (lsp-deferred)
 		   (flycheck-select-checker 'python-flake8))))
 
+;; Go
+(use-package! flycheck-golangci-lint
+  :hook
+   (go-mode . flycheck-golangci-lint-setup))
+
+;; Yaml
+(add-hook! 'yaml-mode-hook #'format-all-mode)
+
 ;; Setup tabs navigation with centaur tabs
-(setq centaur-tabs-set-bar 'over
+(setq centaur-tabs-mode nil
+      centaur-tabs-set-bar 'over
       centaur-tabs-set-icons t
       centaur-tabs-gray-out-icons 'buffer
       centaur-tabs-height 24
@@ -110,11 +119,6 @@
 (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
 (define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
 (define-key evil-normal-state-map (kbd "g q") 'centaur-tabs--kill-this-buffer-dont-ask)
-
-;; Remap keys for Evil
-(evil-define-key 'normal 'global "\C-u" (kbd "C-r"))
-(evil-define-key 'normal 'global "\C-o" (kbd "o <escape>"))
-(evil-define-key nil 'global "\C-h" (kbd "<backspace>"))
 
 ;; IBuffer filter groups
 (setq! ibuffer-saved-filter-groups
@@ -128,6 +132,8 @@
       :desc "Open EShell" "e s" #'eshell
       ;; For spelling
       :desc "Lookup spelling corrections" "c z" #'ispell-word
+      ;; For treemacs
+      :desc "Toggle current project in treemacs" "t e" #'treemacs-display-current-project-exclusively
       ;; For centaur tabs
       :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
       :desc "Toggle tabs local display" "t C" #'centaur-tabs-local-mode
