@@ -16,8 +16,8 @@
     - "{{ doom_emacs_config_dir }}"
     - "{{ doom_emacs_binary }}"
 
-# Run the block if any of the directories above is absent.
-- block:
+- name: Install doom emacs if needed.
+  block:
   - name: Ensure doom_emacs_install_path is empty.
     ansible.builtin.file:
       path: "{{ doom_emacs_install_path }}"

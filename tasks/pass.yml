@@ -17,7 +17,8 @@
   register: pinentry_touchid_binary
   check_mode: false
 
-- block:
+- name: Configure pass utils if needed.
+  block:
   - name: Ensure pass-utils is present.
     ansible.builtin.file:
       path: "{{ password_store_utils_dir }}"
