@@ -52,7 +52,7 @@ jobs:
       - name: Install test dependencies.
         run: |
           sudo pip3 install -U pip
-          sudo pip3 install -U ansible pexpect setuptools
+          sudo pip3 install -U ansible ansible-core pexpect setuptools
 
       - name: Set up the test environment.
         run: |
