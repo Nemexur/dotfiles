@@ -50,7 +50,7 @@ jobs:
           sudo rm -rf /Applications/Google\ Chrome.app
 
       - name: Install test dependencies.
-        run: sudo pip3 install -U ansible pexpect setuptools
+        run: sudo pip3 install ansible pexpect setuptools==62.2.0
 
       - name: Set up the test environment.
         run: |
@@ -58,6 +58,7 @@ jobs:
           cp tests/ci/inventory.yml ./inventory.yml
           cp tests/ci/config.yml ./config.yml
           ansible-galaxy install -vvvr requirements.yml
+
       - name: Test the playbook's syntax.
         run: ansible-playbook main.yml --syntax-check
 
