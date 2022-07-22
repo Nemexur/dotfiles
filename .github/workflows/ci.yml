@@ -50,7 +50,9 @@ jobs:
           sudo rm -rf /Applications/Google\ Chrome.app
 
       - name: Install test dependencies.
-        run: sudo pip3 install ansible pexpect setuptools==62.2.0
+        run: |
+          sudo pip3 install -U pip
+          sudo pip3 install -U ansible pexpect setuptools
 
       - name: Set up the test environment.
         run: |
