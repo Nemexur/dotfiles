@@ -31,6 +31,8 @@ homebrew_installed_packages:
   - xz
   # Search tool for Doom Emacs
   - rg
+  # Commitless repo
+  - pre-commit
   # Correct spelling errors within Emacs
   - aspell
   # Simple, fast and user-friendly alternative to find
@@ -147,6 +149,8 @@ homebrew_installed_packages:
   - gopass
   # Ultimate template for K8s
   - helm
+  # Git for lazy
+  - lazygit
   # Terminal notifier for timers
   - terminal-notifier
   # S3Cmd
