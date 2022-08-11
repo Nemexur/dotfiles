@@ -1,8 +1,8 @@
 {
-  "title": "Left cmd-ctrl + hjkl to Arrow Keys",
+  "title": "Left ctrl-cmd + hjkl to Arrow Keys",
   "rules": [
     {
-      "description": "Left cmd-ctrl + hjkl to arrow keys",
+      "description": "Left ctrl-cmd + hjkl to arrow keys",
       "manipulators": [
         {
           "from": {
