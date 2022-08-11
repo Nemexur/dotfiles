@@ -104,12 +104,8 @@
   :hook
    (go-mode . flycheck-golangci-lint-setup))
 
-;; Yaml
-(add-hook! 'yaml-mode-hook #'format-all-mode)
-
 ;; Setup tabs navigation with centaur tabs
-(setq centaur-tabs-mode nil
-      centaur-tabs-set-bar 'over
+(setq centaur-tabs-set-bar 'over
       centaur-tabs-set-icons t
       centaur-tabs-gray-out-icons 'buffer
       centaur-tabs-height 24
