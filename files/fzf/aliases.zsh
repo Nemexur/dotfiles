@@ -1,9 +1,18 @@
 open_with_fzf() {
-    fd -t f -H -I --strip-cwd-prefix | fzf -m | xargs open
+    CUR_DIR=${PWD}
+    cd ${HOME} && fd -t f -H -I --strip-cwd-prefix | fzf -m | xargs open
+    cd ${CUR_DIR}
 }
 
 cd_with_fzf() {
-    cd $HOME && cd "$(fd -t d --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
+    local cur_dir=${PWD}
+    cd ${HOME}
+    local dir="$(fd -t d --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
+    if [[ -n $dir ]]; then
+        cd $dir
+    else
+        cd $cur_dir
+    fi
 }
 
 pass_with_fzf() {
