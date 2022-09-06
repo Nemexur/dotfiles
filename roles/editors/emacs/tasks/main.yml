@@ -35,6 +35,6 @@
       mode: 0775
 
   - name: Install Doom Emacs
-    ansible.builtin.command: "{{ emacs_doom_emacs_binary }}/doom --yes install"
+    ansible.builtin.command: "{{ emacs_doom_emacs_binary }}/doom --force install"
     changed_when: true
     notify: Doom health
