@@ -1,6 +1,7 @@
 ---
-homebrew_use_brewfile: false
-
+#
+# Homebrew
+#
 homebrew_taps:
   - homebrew/cask
   - homebrew/core
@@ -12,7 +13,6 @@ homebrew_taps:
   - vectordotdev/brew
   - hashicorp/tap
   - go-swagger/go-swagger
-
 homebrew_installed_packages:
   # Zsh requirements
   - zsh
@@ -180,20 +180,25 @@ homebrew_installed_packages:
   - task
   - taskd
   - tasksh
+  # Modern cd replacement
+  - zoxide
+  # Modern ls replacement
+  - exa
+  # Just like ssh but keeps your shell configuration
+  - xxh
   # A High-Performance Log, Metrics, and Events Router
   - vector
   # Persistent key-value database, with built-in net interface
   - redis
+  # Oh my sweeeet vault
+  - hashicorp/tap/vault
   # Emacs
   # All right then, keep your secrets
-  - hashicorp/tap/vault
   - name: emacs-mac
     install_options:
       - with-native-comp
       - with-emacs-sexy-icon
       - with-imagemagick
-
-homebrew_cask_appdir: /Applications
 homebrew_cask_apps:
   - brave-browser
   - qutebrowser
@@ -205,6 +210,7 @@ homebrew_cask_apps:
   - 1password
   - mactex
   - skim
+  - sioyek
   - dropbox
   - synergy
   - grammarly
@@ -219,3 +225,106 @@ homebrew_cask_apps:
   - vagrant
   - vagrant-manager
   - google-cloud-sdk
+#
+# Git
+#
+git_work_config_enabled: true
+#
+# Symlink
+#
+symlink_additional_files:
+  - path: "{{ dotfiles_dir_files }}/tmux/responsive"
+    dest: "{{ home_dir }}/.tmux/responsive"
+  - path: "{{ dotfiles_dir_files }}/karabiner"
+    dest: "{{ home_dir }}/.config/karabiner"
+  - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
+  - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
+  - path: "{{ dotfiles_dir_files }}/gnupg/gpg-agent.conf"
+    dest: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+  - path: /usr/local/opt/emacs-mac/Emacs.app
+    dest: /Applications/Emacs.app
+#
+# System
+#
+system_macos_defaults:
+  # Disable press-and-hold for keys in favor of key repeat.
+  - key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
+  # Use AirDrop over every interface. srsly this should be a default.
+  - domain: com.apple.NetworkBrowser
+    key: BrowseAllInterfaces
+    type: string
+    value: "1"
+  # Always open everything in Finder's list view. This is important.
+  - domain: com.apple.Finder
+    key: FXPreferredViewStyle
+    type: string
+    value: Nlsv
+  # Set a really fast key repeat.
+  - key: KeyRepeat
+    type: int
+    value: 1
+  # Set the Finder prefs for showing a few different volumes on the Desktop.
+  - domain: com.apple.Finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: true
+  - domain: com.apple.Finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: true
+  # Run the screensaver if we're in the bottom-left hot corner.
+  - domain: com.apple.dock
+    key: wvous-bl-corner
+    type: int
+    value: 5
+  - domain: com.apple.dock
+    key: wvous-bl-modifier
+    type: int
+    value: 0
+  # Hide Safari's bookmark bar.
+  - domain: com.apple.Safari
+    key: ShowFavoritesBar
+    type: bool
+    value: false
+  # Set up Safari for development.
+  - domain: com.apple.Safari
+    key: IncludeInternalDebugMenu
+    type: bool
+    value: true
+  - domain: com.apple.Safari
+    key: IncludeDevelopMenu
+    type: bool
+    value: true
+  - domain: com.apple.Safari
+    key: WebKitDeveloperExtrasEnabledPreferenceKey
+    type: bool
+    value: true
+  - domain: com.apple.Safari
+    key: com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled
+    type: bool
+    value: true
+  - key: WebKitDeveloperExtras
+    type: bool
+    value: true
+  # Set up Pinentry and Pass
+  - domain: org.gpgtools.common
+    key: DisableKeychain
+    type: bool
+    value: true
+  - domain: org.gpgtools.common
+    key: UseKeychain
+    type: string
+    value: "NO"
+  # Set up iTerm
+  - domain: com.googlecode.iterm2
+    key: PrefsCustomFolder
+    type: string
+    value: "{{ home_dir }}/.itermcfg/"
+  - domain: com.googlecode.iterm2
+    key: LoadPrefsFromCustomFolder
+    type: bool
+    value: true

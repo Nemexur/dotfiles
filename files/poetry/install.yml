@@ -1,0 +1,5 @@
+---
+- name: Install poetry
+  ansible.builtin.shell:
+    cmd: "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -"
+    creates: "{{ home_dir }}/.poetry/bin/poetry"

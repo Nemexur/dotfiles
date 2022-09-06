@@ -1,4 +1,0 @@
----
-setup_macos: true
-
-macos_files: "{{ dotfiles_files }}/macos"

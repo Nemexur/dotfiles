@@ -1,11 +1,9 @@
 *.vagrant
-.DS_Store
+*.vscode
 *.retry
 roles*
 collections*
-secrets*
+.DS_Store
 ./config.yml
 
-files/karabiner/automatic_backups
-files/git/gitconfig.*.symlink
 files/**/secrets.*
