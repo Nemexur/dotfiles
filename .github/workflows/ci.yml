@@ -62,7 +62,7 @@ jobs:
         run: ansible-playbook main.yml --syntax-check --skip-tags git
 
       - name: Test the playbook.
-        run: ansible-playbook main.yml --skip-tags git
+        run: ansible-playbook main.yml --skip-tags git -vvv
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
