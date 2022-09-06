@@ -10,18 +10,20 @@
   pre_tasks:
     - name: Include OS specific vars
       ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+      tags: always
 
     - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
+      tags: always
 
   roles:
     - role: packages
       tags: packages
     - role: utils/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished package role"
+      telegram_message: "dotfiles: finished packages role"
       tags: packages
     - role: git
       tags: git
