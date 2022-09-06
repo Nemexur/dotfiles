@@ -15,14 +15,6 @@
     - telegram_chat_id is undefined
     - telegram_chat_id_local is undefined
 
-- name: Validate prompts
-  ansible.builtin.assert:
-    that:
-      - "_telegram_token != 'none'"
-      - "_telegram_chat_id != 'none'"
-    fail_msg: "telegram token and chat id can not be empty"
-    success_msg: "looks good!!"
-
 - name: Set facts based on the input
   ansible.builtin.set_fact:
     telegram_token_local: >-
@@ -38,6 +30,14 @@
   when:
     - telegram_token_local is undefined
     - telegram_chat_id_local is undefined
+
+- name: Validate prompts
+  ansible.builtin.assert:
+    that:
+      - "telegram_token_local != 'none'"
+      - "telegram_chat_id_local != 'none'"
+    fail_msg: "telegram token and chat id can not be empty"
+    success_msg: "looks good!!"
 
 - name: Send notification to Telegram
   community.general.telegram:
