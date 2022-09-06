@@ -1,0 +1,21 @@
+---
+- name: Ensure apt cache is updated
+  ansible.builtin.apt:
+    autoclean: true
+    autoremove: true
+    update_cache: true
+
+- name: Ensure snap is present
+  ansible.builtin.apt: name=snapd state=present
+
+- name: Ensure apt repositories are present
+  ansible.builtin.apt_repository:
+    name: "{{ item.name | default(item )}}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ packages_apt_repos }}"
+
+- name: Ensure apt packages are present
+  ansible.builtin.apt:
+    name: "{{ item.name | default(item )}}"
+    state: "{{ item.staet | default('present') }}"
+  loop: "{{ packages_apt_packages }}"

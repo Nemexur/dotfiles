@@ -1,0 +1,9 @@
+---
+- name: Ensure emacs-mac tap is present
+  community.general.homebrew_tap: name=railwaycat/emacsmacport state=present
+
+- name: Ensure emacs-mac is installed
+  community.general.homebrew:
+    name: emacs-mac
+    state: present
+    install_options: with-modules

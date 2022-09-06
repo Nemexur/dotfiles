@@ -1,0 +1,7 @@
+---
+# Darwin
+homebrew_use_brewfile: false
+homebrew_cask_appdir: /Applications
+# Debian
+packages_apt_repos: []
+packages_apt_packages: []

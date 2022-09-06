@@ -1,0 +1,31 @@
+---
+- include_tasks: darwin.yml
+  when: ansible_os_family == "Darwin"
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Check if Oh-My-Zsh is already in place
+  ansible.builtin.stat: "path={{ zsh_oh_my_zsh_install_path }}"
+  register: _zsh_oh_my_zsh_dir
+  check_mode: false
+
+- name: Install Oh-My-Zsh
+  ansible.builtin.raw: >
+    sh -c
+    "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  when: not _zsh_oh_my_zsh_dir.stat.exists
+
+- name: Ensure Oh-My-Zsh plugins are present
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: master
+    update: false
+    depth: 1
+  loop: "{{ zsh_oh_my_zsh_plugins }}"
+
+- name: Set user shell to zsh.
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh

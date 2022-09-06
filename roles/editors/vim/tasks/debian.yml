@@ -1,0 +1,9 @@
+---
+- name: Ensure vim exists
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - vim
+    - neovim

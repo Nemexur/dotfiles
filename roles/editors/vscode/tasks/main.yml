@@ -1,0 +1,13 @@
+---
+- include_tasks: darwin.yml
+  when: ansible_os_family == "Darwin"
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install vscode extensions
+  ansible.builtin.include_role:
+    name: gantsign.visual-studio-code-extensions
+  vars:
+    users:
+      - username: "{{ ansible_user_id }}"
+        visual_studio_code_extensions: "{{ vscode_extensions }}"

@@ -1,0 +1,10 @@
+---
+- name: Setup gitconfigs
+  ansible.builtin.include_tasks: git.yml
+  vars:
+    git_config_type: "{{ item.type | default(item) }}"
+  when: item.enabled | default(true) | bool
+  loop:
+    - personal
+    - type: work
+      enabled: "{{ git_config_work_enabled | default(true) | bool }}"

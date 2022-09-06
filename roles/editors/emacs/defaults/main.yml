@@ -1,0 +1,7 @@
+---
+emacs_doom_emacs_repo: "https://github.com/hlissner/doom-emacs.git"
+
+emacs_doom_emacs_prefix: "{{ home_dir }}"
+emacs_doom_emacs_config_dir: "{{ emacs_doom_emacs_prefix }}/.doom.d"
+emacs_doom_emacs_install_path: "{{ emacs_doom_emacs_prefix }}/.emacs.d"
+emacs_doom_emacs_binary: "{{ emacs_doom_emacs_install_path }}/bin"

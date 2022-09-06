@@ -1,0 +1,3 @@
+---
+- name: Ensure tmux is present
+  community.general.homebrew: name=tmux state=present

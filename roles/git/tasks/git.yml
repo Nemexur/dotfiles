@@ -1,0 +1,65 @@
+---
+- name: "Check gitconfig {{ git_config_type }}"
+  ansible.builtin.stat:
+    name: "{{ dotfiles_dir_files }}/git/gitconfig.{{ git_config_type }}.symlink"
+  register: _git_config_file
+
+- name: Prompt gitconfig change
+  ansible.builtin.pause:
+    prompt: |
+      Do you want to change gitconfig [{{ git_config_type }}]?
+      [y/N]
+  register: _git_config_change_prompt
+  when: _git_config_file.stat.exists
+
+- name: Set facts based on the input
+  ansible.builtin.set_fact:
+    git_config_change_local: >-
+      {%- if _git_config_change_prompt.user_input is defined -%}{{ booleans_map[_git_config_change_prompt.user_input] | default(false) | bool }}
+      {%- else %}true{% endif -%}
+
+- name: Prompt gitconfig name
+  ansible.builtin.pause:
+    prompt: "Input your git name [{{ git_config_type }}]:"
+  register: _git_config_name
+  when:
+    - git_config_change_local
+    - git_config_name is undefined
+
+- name: Prompt gitconfig email
+  ansible.builtin.pause:
+    prompt: "Input your git email [{{ git_config_type }}]:"
+  register: _git_config_email
+  when:
+    - git_config_change_local
+    - git_config_email is undefined
+
+- name: Set facts based on the input
+  ansible.builtin.set_fact:
+    git_config_name_local: >-
+      {% if git_config_name is defined %}{{ git_config_name }}
+      {%- elif _git_config_name.user_input is defined and _git_config_name.user_input|length > 0 -%}
+      {{ _git_config_name.user_input }}
+      {%- else %}none{% endif -%}
+    git_config_email_local: >-
+      {% if git_config_email is defined %}{{ git_config_email }}
+      {%- elif _git_config_email.user_input is defined and _git_config_email.user_input|length > 0 -%}
+      {{ _git_config_email.user_input }}
+      {%- else %}none{% endif -%}
+  when: git_config_change_local
+
+- name: Validate prompts
+  ansible.builtin.assert:
+    that:
+      - "git_config_name_local != 'none'"
+      - "git_config_email_local != 'none'"
+    fail_msg: "gitconfig name and email can not be empty"
+    success_msg: "looks good!!"
+  when: git_config_change_local
+
+- name: "Copy {{ git_config_type }} gitconfig file"
+  ansible.builtin.template:
+    src: gitconfig.example.symlink.j2
+    dest: "{{ dotfiles_dir_files }}/git/gitconfig.{{ git_config_type }}.symlink"
+    mode: 0700
+  when: git_config_change_local

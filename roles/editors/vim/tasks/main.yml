@@ -1,0 +1,36 @@
+---
+- include_tasks: darwin.yml
+  when: ansible_os_family == "Darwin"
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Ensure vim directories exist
+  ansible.builtin.file:
+    path: "{{ vim_prefix }}/{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - bundle
+    - autoload
+
+- name: Ensure vundle is installed
+  ansible.builtin.git:
+    repo: "{{ vim_vundle_repo }}"
+    dest: "{{ vim_vundle_install_path }}"
+    version: master
+    update: false
+    depth: 1
+
+- name: Ensure pathogen is installed
+  ansible.builtin.get_url:
+    url: "{{ vim_pathogen_url }}"
+    dest: "{{ vim_pathogen_install_path }}"
+    mode: 0755
+
+- name: Ensure NerdTree is installed
+  ansible.builtin.git:
+    repo: "{{ vim_nerdtree_repo }}"
+    dest: "{{ vim_nerdtree_install_path }}"
+    version: master
+    update: false
+    depth: 1

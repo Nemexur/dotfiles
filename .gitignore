@@ -1,8 +1,8 @@
 *.vagrant
 *.vscode
 *.retry
-roles*
-collections*
+roles-galaxy*
+collections-galaxy*
 .DS_Store
 ./config.yml
 

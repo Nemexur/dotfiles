@@ -1,0 +1,5 @@
+---
+# Example:
+#   path: dotfiles/foo
+#   dest: .config/foo
+symlink_additional_files: []

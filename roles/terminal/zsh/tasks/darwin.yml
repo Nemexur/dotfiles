@@ -1,0 +1,6 @@
+---
+- name: Ensure zsh is present
+  community.general.homebrew: "name={{ item }} state=present"
+  loop:
+    - zsh
+    - zsh-completions

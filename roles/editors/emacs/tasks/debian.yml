@@ -1,0 +1,9 @@
+---
+- name: Ensure emacs tap is present
+  ansible.builtin.apt_repository: name=ppa:kelleyk/emacs state=present
+
+- name: Ensure emacs is installed
+  ansible.builtin.apt:
+    name: emacs28
+    state: present
+    update_cache: true

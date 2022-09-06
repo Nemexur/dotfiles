@@ -1,0 +1,7 @@
+---
+- name: doom health
+  ansible.builtin.command: "{{ doom_emacs_binary }}/doom {{ item }}"
+  loop:
+    - clean
+    - env
+    - doctor

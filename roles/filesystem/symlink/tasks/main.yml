@@ -1,0 +1,34 @@
+---
+- name: Collect symlink files
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir_files }}"
+    recurse: true
+    file_type: any
+    patterns:
+      - "*.symlink"
+    excludes:
+      - "*.git"
+  register: _symlink_files
+
+- name: Get stats for symlink files
+  ansible.builtin.stat:
+    path: "{{ ('dest' in item) | ternary(item.dest, home_dir + '/.' + (item.path.split('/')[-1] | replace('.symlink', ''))) }}"
+  loop: "{{ _symlink_files.files + symlink_additional_files }}"
+  register: _symlink_files_stats
+
+- name: Ensure dotfiles are absent if replacements exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  when:
+    - item.exists
+    - not item.islnk
+  loop: "{{ _symlink_files_stats.results | map(attribute='stat') }}"
+
+- name: Ensure symlinks are linked
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ('dest' in item) | ternary(item.dest, home_dir + '/.' + (item.path.split('/')[-1] | replace('.symlink', ''))) }}"
+    state: link
+    mode: 0755
+  loop: "{{ _symlink_files.files + symlink_additional_files }}"
