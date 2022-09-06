@@ -45,7 +45,7 @@
     api_method: SendMessage
     api_args:
       chat_id: "{{ telegram_chat_id_local }}"
-      parse_mode: markdown
       text: "{{ telegram_message }}"
+      parse_mode: markdown
       disable_notification: false
       disable_web_page_preview: true
