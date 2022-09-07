@@ -8,7 +8,6 @@
   ansible.builtin.include_role:
     name: gantsign.visual-studio-code-extensions
   vars:
-    ansible_pkg_mgr: homebrew
     users:
       - username: "{{ ansible_user_id }}"
         visual_studio_code_extensions: "{{ vscode_extensions }}"
