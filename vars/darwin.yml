@@ -296,12 +296,12 @@ system_macos_defaults:
   # Set up Safari for development.
   - domain: com.apple.Safari
     key: IncludeInternalDebugMenu
-    type: bool
-    value: true
+    type: string
+    value: "1"
   - domain: com.apple.Safari
     key: IncludeDevelopMenu
-    type: bool
-    value: true
+    type: string
+    value: "1"
   - domain: com.apple.Safari
     key: WebKitDeveloperExtrasEnabledPreferenceKey
     type: bool
