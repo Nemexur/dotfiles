@@ -232,15 +232,19 @@ git_work_config_enabled: true
 #
 # Symlink
 #
+symlink_directories:
+  - "{{ home_dir }}/.tmux"
+  - "{{ home_dir }}/.config"
+  - '{{ home_dir }}/Library/Application Support/Code/User'
 symlink_additional_files:
   - path: "{{ dotfiles_dir_files }}/tmux/responsive"
     dest: "{{ home_dir }}/.tmux/responsive"
   - path: "{{ dotfiles_dir_files }}/karabiner"
     dest: "{{ home_dir }}/.config/karabiner"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
-    dest: '{{ home_dir }}/Library/Application\ Support/Code/User/settings.json'
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
-    dest: '{{ home_dir }}/Library/Application\ Support/Code/User/keybindings.json'
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
   - path: /usr/local/opt/emacs-mac/Emacs.app
     dest: /Applications/Emacs.apk
 

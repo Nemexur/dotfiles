@@ -25,6 +25,13 @@
     - not item.islnk
   loop: "{{ _symlink_files_stats.results | map(attribute='stat') }}"
 
+- name: Ensure directories for symlinks are present
+  ansible.builtin.file:
+    path: "{{ item.path | default(item) }}"
+    state: directory
+    mode: "{{ item.mode | default(755) }}"
+  loop: "{{ symlink_directories }}"
+
 - name: Ensure symlinks are linked
   ansible.builtin.file:
     src: "{{ item.path }}"
