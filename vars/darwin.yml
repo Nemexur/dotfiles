@@ -238,13 +238,12 @@ symlink_additional_files:
   - path: "{{ dotfiles_dir_files }}/karabiner"
     dest: "{{ home_dir }}/.config/karabiner"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
-    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
+    dest: '{{ home_dir }}/Library/Application\ Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
-    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
-  - path: "{{ dotfiles_dir_files }}/gnupg/gpg-agent.conf"
-    dest: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+    dest: '{{ home_dir }}/Library/Application\ Support/Code/User/keybindings.json'
   - path: /usr/local/opt/emacs-mac/Emacs.app
-    dest: /Applications/Emacs.app
+    dest: /Applications/Emacs.apk
+
 #
 # System
 #
