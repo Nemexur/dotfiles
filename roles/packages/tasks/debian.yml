@@ -16,6 +16,18 @@
 
 - name: Ensure apt packages are present
   ansible.builtin.apt:
-    name: "{{ item.name | default(item )}}"
+    name: "{{ item.name | default(item) }}"
     state: "{{ item.staet | default('present') }}"
   loop: "{{ packages_apt_packages }}"
+
+- name: Ensure snap is present
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+
+- name: Ensure snap apps are present
+  community.general.snap:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('present') }}"
+    classic: "{{ item.classic | default(true) | bool }}"
+  loop: "{{ packages_snap_apps }}"
