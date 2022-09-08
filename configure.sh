@@ -22,19 +22,39 @@ xcodeSelectInstall() {
     xcode-select --install || true
 }
 
+pythonInstall() {
+    sudo apt-get update
+    info "Add python repository"
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt-get update
+    sudo apt-get install python3-apt python3-pip python3.10 python3.10-dev
+    info "Update default python/python3 version"
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+    info "Install pip"
+    wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py && python get-pip.py && rm get-pip.py
+    export PATH=${HOME}/.local/bin:${PATH}
+    pip install -U setuptools wheel
+}
+
 ansibleInstall () {
-    brew install python@3.9 ansible ansible-lint molecule
-    # Also install pexpect module
-    pip3 install pexpect
+    if [[ "${OSTYPE}" == "darwin"* ]]; then
+        brew install python@3.9 ansible ansible-lint molecule
+    elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
+        pip install ansible ansible-lint molecule
+    fi
     success "Ansible installed"
 }
 
-# xcode-select setup
-xcodeSelectInstall
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    # xcode-select setup
+    xcodeSelectInstall
 
-# brew setup
-brewInstall
-brewUpdate
+    # brew setup
+    brewInstall
+    brewUpdate
+elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
+    pythonInstall
+fi
 
 # Ansible setup
 ansibleInstall
@@ -58,9 +78,9 @@ then
 
     if [[ $? -eq 0 ]]
     then
-        echo "Successfully configured your environment with Nemexur's macOS dotfiles..."
+        echo "Successfully configured your environment with Nemexur's dotfiles..."
     else
-        echo "Nemexur's macOS dotfiles were not applied successfully..." >&2
+        echo "Nemexur's dotfiles were not applied successfully..." >&2
 fi
 else
     echo ""
