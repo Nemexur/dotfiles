@@ -1,0 +1,6 @@
+---
+zsh_oh_my_zsh_prefix: "{{ home_dir }}"
+zsh_oh_my_zsh_repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+zsh_oh_my_zsh_install_path: "{{ zsh_oh_my_zsh_prefix }}/.oh-my-zsh"
+zsh_oh_my_zsh_plugins_path: "{{ zsh_oh_my_zsh_install_path }}/custom/plugins"
+zsh_oh_my_zsh_plugins: []

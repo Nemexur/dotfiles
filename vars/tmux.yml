@@ -1,4 +1,0 @@
----
-tpm_repo: "https://github.com/tmux-plugins/tpm.git"
-tmux_plugins_dir: "{{ home_prefix }}/.tmux/plugins"
-tpm_install_path: "{{ tmux_plugins_dir }}/tpm"

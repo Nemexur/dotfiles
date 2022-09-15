@@ -1,0 +1,19 @@
+---
+- include_tasks: darwin.yml
+  when: ansible_os_family == "Darwin"
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Ensure tmux directory exists
+  ansible.builtin.file:
+    path: "{{ tmux_plugins_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Ensure tpm for tmux plugins is installed
+  ansible.builtin.git:
+    repo: "{{ tmux_tpm_repo }}"
+    dest: "{{ tmux_tpm_install_path }}"
+    version: master
+    update: false
+    depth: 1

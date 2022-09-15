@@ -1,76 +1,109 @@
 ---
-- hosts: all
+- name: Dotfiles setup
+  hosts: local
 
   vars:
-    home_prefix: "{{ lookup('env', 'HOME') }}"
-    dotfiles_home: "{{ playbook_dir }}"
-    dotfiles_files: "{{ dotfiles_home }}/files"
-    dotfiles_templates: "{{ dotfiles_home }}/templates"
-
-  vars_files:
-    - vars/gitconfig.yml
-    - vars/homebrew.yml
-    - vars/zsh.yml
-    - vars/tmux.yml
-    - vars/vim.yml
-    - vars/emacs.yml
-    - vars/pass.yml
-    - vars/creates.yml
-    - vars/symlinks.yml
-    - vars/installs.yml
-    - vars/macos.yml
-    - vars/extra.yml
-
-  handlers:
-    - import_tasks: handlers/main.yml
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    dotfiles_dir: "{{ playbook_dir }}"
+    dotfiles_dir_files: "{{ dotfiles_dir }}/files"
 
   pre_tasks:
+    - name: Include OS specific vars
+      ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+      tags: always
+
     - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
-      tags: ['always']
+      tags: always
 
   roles:
-    - role: elliotweiser.osx-command-line-tools
-    - role: geerlingguy.mac.homebrew
-      tags: ['homebrew']
-
-  tasks:
-    - import_tasks: tasks/gitconfig.yml
-      when: setup_gitconfig
-      tags: ['gitconfig']
-
-    - import_tasks: tasks/zsh.yml
-      tags: ['zsh']
-
-    - import_tasks: tasks/tmux.yml
-      tags: ['tmux']
-
-    - import_tasks: tasks/vim.yml
-      tags: ['vim']
-
-    - import_tasks: tasks/emacs.yml
-      tags: ['emacs']
-
-    - import_tasks: tasks/pass.yml
-      when: setup_password_store
-      tags: ['pass']
-
-    - import_tasks: tasks/creates.yml
-      tags: ['creates']
-
-    - import_tasks: tasks/symlinks.yml
-      tags: ['symlinks']
-
-    - import_tasks: tasks/installs.yml
-      when: run_installs
-      tags: ['installs']
-
-    - import_tasks: tasks/macos.yml
-      when: setup_macos
-      tags: ['macos']
-
-    - import_tasks: tasks/extra.yml
-      when: setup_extra
-      tags: ['extra']
+    - role: packages
+      tags: packages
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished packages role"
+      tags: packages
+    - role: git
+      tags: git
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished git role"
+      tags: git
+    - role: terminal/zsh
+      tags:
+        - zsh
+        - terminal
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished terminal/zsh role"
+      tags:
+        - zsh
+        - terminal
+    - role: terminal/tmux
+      tags:
+        - tmux
+        - terminal
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished terminal/tmux role"
+      tags:
+        - tmux
+        - terminal
+    - role: editors/vim
+      tags:
+        - vim
+        - editors
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished editors/vim role"
+      tags:
+        - vim
+        - editors
+    - role: editors/emacs
+      tags:
+        - vim
+        - editors
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished editors/emacs role"
+      tags:
+        - vim
+        - editors
+    - role: editors/vscode
+      tags:
+        - vscode
+        - editors
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished editors/vscode role"
+      tags:
+        - vscode
+        - editors
+    - role: filesystem/symlink
+      tags:
+        - symlink
+        - filesystem
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished filesystem/symlink role"
+      tags:
+        - symlink
+        - filesystem
+    - role: filesystem/install
+      tags:
+        - install
+        - filesystem
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished filesystem/install role"
+      tags:
+        - install
+        - filesystem
+    - role: system
+      tags: system
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished filesystem/system role"
+      tags: system

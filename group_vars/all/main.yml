@@ -1,0 +1,86 @@
+---
+#
+# Misc
+#
+booleans_map:
+  "Y": true
+  "y": true
+  "YES": true
+  "yes": true
+  "n": false
+  "N": false
+  "NO": false
+  "no": false
+#
+# Zsh
+#
+zsh_oh_my_zsh_plugins:
+  - repo: "https://github.com/agkozak/zsh-z.git"
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-z"
+  - repo: "https://github.com/zsh-users/zsh-completions.git"
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-completions"
+  - repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-autosuggestions"
+  - repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-syntax-highlighting.git"
+#
+# VSCode
+#
+vscode_extensions: 
+  # Themes
+  - dracula-theme.theme-dracula
+  - Equinusocio.vsc-material-theme
+  - PKief.material-icon-theme
+  # Code
+  - formulahendry.code-runner
+  - streetsidesoftware.code-spell-checker
+  - streetsidesoftware.code-spell-checker-russian
+  - austin.code-gnu-global
+  - aaron-bond.better-comments
+  - esbenp.prettier-vscode
+  - Gruntfuggly.todo-tree
+  - mattn.Lisp
+  # Remote
+  - ms-vscode-remote.remote-ssh
+  - ms-vscode-remote.remote-ssh-edit
+  - ms-vscode-remote.remote-containers
+  # Python
+  - ms-python.python
+  - KevinRose.vsc-python-indent
+  - ms-python.vscode-pylance
+  - dawhite.mustache
+  - njpwerner.autodocstring
+  - ms-toolsai.jupyter
+  # Golang
+  - golang.go
+  - 766b.go-outliner
+  - premparihar.gotestexplorer
+  # C++
+  - danielpinto8zz6.c-cpp-compile-run
+  - ms-vscode.cpptools
+  # Latex
+  - James-Yu.latex-workshop
+  - nickfode.latex-formatter
+  - tecosaur.latex-utilities
+  - torn4dom4n.latex-support
+  - twday.bibmanager
+  # Jsonnet
+  - heptio.jsonnet
+  - xrc-inc.jsonnet-formatter
+  # For VSCode
+  - vscodevim.vim
+  - DavidAnson.vscode-markdownlint
+  - sensourceinc.vscode-sql-beautify
+  - ms-azuretools.vscode-docker
+  - ms-kubernetes-tools.vscode-kubernetes-tools
+  - redhat.vscode-yaml
+  - zxh404.vscode-proto3
+  - ionutvmi.path-autocomplete
+  # Git
+  - donjayamanne.githistory
+  - eamodio.gitlens
+  # Other
+  - ericadamski.carbon-now-sh
+  - GrapeCity.gc-excelviewer
+  - shd101wyy.markdown-preview-enhanced
+  - randrade23.beautify-json

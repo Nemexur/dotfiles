@@ -1,0 +1,6 @@
+---
+dependencies:
+  - role: elliotweiser.osx-command-line-tools
+    when: ansible_os_family == "Darwin"
+  - role: geerlingguy.mac.homebrew
+    when: ansible_os_family == "Darwin"

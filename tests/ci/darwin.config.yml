@@ -1,0 +1,24 @@
+---
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/core
+  - homebrew/bundle
+  - railwaycat/emacsmacport
+  - homebrew/cask-drivers
+homebrew_installed_packages:
+  - ack
+  - openssl@3
+  - bash-completion
+  - git
+  - ripgrep
+  - coreutils
+  - fd
+  - vim
+  - tmux
+  - wget
+  - go
+  - npm
+homebrew_cask_apps:
+  - iterm2
+  - visual-studio-code
+  - karabiner-elements

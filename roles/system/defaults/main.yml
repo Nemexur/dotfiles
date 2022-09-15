@@ -1,0 +1,3 @@
+---
+system_macos_files: "{{ dotfiles_dir_files }}/macos"
+system_macos_defaults: []

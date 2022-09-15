@@ -2,9 +2,12 @@
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
 
-alias ll='colorls -la'
-alias ls='colorls --sd'
-alias la='colorls --sd -A'
+alias cd='z'
+alias cdi='zi'
+alias cat='bat'
+alias ls='exa --icons --color=always'
+alias ll='exa --icons --color=always -l'
+alias la='exa --icons --color=always -la'
 
 alias zshconfig='code ~/.zshrc'
 alias ohmyzsh='code ~/.oh-my-zsh'
@@ -15,4 +18,3 @@ alias chdirsize='du -hs'
 alias topndir='du -sxh ./* | sort -rh'
 alias isscreen='echo $STY'
 alias chnumber='ls -1 | wc -l'
-alias cat='bat'

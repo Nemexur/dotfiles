@@ -1,0 +1,41 @@
+---
+- include_tasks: darwin.yml
+  when: ansible_os_family == "Darwin"
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Ensure doom emacs directories are in place
+  ansible.builtin.stat: "path={{ item }}"
+  register: _emacs_doom_emacs_dirs
+  check_mode: false
+  loop:
+    - "{{ emacs_doom_emacs_config_dir }}"
+    - "{{ emacs_doom_emacs_binary }}"
+
+- name: Install doom emacs
+  when: "not (_emacs_doom_emacs_dirs.results | map(attribute='stat') | map(attribute='exists') | min)"
+  block:
+  - name: Ensure doom_emacs_install_path is empty.
+    ansible.builtin.file:
+      path: "{{ emacs_doom_emacs_install_path }}"
+      state: absent
+
+  - name: Ensure doom emacs is present
+    ansible.builtin.git:
+      repo: "{{ emacs_doom_emacs_repo }}"
+      version: master
+      dest: "{{ emacs_doom_emacs_install_path }}"
+      update: false
+      depth: 1
+
+  - name: Ensure proper permissions on doom_emacs_binary
+    ansible.builtin.file:
+      path: "{{ emacs_doom_emacs_binary }}/doom"
+      state: file
+      mode: 0775
+
+  - name: Install Doom Emacs
+    ansible.builtin.command: "{{ emacs_doom_emacs_binary }}/doom install --force --no-env"
+    changed_when: true
+    failed_when: false
+    notify: Doom health

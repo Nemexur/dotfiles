@@ -1,0 +1,333 @@
+---
+#
+# Homebrew
+#
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/core
+  - homebrew/bundle
+  - elastic/tap
+  - minio/stable
+  - railwaycat/emacsmacport
+  - homebrew/cask-drivers
+  - vectordotdev/brew
+  - hashicorp/tap
+  - go-swagger/go-swagger
+homebrew_installed_packages:
+  # Zsh requirements
+  - zsh
+  - zsh-completions
+  # Docker is our best friend
+  - colima
+  - docker
+  - docker-compose
+  # Search tool like grep, but optimized for programmers
+  - ack
+  # Cryptography and SSL/TLS Toolkit
+  - openssl@3
+  # Library for command-line editing
+  - readline
+  # General-purpose data compression with high compression ratio
+  - xz
+  # Search tool for Doom Emacs
+  - rg
+  # Commitless repo
+  - pre-commit
+  # Correct spelling errors within Emacs
+  - aspell
+  # Simple, fast and user-friendly alternative to find
+  - fd
+  # Microsoft Azure CLI 2.0
+  - azure-cli
+  # Programmable completion for Bash 3.2
+  - bash-completion
+  # Validating, recursive, caching DNS resolver
+  - unbound
+  # GNU Transport Layer Security (TLS) Library
+  - gnutls
+  # GNU Pretty Good Privacy (PGP) package
+  - gnupg
+  # Emacs dependency management
+  - cask
+  # Cross-platform make
+  - cmake
+  # GNU File, Shell, and Text utilities
+  - coreutils
+  # Tool for exploring each layer in a docker image
+  - dive
+  # Command-line fuzzy finder written in Go
+  - fzf
+  # GNU compiler collection
+  - gcc
+  # Distributed revision control system
+  - git
+  # Tcl/Tk UI for the git revision control system
+  - git-gui
+  # Interpreted, interactive, object-oriented programming language
+  - python@3.9
+  # Core application library for C
+  - glib
+  # Open source programming language to build simple/reliable/efficient software
+  - go
+  # The power of REST API representation
+  - go-swagger
+  # Colorize logfiles and command output
+  - grc
+  # Improved top (interactive process viewer)
+  - htop
+  # Add GitHub support to git on the command-line
+  - hub
+  # Tools and libraries to manipulate images in many formats
+  - imagemagick
+  # Convert JPG images to ASCII
+  - jp2a
+  # Lightweight and flexible command-line JSON processor
+  - jq
+  # Domain specific configuration language for defining JSON data
+  - jsonnet
+  # Network authentication protocol
+  - krb5
+  # Kubernetes command-line interface
+  - kubernetes-cli
+  # Tool that can switch between kubectl contexts easily and create aliases
+  - kubectx
+  # C library of Git core methods that is re-entrant and linkable
+  - libgit2
+  # Platform built on V8 to build network applications
+  - node
+  # Highly capable, feature-rich programming language
+  - perl
+  # Object-relational database system
+  - postgresql
+  # Object-relational database system
+  - postgresql@12
+  # Python version management
+  - pyenv
+  # Install various Ruby versions and implementations
+  - ruby-build
+  # Ruby version manager
+  - rbenv
+  # Reattach process (e.g., tmux) to background
+  - reattach-to-user-namespace
+  # Powerful, clean, object-oriented scripting language
+  - ruby
+  # Programmatically correct mistyped console commands
+  - thefuck
+  # Command-line interface for Spotify on a Mac
+  - shpotify
+  # Diff images from the command-line
+  - spaceman-diff
+  # User interface to the TELNET protocol
+  - telnet
+  # Text interface for Git repositories
+  - tig
+  # Terminal multiplexer
+  - tmux
+  # Display directories as trees (with optional color/HTML output)
+  - tree
+  # Vi 'workalike' with many additional features
+  - vim
+  # Executes a program periodically, showing output fullscreen
+  - watch
+  # Internet file retriever
+  - wget
+  # JavaScript package manager
+  - yarn
+  # Download YouTube videos from the command-line
+  - youtube-dl
+  # Simplified and community-driven man pages
+  - tldr
+  # NCurses Disk Usage
+  - ncdu
+  # Create and view interactive cheat sheets for *nix commands
+  - cheat
+  # Clone of cat(1) with syntax highlighting and Git integration
+  - bat
+  # Password manager
+  - pass
+  # Just like pass but in GOOOOO
+  - gopass
+  # Ultimate template for K8s
+  - helm
+  # Git for lazy
+  - lazygit
+  # Terminal notifier for timers
+  - terminal-notifier
+  # S3Cmd
+  - s3cmd
+  # Official Amazon AWS command-line interface
+  - awscli
+  # Editorconfig for better collaboration
+  - editorconfig
+  # Text-to-HTML conversion tool
+  - markdown
+  # Static analysis and lint tool, for (ba)sh scripts
+  - shellcheck
+  # QR Code generation
+  - qrencode
+  # Python dependency management tool
+  - pipenv
+  # Automate deployment, configuration, and upgrading
+  - ansible
+  - ansible-lint
+  - molecule
+  - yamllint
+  # Distributed search & analytics engine
+  - elastic/tap/elasticsearch-full
+  # Pinentry for GPG on Mac
+  - pinentry-mac
+  # TaskWarrior setup
+  - task
+  - taskd
+  - tasksh
+  # Modern cd replacement
+  - zoxide
+  # Modern ls replacement
+  - exa
+  # Just like ssh but keeps your shell configuration
+  - xxh
+  # A High-Performance Log, Metrics, and Events Router
+  - vector
+  # Persistent key-value database, with built-in net interface
+  - redis
+  # Oh my sweeeet vault
+  - hashicorp/tap/vault
+  # Emacs
+  # All right then, keep your secrets
+  - name: emacs-mac
+    install_options:
+      - with-native-comp
+      - with-emacs-sexy-icon
+      - with-imagemagick
+homebrew_cask_apps:
+  - brave-browser
+  - qutebrowser
+  - handbrake
+  - iterm2
+  - alfred
+  - notion
+  - spotify
+  - 1password
+  - mactex
+  - skim
+  - sioyek
+  - dropbox
+  - synergy
+  - grammarly
+  - rectangle
+  - visual-studio-code
+  - karabiner-elements
+  - logitech-options
+  - dbeaver-community
+  - obsidian
+  - virtualbox
+  - virtualbox-extension-pack
+  - vagrant
+  - vagrant-manager
+  - google-cloud-sdk
+#
+# Git
+#
+git_work_config_enabled: true
+#
+# Symlink
+#
+symlink_directories:
+  - "{{ home_dir }}/.tmux"
+  - "{{ home_dir }}/.config"
+  - '{{ home_dir }}/Library/Application Support/Code/User'
+symlink_additional_files:
+  - path: "{{ dotfiles_dir_files }}/tmux/responsive"
+    dest: "{{ home_dir }}/.tmux/responsive"
+  - path: "{{ dotfiles_dir_files }}/karabiner"
+    dest: "{{ home_dir }}/.config/karabiner"
+  - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
+  - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
+  - path: /usr/local/opt/emacs-mac/Emacs.app
+    dest: /Applications/Emacs.apk
+
+#
+# System
+#
+system_macos_defaults:
+  # Disable press-and-hold for keys in favor of key repeat.
+  - key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
+  # Use AirDrop over every interface. srsly this should be a default.
+  - domain: com.apple.NetworkBrowser
+    key: BrowseAllInterfaces
+    type: string
+    value: "1"
+  # Always open everything in Finder's list view. This is important.
+  - domain: com.apple.Finder
+    key: FXPreferredViewStyle
+    type: string
+    value: Nlsv
+  # Set a really fast key repeat.
+  - key: KeyRepeat
+    type: int
+    value: 1
+  # Set the Finder prefs for showing a few different volumes on the Desktop.
+  - domain: com.apple.Finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: true
+  - domain: com.apple.Finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: true
+  # Run the screensaver if we're in the bottom-left hot corner.
+  - domain: com.apple.dock
+    key: wvous-bl-corner
+    type: int
+    value: 5
+  - domain: com.apple.dock
+    key: wvous-bl-modifier
+    type: int
+    value: 0
+  # Hide Safari's bookmark bar.
+  - domain: com.apple.Safari
+    key: ShowFavoritesBar
+    type: bool
+    value: false
+  # Set up Safari for development.
+  - domain: com.apple.Safari
+    key: IncludeInternalDebugMenu
+    type: string
+    value: "1"
+  - domain: com.apple.Safari
+    key: IncludeDevelopMenu
+    type: string
+    value: "1"
+  - domain: com.apple.Safari
+    key: WebKitDeveloperExtrasEnabledPreferenceKey
+    type: bool
+    value: true
+  - domain: com.apple.Safari
+    key: com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled
+    type: bool
+    value: true
+  - key: WebKitDeveloperExtras
+    type: bool
+    value: true
+  # Set up Pinentry and Pass
+  - domain: org.gpgtools.common
+    key: DisableKeychain
+    type: bool
+    value: true
+  - domain: org.gpgtools.common
+    key: UseKeychain
+    type: string
+    value: "NO"
+  # Set up iTerm
+  - domain: com.googlecode.iterm2
+    key: PrefsCustomFolder
+    type: string
+    value: "{{ home_dir }}/.itermcfg/"
+  - domain: com.googlecode.iterm2
+    key: LoadPrefsFromCustomFolder
+    type: bool
+    value: true

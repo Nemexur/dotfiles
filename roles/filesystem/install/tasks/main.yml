@@ -1,0 +1,13 @@
+---
+- name: Collect install files
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir_files }}"
+    recurse: true
+    file_type: file
+    patterns:
+      - install.yml
+  register: _install_files
+
+- name: Include install files tasks
+  ansible.builtin.include_tasks: "file={{ item }}"
+  loop: "{{ _install_files.files | map(attribute='path') }}"

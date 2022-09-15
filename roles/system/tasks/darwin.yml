@@ -1,0 +1,25 @@
+---
+- name: Copy MacOS files
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode | default('755') }}"
+  loop:
+    - src: "{{ system_macos_files }}/fonts/"
+      dest: "/Library/Fonts"
+    - src: "{{ system_macos_files }}/keyboard-layouts/"
+      dest: '/Library/Keyboard Layouts'
+
+- name: Configure MacOS defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain | default('NSGlobalDomain')}}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ system_macos_defaults }}"
+
+- name: Make /Library folder visible
+  ansible.builtin.command: chflags nohidden ~/Library
+  changed_when: false

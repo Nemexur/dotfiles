@@ -25,9 +25,7 @@ jobs:
         run: pip3 install yamllint ansible ansible-lint
 
       - name: Lint code.
-        run: |
-          yamllint .
-          ansible-lint
+        run: make lint
 
   integration:
     name: Integration
@@ -56,23 +54,21 @@ jobs:
 
       - name: Set up the test environment.
         run: |
-          cp tests/ci/ansible.cfg ./ansible.cfg
-          cp tests/ci/inventory.yml ./inventory.yml
-          cp tests/ci/config.yml ./config.yml
-          ansible-galaxy install -vvvr requirements.yml
+          cp tests/ci/darwin.config.yml ./config.yml
+          make setup
 
       - name: Test the playbook's syntax.
-        run: ansible-playbook main.yml --syntax-check
+        run: ansible-playbook main.yml --syntax-check --skip-tags git
 
       - name: Test the playbook.
-        run: ansible-playbook main.yml
+        run: ansible-playbook main.yml --skip-tags git,vscode -vvv
         env:
-          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_FORCE_COLOR: "1"
 
       - name: Idempotence check.
         run: |
           idempotence=$(mktemp)
-          ansible-playbook main.yml | tee -a ${idempotence}
+          ansible-playbook main.yml --skip-tags git,vscode | tee -a ${idempotence}
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
         env:
-          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_FORCE_COLOR: "1"

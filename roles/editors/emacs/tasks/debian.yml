@@ -1,0 +1,6 @@
+---
+- name: Ensure emacs is installed
+  community.general.snap:
+    name: emacs
+    state: present
+    classic: true

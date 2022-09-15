@@ -1,7 +1,0 @@
----
-- name: Ensure files and directories exist.
-  ansible.builtin.file:
-    path: "{{ item.path }}"
-    state: "{{ item.state }}"
-    mode: "{{ item.mode }}"
-  loop: "{{ create_paths }}"

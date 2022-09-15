@@ -1,0 +1,12 @@
+---
+# TODO: Rethink extenstions for vim
+vim_prefix: "{{ home_dir }}/.vim"
+
+vim_vundle_repo: "https://github.com/VundleVim/Vundle.vim.git"
+vim_vundle_install_path: "{{ vim_prefix }}/bundle/Vundle.vim"
+
+vim_pathogen_url: "https://tpo.pe/pathogen.vim"
+vim_pathogen_install_path: "{{ vim_prefix }}/autoload/pathogen.vim"
+
+vim_nerdtree_repo: "https://github.com/scrooloose/nerdtree.git"
+vim_nerdtree_install_path: "{{ vim_prefix }}/bundle/nerdtree"

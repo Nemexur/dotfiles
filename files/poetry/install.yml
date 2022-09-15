@@ -1,0 +1,11 @@
+---
+- name: Set facts
+  ansible.builtin.set_fact:
+    poetry_home: "{{ home_dir }}/.poetry"
+
+- name: Install poetry
+  ansible.builtin.shell:
+    cmd: "curl -sSL https://install.python-poetry.org | python3 -"
+    creates: "{{ poetry_home }}/bin/poetry"
+  environment:
+    POETRY_HOME: "{{ poetry_home }}"
