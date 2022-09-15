@@ -54,6 +54,11 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
     brewUpdate
 elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
     pythonInstall
+    read -p "Do you want to install homebrew? [y/n] " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        brewInstall
+        brewUpdate
+    fi
 fi
 
 # Ansible setup
@@ -61,7 +66,7 @@ ansibleInstall
 
 # Pull down personal dotfiles
 echo ""
-read -p "Do you want to use Nemexur's dotfiles? y/n" -n 1 -r
+read -p "Do you want to use Nemexur's dotfiles? [y/n] " -n 1 -r
 echo  # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
