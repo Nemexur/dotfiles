@@ -5,6 +5,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Install vscode extensions
+  become: true
   ansible.builtin.include_role:
     name: gantsign.visual-studio-code-extensions
   vars:
