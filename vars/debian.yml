@@ -5,6 +5,13 @@ packages_apt_packages:
 packages_homebrew_packages:
   - ctop
   - go
+  - kubernetes-cli
+  - pyenv
+  - zoxide
+  - thefuck
+  - ruby
+  - exa
+  - fzf
 packages_go_packages:
   - package: github.com/gopasspw/gopass@v1.14.6
     creates: "{{ home_dir }}/go/bin/gopass"
