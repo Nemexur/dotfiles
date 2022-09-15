@@ -5,3 +5,4 @@ homebrew_cask_appdir: /Applications
 # Debian
 packages_apt_repos: []
 packages_apt_packages: []
+packages_snap_apps: []
