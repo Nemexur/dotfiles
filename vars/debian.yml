@@ -12,6 +12,8 @@ packages_homebrew_packages:
   - ruby
   - exa
   - fzf
+  - python@3.9
+  - python@3.10
 packages_go_packages:
   - package: github.com/gopasspw/gopass@v1.14.6
     creates: "{{ home_dir }}/go/bin/gopass"
