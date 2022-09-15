@@ -28,8 +28,6 @@ pythonInstall() {
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt-get update
     sudo apt-get install -y --no-install-recommends python3-apt python3-pip python3.10 python3.10-dev
-    info "Update default python/python3 version"
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
     info "Install pip"
     wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py && python get-pip.py && rm get-pip.py
     export PATH=${HOME}/.local/bin:${PATH}
@@ -37,29 +35,19 @@ pythonInstall() {
 }
 
 ansibleInstall () {
-    if [[ "${OSTYPE}" == "darwin"* ]]; then
-        brew install python@3.9 ansible ansible-lint molecule
-    elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-        pip install ansible ansible-lint molecule
-    fi
+    brew install python@3.9 ansible ansible-lint molecule
     success "Ansible installed"
 }
 
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     # xcode-select setup
     xcodeSelectInstall
-
-    # brew setup
-    brewInstall
-    brewUpdate
 elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
     pythonInstall
-    read -p "Do you want to install homebrew? [y/n] " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        brewInstall
-        brewUpdate
-    fi
 fi
+# brew setup
+brewInstall
+brewUpdate
 
 # Ansible setup
 ansibleInstall
