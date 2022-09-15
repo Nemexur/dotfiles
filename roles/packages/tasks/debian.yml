@@ -36,4 +36,5 @@
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
     classic: "{{ item.classic | default(true) | bool }}"
+    channel: "{{ item.channel | default('stable') }}"
   loop: "{{ packages_snap_apps }}"
