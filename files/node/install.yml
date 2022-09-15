@@ -1,5 +1,6 @@
 ---
 - name: Install node packages
+  become: true
   community.general.npm:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
