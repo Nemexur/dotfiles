@@ -16,7 +16,7 @@ runBootstrap() {
     extra="--tags ${@: 2}"
   fi
   ansible-galaxy install --role-file $HOME/.dotfiles/requirements.yml -vvv
-  ansible-playbook $HOME/.dotfiles/main.yml --ask-become-pass $extra
+  ansible-playbook $HOME/.dotfiles/main.yml $extra
 }
 
 displayUsageAndExit() {
