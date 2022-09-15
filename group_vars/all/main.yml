@@ -22,7 +22,10 @@ zsh_oh_my_zsh_plugins:
   - repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-autosuggestions"
   - repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-syntax-highlighting.git"
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-syntax-highlighting"
+  - repo: https://github.com/marlonrichert/zsh-autocomplete.git
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-autocomplete"
+    version: main
 #
 # VSCode
 #

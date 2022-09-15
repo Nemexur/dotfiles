@@ -19,7 +19,7 @@
   ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
-    version: master
+    version: "{{ item.version | default('master') }}"
     update: false
     depth: 1
   loop: "{{ zsh_oh_my_zsh_plugins }}"
