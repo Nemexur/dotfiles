@@ -75,6 +75,8 @@ homebrew_installed_packages:
   - grc
   # Improved top (interactive process viewer)
   - htop
+  # Top-like interface for container metrics
+  - ctop
   # Add GitHub support to git on the command-line
   - hub
   # Tools and libraries to manipulate images in many formats
@@ -141,6 +143,8 @@ homebrew_installed_packages:
   - ncdu
   # Create and view interactive cheat sheets for *nix commands
   - cheat
+  # An interactive cheatsheet tool for the command-line
+  - navi
   # Clone of cat(1) with syntax highlighting and Git integration
   - bat
   # Password manager
