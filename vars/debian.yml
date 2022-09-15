@@ -2,9 +2,9 @@
 packages_apt_packages:
   - nodejs
   - npm
-packages_snap_apps:
-  - name: go
-    channel: 1.19/stable
+packages_homebrew_packages:
+  - ctop
+  - go
 packages_go_packages:
   - package: github.com/gopasspw/gopass@v1.14.6
     creates: "{{ home_dir }}/go/bin/gopass"

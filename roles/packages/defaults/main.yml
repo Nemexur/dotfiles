@@ -1,6 +1,6 @@
 ---
 # All
-packages_go_apps: []
+packages_go_packages: []
 # Darwin
 homebrew_use_brewfile: false
 homebrew_cask_appdir: /Applications
@@ -8,3 +8,4 @@ homebrew_cask_appdir: /Applications
 packages_apt_repos: []
 packages_apt_packages: []
 packages_snap_apps: []
+packages_homebrew_packages: []

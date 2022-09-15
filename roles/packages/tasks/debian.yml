@@ -38,3 +38,10 @@
     classic: "{{ item.classic | default(true) | bool }}"
     channel: "{{ item.channel | default('stable') }}"
   loop: "{{ packages_snap_apps }}"
+
+- name: Ensure homebrew packages are present
+  community.general.homebrew:
+    name: "{{ item.name | default(item) }}"
+    install_options: "{{ item.install_options | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ packages_homebrew_packages }}"
