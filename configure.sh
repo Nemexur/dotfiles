@@ -27,7 +27,7 @@ pythonInstall() {
     info "Add python repository"
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt-get update
-    sudo apt-get install python3-apt python3-pip python3.10 python3.10-dev
+    sudo apt-get install -y --no-install-recommends python3-apt python3-pip python3.10 python3.10-dev
     info "Update default python/python3 version"
     sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
     info "Install pip"
