@@ -18,22 +18,6 @@ brewUpdate () {
     success "Homebrew updated"
 }
 
-xcodeSelectInstall() {
-    xcode-select --install || true
-}
-
-pythonInstall() {
-    sudo apt-get update
-    info "Add python repository"
-    sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt-get update
-    sudo apt-get install -y --no-install-recommends python3-apt python3-pip python3.10 python3.10-dev
-    info "Install pip"
-    wget https://bootstrap.pypa.io/get-pip.py -O get-pip.py && python get-pip.py && rm get-pip.py
-    export PATH=${HOME}/.local/bin:${PATH}
-    pip install -U setuptools wheel
-}
-
 ansibleInstall () {
     brew install python@3.9 ansible ansible-lint molecule
     success "Ansible installed"
@@ -41,9 +25,9 @@ ansibleInstall () {
 
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     # xcode-select setup
-    xcodeSelectInstall
+    xcode-select --install || true
 elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-    pythonInstall
+    sudo apt-get update || true
 fi
 # brew setup
 brewInstall
