@@ -1,2 +1,7 @@
 ---
-# TODO:
+packages_apt_packages:
+  - nodejs
+  - npm
+packages_snap_apps:
+  - name: go
+    channel: 1.19/stable
