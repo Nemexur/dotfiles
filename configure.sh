@@ -12,7 +12,7 @@ brewInstall () {
         info "Homebrew is already installed"
     fi
     if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-        export PATH=${PATH}:${HOME}/.linuxbrew/bin
+        export PATH=${PATH}:/home/linuxbrew/.linuxbrew/bin
     fi
 }
 
