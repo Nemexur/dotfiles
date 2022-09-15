@@ -1,5 +1,6 @@
 ---
 - name: Ensure vim exists
+  become: true
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present

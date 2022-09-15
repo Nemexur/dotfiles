@@ -1,5 +1,6 @@
 ---
 - name: Ensure tmux is present
+  become: true
   ansible.builtin.apt:
     name: tmux
     state: present
