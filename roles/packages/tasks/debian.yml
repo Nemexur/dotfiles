@@ -31,6 +31,7 @@
     state: present
 
 - name: Ensure snap apps are present
+  become: true
   community.general.snap:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"

@@ -1,5 +1,6 @@
 ---
 - name: Ensure vscode is present
+  become: true
   community.general.snap:
     name: code
     state: present
