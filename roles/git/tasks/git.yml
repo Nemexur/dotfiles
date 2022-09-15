@@ -8,7 +8,7 @@
   ansible.builtin.pause:
     prompt: |
       Do you want to change gitconfig [{{ git_config_type }}]?
-      [y/N]
+      [y/N] (default N)
   register: _git_config_change_prompt
   when: _git_config_file.stat.exists
 
