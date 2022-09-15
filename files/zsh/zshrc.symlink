@@ -58,7 +58,20 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git history zsh-autosuggestions zsh-completions zsh-z)
+plugins=(
+  sudo
+  git
+  history
+  web-search
+  copypath
+  copyfile
+  dirhistory
+  thefuck
+  zsh-interactive-cd
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
+)
 
 # User configuration
 
@@ -88,8 +101,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 #---- CUSTOM ----
 source $ZSH/oh-my-zsh.sh
-source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # autoload ----------------------------------------------------------------------
 autoload -Uz vcs_info 
@@ -163,4 +174,9 @@ if [ -f '/Users/a.n.milogradskiy/yandex-cloud/completion.zsh.inc' ]; then source
 
 # TheFuck setup
 eval $(thefuck --alias)
+
+# Zoxide
 eval "$(zoxide init zsh)"
+
+# Perl
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
