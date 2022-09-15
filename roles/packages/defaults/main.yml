@@ -1,4 +1,6 @@
 ---
+# All
+packages_go_apps: []
 # Darwin
 homebrew_use_brewfile: false
 homebrew_cask_appdir: /Applications

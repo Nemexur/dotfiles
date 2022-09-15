@@ -1,3 +1,11 @@
 ---
 - include_tasks: debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Install go apps
+  ansible.builtin.command:
+    cmd: "go install {{ item.package }}"
+    creates: "{{ item.creates }}"
+  environment:
+    GOPATH: "{{ home_dir }}/go"
+  loop: "{{ packages_go_packages }}"

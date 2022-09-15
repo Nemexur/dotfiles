@@ -5,3 +5,6 @@ packages_apt_packages:
 packages_snap_apps:
   - name: go
     channel: 1.19/stable
+packages_go_packages:
+  - package: github.com/gopasspw/gopass@v1.14.6
+    creates: "{{ home_dir }}/go/bin/gopass"
