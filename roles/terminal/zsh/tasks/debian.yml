@@ -7,4 +7,3 @@
     update_cache: true
   loop:
     - zsh
-    - zsh-completions
