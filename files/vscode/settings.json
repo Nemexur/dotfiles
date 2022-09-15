@@ -60,18 +60,17 @@
     "files.associations": {
         "*.rmd": "markdown",
         "*.toml": "ini",
-        "Pipfile": "ini"
+        "Pipfile": "ini",
+        ".ansible-lint": "yaml",
     },
     // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
-    "autoDocstring.customTemplatePath": "/Users/a.n.milogradskiy/.dotfiles/files/vscode/custom_numpy.mustache",
     "autoDocstring.generateDocstringOnEnter": true,
     "autoDocstring.guessTypes": true,
     "autoDocstring.startOnNewLine": true,
     "autoDocstring.quoteStyle": "\"\"\"",
     // Highlight TODO, FIXME
     "todo-tree.general.statusBar": "total",
-    "todo-tree.tree.showScanModeButton": false,
     "todo-tree.highlights.defaultHighlight": {
         "icon": "gear",
         "iconColour": "green"
@@ -142,7 +141,7 @@
         "HACK",
         "FIXME",
         "TODO",
-        "XXX",
+        "NOTE",
         "[ ]",
         "[x]"
     ],
@@ -165,6 +164,10 @@
     // Pylance
     "python.languageServer": "Jedi",
     "python.analysis.typeCheckingMode": "basic",
+    // Gopls
+    "gopls": {
+        "ui.semanticTokens": true,
+    },
     // Specific language settings
     "[python]": {
         // Controls if quick suggestions should show up while typing
@@ -191,7 +194,7 @@
         "editor.parameterHints.enabled": true,
         // AutoComplete Brackets
         "editor.autoClosingBrackets": "languageDefined",
-        // Disable semantic highlithing for Pylance
+        // Disable semantic highlighting for Pylance
         "editor.semanticHighlighting.enabled": false
     },
     "[javascript]": {
