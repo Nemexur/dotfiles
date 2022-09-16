@@ -3,7 +3,7 @@
 # bootstrap installs things.
 source $HOME/.dotfiles/scripts/prompt
 
-cd "$_ZSH"
+cd "$DOTFILES"
 DOTFILES_ROOT=$(pwd -P)
 
 set -e

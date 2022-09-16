@@ -132,4 +132,4 @@ _poetry_bfc3701fabafc6e8_complete()
 }
 
 _poetry_bfc3701fabafc6e8_complete "$@"
-compdef _poetry_bfc3701fabafc6e8_complete /Users/a.n.milogradskiy/.poetry/bin/poetry
+compdef _poetry_bfc3701fabafc6e8_complete ${HOME}/.poetry/bin/poetry
