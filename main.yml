@@ -116,11 +116,14 @@
         - symlink
         - filesystem
     - role: filesystem/install
+      when: filesystem_install_enabled | default(false) | bool
       tags:
         - install
         - filesystem
     - role: utils/telegram
-      when: telegram_notifications_enabled | default(false) | bool
+      when:
+        - telegram_notifications_enabled | default(false) | bool
+        - filesystem_install_enabled | default(false) | bool
       telegram_message: "dotfiles: finished filesystem/install role"
       tags:
         - install
