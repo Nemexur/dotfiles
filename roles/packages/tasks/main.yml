@@ -2,6 +2,12 @@
 - include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Ensure GOPATH exists
+  ansible.builtin.file:
+    path: "{{ home_dir }}/go"
+    state: directory
+    mode: 0751
+
 - name: Install go apps
   ansible.builtin.command:
     cmd: "go install {{ item.package }}"
