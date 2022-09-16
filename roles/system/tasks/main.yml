@@ -8,6 +8,7 @@
   ansible.builtin.shell: cat $(pyenv root)/version
   check_mode: false
   changed_when: false
+  failed_when: false
   environment:
     PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
   register: _system_pyenv_global_python
@@ -18,4 +19,6 @@
     && pyenv global {{ system_global_python }}
   environment:
     PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
-  changed_when: system_global_python not in _system_pyenv_global_python.stdout
+  changed_when:
+    - _system_pyenv_global_python.rc == 0
+    - system_global_python not in _system_pyenv_global_python.stdout
