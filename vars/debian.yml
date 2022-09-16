@@ -9,6 +9,24 @@ homebrew_bin_path: "/home/linuxbrew/.linuxbrew/bin"
 packages_apt_packages:
   - nodejs
   - npm
+  - make
+  - build-essential
+  - libssl-dev
+  - zlib1g-dev
+  - kibbz2-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - wget
+  - curl
+  - llvm
+  - lzma
+  - libncursesw5-dev
+  - xz-utils
+  - tk-dev
+  - libxml2-dev
+  - libxmlsec1-dev
+  - libffi-dev
+  - liblzma-dev
 packages_homebrew_packages:
   - ctop
   - go

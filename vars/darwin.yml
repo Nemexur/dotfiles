@@ -28,11 +28,15 @@ homebrew_installed_packages:
   # Search tool like grep, but optimized for programmers
   - ack
   # Cryptography and SSL/TLS Toolkit
-  - openssl@3
+  - openssl
   # Library for command-line editing
   - readline
   # General-purpose data compression with high compression ratio
   - xz
+  # General-purpose lossless data-compression library
+  - zlib
+  # Tool Command Language
+  - tcl-tk
   # Search tool for Doom Emacs
   - rg
   # Commitless repo
@@ -103,6 +107,8 @@ homebrew_installed_packages:
   - node
   # Highly capable, feature-rich programming language
   - perl
+  # Command-line interface for SQLite
+  - sqlite3
   # Object-relational database system
   - postgresql
   # Object-relational database system
