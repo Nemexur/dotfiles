@@ -29,6 +29,7 @@ packages_apt_packages:
   - libffi-dev
   - liblzma-dev
 packages_homebrew_packages:
+  - npm
   - ctop
   - go
   - kubernetes-cli
