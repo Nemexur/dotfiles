@@ -32,7 +32,7 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
     sudo apt-get update || true
     sudo apt-get install -y --no-install-recommends \
-        python3-apt
+        python3-apt \
         npm
 fi
 # brew setup
