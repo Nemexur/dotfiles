@@ -1,4 +1,12 @@
 ---
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item.path | default(item) }}"
+    mode: "{{ item.mode | default('751') }}"
+    state: directory
+  loop:
+    - "{{ home_dir }}/Desktop/Screenshots"
+
 - name: Copy MacOS files
   become: true
   ansible.builtin.copy:
@@ -12,14 +20,19 @@
       dest: '/Library/Keyboard Layouts'
 
 - name: Configure MacOS defaults
+  become: "{{ item.become | default(false) | bool }}"
   community.general.osx_defaults:
     domain: "{{ item.domain | default('NSGlobalDomain')}}"
     key: "{{ item.key }}"
-    type: "{{ item.type }}"
+    type: "{{ item.type | default('string') }}"
     value: "{{ item.value }}"
     state: "{{ item.state | default('present') }}"
   loop: "{{ system_macos_defaults }}"
 
-- name: Make /Library folder visible
-  ansible.builtin.command: chflags nohidden ~/Library
+- name: Make folders visible
+  become: true
+  ansible.builtin.command: "chflags nohidden {{ item }}"
   changed_when: false
+  loop:
+    - ~/Library
+    - /Volumes

@@ -1,4 +1,11 @@
 ---
+#
+# Misc
+#
+homebrew_bin_path: "/home/linuxbrew/.linuxbrew/bin"
+#
+# Packages
+#
 packages_apt_packages:
   - nodejs
   - npm
