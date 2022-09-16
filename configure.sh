@@ -33,6 +33,7 @@ elif [[ "${OSTYPE}" == "linux-gnu"* ]]; then
     sudo apt-get update || true
     sudo apt-get install -y --no-install-recommends \
         python3-apt
+        npm
 fi
 # brew setup
 brewInstall
