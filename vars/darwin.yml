@@ -3,6 +3,7 @@
 # Misc
 #
 homebrew_bin_path: "/usr/local/bin"
+packages_go_root: "/usr/local/opt/go/libexec"
 #
 # Homebrew
 #
