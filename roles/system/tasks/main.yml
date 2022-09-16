@@ -19,6 +19,6 @@
     && pyenv global {{ system_global_python }}
   environment:
     PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
-  changed_when:
-    - _system_pyenv_global_python.rc == 0
-    - system_global_python not in _system_pyenv_global_python.stdout
+  changed_when: >
+    _system_pyenv_global_python.rc != 0
+    or system_global_python not in _system_pyenv_global_python.stdout
