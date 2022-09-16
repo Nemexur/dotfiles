@@ -19,18 +19,36 @@
       tags: always
 
   roles:
+    #
+    # Packages
+    #
     - role: packages
       tags: packages
     - role: utils/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished packages role"
       tags: packages
+    #
+    # System
+    #
+    - role: system
+      tags: system
+    - role: utils/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished filesystem/system role"
+      tags: system
+    #
+    # Git
+    #
     - role: git
       tags: git
     - role: utils/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished git role"
       tags: git
+    #
+    # Terminal
+    #
     - role: terminal/zsh
       tags:
         - zsh
@@ -51,6 +69,9 @@
       tags:
         - tmux
         - terminal
+    #
+    # Editors
+    #
     - role: editors/vim
       tags:
         - vim
@@ -81,6 +102,9 @@
       tags:
         - vscode
         - editors
+    #
+    # Filesystem
+    #
     - role: filesystem/symlink
       tags:
         - symlink
@@ -101,9 +125,3 @@
       tags:
         - install
         - filesystem
-    - role: system
-      tags: system
-    - role: utils/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished filesystem/system role"
-      tags: system
