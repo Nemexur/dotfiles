@@ -1,3 +1,6 @@
 ---
+# All
+system_global_python: "3.9.10"
+# Darwin
 system_macos_files: "{{ dotfiles_dir_files }}/macos"
 system_macos_defaults: []

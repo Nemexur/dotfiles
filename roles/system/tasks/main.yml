@@ -3,3 +3,19 @@
   when: ansible_os_family == "Darwin"
 - include_tasks: debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Check pyenv version file
+  ansible.builtin.shell: cat $(pyenv root)/version
+  check_mode: false
+  changed_when: false
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
+  register: _system_pyenv_global_python
+
+- name: Set global python version
+  ansible.builtin.shell: >
+    pyenv install -s {{ system_global_python }}
+    && pyenv global {{ system_global_python }}
+  environment:
+    PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
+  changed_when: system_global_python not in _system_pyenv_global_python.stdout
