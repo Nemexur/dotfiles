@@ -99,6 +99,7 @@
     ],
     // Vim VSCode
     /// EasyMotion
+    "vim.smartRelativeLine": true,
     "vim.enableNeovim": true,
     "vim.neovimUseConfigFile": true,
     "vim.easymotion": true,
@@ -109,6 +110,9 @@
     "vim.hlsearch": false,
     "vim.debug.silent": true,
     "vim.leader": "<space>",
+    "vim.sneak": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.replaceWithRegister": true,
     "vim.normalModeKeyBindings": [
         {
             "before": ["<leader>", "u"],
@@ -164,9 +168,11 @@
     // Pylance
     "python.languageServer": "Jedi",
     "python.analysis.typeCheckingMode": "basic",
-    // Gopls
+    // Go
+    "go.docsTool": "godoc",
     "gopls": {
         "ui.semanticTokens": true,
+        "ui.diagnostic.staticcheck": true,
     },
     // Specific language settings
     "[python]": {
@@ -212,6 +218,12 @@
         "editor.autoClosingBrackets": "languageDefined",
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
+        }
+    },
+    "[go.mod]": {
+        "editor.formatOnPaste": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
         }
     },
     "docker.explorerRefreshInterval": 5000
