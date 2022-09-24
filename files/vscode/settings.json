@@ -61,7 +61,7 @@
         "*.rmd": "markdown",
         "*.toml": "ini",
         "Pipfile": "ini",
-        ".ansible-lint": "yaml",
+        ".ansible-lint": "yaml"
     },
     // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
@@ -172,7 +172,7 @@
     "go.docsTool": "godoc",
     "gopls": {
         "ui.semanticTokens": true,
-        "ui.diagnostic.staticcheck": true,
+        "ui.diagnostic.staticcheck": true
     },
     // Specific language settings
     "[python]": {
@@ -223,7 +223,7 @@
     "[go.mod]": {
         "editor.formatOnPaste": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true,
+            "source.organizeImports": true
         }
     },
     "docker.explorerRefreshInterval": 5000
