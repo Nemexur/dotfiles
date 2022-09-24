@@ -28,6 +28,7 @@ packages_apt_packages:
   - libxmlsec1-dev
   - libffi-dev
   - liblzma-dev
+  - liblocal-lib-perl
 packages_homebrew_packages:
   - ctop
   - go
@@ -38,6 +39,7 @@ packages_homebrew_packages:
   - ruby
   - exa
   - fzf
+  - bat
   - python@3.9
   - python@3.10
 packages_go_packages:
