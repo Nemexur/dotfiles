@@ -139,7 +139,6 @@ function! SetupVIMKeymap()
         echo "Finished"
     endif
 endfunction
-set keymap=russian-jcukenwintype
 set iminsert=0 " Чтобы при старте ввод был на английском, а не русском (start > i)
 set imsearch=0 " Чтобы при старте поиск был на английском, а не русском (start > /)
 " Дополнительно можно добавить:
