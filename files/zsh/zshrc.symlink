@@ -138,7 +138,6 @@ export LIBFM_PATH=$HOME/Projects/libfm/bin/
 #---- Source ----
 [ -f ~/bin/fubectl.source ] && source ~/bin/fubectl.source
 source <(kubectl completion zsh)
-source $(dirname $(gem which colorls))/tab_complete.sh
 #---- End Source ----
 
 #---- PyEnv setup ----
@@ -155,7 +154,9 @@ fi
 #---- END CUSTOM ----
 eval "$(pyenv init -)"
 # Load Shell integration for iTerm
-source ~/.iterm2_shell_integration.zsh
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+  source ~/.iterm2_shell_integration.zsh
+fi
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
