@@ -49,6 +49,8 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+;; Replacing an existing text with the contents of register x.
+(package! evil-replace-with-register)
 ;; Emacs plugin for better tabs management.
 (package! centaur-tabs)
 ;; Treemacs to outline code structure with LSP.

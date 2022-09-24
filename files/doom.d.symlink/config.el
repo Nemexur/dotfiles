@@ -42,6 +42,9 @@
 ;; Iterate throught CamelCase words
 (global-subword-mode 1)
 
+;; Prefer relative numbers
+(setq display-line-numbers-type 'relative)
+
 ;; Remap keys for Evil
 (evil-define-key 'normal 'global "\C-u" (kbd "C-r"))
 (evil-define-key 'normal 'global "\C-o" (kbd "o <escape>"))
