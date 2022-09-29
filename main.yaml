@@ -15,7 +15,7 @@
     - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
-        - "{{ playbook_dir }}/config.yml"
+        - "{{ playbook_dir }}/config.yaml"
       tags: always
 
   roles:
