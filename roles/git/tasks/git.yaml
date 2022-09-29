@@ -57,7 +57,7 @@
     success_msg: "looks good!!"
   when: git_config_change_local
 
-- name: "Copy {{ git_config_type }} gitconfig file"
+- name: "Copy gitconfig {{ git_config_type }}"
   ansible.builtin.template:
     src: gitconfig.example.symlink.j2
     dest: "{{ dotfiles_dir_files }}/git/gitconfig.{{ git_config_type }}.symlink"
