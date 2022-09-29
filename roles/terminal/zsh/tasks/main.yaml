@@ -1,7 +1,7 @@
 ---
-- include_tasks: darwin.yml
+- include_tasks: darwin.yaml
   when: ansible_os_family == "Darwin"
-- include_tasks: debian.yml
+- include_tasks: debian.yaml
   when: ansible_os_family == "Debian"
 
 - name: Check if Oh-My-Zsh is already in place

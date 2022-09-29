@@ -5,7 +5,7 @@
     recurse: true
     file_type: file
     patterns:
-      - install.yml
+      - install.yaml
   register: _install_files
 
 - name: Include install files tasks

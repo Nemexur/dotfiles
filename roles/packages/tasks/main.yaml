@@ -1,5 +1,5 @@
 ---
-- include_tasks: debian.yml
+- include_tasks: debian.yaml
   when: ansible_os_family == "Debian"
 
 - name: Ensure GOPATH exists

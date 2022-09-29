@@ -11,10 +11,11 @@ homebrew_taps:
   - homebrew/cask
   - homebrew/core
   - homebrew/bundle
+  - homebrew/cask-fonts
+  - homebrew/cask-drivers
   - elastic/tap
   - minio/stable
   - railwaycat/emacsmacport
-  - homebrew/cask-drivers
   - vectordotdev/brew
   - hashicorp/tap
   - go-swagger/go-swagger
@@ -137,6 +138,8 @@ homebrew_installed_packages:
   # Terminal multiplexer
   - tmux
   # Display directories as trees (with optional color/HTML output)
+  # Cross-shell prompt for astronauts
+  - starship
   - tree
   # Vi 'workalike' with many additional features
   - vim
@@ -240,6 +243,8 @@ homebrew_cask_apps:
   - vagrant
   - vagrant-manager
   - google-cloud-sdk
+  - raindropio
+  - font-jetbrains-mono-nerd-font
 #
 # Git
 #

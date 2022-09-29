@@ -1,6 +1,6 @@
 ---
 - name: Setup gitconfigs
-  ansible.builtin.include_tasks: git.yml
+  ansible.builtin.include_tasks: git.yaml
   vars:
     git_config_type: "{{ item.type | default(item) }}"
   when: item.enabled | default(true) | bool

@@ -9,7 +9,7 @@
 
   pre_tasks:
     - name: Include OS specific vars
-      ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+      ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yaml"
       tags: always
 
     - name: Include playbook configuration
