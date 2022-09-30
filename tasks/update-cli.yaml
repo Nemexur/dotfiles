@@ -1,0 +1,12 @@
+---
+- name: Update dotfiles CLI
+  hosts: local
+
+  vars:
+    dotfiles_dir: "{{ playbook_dir }}"
+
+  tasks:
+    - name: Install dotfiles-cli
+      community.general.make:
+        chdir: "{{ dotfiles_dir }}"
+        target: cli

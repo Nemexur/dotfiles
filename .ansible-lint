@@ -1,4 +1,6 @@
 ---
+exclude_paths:
+  - tasks
 skip_list:
   - meta-no-info
   - jinja[spacing]

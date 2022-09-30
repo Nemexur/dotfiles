@@ -1,0 +1,22 @@
+---
+- name: Remove venv directories
+  hosts: local
+
+  vars:
+    search_dir: "{{ lookup('env', 'HOME') }}/Projects"
+
+  tasks:
+    - name: Find venv directories
+      ansible.builtin.find:
+        paths: "{{ search_dir }}"
+        hidden: true
+        recurse: true
+        patterns: '*venv'
+        file_type: directory
+      register: _venv_dirs
+
+    - name: Ensure directories are absent
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop: "{{ _venv_dirs.files | map(attribute='path') }}"
