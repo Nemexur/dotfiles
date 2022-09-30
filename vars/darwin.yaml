@@ -137,9 +137,9 @@ homebrew_installed_packages:
   - tig
   # Terminal multiplexer
   - tmux
-  # Display directories as trees (with optional color/HTML output)
   # Cross-shell prompt for astronauts
   - starship
+  # Display directories as trees (with optional color/HTML output)
   - tree
   # Vi 'workalike' with many additional features
   - vim

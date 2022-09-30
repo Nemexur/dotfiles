@@ -18,6 +18,7 @@ homebrew_installed_packages:
   - wget
   - go
   - npm
+  - pyenv
 homebrew_cask_apps:
   - iterm2
   - visual-studio-code
