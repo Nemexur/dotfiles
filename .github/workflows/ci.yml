@@ -61,14 +61,14 @@ jobs:
         run: ansible-playbook main.yaml --syntax-check --skip-tags git
 
       - name: Test the playbook.
-        run: ansible-playbook main.yaml --skip-tags git,vscode -vvv
+        run: ansible-playbook main.yaml --skip-tags git -v
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
       - name: Idempotence check.
         run: |
           idempotence=$(mktemp)
-          ansible-playbook main.yaml --skip-tags git,vscode | tee -a ${idempotence}
+          ansible-playbook main.yaml --skip-tags git | tee -a ${idempotence}
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
         env:
           ANSIBLE_FORCE_COLOR: "1"
