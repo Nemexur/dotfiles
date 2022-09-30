@@ -226,5 +226,6 @@
             "source.organizeImports": true
         }
     },
-    "docker.explorerRefreshInterval": 5000
+    "docker.explorerRefreshInterval": 5000,
+    "go.toolsManagement.autoUpdate": true
 }
