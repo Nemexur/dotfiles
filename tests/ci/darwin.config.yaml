@@ -22,3 +22,4 @@ homebrew_cask_apps:
   - iterm2
   - visual-studio-code
   - karabiner-elements
+system_macos_defaults: []
