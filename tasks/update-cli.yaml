@@ -3,7 +3,7 @@
   hosts: local
 
   vars:
-    dotfiles_dir: "{{ playbook_dir }}"
+    dotfiles_dir: "{{ lookup('env', 'DOTFILES') }}"
 
   tasks:
     - name: Install dotfiles-cli
