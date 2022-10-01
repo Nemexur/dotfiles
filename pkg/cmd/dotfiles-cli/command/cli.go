@@ -5,7 +5,6 @@ import (
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command/run"
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command/task"
 	"github.com/nemexur/dotfiles/pkg/utils"
-	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -25,13 +24,13 @@ func NewCLI() *CLI {
 	return &CLI{app: app}
 }
 
-func (c *CLI) Execute() {
+func (c *CLI) Execute() error {
 	ctx, cancelF := utils.NewSystemContext()
 	err := c.app.ExecuteContext(ctx)
 	if err != nil {
 		cancelF()
-		log.Fatal().Err(err).Msg("dotfiles: exited")
 	}
+	return err
 }
 
 func (c *CLI) Init(ver string, repo string) {

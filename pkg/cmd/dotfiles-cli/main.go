@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -12,5 +13,7 @@ const (
 func main() {
 	cli := command.NewCLI()
 	cli.Init(Version, DotfilesRepo)
-	cli.Execute()
+	if err := cli.Execute(); err != nil {
+		log.Fatal().Err(err).Msg("dotfiles: exited")
+	}
 }

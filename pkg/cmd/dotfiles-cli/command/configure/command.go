@@ -29,12 +29,12 @@ func NewCommand(repo string, bootstrapCmd func(cmd *cobra.Command, args []string
 			log.Info().Msg("configure: welcome to nemexur dotfiles")
 			log.Info().Msg("configure: this script installs and configures everything very first time")
 			ticker := time.NewTicker(countdownTicker)
+			defer ticker.Stop()
 			for c := countdown; c > 0; c-- {
 				log.Info().Msgf("configure: begins in %d", c)
 				select {
 				case <-ticker.C:
 				case <-ctx.Done():
-					ticker.Stop()
 					return errors.New("configure: cancelled")
 				}
 			}
