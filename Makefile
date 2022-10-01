@@ -25,11 +25,17 @@ setup:
 	ansible-galaxy install --role-file requirements.yaml -vvv
 
 #> Run linters
-lint:
+lint: yaml-lint go-lint
+
+#> Run linters for yaml and ansible files
+yaml-lint:
 	@echo "[ \033[00;33mYamllint\033[0m ]"
 	yamllint .
 	@echo "[ \033[00;33mAnsible-lint\033[0m ]"
 	ansible-lint
+
+#> Run linters for go files
+go-lint:
 	@echo "[ \033[00;33mGoLangCI-Lint\033[0m ]"
 	golangci-lint run ./...
 	@echo "[ \033[00;33mStaticCheck\033[0m ]"
