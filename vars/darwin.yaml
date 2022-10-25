@@ -15,10 +15,13 @@ homebrew_taps:
   - homebrew/cask-drivers
   - elastic/tap
   - minio/stable
-  - railwaycat/emacsmacport
   - vectordotdev/brew
   - hashicorp/tap
+  - derailed/k9s
   - go-swagger/go-swagger
+  - elastic/tap
+  - saulpw/vd
+  - hashicorp/tap
 homebrew_installed_packages:
   # Zsh requirements
   - zsh
@@ -37,18 +40,10 @@ homebrew_installed_packages:
   - xz
   # General-purpose lossless data-compression library
   - zlib
-  # Tool Command Language
-  - tcl-tk
-  # Search tool for Doom Emacs
-  - rg
   # Commitless repo
   - pre-commit
-  # Correct spelling errors within Emacs
-  - aspell
   # Simple, fast and user-friendly alternative to find
   - fd
-  # Microsoft Azure CLI 2.0
-  - azure-cli
   # Programmable completion for Bash 3.2
   - bash-completion
   # Validating, recursive, caching DNS resolver
@@ -57,8 +52,6 @@ homebrew_installed_packages:
   - gnutls
   # GNU Pretty Good Privacy (PGP) package
   - gnupg
-  # Emacs dependency management
-  - cask
   # Cross-platform make
   - cmake
   # GNU File, Shell, and Text utilities
@@ -71,8 +64,6 @@ homebrew_installed_packages:
   - gcc
   # Distributed revision control system
   - git
-  # Tcl/Tk UI for the git revision control system
-  - git-gui
   # Interpreted, interactive, object-oriented programming language
   - python@3.9
   # Core application library for C
@@ -81,8 +72,6 @@ homebrew_installed_packages:
   - go
   # The power of REST API representation
   - go-swagger
-  # Colorize logfiles and command output
-  - grc
   # Improved top (interactive process viewer)
   - htop
   # Top-like interface for container metrics
@@ -103,6 +92,8 @@ homebrew_installed_packages:
   - kubernetes-cli
   # Tool that can switch between kubectl contexts easily and create aliases
   - kubectx
+  # Kubernetes CLI To Manage Your Clusters In Style!
+  - k9s
   # C library of Git core methods that is re-entrant and linkable
   - libgit2
   # Platform built on V8 to build network applications
@@ -143,8 +134,11 @@ homebrew_installed_packages:
   - tree
   # Vi 'workalike' with many additional features
   - vim
+  - neovim
   # Executes a program periodically, showing output fullscreen
   - watch
+  # Program that allows you to count code, quickly
+  - tokei
   # Internet file retriever
   - wget
   # JavaScript package manager
@@ -191,7 +185,7 @@ homebrew_installed_packages:
   - molecule
   - yamllint
   # Distributed search & analytics engine
-  - elastic/tap/elasticsearch-full
+  - elasticsearch-full
   # Pinentry for GPG on Mac
   - pinentry-mac
   # TaskWarrior setup
@@ -208,15 +202,10 @@ homebrew_installed_packages:
   - vector
   # Persistent key-value database, with built-in net interface
   - redis
+  # Terminal utility for exploring and arranging tabular data
+  - visidata
   # Oh my sweeeet vault
-  - hashicorp/tap/vault
-  # Emacs
-  # All right then, keep your secrets
-  - name: emacs-mac
-    install_options:
-      - with-native-comp
-      - with-emacs-sexy-icon
-      - with-imagemagick
+  - vault
 homebrew_cask_apps:
   - brave-browser
   - qutebrowser
@@ -229,6 +218,7 @@ homebrew_cask_apps:
   - mactex
   - skim
   - sioyek
+  - numi
   - dropbox
   - synergy
   - grammarly
@@ -244,6 +234,7 @@ homebrew_cask_apps:
   - vagrant-manager
   - google-cloud-sdk
   - raindropio
+  - ukelele
   - font-jetbrains-mono-nerd-font
 #
 # Git
@@ -265,8 +256,6 @@ symlink_additional_files:
     dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
-  - path: /usr/local/opt/emacs-mac/Emacs.app
-    dest: /Applications/Emacs.apk
 
 #
 # System
@@ -302,15 +291,6 @@ system_macos_defaults:
     key: ShowRemovableMediaOnDesktop
     type: bool
     value: true
-  # Run the screensaver if we're in the bottom-left hot corner.
-  - domain: com.apple.dock
-    key: wvous-bl-corner
-    type: int
-    value: 5
-  - domain: com.apple.dock
-    key: wvous-bl-modifier
-    type: int
-    value: 0
   # Hide Safari's bookmark bar.
   - domain: com.apple.Safari
     key: ShowFavoritesBar
