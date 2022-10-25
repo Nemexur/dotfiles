@@ -3,9 +3,9 @@ package ansible
 import (
 	"context"
 	"fmt"
+	"os"
 	"os/exec"
 
-	"github.com/nemexur/dotfiles/pkg/utils"
 	"github.com/rs/zerolog/log"
 )
 
@@ -40,6 +40,8 @@ func run(ctx context.Context, name string, dotfilesDir string, opts []Option) er
 	}
 	cmd := exec.CommandContext(ctx, ansiblePlaybook, args...)
 	cmd.Dir = dotfilesDir
-	utils.PipeOs(cmd)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }

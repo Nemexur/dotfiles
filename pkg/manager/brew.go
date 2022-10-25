@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"runtime"
 
-	"github.com/nemexur/dotfiles/pkg/utils"
 	"github.com/rs/zerolog/log"
 )
 
@@ -30,7 +29,9 @@ func (b Brew) Install(ctx context.Context) error {
 		return nil
 	}
 	cmd := exec.CommandContext(ctx, "/bin/bash", "-c", fmt.Sprintf("$(curl -fsSL %s)", brewInstallScript))
-	utils.PipeOs(cmd)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 
@@ -39,7 +40,9 @@ func (b Brew) Do(ctx context.Context, args ...string) error {
 		return fmt.Errorf("%s executable not found", b.name)
 	}
 	cmd := exec.CommandContext(ctx, b.name, args...)
-	utils.PipeOs(cmd)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 

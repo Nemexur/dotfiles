@@ -1,4 +1,4 @@
-package utils
+package system
 
 import (
 	"context"
@@ -20,13 +20,13 @@ func DotfilesDir() (string, error) {
 
 // NewSystemContext returns new context.Context and context.CancelFunc, which will be called,
 // when system interrupt signal is received.
-func NewSystemContext() (context.Context, context.CancelFunc) {
+func NewContext() (context.Context, context.CancelFunc) {
 	ctx, cancelF := context.WithCancel(context.Background())
-	go listenToSystemSignals(ctx, cancelF)
+	go listenToSignals(ctx, cancelF)
 	return ctx, cancelF
 }
 
-func listenToSystemSignals(ctx context.Context, cancelF context.CancelFunc) {
+func listenToSignals(ctx context.Context, cancelF context.CancelFunc) {
 	signalChan := make(chan os.Signal, 1)
 	signal.Notify(signalChan, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGTERM)
 	select {

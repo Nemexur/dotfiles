@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/nemexur/dotfiles/pkg/ansible"
-	"github.com/nemexur/dotfiles/pkg/utils"
+	"github.com/nemexur/dotfiles/pkg/system"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
@@ -27,7 +27,7 @@ func NewCommand() *cobra.Command {
 		Example: example,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx := cmd.Context()
-			dotfilesDir, err := utils.DotfilesDir()
+			dotfilesDir, err := system.DotfilesDir()
 			if err != nil {
 				return err
 			}
@@ -45,7 +45,7 @@ func NewCommand() *cobra.Command {
 			if extraVars != "" {
 				options = append(options, ansible.Option{Key: "extra-vars", Value: extraVars})
 			}
-			log.Debug().Msg("run: run ansible playbook")
+			log.Debug().Msg("run: ansible playbook")
 			return ansible.Playbook(ctx, dotfilesDir, options)
 		},
 	}

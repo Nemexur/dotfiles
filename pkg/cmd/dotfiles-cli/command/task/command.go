@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/nemexur/dotfiles/pkg/ansible"
-	"github.com/nemexur/dotfiles/pkg/utils"
+	"github.com/nemexur/dotfiles/pkg/system"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
@@ -40,7 +40,7 @@ func NewCommand() *cobra.Command {
 			return nil
 		},
 		PreRunE: func(cmd *cobra.Command, args []string) (err error) {
-			dotfilesDir, err = utils.DotfilesDir()
+			dotfilesDir, err = system.DotfilesDir()
 			return
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {

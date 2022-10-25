@@ -1,10 +1,15 @@
 package command
 
 import (
+	"os"
+	"time"
+
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command/configure"
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command/run"
 	"github.com/nemexur/dotfiles/pkg/cmd/dotfiles-cli/command/task"
-	"github.com/nemexur/dotfiles/pkg/utils"
+	"github.com/nemexur/dotfiles/pkg/system"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +30,7 @@ func NewCLI() *CLI {
 }
 
 func (c *CLI) Execute() error {
-	ctx, cancelF := utils.NewSystemContext()
+	ctx, cancelF := system.NewContext()
 	err := c.app.ExecuteContext(ctx)
 	if err != nil {
 		cancelF()
@@ -66,5 +71,22 @@ func (c *CLI) Init(ver string, repo string) {
 		"v",
 		"Log verbosity level. Adding multiple -v will increase the verbosity.",
 	)
-	cobra.OnInitialize(func() { utils.SetupLogger(verbose) })
+	cobra.OnInitialize(func() { setupLogger(verbose) })
+}
+
+func setupLogger(verbose int) {
+	var level zerolog.Level
+	switch verbose {
+	case 0:
+		level = zerolog.InfoLevel
+	case 1:
+		level = zerolog.DebugLevel
+	default:
+		level = zerolog.TraceLevel
+	}
+	log.Logger = zerolog.New(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC822}).
+		Level(level).
+		With().
+		Timestamp().
+		Logger()
 }
