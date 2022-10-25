@@ -5,6 +5,7 @@ GO_FLAGS?=CGO_CPPFLAGS="-I/usr/include" CGO_LDFLAGS="-L/usr/lib -lpthread -lrt -
 
 all: help
 
+#> Display this message and exit
 help:
 	@echo "Commands:"
 	@awk 'match($$0, "^#>") { sub(/^#>/, "", $$0); doc=$$0; getline; split($$0, c, ":"); cmd=c[1]; print "\033[00;32m"cmd"\033[0m"":"doc }' Makefile | column -t -s ":" | awk '{ print "  "$$0 }'
