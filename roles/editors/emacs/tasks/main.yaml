@@ -1,11 +1,14 @@
 ---
-- include_tasks: darwin.yaml
+- name: Include darwin specific tasks
+  ansible.builtin.include_tasks: darwin.yaml
   when: ansible_os_family == "Darwin"
-- include_tasks: debian.yaml
+- name: Include debian specific tasks
+  ansible.builtin.include_tasks: debian.yaml
   when: ansible_os_family == "Debian"
 
 - name: Ensure doom emacs directories are in place
-  ansible.builtin.stat: "path={{ item }}"
+  ansible.builtin.stat:
+    path: "{{ item }}"
   register: _emacs_doom_emacs_dirs
   check_mode: false
   loop:

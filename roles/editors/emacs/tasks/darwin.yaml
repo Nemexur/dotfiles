@@ -1,9 +1,30 @@
 ---
 - name: Ensure emacs-mac tap is present
-  community.general.homebrew_tap: name=railwaycat/emacsmacport state=present
+  community.general.homebrew_tap:
+    name: railwaycat/emacsmacport
+    state: present
 
 - name: Ensure emacs-mac is installed
   community.general.homebrew:
     name: emacs-mac
     state: present
-    install_options: with-modules
+    install_options:
+      - with-native-comp
+      - with-emacs-sexy-icon
+      - with-imagemagick
+
+- name: Ensure required modules are installed
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - rg
+    - aspell
+    - cask
+
+- name: Ensure emacs-app is symlinked
+  ansible.builtin.file:
+    src: /usr/local/opt/emacs-mac/Emacs.app
+    dest: /Applications/Emacs.apk
+    state: link
+    mode: 0755

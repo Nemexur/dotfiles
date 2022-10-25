@@ -1,6 +1,8 @@
 ---
 - name: Ensure vscode is present
-  community.general.homebrew_cask: name=visual-studio-code state=present
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: present
 
 - name: Set ansible_pkg_mgr variable
   ansible.builtin.set_fact:

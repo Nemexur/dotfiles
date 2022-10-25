@@ -8,7 +8,9 @@
 
 - name: Ensure snap is present
   become: true
-  ansible.builtin.apt: name=snapd state=present
+  ansible.builtin.apt:
+    name: snapd
+    state: present
 
 - name: Ensure apt repositories are present
   become: true

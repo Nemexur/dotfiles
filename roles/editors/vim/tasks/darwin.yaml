@@ -1,6 +1,8 @@
 ---
 - name: Ensure vim exists
-  community.general.homebrew: "name={{ item }} state=present"
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
   loop:
     - vim
     - neovim

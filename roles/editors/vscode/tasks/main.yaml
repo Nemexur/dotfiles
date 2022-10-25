@@ -1,7 +1,9 @@
 ---
-- include_tasks: darwin.yaml
+- name: Include darwin specific tasks
+  ansible.builtin.include_tasks: darwin.yaml
   when: ansible_os_family == "Darwin"
-- include_tasks: debian.yaml
+- name: Include debian specific tasks
+  ansible.builtin.include_tasks: debian.yaml
   when: ansible_os_family == "Debian"
 
 - name: Install vscode extensions

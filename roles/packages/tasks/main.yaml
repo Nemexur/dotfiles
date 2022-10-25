@@ -1,5 +1,6 @@
 ---
-- include_tasks: debian.yaml
+- name: Include debian specific tasks
+  ansible.builtin.include_tasks: debian.yaml
   when: ansible_os_family == "Debian"
 
 - name: Ensure GOPATH exists
