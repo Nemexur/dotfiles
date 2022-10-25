@@ -13,7 +13,7 @@
       tags: always
 
     - name: Include playbook configuration
-      include_vars: "{{ item }}"
+      ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yaml"
       tags: always
@@ -24,7 +24,7 @@
     #
     - role: packages
       tags: packages
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished packages role"
       tags: packages
@@ -33,7 +33,7 @@
     #
     - role: system
       tags: system
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished filesystem/system role"
       tags: system
@@ -42,7 +42,7 @@
     #
     - role: git
       tags: git
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished git role"
       tags: git
@@ -53,7 +53,7 @@
       tags:
         - zsh
         - terminal
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished terminal/zsh role"
       tags:
@@ -63,7 +63,7 @@
       tags:
         - tmux
         - terminal
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished terminal/tmux role"
       tags:
@@ -76,18 +76,21 @@
       tags:
         - vim
         - editors
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished editors/vim role"
       tags:
         - vim
         - editors
     - role: editors/emacs
+      when: emacs_editor_enabled | default(false) | bool
       tags:
-        - vim
+        - emacs
         - editors
-    - role: utils/telegram
-      when: telegram_notifications_enabled | default(false) | bool
+    - role: notifications/telegram
+      when:
+        - telegram_notifications_enabled | default(false) | bool
+        - emacs_editor_enabled | default(false) | bool
       telegram_message: "dotfiles: finished editors/emacs role"
       tags:
         - vim
@@ -96,7 +99,7 @@
       tags:
         - vscode
         - editors
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished editors/vscode role"
       tags:
@@ -109,7 +112,7 @@
       tags:
         - symlink
         - filesystem
-    - role: utils/telegram
+    - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
       telegram_message: "dotfiles: finished filesystem/symlink role"
       tags:
@@ -120,7 +123,7 @@
       tags:
         - install
         - filesystem
-    - role: utils/telegram
+    - role: notifications/telegram
       when:
         - telegram_notifications_enabled | default(false) | bool
         - filesystem_install_enabled | default(false) | bool
