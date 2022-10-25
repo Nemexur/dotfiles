@@ -7,7 +7,7 @@
         "ui.codelenses": {
             "test": true
         },
-        "formatting.gofumpt": true
+        "formatting.gofmpt": true
     },
     // Linting
     "go.lintTool": "golangci-lint",

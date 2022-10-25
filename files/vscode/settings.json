@@ -2,8 +2,7 @@
     "workbench.activityBar.visible": true,
     "workbench.colorTheme": "Dracula Soft",
     "workbench.sideBar.location": "left",
-    "editor.fontFamily": "JetBrains Mono",
-    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
     "editor.renderWhitespace": "all",
     "editor.renderControlCharacters": false,
     "editor.formatOnPaste": true,
@@ -13,17 +12,15 @@
     "diffEditor.ignoreTrimWhitespace": false,
     /// Prettier
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    /// ESLint
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
     // Environment Settings
     "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
     "typescript.check.npmIsInstalled": false,
     "git.autofetch": true,
+    "magit.forge-enabled": true,
+    "gitProjectManager.baseProjectsFolders": ["~/Projects/"],
     // Color Override
     "workbench.colorCustomizations": {
         "activityBarBadge.background": "#E86100",
@@ -47,14 +44,13 @@
         "menubar.selectionForeground": "#E86100"
     },
     // Material Theme/Icon
-    "materialTheme.accent": "Indigo",
-    "material-icon-theme.folders.theme": "classic",
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.folders.theme": "specific",
     // Latex Setup
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-utilities.countWord.format": "${words} Words",
     // Spelling settings
     "cSpell.language": "en,ru",
-    "jsonnet.executablePath": "",
     // Files settings
     "files.insertFinalNewline": true,
     "files.associations": {
@@ -166,10 +162,15 @@
         "go": "go run"
     },
     // Pylance
-    "python.languageServer": "Jedi",
+    "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
+    "python.defaultInterpreterPath": "python",
+    "python.venvPath": "${workspaceFolder}/.venv",
+    "python.poetryPath": "poetry",
     // Go
     "go.docsTool": "godoc",
+    "docker.explorerRefreshInterval": 5000,
+    "go.toolsManagement.autoUpdate": true,
     "gopls": {
         "ui.semanticTokens": true,
         "ui.diagnostic.staticcheck": true
@@ -226,6 +227,8 @@
             "source.organizeImports": true
         }
     },
-    "docker.explorerRefreshInterval": 5000,
-    "go.toolsManagement.autoUpdate": true
+    "projectManager.tags": [
+        "Personal",
+        "Work"
+    ]
 }
