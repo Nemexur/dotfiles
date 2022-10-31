@@ -2,6 +2,7 @@
 export ZSH=~/.oh-my-zsh
 export DOTFILES=~/.dotfiles
 export TERM=xterm-256color
+export GPG_TTY=$(tty)
 source $ZSH/oh-my-zsh.sh
 
 # ZSH Customization Settings
