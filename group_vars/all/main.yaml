@@ -71,9 +71,11 @@ vscode_extensions:
   - tecosaur.latex-utilities
   - torn4dom4n.latex-support
   - twday.bibmanager
-  # Jsonnet
+  # Json
   - heptio.jsonnet
   - xrc-inc.jsonnet-formatter
+  - ZainChen.json
+  - randrade23.beautify-json
   # Ansible
   - redhat.ansible
   - redhat.vscode-yaml
@@ -94,6 +96,7 @@ vscode_extensions:
   - ionutvmi.path-autocomplete
   - VisualStudioExptTeam.intellicode-api-usage-examples
   - VisualStudioExptTeam.vscodeintellicode
+  - alefragnani.project-manager
   # Git
   - donjayamanne.githistory
   - eamodio.gitlens
@@ -103,11 +106,8 @@ vscode_extensions:
   - kahole.magit
   # Other
   - tomoki1207.pdf
-  - ZainChen.json
   - EditorConfig.EditorConfig
   - ericadamski.carbon-now-sh
   - GrapeCity.gc-excelviewer
   - shd101wyy.markdown-preview-enhanced
-  - randrade23.beautify-json
   - 42Crunch.vscode-openapi
-  - alefragnani.project-manager
