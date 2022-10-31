@@ -1,38 +1,66 @@
 # Local/private config goes in the include
 [include]
-        path = ~/.gitconfig.personal
+  path = ~/.gitconfig.personal
 [includeIf "gitdir:~/Projects/work/"]
-        path = ~/.gitconfig.work
+  path = ~/.gitconfig.work
 
 [hub]
-        protocol = https
+  protocol = https
 [alias]
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
+  co                = checkout
+  promote           = !$ZSH/bin/git-promote
+  wtf               = !$ZSH/bin/git-wtf
+  rank-contributors = !$ZSH/bin/git-rank-contributors
+  count             = shortlog -sn
+  undo              = reset --soft HEAD~
+  amend             = commit --amend
+  glog              = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 [color]
-        diff = auto
-        status = auto
-        branch = auto
-        ui = true
+  diff   = auto
+  status = auto
+  branch = auto
+  ui     = true
 [core]
-        excludesfile = ~/.gitignore
-        editor = vim
+  pager        = bat
+  excludesfile = ~/.gitignore
+  editor       = vim
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 [mergetool]
-        keepBackup = false
+  # Clean up backup files created by merge tools on tool exit
+  keepBackup = false
+  # Clean up temp files created by merge tools on tool exit
+  keepTemporaries = false
+  # Put the temp files in a dedicated dir anyway
+  writeToTemp = true
+  # Auto-accept file prompts when launching merge tools
+  prompt = false
 [difftool]
-        prompt = false
+  prompt = false
 [help]
-        autocorrect = 1
+  autocorrect = 1
+[fetch]
+  prune = true
+[merge]
+  # Disable fast-forward merges as default merge strategy.
+  # Force explicit call of `git merge --ff …`.
+  ff = false
+[pull]
+  rebase = true
 [push]
-        # See `git help config` (search for push.default)
-        # for more information on different options of the below setting.
-        #
-        # Setting to git 2.0 default to suppress warning message
-        default = simple
-[credential]
-	helper = osxkeychain
+  default = simple
+[rebase]
+  # Rebase advanced usage.
+  # Automagically reorder and prefix your commands while doing an interactive
+  # rebase. This has to be used with `--fixup` and/or `--squash` options for
+  # `git commit`.
+  autoSquash = true
+  # Automatically stash current WD and stage when running rebase
+  # then you won't have to manually `git stash push` and `git stash pop`
+  # after and before your rebase.
+  autoStash = true
+[status]
+  # Display submodule rev change summaries in status
+  submoduleSummary = true
+  # Recursively traverse untracked directories to display all contents
+  showUntrackedFiles = all
