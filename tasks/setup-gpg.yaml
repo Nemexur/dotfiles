@@ -1,0 +1,42 @@
+---
+- name: Setup gpg-agent
+  hosts: local
+
+  vars:
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    dotfiles_dir: "{{ lookup('env', 'DOTFILES') }}"
+    dotfiles_dir_files: "{{ dotfiles_dir }}/files"
+
+  tasks:
+    - name: Set pinentry program for Darwin
+      ansible.builtin.set_fact:
+        _pinentry_program: "/usr/local/bin/pinentry-touchid"
+      when: ansible_os_family == "Darwin"
+
+    - name: Set pinentry program for Debian
+      ansible.builtin.set_fact:
+        _pinentry_program: "/usr/local/bin/pinentry"
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure gnupg directory is linked
+      ansible.builtin.file:
+        src: "{{ dotfiles_dir_files }}/gnupg"
+        dest: "{{ home_dir }}/.gnupg"
+        state: link
+        mode: 0700
+
+    - name: Ensure proper permissions for gpg files
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: "{{ item.state }}"
+        mode: "{{ item.mode | default(755) }}"
+      loop:
+        - path: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+          state: file
+          mode: '600'
+
+    - name: Ensure pinentry program is set properly
+      ansible.builtin.lineinfile:
+        path: "{{ home_dir }}/.gnupg/gpg-agent.conf"
+        regexp: '^pinentry-program'
+        line: "pinentry-program {{ _pinentry_program }}"
