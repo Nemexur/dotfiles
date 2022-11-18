@@ -54,6 +54,7 @@ jobs:
 
       - name: Set up the test environment.
         run: |
+          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           cp tests/ci/darwin.config.yaml ./config.yaml
           ansible-galaxy install --role-file requirements.yaml -v
 
