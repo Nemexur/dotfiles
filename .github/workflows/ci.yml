@@ -59,15 +59,20 @@ jobs:
           ansible-galaxy install --role-file requirements.yaml -v
 
       - name: Test the playbook's syntax.
-        run: ansible-playbook main.yaml --syntax-check --skip-tags git
+        run: |
+          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          ansible-playbook main.yaml --syntax-check --skip-tags git
 
       - name: Test the playbook.
-        run: ansible-playbook main.yaml --skip-tags git -v
+        run: |
+          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          ansible-playbook main.yaml --skip-tags git -v
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
       - name: Idempotence check.
         run: |
+          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           idempotence=$(mktemp)
           ansible-playbook main.yaml --skip-tags git | tee -a ${idempotence}
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
