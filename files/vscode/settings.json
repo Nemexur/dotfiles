@@ -14,7 +14,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     // Environment Settings
     "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
     "typescript.check.npmIsInstalled": false,
@@ -43,6 +42,7 @@
         "menu.selectionForeground": "#E86100",
         "menubar.selectionForeground": "#E86100"
     },
+    "git.path": "/usr/local/bin/git",
     // Material Theme/Icon
     "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.folders.theme": "specific",
@@ -202,7 +202,8 @@
         // AutoComplete Brackets
         "editor.autoClosingBrackets": "languageDefined",
         // Disable semantic highlighting for Pylance
-        "editor.semanticHighlighting.enabled": false
+        "editor.semanticHighlighting.enabled": false,
+        "editor.formatOnType": true
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -230,5 +231,8 @@
     "projectManager.tags": [
         "Personal",
         "Work"
-    ]
+    ],
+    "terminal.integrated.env.osx": {
+        "USEVSCODE": "true"
+    },
 }

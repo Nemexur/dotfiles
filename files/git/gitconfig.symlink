@@ -23,7 +23,7 @@
 [core]
   pager        = bat
   excludesfile = ~/.gitignore
-  editor       = vim
+  editor       = lvim
 [apply]
   whitespace = nowarn
 [mergetool]
@@ -44,7 +44,7 @@
 [merge]
   # Disable fast-forward merges as default merge strategy.
   # Force explicit call of `git merge --ff …`.
-  ff = false
+  ff = true
 [pull]
   rebase = true
 [push]

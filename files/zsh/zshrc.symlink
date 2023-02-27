@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation oh-my-zsh specific settings
 export ZSH=~/.oh-my-zsh
 export DOTFILES=~/.dotfiles
-export TERM=xterm-256color
 export GPG_TTY=$(tty)
 source $ZSH/oh-my-zsh.sh
 
 # ZSH Customization Settings
+KEYTIMEOUT=1
 ZSH_THEME="robbyrussell"
 
 # fix pasting speed
@@ -89,7 +89,7 @@ bindkey -s '^g' 'pass_with_fzf^M'
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='lvim'
 
 # Use `bat` for MANPAGE
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -102,6 +102,14 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 #---- CUSTOM ----
 source $ZSH/oh-my-zsh.sh
+
+#---- Terminal ----
+export TERM=xterm-256color
+# if [ -n "$USEVSCODE" ]; then
+#  export TERM=xterm-256color
+# else
+#  export TERM=xterm-kitty
+# fi
 
 # autoload ----------------------------------------------------------------------
 autoload -Uz vcs_info 

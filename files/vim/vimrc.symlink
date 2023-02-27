@@ -297,3 +297,7 @@ let g:vimwiki_listsym_rejected = '✗'
 let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>
 autocmd FileType vimwiki set ft=markdown
+
+" kitty
+" Fix kitty weird black boxes
+let &t_ut=''

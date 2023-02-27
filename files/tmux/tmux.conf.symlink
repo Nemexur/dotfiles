@@ -1,5 +1,6 @@
 # remap prefix to Control + space
 set -g prefix C-Space
+set -s escape-time 0
 unbind C-b
 bind C-Space send-prefix
 
@@ -54,14 +55,6 @@ bind -r j select-pane -D
 bind -r k select-pane -U
 bind -r l select-pane -R
 
-# Moving with vim
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'" 
-bind -n C-k run-shell "if $is_vim ; then tmux send-keys C-k ; else tmux select-pane -U; fi"
-bind -n C-j run-shell "if $is_vim ; then tmux send-keys C-j; else tmux select-pane -D; fi"
-bind -n C-h run-shell "if $is_vim ; then tmux send-keys C-h; else tmux select-pane -L; fi"
-bind -n C-l run-shell "if $is_vim ; then tmux send-keys C-l; else tmux select-pane -R; fi"
-
 # Change split layout. Meta key is right alt
 bind M-f move-pane -t '.-'
 bind M-r move-pane -h -t '.-'
@@ -91,7 +84,7 @@ set-option -g update-environment "SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CO
 
 set -g status-position bottom
 set -g status-style 'none'
-set -g status-left '#[fg=colour197,bold]#(~/.dotfiles/files/bin/battery.sh)#[fg=white,bold]#{tasks_status}'
+set -g status-left '#[fg=colour197,bold]#(~/.dotfiles/files/bin/battery.sh)#[fg=white,bold] '
 set -g status-right '#{prefix_highlight} #{weather} #(eval ~/.tmux/responsive `tmux display -p "#{client_width}"`)#[fg=colour051]'
 set -g status-right-length 100
 set -g status-left-length 80
@@ -117,7 +110,6 @@ set -g @tpm_plugins '                \
   tmux-plugins/tmux-prefix-highlight \
   xamut/tmux-weather                 \
   chriszarate/tmux-tasks             \
-  christoomey/vim-tmux-navigator     \
   soyuka/tmux-current-pane-hostname  \
 '
 
