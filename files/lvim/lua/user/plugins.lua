@@ -5,6 +5,7 @@ lvim.plugins = {
     { "olexsmir/gopher.nvim" },
     { "ggandor/leap.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    { "iamcco/markdown-preview.nvim" },
     {
         "m-demare/attempt.nvim",
         requires = {
