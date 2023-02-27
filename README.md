@@ -1,5 +1,7 @@
 # dotfiles
 
+## README is outdated. New one is in progress
+
 [![CI][badge-gh-actions]][link-gh-actions]
 
 ## Configuration
