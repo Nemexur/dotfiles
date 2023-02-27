@@ -32,6 +32,8 @@ homebrew_installed_packages:
   - docker-compose
   # Search tool like grep, but optimized for programmers
   - ack
+  # df utility but better
+  - duf
   # Cryptography and SSL/TLS Toolkit
   - openssl
   # Library for command-line editing
@@ -64,8 +66,6 @@ homebrew_installed_packages:
   - gcc
   # Distributed revision control system
   - git
-  # Interpreted, interactive, object-oriented programming language
-  - python@3.9
   # Core application library for C
   - glib
   # Open source programming language to build simple/reliable/efficient software
@@ -74,6 +74,7 @@ homebrew_installed_packages:
   - go-swagger
   # Improved top (interactive process viewer)
   - htop
+  - gotop
   # Top-like interface for container metrics
   - ctop
   # Add GitHub support to git on the command-line
@@ -104,8 +105,6 @@ homebrew_installed_packages:
   - sqlite3
   # Object-relational database system
   - postgresql
-  # Object-relational database system
-  - postgresql@12
   # Python version management
   - pyenv
   # Install various Ruby versions and implementations
@@ -196,8 +195,6 @@ homebrew_installed_packages:
   - zoxide
   # Modern ls replacement
   - exa
-  # Just like ssh but keeps your shell configuration
-  - xxh
   # A High-Performance Log, Metrics, and Events Router
   - vector
   # Persistent key-value database, with built-in net interface
@@ -206,9 +203,10 @@ homebrew_installed_packages:
   - visidata
   # Oh my sweeeet vault
   - vault
+  # Load test an api
+  - hey
 homebrew_cask_apps:
-  - brave-browser
-  - qutebrowser
+  - sigmaos
   - handbrake
   - iterm2
   - alfred
@@ -235,6 +233,8 @@ homebrew_cask_apps:
   - google-cloud-sdk
   - raindropio
   - ukelele
+  - insomnia
+  - vscodium
   - font-jetbrains-mono-nerd-font
 #
 # Git
@@ -252,6 +252,8 @@ symlink_additional_files:
     dest: "{{ home_dir }}/.tmux/responsive"
   - path: "{{ dotfiles_dir_files }}/karabiner"
     dest: "{{ home_dir }}/.config/karabiner"
+  - path: "{{ dotfiles_dir_files }}/lvim"
+    dest: "{{ home_dir }}/.config/lvim"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
