@@ -5,4 +5,3 @@
   ansible.builtin.include_tasks: ani-cli.yaml
 - name: Include cheat.sh tasks
   ansible.builtin.include_tasks: cheat.sh.yaml
-

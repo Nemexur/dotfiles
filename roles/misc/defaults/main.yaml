@@ -7,4 +7,3 @@ misc_ani_cli_install_path: /usr/local/bin/ani-cli
 misc_cheat_sh_script_url: "https://cht.sh/:cht.sh"
 misc_cheat_sh_install_dir: "{{ home_dir }}/.local/bin"
 misc_cheat_sh_install_path: "{{ misc_cheat_sh_install_dir }}/cht.sh"
-

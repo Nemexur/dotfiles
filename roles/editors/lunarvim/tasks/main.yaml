@@ -25,4 +25,3 @@
   environment:
     LV_BRANCH: "{{ lunarvim_version }}"
     INSTALL_PREFIX: "{{ lunarvim_install_path }}"
-

@@ -5,3 +5,4 @@ skip_list:
   - meta-no-info
   - jinja[spacing]
   - name[casing]
+  - role-name[path]

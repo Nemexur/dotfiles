@@ -10,4 +10,3 @@
     url: "{{ misc_cheat_sh_script_url }}"
     dest: "{{ misc_cheat_sh_install_path }}"
     mode: 0751
-
