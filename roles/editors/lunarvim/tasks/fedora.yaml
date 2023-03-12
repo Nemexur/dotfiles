@@ -1,0 +1,10 @@
+---
+- name: Ensure vim exists
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - vim
+    - neovim

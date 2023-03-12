@@ -1,0 +1,12 @@
+---
+- name: Ensure ani-cli install directory exists
+  ansible.builtin.file:
+    path: "{{ misc_ani_cli_install_dir }}"
+    state: directory
+    mode: 0751
+
+- name: Download ani-cli script
+  ansible.builtin.get_url:
+    url: "{{ misc_ani_cli_script_url }}"
+    dest: "{{ misc_ani_cli_install_path }}"
+    mode: 0751

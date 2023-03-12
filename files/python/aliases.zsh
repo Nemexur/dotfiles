@@ -1,20 +1,3 @@
-# Virtual Environment
-crvenv() {
-    local venv_nm=.venv
-    local python_ver=3.7.3
-    while [[ "$#" -gt 0 ]]
-    do
-        case $1 in
-        -v|--version) local python_ver=${2:-3} ;;
-        -n|--name) local venv_nm=${2:-.venv} ;;
-        esac
-        shift
-    done
-    pyenv install -s $python_ver
-    pyenv local $python_ver
-    python -m venv $venv_nm
-}
-
 launchvenv() {
     local venv_nm=${1:-.venv}
     source "$venv_nm"/bin/activate
@@ -24,13 +7,11 @@ launchvenv() {
 # iPython Kernel
 setkernel() {
     if [ -f pyproject.toml ]; then
-        poetry add --dev ipykernel
-    elif [ -f Pipfile ]; then
-        pipenv install --dev ipykernel
+        poetry add --group dev ipykernel
     else
         pip install ipykernel
     fi
-    source $1/bin/activate
+    source .venv/bin/activate
     python -m ipykernel install --user --name $(echo "${PWD##*/}")-venv
     deactivate
 }

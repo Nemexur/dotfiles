@@ -1,0 +1,28 @@
+---
+- name: Include darwin specific tasks
+  ansible.builtin.include_tasks: darwin.yaml
+  when: ansible_os_family == "Darwin"
+- name: Include fedora specific tasks
+  ansible.builtin.include_tasks: fedora.yaml
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure lunarvim install path is present
+  ansible.builtin.file:
+    path: "{{ lunarvim_install_path }}/bin" 
+    state: directory
+    mode: 0751
+
+- name: Download lunarvim install script
+  ansible.builtin.get_url:
+    url: "{{ lunarvim_install_script_url }}"
+    dest: /tmp/lunarvim-install.sh
+    mode: 0751
+
+- name: Ensure lunarvim is installed
+  ansible.builtin.command:
+    cmd: /tmp/lunarvim-install.sh --yes
+    creates: "{{ lunarvim_install_path }}/bin/lvim"
+  environment:
+    LV_BRANCH: "{{ lunarvim_version }}"
+    INSTALL_PREFIX: "{{ lunarvim_install_path }}"
+

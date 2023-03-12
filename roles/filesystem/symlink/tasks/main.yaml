@@ -13,6 +13,8 @@
 - name: Get stats for symlink files
   ansible.builtin.stat:
     path: "{{ ('dest' in item) | ternary(item.dest, home_dir + '/.' + (item.path.split('/')[-1] | replace('.symlink', ''))) }}"
+  loop_control:
+    label: "{{ item.path }}"
   loop: "{{ _symlink_files.files + symlink_additional_files }}"
   register: _symlink_files_stats
 
@@ -23,6 +25,8 @@
   when:
     - item.exists
     - not item.islnk
+  loop_control:
+    label: "{{ item.path }}"
   loop: "{{ _symlink_files_stats.results | map(attribute='stat') }}"
 
 - name: Ensure directories for symlinks are present
@@ -38,4 +42,6 @@
     dest: "{{ ('dest' in item) | ternary(item.dest, home_dir + '/.' + (item.path.split('/')[-1] | replace('.symlink', ''))) }}"
     state: link
     mode: 0755
+  loop_control:
+    label: "{{ item.path }}"
   loop: "{{ _symlink_files.files + symlink_additional_files }}"

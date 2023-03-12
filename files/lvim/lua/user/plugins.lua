@@ -6,6 +6,7 @@ lvim.plugins = {
     { "ggandor/leap.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "iamcco/markdown-preview.nvim" },
+    { "fladson/vim-kitty" },
     {
         "m-demare/attempt.nvim",
         requires = {

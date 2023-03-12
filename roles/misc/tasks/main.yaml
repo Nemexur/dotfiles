@@ -1,0 +1,8 @@
+---
+- name: Include golang tasks
+  ansible.builtin.include_tasks: go.yaml
+- name: Include ani-cli tasks
+  ansible.builtin.include_tasks: ani-cli.yaml
+- name: Include cheat.sh tasks
+  ansible.builtin.include_tasks: cheat.sh.yaml
+

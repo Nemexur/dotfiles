@@ -1,19 +1,16 @@
-# grc overides for ls
-#   Made possible through contributions from generous benefactors like
-#   `brew install coreutils`
-
 alias cd='z'
 alias cdi='zi'
 alias cat='bat'
 alias df='duf'
 alias du='ncdu'
 alias vim='lvim'
+alias rm='trash'
 alias ls='exa --icons --color=always'
 alias ll='exa --icons --color=always -l'
 alias la='exa --icons --color=always -la'
 
-alias zshconfig='code ~/.zshrc'
-alias ohmyzsh='code ~/.oh-my-zsh'
+alias zshconfig='lvim ~/.zshrc'
+alias ohmyzsh='lvim ~/.oh-my-zsh'
 alias config='/usr/bin/git --git-dir=/Users/$(whoami)/.cfg/ --work-tree=/Users/$(whoami)'
 alias cur_dir='echo ${PWD##*/}'
 alias chsize='ls -lh'

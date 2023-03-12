@@ -1,0 +1,22 @@
+---
+- name: Include darwin specific tasks
+  ansible.builtin.include_tasks: darwin.yaml
+  when: ansible_os_family == "Darwin"
+- name: Include fedora specific tasks
+  ansible.builtin.include_tasks: fedora.yaml
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure ranger plugins path exists
+  ansible.builtin.file:
+    path: "{{ ranger_plugins_path }}"
+    state: directory
+    mode: 0751
+
+- name: Ensure ranger plugins are present
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: "{{ item.version | default('master') }}"
+    update: false
+    depth: 1
+  loop: "{{ ranger_plugins }}"

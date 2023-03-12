@@ -30,6 +30,7 @@ homebrew_installed_packages:
   - colima
   - docker
   - docker-compose
+  - docker-buildx
   # Search tool like grep, but optimized for programmers
   - ack
   # df utility but better
@@ -75,6 +76,7 @@ homebrew_installed_packages:
   # Improved top (interactive process viewer)
   - htop
   - gotop
+  - btop
   # Top-like interface for container metrics
   - ctop
   # Add GitHub support to git on the command-line
@@ -127,6 +129,8 @@ homebrew_installed_packages:
   - tig
   # Terminal multiplexer
   - tmux
+  # Pluggable terminal workspace, with terminal multiplexer as the base feature
+  - zellij
   # Cross-shell prompt for astronauts
   - starship
   # Display directories as trees (with optional color/HTML output)
@@ -203,39 +207,58 @@ homebrew_installed_packages:
   - visidata
   # Oh my sweeeet vault
   - vault
-  # Load test an api
+  # HTTP load generator, ApacheBench (ab) replacement
   - hey
+  # Cool terminal file manager
+  - ranger
+  # Safeily delete files
+  - trash-cli
+  # macOS system monitor in your menu bar
+  - stats
 homebrew_cask_apps:
+  # Browsers
   - sigmaos
-  - handbrake
+  - brave-browser
+  # Terminals
   - iterm2
-  - alfred
+  - kitty
+  # Notes
   - notion
-  - spotify
-  - 1password
-  - mactex
-  - skim
+  - evernote
+  - obsidian
   - sioyek
+  - raindropio
+  # Tools
+  - alfred
   - numi
-  - dropbox
-  - synergy
-  - grammarly
+  - handbrake
   - rectangle
-  - visual-studio-code
   - karabiner-elements
   - logitech-options
+  - ukelele
+  - insomnia
+  - grammarly
+  # Dev
+  - jupyterlab
+  - vscodium
+  - visual-studio-code
   - dbeaver-community
-  - obsidian
   - virtualbox
-  - virtualbox-extension-pack
   - vagrant
   - vagrant-manager
   - google-cloud-sdk
-  - raindropio
-  - ukelele
-  - insomnia
-  - vscodium
+  - synergy
+  # Others
   - font-jetbrains-mono-nerd-font
+  - spotify
+  - 1password
+  - mactex
+  - dropbox
+  - iina
+  - imazing
+  - openvpn-connect
+  - readwise-ibooks
+  - telegram
 #
 # Git
 #
@@ -254,6 +277,12 @@ symlink_additional_files:
     dest: "{{ home_dir }}/.config/karabiner"
   - path: "{{ dotfiles_dir_files }}/lvim"
     dest: "{{ home_dir }}/.config/lvim"
+  - path: "{{ dotfiles_dir_files }}/kitty"
+    dest: "{{ home_dir }}/.config/kitty"
+  - path: "{{ dotfiles_dir_files }}/ranger/rc.conf"
+    dest: "{{ home_dir }}/.config/ranger/rc.conf"
+  - path: "{{ dotfiles_dir_files }}/starship/starship.toml"
+    dest: "{{ home_dir }}/.config/starship.toml"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"

@@ -1,0 +1,5 @@
+---
+- name: Ensure ranger exists
+  community.general.homebrew:
+    name: ranger
+    state: present
