@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "{{ misc_ani_cli_install_dir }}"
     state: directory
-    mode: 0751
+    mode: 0775
 
 - name: Download ani-cli script
   ansible.builtin.get_url:
