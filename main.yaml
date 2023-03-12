@@ -26,7 +26,7 @@
       tags: packages
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished packages role"
+      telegram_message: "#dotfiles: finished packages role"
       tags: packages
     #
     # System
@@ -35,7 +35,7 @@
       tags: system
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished system role"
+      telegram_message: "#dotfiles: finished system role"
       tags: system
     #
     # Git
@@ -44,7 +44,7 @@
       tags: git
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished git role"
+      telegram_message: "#dotfiles: finished git role"
       tags: git
     #
     # Terminal
@@ -55,7 +55,7 @@
         - terminal
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished terminal/zsh role"
+      telegram_message: "#dotfiles: finished terminal/zsh role"
       tags:
         - zsh
         - terminal
@@ -65,7 +65,7 @@
         - terminal
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished terminal/tmux role"
+      telegram_message: "#dotfiles: finished terminal/tmux role"
       tags:
         - tmux
         - terminal
@@ -75,7 +75,7 @@
         - terminal
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished terminal/ranger role"
+      telegram_message: "#dotfiles: finished terminal/ranger role"
       tags:
         - ranger
         - terminal
@@ -88,7 +88,7 @@
         - editors
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished editors/vim role"
+      telegram_message: "#dotfiles: finished editors/vim role"
       tags:
         - vim
         - editors
@@ -101,7 +101,7 @@
       when:
         - telegram_notifications_enabled | default(false) | bool
         - emacs_editor_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished editors/emacs role"
+      telegram_message: "#dotfiles: finished editors/emacs role"
       tags:
         - vim
         - editors
@@ -111,7 +111,7 @@
         - editors
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished editors/vscode role"
+      telegram_message: "#dotfiles: finished editors/vscode role"
       tags:
         - vscode
         - editors
@@ -121,7 +121,7 @@
         - editors
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished editors/lunarvim role"
+      telegram_message: "#dotfiles: finished editors/lunarvim role"
       tags:
         - lunarvim
         - editors
@@ -134,7 +134,7 @@
         - filesystem
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished filesystem/symlink role"
+      telegram_message: "#dotfiles: finished filesystem/symlink role"
       tags:
         - symlink
         - filesystem
@@ -147,7 +147,7 @@
       when:
         - telegram_notifications_enabled | default(false) | bool
         - filesystem_install_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished filesystem/install role"
+      telegram_message: "#dotfiles: finished filesystem/install role"
       tags:
         - install
         - filesystem
@@ -158,5 +158,5 @@
       tags: misc
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished misc role"
+      telegram_message: "#dotfiles: finished misc role"
       tags: misc
