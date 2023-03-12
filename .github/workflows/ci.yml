@@ -1,6 +1,7 @@
 ---
-name: CI
-'on':
+name: ci
+
+on:
   pull_request:
   push:
     branches:
@@ -10,7 +11,7 @@ name: CI
 
 jobs:
   lint:
-    name: Lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -28,12 +29,13 @@ jobs:
         run: make yaml-lint
 
   integration:
-    name: Integration
+    name: integration
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os:
           - macos-12
+          - macos-13
 
     steps:
       - name: Check out the codebase.
