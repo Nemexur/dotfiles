@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "{{ misc_cheat_sh_install_dir }}"
     state: directory
-    mode: 0775
+    mode: 0751
 
 - name: Download cheat.sh script
   ansible.builtin.get_url:
