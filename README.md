@@ -2,7 +2,7 @@
 
 ## README is outdated. New one is in progress
 
-[![CI][badge-gh-actions]][link-gh-actions]
+[![Test][badge-gh-actions]][link-gh-actions]
 
 ## Configuration
 
@@ -106,5 +106,5 @@ ansible-playbook main.yml --ask-become-pass --tags "homebrew,installs"
 It is considered an alias for `ansible-playbook main.yml --ask-become-pass`.
 However, it additionally checks for gitconfig files.
 
-[badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml/badge.svg?branch=main&event=push
-[link-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml
+[badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/test.yml/badge.svg?branch=main&event=push
+[link-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/test.yml

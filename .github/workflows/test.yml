@@ -1,5 +1,5 @@
 ---
-name: ci
+name: test
 
 on:
   pull_request:
@@ -16,15 +16,14 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible ansible-lint
-
+        run: |
+          pip3 install yamllint ansible ansible-lint
+          ansible-galaxy install --role-file requirements.yaml -v
       - name: Lint yaml and ansible files.
         run: make yaml-lint
 
@@ -35,45 +34,31 @@ jobs:
       matrix:
         os:
           - macos-latest
-
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-
       - name: Uninstall GitHub Actions' built-in Homebrew.
         run: tests/ci/uninstall-homebrew.sh
-
       - name: Uninstall GitHub Actions' built-in browser installs.
         run: |
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
-
       - name: Install test dependencies.
         run: |
           sudo python3 -m pip install -U pip
           sudo python3 -m pip install -U ansible ansible-core pexpect setuptools
-
       - name: Set up the test environment.
         run: |
-          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           cp tests/ci/darwin.config.yaml ./config.yaml
           ansible-galaxy install --role-file requirements.yaml -v
-
       - name: Test the playbook's syntax.
-        run: |
-          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
-          ansible-playbook main.yaml --syntax-check --skip-tags git
-
+        run: ansible-playbook main.yaml --syntax-check --skip-tags git
       - name: Test the playbook.
-        run: |
-          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
-          ansible-playbook main.yaml --skip-tags git -v
+        run: ansible-playbook main.yaml --skip-tags git -v
         env:
           ANSIBLE_FORCE_COLOR: "1"
-
       - name: Idempotence check.
         run: |
-          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           idempotence=$(mktemp)
           ansible-playbook main.yaml --skip-tags git | tee -a ${idempotence}
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
