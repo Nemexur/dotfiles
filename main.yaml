@@ -35,7 +35,7 @@
       tags: system
     - role: notifications/telegram
       when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "dotfiles: finished filesystem/system role"
+      telegram_message: "dotfiles: finished system role"
       tags: system
     #
     # Git
@@ -68,6 +68,16 @@
       telegram_message: "dotfiles: finished terminal/tmux role"
       tags:
         - tmux
+        - terminal
+    - role: terminal/ranger
+      tags:
+        - ranger
+        - terminal
+    - role: notifications/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished terminal/ranger role"
+      tags:
+        - ranger
         - terminal
     #
     # Editors
@@ -105,6 +115,16 @@
       tags:
         - vscode
         - editors
+    - role: editors/lunarvim
+      tags:
+        - lunarvim
+        - editors
+    - role: notifications/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished editors/lunarvim role"
+      tags:
+        - lunarvim
+        - editors
     #
     # Filesystem
     #
@@ -131,3 +151,12 @@
       tags:
         - install
         - filesystem
+    #
+    # Misc
+    #
+    - role: misc
+      tags: misc
+    - role: notifications/telegram
+      when: telegram_notifications_enabled | default(false) | bool
+      telegram_message: "dotfiles: finished misc role"
+      tags: misc
