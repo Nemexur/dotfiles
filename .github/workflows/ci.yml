@@ -34,8 +34,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-12
-          - macos-13
+          - macos-latest
 
     steps:
       - name: Check out the codebase.
@@ -56,25 +55,25 @@ jobs:
 
       - name: Set up the test environment.
         run: |
-          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           cp tests/ci/darwin.config.yaml ./config.yaml
           ansible-galaxy install --role-file requirements.yaml -v
 
       - name: Test the playbook's syntax.
         run: |
-          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           ansible-playbook main.yaml --syntax-check --skip-tags git
 
       - name: Test the playbook.
         run: |
-          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           ansible-playbook main.yaml --skip-tags git -v
         env:
           ANSIBLE_FORCE_COLOR: "1"
 
       - name: Idempotence check.
         run: |
-          export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
+          # export PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/3.11/bin
           idempotence=$(mktemp)
           ansible-playbook main.yaml --skip-tags git | tee -a ${idempotence}
           tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)
