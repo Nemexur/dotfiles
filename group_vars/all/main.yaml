@@ -33,7 +33,7 @@ zsh_oh_my_zsh_plugins:
 # Ranger
 #
 ranger_plugins:
-  - repo: "https://github.com:jchook/ranger-zoxide.git"
+  - repo: "https://github.com/jchook/ranger-zoxide.git"
     dest: "{{ ranger_plugins_path }}/zoxide"
   - repo: "https://github.com/cdump/ranger-devicons2"
     dest: "{{ ranger_plugins_path }}/devicons2"
