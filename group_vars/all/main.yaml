@@ -52,8 +52,10 @@ misc_go_packages:
     package: "github.com/spf13/cobra-cli@latest"
   - name: goimports
     package: "golang.org/x/tools/cmd/goimports@latest"
+  - name: godoc
+    package: "golang.org/x/tools/cmd/godoc@latest"
   - name: gopls
-    package: "golang.org/x/tools/cmd/gopls@latest"
+    package: "golang.org/x/tools/gopls@latest"
   - name: protoc-gen-go
     package: "google.golang.org/protobuf/cmd/protoc-gen-go@latest"
 #
