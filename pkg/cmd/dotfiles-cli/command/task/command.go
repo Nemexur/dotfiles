@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const example = `  # Run remove-venv task
+const example = `  # Run remove-venv task.
   dotfiles task remove-venv
 
   # Run update-cli and remove-venv tasks
@@ -25,7 +25,7 @@ func NewCommand() *cobra.Command {
 	)
 	cmd := &cobra.Command{
 		Use:     "task name...",
-		Short:   "Run specific dotfiles task",
+		Short:   "Run specific dotfiles task. Requires user password.",
 		Example: example,
 		Args: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {

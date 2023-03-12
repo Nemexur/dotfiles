@@ -34,10 +34,12 @@ func Task(ctx context.Context, tasks []string, dotfilesDir string, opts []Option
 }
 
 func run(ctx context.Context, name string, dotfilesDir string, opts []Option) error {
-	args := []string{name}
+	// Always ask for become password
+	args := []string{name, "-K"}
 	for _, opt := range opts {
 		args = append(args, fmt.Sprintf("--%s", opt.Key), opt.Value)
 	}
+	log.Debug().Msgf("command: %s %+v", ansiblePlaybook, args)
 	cmd := exec.CommandContext(ctx, ansiblePlaybook, args...)
 	cmd.Dir = dotfilesDir
 	cmd.Stdin = os.Stdin

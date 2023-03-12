@@ -22,7 +22,7 @@ const (
 func NewCommand(repo string, bootstrapCmd func(cmd *cobra.Command, args []string) error) *cobra.Command {
 	return &cobra.Command{
 		Use:   "configure",
-		Short: "Configure your system with dotfiles very first time",
+		Short: "Configure your system with dotfiles very first time. Requires user password",
 		Args:  cobra.NoArgs,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			ctx := cmd.Context()
@@ -54,7 +54,7 @@ func NewCommand(repo string, bootstrapCmd func(cmd *cobra.Command, args []string
 				return errors.Wrap(err, "configure: brew update failed")
 			}
 			log.Debug().Msg("configure: installing ansible")
-			if err := brew.Do(ctx, "install", "python@3.9", "ansible"); err != nil {
+			if err := brew.Do(ctx, "install", "python@3.11", "ansible"); err != nil {
 				return errors.Wrap(err, "configure: install ansible failed")
 			}
 			path := filepath.Join(os.Getenv("HOME"), ".dotfiles")

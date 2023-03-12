@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const example = `  # Run packages tasks
+const example = `  # Run packages tasks.
   dotfiles run packages
 
   # Run packages and system tasks
@@ -23,7 +23,7 @@ func NewCommand() *cobra.Command {
 	var extraVars string
 	cmd := &cobra.Command{
 		Use:     "run [tag]...",
-		Short:   "Run dotfiles management playbook",
+		Short:   "Run dotfiles management playbook. Requires user password.",
 		Example: example,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx := cmd.Context()
