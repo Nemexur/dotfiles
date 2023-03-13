@@ -1,3 +1,6 @@
+alias clr='clear'
+alias reload='source ~/.zlogin ~/.zshrc'
+
 alias cd='z'
 alias cdi='zi'
 alias cat='bat'

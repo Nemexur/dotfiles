@@ -37,8 +37,6 @@ _brew_install_cask() {
 }
 
 brew_install() {
-    source $HOME/.dotfiles/scripts/prompt
-
     ask_user " - Select type of brew formula?\n\
      [\033[00;32m1\033[0m] Package\n\
      [\033[00;32m2\033[0m] Cask\n\

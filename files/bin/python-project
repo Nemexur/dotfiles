@@ -2,8 +2,6 @@
 #
 # Helper script to quickly setup project in Python.
 
-source $HOME/.dotfiles/scripts/prompt
-
 setupPython() {
     ask_user " - Which python version to use:"
     read -e -r python_version

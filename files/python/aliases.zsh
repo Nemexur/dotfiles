@@ -29,7 +29,7 @@ jupstart() {
 }
 
 jupscr() {
-    echoInfo "Creating screen $(cur_dir)-screen"
+    info "Creating screen $(cur_dir)-screen"
     if [ -f pyproject.toml ]; then
         screen -dmS $(cur_dir)-screen poetry run jupyter lab
     elif [ -f Pipfile ]; then

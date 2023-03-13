@@ -3,8 +3,6 @@
 # Helper script to prepend Jira Task
 # at the beginnnig of git branch to commit
 
-source $HOME/.dotfiles/scripts/prompt
-
 DIR=${1:-.}
 
 HOOK_FILENAME="${DIR}/.git/hooks/prepare-commit-msg"

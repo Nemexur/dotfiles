@@ -2,9 +2,6 @@
 #
 # Helper script to quickly setup project in Golang.
 
-source $HOME/.dotfiles/scripts/prompt
-
-
 setupDependencyManagement() {
     ask_user " - Enter package name:"
     read -e -r go_package_name
