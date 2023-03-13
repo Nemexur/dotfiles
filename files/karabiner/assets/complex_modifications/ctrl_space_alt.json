@@ -1,0 +1,29 @@
+{
+    "title": "Ctrl + Space to Option",
+    "rules": [
+        {
+            "description": "Remap ctrl + space to left option",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "mandatory": [
+                                "control"
+                            ],
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "option"
+                        }
+                    ],
+                }
+            ]
+        }
+    ]
+}
