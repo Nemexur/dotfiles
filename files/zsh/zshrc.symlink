@@ -18,38 +18,6 @@ DEFAULT_USER="$(whoami)"
 # Disable autocorrect
 unsetopt correct_all
 
-# all of our zsh files
-typeset -U config_files
-config_files=($DOTFILES/files/**/*.zsh)
-
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
-
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-  source $file
-done
-
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -Uz compinit
-if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
-  compinit;
-else
-  compinit -C;
-fi
-
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
-
-unset config_files
-
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -Uz up-line-or-beginning-search
@@ -76,15 +44,20 @@ plugins=(
   zsh-interactive-cd
   zsh-completions
   zsh-autosuggestions
-  zsh-syntax-highlighting
   zsh-fzf-history-search
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# syntax highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+for f in $DOTFILES/files/**/*.zsh
+do
+    source $f
+done
 
+# Enable zsh syntax hightlights
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 #styles
 ZSH_HIGHLIGHT_STYLES[function]=fg=magenta,bold
 ZSH_HIGHLIGHT_STYLES[command]=fg=green
@@ -97,12 +70,29 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[path_approx]=fg=cyan
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=240
 
-# Load once again
-source $DOTFILES/files/system/aliases.zsh
-
 # Other exports
 export EDITOR='lvim'
 export LANG=en_US.UTF-8
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERM=xterm-256color
 export LIBFM_PATH=$HOME/Projects/libfm/bin/
+
+# # The next line updates PATH for Yandex Cloud CLI.
+# if [ -f '$HOME/yandex-cloud/path.bash.inc' ]; then source '$HOME/yandex-cloud/path.bash.inc'; fi
+
+# # The next line enables shell command completion for yc.
+# if [ -f '$HOME/yandex-cloud/completion.zsh.inc' ]; then source '$HOME/yandex-cloud/completion.zsh.inc'; fi
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+# Starship
+eval "$(starship init zsh)"
+
+# # Perl
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+
+# PyEnv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
