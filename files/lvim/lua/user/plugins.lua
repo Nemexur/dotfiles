@@ -7,6 +7,7 @@ lvim.plugins = {
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "iamcco/markdown-preview.nvim" },
     { "fladson/vim-kitty" },
+    { "vim-ctrlspace/vim-ctrlspace" },
     {
         "m-demare/attempt.nvim",
         requires = {
