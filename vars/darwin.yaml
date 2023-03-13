@@ -5,6 +5,33 @@
 homebrew_bin_path: "/usr/local/bin"
 packages_go_root: "/usr/local/opt/go/libexec"
 #
+# Symlink
+#
+symlink_directories:
+  - "{{ home_dir }}/.tmux"
+  - "{{ home_dir }}/.config"
+  - '{{ home_dir }}/Library/Application Support/Code/User'
+symlink_additional_files:
+  - path: "{{ dotfiles_dir_files }}/tmux/responsive"
+    dest: "{{ home_dir }}/.tmux/responsive"
+  - path: "{{ dotfiles_dir_files }}/karabiner"
+    dest: "{{ home_dir }}/.config/karabiner"
+  - path: "{{ dotfiles_dir_files }}/lvim"
+    dest: "{{ home_dir }}/.config/lvim"
+  - path: "{{ dotfiles_dir_files }}/kitty"
+    dest: "{{ home_dir }}/.config/kitty"
+  - path: "{{ dotfiles_dir_files }}/ranger/rc.conf"
+    dest: "{{ home_dir }}/.config/ranger/rc.conf"
+  - path: "{{ dotfiles_dir_files }}/starship/starship.toml"
+    dest: "{{ home_dir }}/.config/starship.toml"
+  - path: "{{ dotfiles_dir_files }}/zellij"
+    dest: "{{ home_dir }}/.config/zellij"
+  - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
+  - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
+    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
+
+#
 # Homebrew
 #
 homebrew_taps:
@@ -138,6 +165,7 @@ homebrew_installed_packages:
   # Vi 'workalike' with many additional features
   - vim
   - neovim
+  - neovide
   # Executes a program periodically, showing output fullscreen
   - watch
   # Program that allows you to count code, quickly
@@ -264,31 +292,6 @@ homebrew_cask_apps:
 #
 git_work_config_enabled: true
 #
-# Symlink
-#
-symlink_directories:
-  - "{{ home_dir }}/.tmux"
-  - "{{ home_dir }}/.config"
-  - '{{ home_dir }}/Library/Application Support/Code/User'
-symlink_additional_files:
-  - path: "{{ dotfiles_dir_files }}/tmux/responsive"
-    dest: "{{ home_dir }}/.tmux/responsive"
-  - path: "{{ dotfiles_dir_files }}/karabiner"
-    dest: "{{ home_dir }}/.config/karabiner"
-  - path: "{{ dotfiles_dir_files }}/lvim"
-    dest: "{{ home_dir }}/.config/lvim"
-  - path: "{{ dotfiles_dir_files }}/kitty"
-    dest: "{{ home_dir }}/.config/kitty"
-  - path: "{{ dotfiles_dir_files }}/ranger/rc.conf"
-    dest: "{{ home_dir }}/.config/ranger/rc.conf"
-  - path: "{{ dotfiles_dir_files }}/starship/starship.toml"
-    dest: "{{ home_dir }}/.config/starship.toml"
-  - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
-    dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
-  - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
-    dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
-
-#
 # System
 #
 system_macos_defaults:
@@ -307,6 +310,9 @@ system_macos_defaults:
     type: string
     value: Nlsv
   # Set a really fast key repeat.
+  - key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
   - key: KeyRepeat
     type: int
     value: 1
