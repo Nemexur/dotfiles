@@ -2,7 +2,6 @@
 export ZSH=~/.oh-my-zsh
 export DOTFILES=~/.dotfiles
 export GPG_TTY=$(tty)
-source $ZSH/oh-my-zsh.sh
 
 # ZSH Customization Settings
 KEYTIMEOUT=1
@@ -11,6 +10,7 @@ ZSH_THEME="robbyrussell"
 # fix pasting speed
 # ref https://github.com/zsh-users/zsh-autosuggestions/issues/238
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+zstyle ':omz:update' frequency 7
 
 # Default username to hide "user@hostname" info
 DEFAULT_USER="$(whoami)"
@@ -35,8 +35,12 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+autoload -Uz compinit
+if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+  compinit;
+else
+  compinit -C;
+fi
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -48,34 +52,12 @@ unset config_files
 
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  sudo
-  git
-  history
-  web-search
-  copypath
-  copyfile
-  dirhistory
-  thefuck
-  zsh-interactive-cd
-  zsh-autosuggestions
-  zsh-completions
-  zsh-syntax-highlighting
-  zsh-fzf-history-search
-)
-
-# User configuration
 
 # Set Open Files limits
 ulimit -n 200000
@@ -86,44 +68,24 @@ bindkey -s '^f' 'cd_with_fzf^M'
 bindkey -s '^b' 'brew_install^M'
 bindkey -s '^g' 'pass_with_fzf^M'
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# Oh My Zsh
+plugins=(
+  copypath
+  thefuck
+  docker-compose
+  zsh-interactive-cd
+  zsh-completions
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-fzf-history-search
+)
 
-# Preferred editor for local and remote sessions
-export EDITOR='lvim'
-
-# Use `bat` for MANPAGE
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-#---- CUSTOM ----
 source $ZSH/oh-my-zsh.sh
-
-#---- Terminal ----
-export TERM=xterm-256color
-# if [ -n "$USEVSCODE" ]; then
-#  export TERM=xterm-256color
-# else
-#  export TERM=xterm-kitty
-# fi
-
-# autoload ----------------------------------------------------------------------
-autoload -Uz vcs_info 
-autoload -Uz colors && colors
-autoload -U compinit && compinit
-# Load once again
-source $DOTFILES/files/system/aliases.zsh
 
 # syntax highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 #styles
-ZSH_HIGHLIGHT_STYLES[default]=none
 ZSH_HIGHLIGHT_STYLES[function]=fg=magenta,bold
 ZSH_HIGHLIGHT_STYLES[command]=fg=green
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=green
@@ -135,56 +97,12 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[path_approx]=fg=cyan
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=240
 
+# Load once again
+source $DOTFILES/files/system/aliases.zsh
 
-#---- Export ----
-export PATH=$PATH:$HOME/bin
-export MONGO_PATH=/usr/local/mongodb 
-export PATH=$PATH:$MONGO_PATH/bin
-export CDPATH=.:$HOME:$GOROOT/src:$GOPATH/src/golang.org:$GOPATH/src/github.com
+# Other exports
+export EDITOR='lvim'
+export LANG=en_US.UTF-8
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export TERM=xterm-256color
 export LIBFM_PATH=$HOME/Projects/libfm/bin/
-
-#---- End Export ----
-
-#---- Source ----
-[ -f ~/bin/fubectl.source ] && source ~/bin/fubectl.source
-source <(kubectl completion zsh)
-#---- End Source ----
-
-#---- PyEnv setup ----
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-if [ -n "$PYENV_COMMAND" ] && [ ! -x "$PYENV_COMMAND_PATH" ]; then
-  versions=($(pyenv-whence "${PYENV_COMMAND}" 2>/dev/null || true))
-  if [ "${#versions[@]}" -eq 1 ]; then
-    PYENV_COMMAND_PATH="${PYENV_ROOT}/versions/${versions[0]}/bin/${PYENV_COMMAND}"
-  fi
-fi
-#---- End Pyenv setup ----
-#---- END CUSTOM ----
-eval "$(pyenv init -)"
-# Load Shell integration for iTerm
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-  source ~/.iterm2_shell_integration.zsh
-fi
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
-
-# The next line updates PATH for Yandex Cloud CLI.
-if [ -f '$HOME/yandex-cloud/path.bash.inc' ]; then source '$HOME/yandex-cloud/path.bash.inc'; fi
-
-# The next line enables shell command completion for yc.
-if [ -f '$HOME/yandex-cloud/completion.zsh.inc' ]; then source '$HOME/yandex-cloud/completion.zsh.inc'; fi
-
-# TheFuck setup
-eval $(thefuck --alias)
-
-# Zoxide
-eval "$(zoxide init zsh)"
-
-# Starship
-eval "$(starship init zsh)"
-
-# Perl
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"

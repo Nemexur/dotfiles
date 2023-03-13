@@ -1,0 +1,46 @@
+(
+    # <https://github.com/zimfw/zimfw/blob/master/login_init.zsh>
+    setopt LOCAL_OPTIONS EXTENDED_GLOB
+    autoload -U zrecompile
+    local ZSHCONFIG=${HOME}/.dotfiles
+
+    # Compile zcompdump, if modified, to increase startup speed.
+    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+    if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
+        zrecompile -pq "$zcompdump"
+    fi
+    # zcompile .zshrc
+    zrecompile -pq ${ZDOTDIR:-${HOME}}/.zshrc
+    # recompile all zsh or sh
+    for f in $ZSHCONFIG/**/*.*sh
+    do
+        zrecompile -pq $f
+    done
+    for f in $ZSHCONFIG/files/functions/*
+    do
+        zrecompile -pq $f
+    done
+) &!
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '$HOME/yandex-cloud/path.bash.inc' ]; then source '$HOME/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '$HOME/yandex-cloud/completion.zsh.inc' ]; then source '$HOME/yandex-cloud/completion.zsh.inc'; fi
+
+# TheFuck setup
+eval $(thefuck --alias)
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+# Starship
+eval "$(starship init zsh)"
+
+# Perl
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+
+# PyEnv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
