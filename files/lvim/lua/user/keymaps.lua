@@ -18,8 +18,24 @@ local keymaps = {
     visual_mode = {
         ["s"] = "<cmd>lua require('substitute').visual()<cr>",
         ["X"] = "<cmd>lua require('substitute.exchange').visual()<cr>",
-    }
+    },
+    insert_mode = {},
+    command_mode = {},
 }
+if vim.g.neovide then
+    keymaps.normal_mode["<D-s>"] = ":w<CR>"
+    keymaps.normal_mode["<D-v>"] = '"+Pl'
+    keymaps.visual_mode["<D-c>"] = '"+y'
+    keymaps.visual_mode["<D-v>"] = '"+Pl'
+    keymaps.insert_mode["<D-v>"] = '<ESC>l"+Pli'
+    keymaps.command_mode["<D-v>"] = '<C-R>+'
+    -- Allow clipboard copy paste in neovim
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", opts)
+    vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", opts)
+    vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", opts)
+    vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", opts)
+end
 
 for mode, mappings in pairs(keymaps) do
     for k, v in pairs(mappings) do
