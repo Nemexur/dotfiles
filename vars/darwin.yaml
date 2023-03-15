@@ -60,12 +60,16 @@ homebrew_installed_packages:
   - docker-buildx
   # Search tool like grep, but optimized for programmers
   - ack
+  # Optimized alrternative to ack
+  - the_silver_searcher
   # df utility but better
   - duf
   # Cryptography and SSL/TLS Toolkit
   - openssl
   # Library for command-line editing
   - readline
+  # Readline wrapper: adds readline support to tools that lack it
+  - rlwrap
   # General-purpose data compression with high compression ratio
   - xz
   # General-purpose lossless data-compression library
@@ -74,8 +78,6 @@ homebrew_installed_packages:
   - pre-commit
   # Simple, fast and user-friendly alternative to find
   - fd
-  # Programmable completion for Bash 3.2
-  - bash-completion
   # Validating, recursive, caching DNS resolver
   - unbound
   # GNU Transport Layer Security (TLS) Library
@@ -110,10 +112,9 @@ homebrew_installed_packages:
   - hub
   # Tools and libraries to manipulate images in many formats
   - imagemagick
-  # Convert JPG images to ASCII
-  - jp2a
   # Lightweight and flexible command-line JSON processor
   - jq
+  - yq
   # Domain specific configuration language for defining JSON data
   - jsonnet
   # Network authentication protocol
@@ -140,8 +141,6 @@ homebrew_installed_packages:
   - ruby-build
   # Ruby version manager
   - rbenv
-  # Reattach process (e.g., tmux) to background
-  - reattach-to-user-namespace
   # Powerful, clean, object-oriented scripting language
   - ruby
   # Programmatically correct mistyped console commands
