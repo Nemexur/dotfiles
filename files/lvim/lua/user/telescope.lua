@@ -55,12 +55,12 @@ lvim.builtin.telescope.defaults.mappings = {
     -- for input mode
     i = {
         ["<C-j>"] = actions.move_selection_next,
+        ["<Tab>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
 
         ["<C-c>"] = actions.close,
-        ["<Tab>"] = actions.close,
         ["<esc>"] = actions.close,
 
         ["<C-h>"] = actions.which_key,
@@ -68,8 +68,9 @@ lvim.builtin.telescope.defaults.mappings = {
     -- for normal mode
     n = {
         ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
         ["j"] = actions.move_selection_next,
+        ["<Tab>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
         ["k"] = actions.move_selection_previous,
         ["H"] = actions.move_to_top,
         ["M"] = actions.move_to_middle,
@@ -77,7 +78,6 @@ lvim.builtin.telescope.defaults.mappings = {
 
         ["q"] = actions.close,
         ["<C-c>"] = actions.close,
-        ["<Tab>"] = actions.close,
         ["<esc>"] = actions.close,
 
         ["?"] = actions.which_key,

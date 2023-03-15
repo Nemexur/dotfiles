@@ -74,6 +74,10 @@ local which_key_mappings = {
         j = { "<C-w>j", "Go Right" },
         k = { "<C-w>k", "Go Up" },
         l = { "<C-w>l", "Go Down" },
+    },
+    ["i"] = {
+        name = "Sessions",
+        r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
     }
 }
 for k, v in pairs(which_key_mappings) do

@@ -4,10 +4,16 @@ formatters.setup {
     { command = "gofumpt",   filetypes = { "go" } },
 }
 
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "gopls" })
+
 local lsp_manager = require "lvim.lsp.manager"
 lsp_manager.setup("gopls", {
     on_attach = function(client, bufnr)
         require("lvim.lsp").common_on_attach(client, bufnr)
+        require("lsp_signature").on_attach(
+            { bind = true, handler_opts = { border = "rounded" } },
+            bufnr
+        )
         local _, _ = pcall(vim.lsp.codelens.refresh)
     end,
     on_init = require("lvim.lsp").common_on_init,

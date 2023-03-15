@@ -8,8 +8,12 @@ lvim.transparent_window = true
 -- LunarVim builtin
 lvim.builtin.dap.active = true
 lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.illuminate.active = true
+lvim.builtin.autopairs.active = true
+lvim.builtin.comment.active = true
 lvim.builtin.terminal.active = true
+lvim.builtin.bufferline.active = true
+lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
@@ -38,10 +42,21 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
-vim.g.CtrlSpaceDefaultMappingKey = "<C-space> "
 -- Neovide
 if vim.g.neovide then
     vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
     vim.g.neovide_input_macos_alt_is_meta = false
     vim.g.neovide_remember_window_size = true
 end
+
+-- lvim.lsp.handlers.override_config = {
+--     focusable = true,
+--     style = "minimal",
+--     border = "rounded",
+-- }
+
+-- if lvim.lsp.handlers.override_config then
+--     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lvim.lsp.handlers.override_config)
+--     vim.lsp.handlers["textDocument/signatureHelp"] =
+--       vim.lsp.with(vim.lsp.handlers.signature_help, lvim.lsp.handlers.override_config)
+-- end
