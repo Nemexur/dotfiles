@@ -220,7 +220,7 @@ pane_frames true
 themes {
     dracula {
         fg 248 248 242
-        bg 40 42 54
+        bg 127 174 181
         red 255 85 85
         green 80 250 123
         yellow 241 250 140
@@ -249,12 +249,12 @@ themes {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "one-half-dark"
+theme "dracula"
 
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "default"
+default_layout "custom"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -316,7 +316,7 @@ copy_on_select true
 
 // The folder in which Zellij will look for layouts
 //
- layout_dir "/path/to/my/layout_dir"
+// layout_dir "/path/to/my/layout_dir"
 
 // The folder in which Zellij will look for themes
 //
