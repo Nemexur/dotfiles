@@ -1,5 +1,6 @@
 local editor_plugins = {
     { "ggandor/leap.nvim" },
+    { "michaeljsmith/vim-indent-object" },
     {
         "windwp/nvim-spectre",
         event = "BufRead",
