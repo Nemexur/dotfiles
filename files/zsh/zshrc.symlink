@@ -40,9 +40,9 @@ bindkey -s '^g' 'pass_with_fzf^M'
 plugins=(
   copypath
   thefuck
+  docker
   docker-compose
   zsh-interactive-cd
-  zsh-completions
   zsh-autosuggestions
   zsh-fzf-history-search
 )
