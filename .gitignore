@@ -7,3 +7,4 @@ collections-galaxy*
 config.yaml
 
 files/**/secrets.*
+files/alfred

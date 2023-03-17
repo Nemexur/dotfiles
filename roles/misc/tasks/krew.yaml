@@ -1,0 +1,18 @@
+---
+- name: Download krew script
+  ansible.builtin.get_url:
+    url: "{{ misc_krew_script_url }}"
+    dest: "{{ misc_krew_install_path }}"
+    mode: 0640
+
+- name: Unarchive krew script
+  ansible.builtin.unarchive:
+    src: "{{ misc_krew_install_path }}"
+    dest: "{{ misc_krew_install_dir }}"
+    mode: 0751
+    creates: "{{ misc_krew_install_dir }}/{{ misc_krew_script }}"
+
+- name: Install krew
+  ansible.builtin.command:
+    cmd: "{{ misc_krew_install_dir }}/{{ misc_krew_script }} install krew"
+    creates: "{{ home_dir }}/.krew/bin"
