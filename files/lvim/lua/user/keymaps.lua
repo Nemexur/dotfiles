@@ -14,6 +14,8 @@ local keymaps = {
         ["gpd"] = "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
         ["gpi"] = "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
         ["gP"] = "<cmd>lua require('goto-preview').close_all_win()<cr>",
+        [";"] = "<Plug>(leap-forward-to)",
+        ["g;"] = "<Plug>(leap-backward-to)",
     },
     visual_mode = {
         ["s"] = "<cmd>lua require('substitute').visual()<cr>",
@@ -46,9 +48,7 @@ end
 local which_key_mappings = {
     ["u"] = { "<C-r>", "Redo" },
     ["o"] = { "o<esc>", "New Line" },
-    ["a"] = { "<Plug>(leap-forward-to)", "Leap Forward" },
-    ["A"] = { "<Plug>(leap-backward-to)", "Leap Backward" },
-    ["t"] = {
+    ["a"] = {
         name = "Attempt Buffer",
         l = { "<cmd>Telescope attempt<cr>", "Select Script" },
         n = { "<cmd>lua require('attempt').new_select()<cr>", "Select Lang" },
@@ -78,8 +78,17 @@ local which_key_mappings = {
     ["i"] = {
         name = "Sessions",
         r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
-    }
+    },
+    ["q"] = {
+        name = "Quit",
+        q = { ":q<cr>", "Quit a buffer" },
+        w = { ":wq<cr>", "Save a buffer and quit" },
+        a = { ":wqa<cr>", "Save all buffers and quit" },
+    },
 }
 for k, v in pairs(which_key_mappings) do
     lvim.builtin.which_key.mappings[k] = v
 end
+
+-- Extra mappings
+lvim.builtin.which_key.mappings["L"]["w"] = { ":wa<cr>", "Save all buffers" }
