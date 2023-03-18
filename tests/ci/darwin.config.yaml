@@ -26,3 +26,4 @@ homebrew_cask_apps:
   - visual-studio-code
   - karabiner-elements
 system_macos_defaults: []
+misc_krew_install_dir: "{{ home_dir }}"
