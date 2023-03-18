@@ -21,7 +21,7 @@ attempt.setup({
         go = initial_content_fn,
         sh = initial_content_fn,
     },
-    ext_options = { "lua", "js", "py", "go", "sh" },
+    ext_options = { "lua", "js", "py", "go", "sh", "yaml", "json" },
     run = {
         lua = { "w", "luafile %" },
         js = { "w !node" },
