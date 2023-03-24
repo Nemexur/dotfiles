@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# Convinent alias to create new branch
+
+branch=$1
+git checkout -b ${branch} origin/${branch}
