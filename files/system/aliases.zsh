@@ -1,6 +1,9 @@
 alias clr='clear'
 alias reload='omz reload'
 
+alias c='z'
+alias cz='zi'
+alias cs='cd_with_fzf'
 alias cd='z'
 alias cdi='zi'
 alias cat='bat'
