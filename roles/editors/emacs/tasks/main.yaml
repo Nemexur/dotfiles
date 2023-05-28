@@ -41,4 +41,10 @@
     ansible.builtin.command: "{{ emacs_doom_emacs_binary }}/doom install --force --no-env"
     changed_when: true
     failed_when: false
-    notify: Doom health
+
+  - name: Update Doom envs
+    changed_when: true
+    ansible.builtin.command: "{{ emacs_doom_emacs_binary }}/doom {{ item }}"
+    loop:
+      - clean
+      - env
