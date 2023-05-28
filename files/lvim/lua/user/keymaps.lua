@@ -78,6 +78,8 @@ local which_key_mappings = {
     ["i"] = {
         name = "Sessions",
         r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
+        l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+        Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
     },
     ["q"] = {
         name = "Quit",

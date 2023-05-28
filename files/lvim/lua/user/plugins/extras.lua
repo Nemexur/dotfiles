@@ -1,14 +1,14 @@
 local extras_plugins = {
+    { "lervag/vimtex" },
     {
         "folke/persistence.nvim",
-        event = "BufReadPre",
+        event = "BufReadPre", -- this will only start session saving when an actual file was opened
         config = function()
-            require("persistence").setup({
-                opts = {
-                    options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" },
-                },
-            })
-        end
+            require("persistence").setup {
+                dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+                options = { "buffers", "curdir", "tabpages", "winsize" },
+            }
+        end,
     },
 }
 

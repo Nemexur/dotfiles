@@ -1,6 +1,7 @@
 local editor_plugins = {
     { "ggandor/leap.nvim" },
     { "michaeljsmith/vim-indent-object" },
+    { "chaoren/vim-wordmotion" },
     {
         "windwp/nvim-spectre",
         event = "BufRead",
@@ -39,6 +40,12 @@ local editor_plugins = {
                 show_cursorline = true, -- Enable 'cursorline' for the window while peeking
             }
         end,
+    },
+    {
+        "andrewferrier/wrapping.nvim",
+        config = function()
+            require("wrapping").setup()
+        end
     },
 }
 

@@ -3,7 +3,7 @@ local coding_plugins = {
     { "gpanders/editorconfig.nvim" },
     {
         "m-demare/attempt.nvim",
-        requires = {
+        dependencies = {
             { "nvim-lua/plenary.nvim" },
         },
     },
