@@ -15,9 +15,6 @@ zstyle ':omz:update' frequency 7
 # Default username to hide "user@hostname" info
 DEFAULT_USER="$(whoami)"
 
-# Disable autocorrect
-unsetopt correct_all
-
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -Uz up-line-or-beginning-search
@@ -56,6 +53,10 @@ done
 
 # Enable zsh syntax hightlights
 source ~/.theme.zshrc
+
+# Disable zsh options
+unsetopt correct_all
+unsetopt completealiases
 
 # Other exports
 export EDITOR='lvim'
