@@ -36,5 +36,5 @@ if [[ -z "$COMMIT_SOURCE" ]]; then
 fi
 ' > $HOOK_FILENAME
 
-success "Created hook $HOOK_FILENAME"
+echo "Created hook $HOOK_FILENAME"
 chmod +x $HOOK_FILENAME

@@ -2,10 +2,9 @@
 #
 # Launch Neovide with LunarVim configuration
 
-export LUNARVIM_RUNTIME_DIR="${LUNARVIM_RUNTIME_DIR:-"${HOME}/.local/share/lunarvim"}"
-export LUNARVIM_CONFIG_DIR="${LUNARVIM_CONFIG_DIR:-"${HOME}/.config/lvim"}"
-export LUNARVIM_CACHE_DIR="${LUNARVIM_CACHE_DIR:-"${HOME}/.cache/lvim"}"
+export LUNARVIM_RUNTIME_DIR="${LUNARVIM_RUNTIME_DIR:-"$HOME/.local/share/lunarvim"}"
+export LUNARVIM_CONFIG_DIR="${LUNARVIM_CONFIG_DIR:-"$HOME/.config/lvim"}"
+export LUNARVIM_CACHE_DIR="${LUNARVIM_CACHE_DIR:-"$HOME/.cache/lvim"}"
+export LUNARVIM_BASE_DIR="${LUNARVIM_BASE_DIR:-"$HOME/.local/share/lunarvim/lvim"}"
 
-export LUNARVIM_BASE_DIR="${LUNARVIM_BASE_DIR:-"${HOME}/.local/share/lunarvim/lvim"}"
-
-exec -a lvide neovide --maximized --notabs --neovim-bin lvim -- -u "${LUNARVIM_BASE_DIR}/init.lua" --cmd "set runtimepath+=${LUNARVIM_BASE_DIR}" "$@"
+exec -a lvide neovide -- -u "${LUNARVIM_BASE_DIR}/init.lua" "$@"
