@@ -235,4 +235,7 @@
     "terminal.integrated.env.osx": {
         "USEVSCODE": "true"
     },
+    "[sql]": {
+        "editor.defaultFormatter": "mtxr.sqltools"
+    },
 }
