@@ -11,11 +11,10 @@ layout {
     tab name="ranger" {
         pane command="ranger"
     }
-    tab name="Tab #1" focus=true {
+    tab focus=true {
         pane
     }
 }
-
 keybinds {
     normal {
         bind "Ctrl f" { GoToTab 1; }
