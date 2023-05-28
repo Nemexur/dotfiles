@@ -1,0 +1,19 @@
+---
+version: "3.9"
+
+services:
+  docker-macos:
+    image: sickcodes/docker-osx:ventura
+    environment:
+      DISPLAY: ${DISPLAY:-:0.0}
+      GENERATE_UNIQUE: "true"
+      MASTER_PLIST_URL: "https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist"
+    privileged: true
+    ports:
+      - 50922:10022
+    cap_add:
+      - ALL
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev:/dev
+      - /lib/modules:/lib/modules
