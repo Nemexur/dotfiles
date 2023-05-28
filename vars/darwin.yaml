@@ -49,6 +49,8 @@ homebrew_taps:
   - elastic/tap
   - saulpw/vd
   - hashicorp/tap
+  - metafates/mangal
+  - teamookla/speedtest
 homebrew_installed_packages:
   # Zsh requirements
   - zsh
@@ -112,11 +114,14 @@ homebrew_installed_packages:
   - hub
   # Tools and libraries to manipulate images in many formats
   - imagemagick
-  # Lightweight and flexible command-line JSON processor
+  # Lightweight and flexible command-line JSON/YAML processor
   - jq
   - yq
+  - jc
   # Domain specific configuration language for defining JSON data
   - jsonnet
+  # Internet goes brrrrr
+  - speedtest
   # Network authentication protocol
   - krb5
   # Kubernetes command-line interface
@@ -242,6 +247,10 @@ homebrew_installed_packages:
   - trash-cli
   # macOS system monitor in your menu bar
   - stats
+  # The most advanced CLI manga downloader in the entire universe!
+  - mangal
+  # Automatic workarounds for problems in Wine
+  - winetricks
 homebrew_cask_apps:
   # Browsers
   - sigmaos
@@ -265,6 +274,8 @@ homebrew_cask_apps:
   - ukelele
   - insomnia
   - grammarly
+  - xquartz
+  - wine-stable
   # Dev
   - jupyterlab
   - vscodium
@@ -283,9 +294,9 @@ homebrew_cask_apps:
   - dropbox
   - iina
   - imazing
-  - openvpn-connect
   - readwise-ibooks
   - telegram
+  - nextcloud
 #
 # Git
 #
