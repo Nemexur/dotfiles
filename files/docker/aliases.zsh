@@ -1,5 +1,4 @@
-alias d='docker $*'
-alias dcompose='docker-compose $*'
+alias d='docker'
 alias ddelstopped='docker rm $(docker ps -a -q)'
 alias dclean='docker system prune -a'
 alias dhardclean='docker volume ls -qf dangling=true | xargs docker volume rm'
