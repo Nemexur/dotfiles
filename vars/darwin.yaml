@@ -64,6 +64,8 @@ homebrew_installed_packages:
   - ack
   # Optimized alrternative to ack
   - the_silver_searcher
+  # Like sed, awk, cut, join & sort for name-indexed data such as CSV
+  - miller
   # df utility but better
   - duf
   # Cryptography and SSL/TLS Toolkit
@@ -297,6 +299,7 @@ homebrew_cask_apps:
   - readwise-ibooks
   - telegram
   - nextcloud
+  - mouse-fix
 #
 # Git
 #
