@@ -39,19 +39,19 @@ local coding_plugins = {
         "rmagatti/goto-preview",
         config = function()
             require("goto-preview").setup {
-                width = 120, -- Width of the floating window
-                height = 25, -- Height of the floating window
+                width = 120,              -- Width of the floating window
+                height = 25,              -- Height of the floating window
                 default_mappings = false, -- Bind default mappings
-                debug = false, -- Print debug information
-                opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-                post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
+                debug = false,            -- Print debug information
+                opacity = nil,            -- 0-100 opacity level of the floating window where 100 is fully transparent.
+                post_open_hook = nil      -- A function taking two arguments, a buffer and a window to be ran as a hook.
             }
         end
     },
     {
         "folke/trouble.nvim",
         cmd = { "TroubleToggle", "Trouble" },
-        config = function ()
+        config = function()
             require("trouble").setup({
                 opts = { use_diagnostic_signs = true },
             })
@@ -61,6 +61,10 @@ local coding_plugins = {
         "folke/todo-comments.nvim",
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile" },
+    },
+    {
+        "danymat/neogen",
+        event = "BufEnter",
     },
 }
 

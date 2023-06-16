@@ -63,17 +63,24 @@ end
 dapgo.setup()
 
 local mappings = {
-    ["C"] = {
+    ["c"] = {
         name = "Go",
-        i = { "<cmd>GoInstallDeps<Cr>", "Install Go Dependencies" },
+        i = { "<cmd>GoInstallDeps<cr>", "Install Go Dependencies" },
         f = { "<cmd>GoMod tidy<cr>", "Tidy" },
-        a = { "<cmd>GoTestAdd<Cr>", "Add Test" },
-        A = { "<cmd>GoTestsAll<Cr>", "Add All Tests" },
-        e = { "<cmd>GoTestsExp<Cr>", "Add Exported Tests" },
-        g = { "<cmd>GoGenerate<Cr>", "Go Generate" },
-        G = { "<cmd>GoGenerate %<Cr>", "Go Generate File" },
-        c = { "<cmd>GoCmt<Cr>", "Generate Comment" },
-        t = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" },
+        a = { "<cmd>GoTestAdd<cr>", "Add Test" },
+        A = { "<cmd>GoTestsAll<cr>", "Add All Tests" },
+        E = { "<cmd>GoTestsExp<cr>", "Add Exported Tests" },
+        g = { "<cmd>GoGenerate<cr>", "Go Generate" },
+        G = { "<cmd>GoGenerate %<cr>", "Go Generate File" },
+        c = { "<cmd>GoCmt<cr>", "Generate Comment" },
+        T = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" },
+        e = { "<cmd>GoIfErr<cr>", "Generate if err" },
+        d = { "<cmd>GoCmt<cr>", "Generate doc" },
+        t = {
+            name = "Struct tags",
+            j = { "<cmd>GoTagAdd json<cr>", "json" },
+            y = { "<cmd>GoTagAdd yaml<cr>", "yaml" },
+        },
     },
 }
 for k, v in pairs(mappings) do

@@ -5,6 +5,9 @@ lvim.leader = "space"
 local keymaps = {
     normal_mode = {
         ["<C-s>"] = ":w<cr>",
+        ["<C-d>"] = "<C-d>zz",
+        ["<C-u>"] = "<C-u>zz",
+        ["<C-k>"] = "<cmd>BufferKill<cr>",
         ["s"] = "<cmd>lua require('substitute').operator()<cr>",
         ["ss"] = "<cmd>lua require('substitute').line()<cr>",
         ["S"] = "<cmd>lua require('substitute').eol()<cr>",
@@ -46,6 +49,7 @@ for mode, mappings in pairs(keymaps) do
 end
 
 local which_key_mappings = {
+    ["C"] = { "<cmd>BufferKill<cr>", "Close Buffer" },
     ["u"] = { "<C-r>", "Redo" },
     ["o"] = { "o<esc>", "New Line" },
     ["a"] = {
@@ -87,6 +91,12 @@ local which_key_mappings = {
         w = { ":wq<cr>", "Save a buffer and quit" },
         a = { ":wqa<cr>", "Save all buffers and quit" },
     },
+    ["n"] = {
+        name = "Neogen",
+        c = { "<cmd>lua require('neogen').generate({ type = 'class' })<cr>", "Class Doc" },
+        f = { "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", "Function Doc" },
+        t = { "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", "Type Doc" },
+    },
 }
 for k, v in pairs(which_key_mappings) do
     lvim.builtin.which_key.mappings[k] = v
@@ -94,3 +104,4 @@ end
 
 -- Extra mappings
 lvim.builtin.which_key.mappings["L"]["w"] = { ":wa<cr>", "Save all buffers" }
+lvim.builtin.which_key.mappings["b"]["k"] = { "<cmd>BufferKill<cr>", "Close buffer" }

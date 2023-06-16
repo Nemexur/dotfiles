@@ -1,6 +1,12 @@
 local go_plugins = {
-    { "leoluz/nvim-dap-go" },
-    { "olexsmir/gopher.nvim" },
+    {
+        "leoluz/nvim-dap-go",
+        ft = "go",
+    },
+    {
+        "olexsmir/gopher.nvim",
+        ft = "go",
+    },
 }
 
 for _, v in ipairs(go_plugins) do

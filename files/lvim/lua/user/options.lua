@@ -1,6 +1,6 @@
 -- general
 lvim.log.level = "warn"
-lvim.colorscheme = "lunar"
+lvim.colorscheme = "dracula"
 lvim.use_icons = true
 lvim.reload_config_on_save = false
 lvim.transparent_window = true
@@ -19,7 +19,7 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
--- general vim settings
+-- General vim settings
 local options = {
     mouse = "a",            -- allow the mouse to be used in neovim
     timeoutlen = 30,        -- time to wait for a mapped sequence to complete (in milliseconds)

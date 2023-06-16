@@ -1,6 +1,7 @@
 require "user.plugins.coding"
+require "user.plugins.config"
 require "user.plugins.editor"
 require "user.plugins.extras"
 require "user.plugins.go"
+require "user.plugins.python"
 require "user.plugins.ui"
-require "user.plugins.config"

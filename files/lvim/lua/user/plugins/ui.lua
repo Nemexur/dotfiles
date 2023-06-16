@@ -3,10 +3,13 @@ local ui_plugins = {
     { "towolf/vim-helm" },
     { "iamcco/markdown-preview.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
+    { "Mofiqul/dracula.nvim" },
     {
         "beauwilliams/focus.nvim",
         config = function()
-            require("focus").setup()
+            require("focus").setup({
+                autoresize = false,
+            })
         end,
     },
     {
@@ -14,7 +17,6 @@ local ui_plugins = {
         event = "VeryLazy",
         dependencies = {
             { "MunifTanjim/nui.nvim" },
-            { "rcarriga/nvim-notify" },
         },
         config = function()
             require("noice").setup({
@@ -41,36 +43,6 @@ local ui_plugins = {
                     },
                     message = {
                         enabled = false,
-                    },
-                },
-                views = {
-                    cmdline_popup = {
-                        position = {
-                            row = 5,
-                            col = "50%",
-                        },
-                        size = {
-                            width = 60,
-                            height = "auto",
-                        },
-                    },
-                    popupmenu = {
-                        relative = "editor",
-                        position = {
-                            row = 8,
-                            col = "50%",
-                        },
-                        size = {
-                            width = 60,
-                            height = 10,
-                        },
-                        border = {
-                            style = "rounded",
-                            padding = { 0, 1 },
-                        },
-                        win_options = {
-                            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-                        },
                     },
                 },
                 presets = {

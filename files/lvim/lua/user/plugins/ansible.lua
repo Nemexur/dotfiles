@@ -1,5 +1,8 @@
 local ansible_plugins = {
-    { "pearofducks/ansible-vim" },
+    {
+        "pearofducks/ansible-vim",
+        ft = "yaml.ansible",
+    },
 }
 
 for _, v in ipairs(ansible_plugins) do
