@@ -63,7 +63,7 @@ export EDITOR='lvim'
 export LANG=en_US.UTF-8
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERM=xterm-256color
-export LIBFM_PATH=$HOME/Projects/libfm/bin/
+export LIBFM_PATH=$HOME/Developer/libfm/bin/
 
 # # The next line updates PATH for Yandex Cloud CLI.
 # if [ -f '$HOME/yandex-cloud/path.bash.inc' ]; then source '$HOME/yandex-cloud/path.bash.inc'; fi

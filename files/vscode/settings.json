@@ -19,7 +19,9 @@
     "typescript.check.npmIsInstalled": false,
     "git.autofetch": true,
     "magit.forge-enabled": true,
-    "gitProjectManager.baseProjectsFolders": ["~/Projects/"],
+    "gitProjectManager.baseProjectsFolders": [
+        "~/Developer/"
+    ],
     // Color Override
     "workbench.colorCustomizations": {
         "activityBarBadge.background": "#E86100",
@@ -111,22 +113,42 @@
     "vim.replaceWithRegister": true,
     "vim.normalModeKeyBindings": [
         {
-            "before": ["<leader>", "u"],
-            "after": ["<C-r>"]
+            "before": [
+                "<leader>",
+                "u"
+            ],
+            "after": [
+                "<C-r>"
+            ]
         }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["<C-n>"],
-            "commands": [":nohl"]
+            "before": [
+                "<C-n>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
         },
         {
-            "before": ["Z", "Z"],
-            "commands": [":wq"]
+            "before": [
+                "Z",
+                "Z"
+            ],
+            "commands": [
+                ":wq"
+            ]
         },
         {
-            "before": ["<leader>", "o"],
-            "after": ["o", "<Esc>"]
+            "before": [
+                "<leader>",
+                "o"
+            ],
+            "after": [
+                "o",
+                "<Esc>"
+            ]
         }
     ],
     "vim.handleKeys": {
