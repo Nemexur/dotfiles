@@ -14,6 +14,7 @@ alias rm='trash'
 alias ls='exa --icons --color=always'
 alias ll='exa --icons --color=always -l'
 alias la='exa --icons --color=always -la'
+alias lt='exa --icons --color=always -T'
 
 alias zshconfig='lvim ~/.zshrc'
 alias ohmyzsh='lvim ~/.oh-my-zsh'
