@@ -24,27 +24,15 @@
     #
     - role: packages
       tags: packages
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished packages role"
-      tags: packages
     #
     # System
     #
     - role: system
       tags: system
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished system role"
-      tags: system
     #
     # Git
     #
     - role: git
-      tags: git
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished git role"
       tags: git
     #
     # Terminal
@@ -53,29 +41,11 @@
       tags:
         - zsh
         - terminal
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished terminal/zsh role"
-      tags:
-        - zsh
-        - terminal
     - role: terminal/tmux
       tags:
         - tmux
         - terminal
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished terminal/tmux role"
-      tags:
-        - tmux
-        - terminal
     - role: terminal/ranger
-      tags:
-        - ranger
-        - terminal
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished terminal/ranger role"
       tags:
         - ranger
         - terminal
@@ -86,42 +56,16 @@
       tags:
         - vim
         - editors
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished editors/vim role"
-      tags:
-        - vim
-        - editors
     - role: editors/emacs
       when: emacs_editor_enabled | default(false) | bool
       tags:
         - emacs
         - editors
-    - role: notifications/telegram
-      when:
-        - telegram_notifications_enabled | default(false) | bool
-        - emacs_editor_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished editors/emacs role"
-      tags:
-        - vim
-        - editors
     - role: editors/vscode
       tags:
         - vscode
         - editors
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished editors/vscode role"
-      tags:
-        - vscode
-        - editors
     - role: editors/lunarvim
-      tags:
-        - lunarvim
-        - editors
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished editors/lunarvim role"
       tags:
         - lunarvim
         - editors
@@ -132,22 +76,8 @@
       tags:
         - symlink
         - filesystem
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished filesystem/symlink role"
-      tags:
-        - symlink
-        - filesystem
     - role: filesystem/install
       when: filesystem_install_enabled | default(false) | bool
-      tags:
-        - install
-        - filesystem
-    - role: notifications/telegram
-      when:
-        - telegram_notifications_enabled | default(false) | bool
-        - filesystem_install_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished filesystem/install role"
       tags:
         - install
         - filesystem
@@ -155,8 +85,4 @@
     # Misc
     #
     - role: misc
-      tags: misc
-    - role: notifications/telegram
-      when: telegram_notifications_enabled | default(false) | bool
-      telegram_message: "#dotfiles: finished misc role"
       tags: misc
