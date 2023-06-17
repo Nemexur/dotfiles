@@ -44,8 +44,6 @@ ranger_plugins:
     dest: "{{ ranger_plugins_path }}/zoxide"
   - repo: "https://github.com/cdump/ranger-devicons2"
     dest: "{{ ranger_plugins_path }}/devicons2"
-  - repo: "https://github.com/vitkabele/ranger-gitplug.git"
-    dest: "{{ ranger_plugins_path }}/gitplug"
   - repo: "https://github.com/MuXiu1997/ranger-fzf-filter.git"
     dest: "{{ ranger_plugins_path }}/fzf-filter"
     version: main

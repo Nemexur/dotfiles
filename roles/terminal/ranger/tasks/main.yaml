@@ -3,7 +3,7 @@
   ansible.builtin.include_tasks: darwin.yaml
   when: ansible_os_family == "Darwin"
 - name: Include fedora specific tasks
-  ansible.builtin.include_tasks: fedora.yaml
+  ansible.builtin.include_tasks: redhat.yaml
   when: ansible_os_family == "RedHat"
 
 - name: Ensure ranger plugins path exists
