@@ -44,9 +44,6 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
--- G options
-vim.g.wordmotion_prefix = ","
-
 -- Neovide
 if vim.g.neovide then
     vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key

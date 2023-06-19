@@ -87,8 +87,7 @@ local which_key_mappings = {
     },
     ["q"] = {
         name = "Quit",
-        q = { ":q<cr>", "Quit a buffer" },
-        w = { ":wq<cr>", "Save a buffer and quit" },
+        q = { ":qa<cr>", "Quit all buffers" },
         a = { ":wqa<cr>", "Save all buffers and quit" },
     },
     ["n"] = {
@@ -105,3 +104,4 @@ end
 -- Extra mappings
 lvim.builtin.which_key.mappings["L"]["w"] = { ":wa<cr>", "Save all buffers" }
 lvim.builtin.which_key.mappings["b"]["k"] = { "<cmd>BufferKill<cr>", "Close buffer" }
+lvim.builtin.which_key.mappings["l"]["R"] = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" }
