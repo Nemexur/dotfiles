@@ -5,7 +5,7 @@ lvim.use_icons = true
 lvim.reload_config_on_save = false
 lvim.transparent_window = true
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.go", "*.lua", "*.yaml", "*.json", "*.sql" }
+lvim.format_on_save.pattern = { "*.go", "*.lua", "*.yaml", "*.json", "*.sql", "*.md" }
 
 -- LunarVim builtin
 lvim.builtin.dap.active = true
@@ -18,6 +18,7 @@ lvim.builtin.bufferline.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.treesitter.matchup.enable = true
 
 -- General vim settings
 local options = {
@@ -38,15 +39,10 @@ local options = {
     scrolloff = 0,
     sidescrolloff = 5,
     fixeol = true,
-    guifont = "JetBrainsMono Nerd Font"
+    undofile = true,
+    undodir = os.getenv("HOME") .. "/.vim/undodir",
+    guifont = "JetBrainsMono Nerd Font",
 }
 for k, v in pairs(options) do
     vim.opt[k] = v
-end
-
--- Neovide
-if vim.g.neovide then
-    vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
-    vim.g.neovide_input_macos_alt_is_meta = false
-    vim.g.neovide_remember_window_size = true
 end

@@ -8,6 +8,13 @@ local coding_plugins = {
         },
     },
     {
+        "ThePrimeagen/git-worktree.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("git-worktree").setup()
+        end
+    },
+    {
         "kylechui/nvim-surround",
         event = "BufEnter",
         config = function()

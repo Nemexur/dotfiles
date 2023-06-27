@@ -4,10 +4,14 @@ lvim.leader = "space"
 -- Convenient keymaps
 local keymaps = {
     normal_mode = {
+        ["n"] = "nzzzv",
+        ["N"] = "Nzzzv",
         ["<C-s>"] = ":w<cr>",
         ["<C-d>"] = "<C-d>zz",
         ["<C-u>"] = "<C-u>zz",
+        ["<C-c>"] = ":qa!<cr>",
         ["<C-k>"] = "<cmd>BufferKill<cr>",
+        ["<C-w>"] = "<cmd>lua require('hop').hint_patterns()<cr>",
         ["s"] = "<cmd>lua require('substitute').operator()<cr>",
         ["ss"] = "<cmd>lua require('substitute').line()<cr>",
         ["S"] = "<cmd>lua require('substitute').eol()<cr>",
@@ -17,31 +21,20 @@ local keymaps = {
         ["gpd"] = "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
         ["gpi"] = "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
         ["gP"] = "<cmd>lua require('goto-preview').close_all_win()<cr>",
-        [";"] = "<Plug>(leap-forward-to)",
-        ["g;"] = "<Plug>(leap-backward-to)",
+        ["f"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+        ["F"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+        ["t"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+        ["T"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
     },
     visual_mode = {
         ["s"] = "<cmd>lua require('substitute').visual()<cr>",
         ["X"] = "<cmd>lua require('substitute.exchange').visual()<cr>",
+        ["J"] = ":m '>+1<cr>gv=gv",
+        ["K"] = ":m '<-2<cr>gv=gv",
     },
     insert_mode = {},
     command_mode = {},
 }
-if vim.g.neovide then
-    keymaps.normal_mode["<D-s>"] = ":w<CR>"
-    keymaps.normal_mode["<D-v>"] = '"+Pl'
-    keymaps.visual_mode["<D-c>"] = '"+y'
-    keymaps.visual_mode["<D-v>"] = '"+Pl'
-    keymaps.insert_mode["<D-v>"] = '<ESC>l"+Pli'
-    keymaps.command_mode["<D-v>"] = '<C-R>+'
-    -- Allow clipboard copy paste in neovim
-    local opts = { noremap = true, silent = true }
-    vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", opts)
-    vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", opts)
-    vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", opts)
-    vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", opts)
-end
-
 for mode, mappings in pairs(keymaps) do
     for k, v in pairs(mappings) do
         lvim.keys[mode][k] = v
@@ -89,6 +82,7 @@ local which_key_mappings = {
         name = "Quit",
         q = { ":qa<cr>", "Quit all buffers" },
         a = { ":wqa<cr>", "Save all buffers and quit" },
+        f = { ":qa!<cr>", "Force quit all buffers" },
     },
     ["n"] = {
         name = "Neogen",
@@ -96,6 +90,18 @@ local which_key_mappings = {
         f = { "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", "Function Doc" },
         t = { "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", "Type Doc" },
     },
+    ["P"] = {
+        name = "Plugins",
+        i = { "<cmd>Lazy install<cr>", "Install" },
+        s = { "<cmd>Lazy sync<cr>", "Sync" },
+        S = { "<cmd>Lazy clear<cr>", "Status" },
+        c = { "<cmd>Lazy clean<cr>", "Clean" },
+        u = { "<cmd>Lazy update<cr>", "Update" },
+        p = { "<cmd>Lazy profile<cr>", "Profile" },
+        l = { "<cmd>Lazy log<cr>", "Log" },
+        d = { "<cmd>Lazy debug<cr>", "Debug" },
+    },
+    ["p"] = {},
 }
 for k, v in pairs(which_key_mappings) do
     lvim.builtin.which_key.mappings[k] = v
@@ -105,3 +111,4 @@ end
 lvim.builtin.which_key.mappings["L"]["w"] = { ":wa<cr>", "Save all buffers" }
 lvim.builtin.which_key.mappings["b"]["k"] = { "<cmd>BufferKill<cr>", "Close buffer" }
 lvim.builtin.which_key.mappings["l"]["R"] = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" }
+lvim.builtin.which_key.mappings["s"]["u"] = { "<cmd>UndotreeToggle<cr>", "Toggle undotree" }

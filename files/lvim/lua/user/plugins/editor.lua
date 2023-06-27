@@ -1,7 +1,19 @@
 local editor_plugins = {
-    { "ggandor/leap.nvim" },
     { "michaeljsmith/vim-indent-object" },
     { "chaoren/vim-wordmotion" },
+    {
+        "mbbill/undotree",
+        event = "VeryLazy",
+    },
+    {
+        "phaazon/hop.nvim",
+        branch = "v2",
+        config = function()
+            require("hop").setup({
+                keys = "etovxqpdygfblzhckisuran",
+            })
+        end
+    },
     {
         "windwp/nvim-spectre",
         event = "BufRead",
@@ -16,6 +28,13 @@ local editor_plugins = {
         end,
     },
     {
+        "ThePrimeagen/harpoon",
+        event = "VeryLazy",
+        config = function()
+            require("harpoon").setup()
+        end
+    },
+    {
         "gbprod/substitute.nvim",
         event = "BufEnter",
         config = function()
@@ -26,7 +45,6 @@ local editor_plugins = {
     },
     {
         "andymass/vim-matchup",
-        event = "CursorMoved",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,
@@ -36,7 +54,7 @@ local editor_plugins = {
         event = "BufRead",
         config = function()
             require("numb").setup {
-                show_numbers = true, -- Enable 'number' for the window while peeking
+                show_numbers = true,    -- Enable 'number' for the window while peeking
                 show_cursorline = true, -- Enable 'cursorline' for the window while peeking
             }
         end,

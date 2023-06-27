@@ -21,7 +21,6 @@ lsp_manager.setup("ruff_lsp", {
             { bind = true, handler_opts = { border = "rounded" } },
             bufnr
         )
-        local _, _ = pcall(vim.lsp.codelens.refresh)
         client.server_capabilities.hoverProvider = false
     end,
     on_init = require("lvim.lsp").common_on_init,
@@ -36,7 +35,6 @@ lsp_manager.setup("pyright", {
             { bind = true, handler_opts = { border = "rounded" } },
             bufnr
         )
-        local _, _ = pcall(vim.lsp.codelens.refresh)
     end,
     on_init = require("lvim.lsp").common_on_init,
     capabilities = require("lvim.lsp").common_capabilities(),

@@ -14,7 +14,6 @@ lsp_manager.setup("sqlls", {
             { bind = true, handler_opts = { border = "rounded" } },
             bufnr
         )
-        local _, _ = pcall(vim.lsp.codelens.refresh)
     end,
     on_init = require("lvim.lsp").common_on_init,
     capabilities = require("lvim.lsp").common_capabilities(),
