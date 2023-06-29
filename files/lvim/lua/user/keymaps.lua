@@ -11,6 +11,7 @@ local keymaps = {
         ["<C-u>"] = "<C-u>zz",
         ["<C-c>"] = ":qa!<cr>",
         ["<C-k>"] = "<cmd>BufferKill<cr>",
+        ["<C-p>"] = "<cmd>YankyRingHistory<cr>",
         ["<C-w>"] = "<cmd>lua require('hop').hint_patterns()<cr>",
         ["s"] = "<cmd>lua require('substitute').operator()<cr>",
         ["ss"] = "<cmd>lua require('substitute').line()<cr>",
@@ -25,6 +26,8 @@ local keymaps = {
         ["F"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
         ["t"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
         ["T"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+        ["p"] = "<Plug>(YankyPutAfter)",
+        ["P"] = "<Plug>(YankyPutBefore)",
     },
     visual_mode = {
         ["s"] = "<cmd>lua require('substitute').visual()<cr>",
@@ -71,6 +74,7 @@ local which_key_mappings = {
         j = { "<C-w>j", "Go Right" },
         k = { "<C-w>k", "Go Up" },
         l = { "<C-w>l", "Go Down" },
+        w = { "<cmd>ToggleWrapMode<cr>", "Toggle word wrap mode" },
     },
     ["i"] = {
         name = "Sessions",

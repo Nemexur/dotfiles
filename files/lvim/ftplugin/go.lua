@@ -19,7 +19,7 @@ lsp_manager.setup("gopls", {
     capabilities = require("lvim.lsp").common_capabilities(),
     settings = {
         gopls = {
-            usePlaceholders = true,
+            usePlaceholders = false,
             gofumpt = true,
             analyses = {
                 unusedparams = true,
