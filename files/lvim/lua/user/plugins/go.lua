@@ -1,4 +1,6 @@
-local go_plugins = {
+local M = {}
+
+M.plugins = {
     {
         "leoluz/nvim-dap-go",
         ft = "go",
@@ -9,6 +11,4 @@ local go_plugins = {
     },
 }
 
-for _, v in ipairs(go_plugins) do
-    table.insert(lvim.plugins, v)
-end
+return M

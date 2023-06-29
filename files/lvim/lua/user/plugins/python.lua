@@ -1,10 +1,10 @@
-local python_plugins = {
+local M = {}
+
+M.plugins = {
     {
         "jeetsukumaran/vim-pythonsense",
         ft = "python",
     },
 }
 
-for _, v in ipairs(python_plugins) do
-    table.insert(lvim.plugins, v)
-end
+return M

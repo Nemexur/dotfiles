@@ -1,16 +1,22 @@
-local ui_plugins = {
+local M = {}
+
+M.plugins = {
     { "fladson/vim-kitty" },
     { "towolf/vim-helm" },
     { "iamcco/markdown-preview.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "Mofiqul/dracula.nvim" },
     {
+        "m4xshen/smartcolumn.nvim",
+        opts = {
+            colorcolumn = "120",
+        },
+    },
+    {
         "beauwilliams/focus.nvim",
-        config = function()
-            require("focus").setup({
-                autoresize = false,
-            })
-        end,
+        opts = {
+            autoresize = false,
+        },
     },
     {
         "folke/noice.nvim",
@@ -18,43 +24,39 @@ local ui_plugins = {
         dependencies = {
             { "MunifTanjim/nui.nvim" },
         },
-        config = function()
-            require("noice").setup({
-                messages = {
+        opts = {
+            messages = {
+                enabled = false,
+            },
+            popupmenu = {
+                enabled = true,
+                backend = "nui",
+                kind_icons = {},
+            },
+            notify = {
+                enabled = false,
+            },
+            lsp = {
+                progress = {
                     enabled = false,
                 },
-                popupmenu = {
-                    enabled = true,
-                    backend = "nui",
-                    kind_icons = {},
-                },
-                notify = {
+                hover = {
                     enabled = false,
                 },
-                lsp = {
-                    progress = {
-                        enabled = false,
-                    },
-                    hover = {
-                        enabled = false,
-                    },
-                    signature = {
-                        enabled = false,
-                    },
-                    message = {
-                        enabled = false,
-                    },
+                signature = {
+                    enabled = false,
                 },
-                presets = {
-                    bottom_search = true,
-                    command_palette = true,
-                    long_message_to_split = true,
+                message = {
+                    enabled = false,
                 },
-            })
-        end,
+            },
+            presets = {
+                bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
+            },
+        }
     },
 }
 
-for _, v in ipairs(ui_plugins) do
-    table.insert(lvim.plugins, v)
-end
+return M
