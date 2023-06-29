@@ -1,8 +1,3 @@
-local status_ok, mason_null_ls = pcall(require, "mason-null-ls")
-if not status_ok then
-    return
-end
-
 lvim.lsp.automatic_servers_installation = false
 lvim.lsp.installer.setup.ensure_installed = {
     "ansiblels",
@@ -21,6 +16,12 @@ lvim.lsp.installer.setup.ensure_installed = {
     "vimls",
     "yamlls",
 }
+
+local status_ok, mason_null_ls = pcall(require, "mason-null-ls")
+if not status_ok then
+    return
+end
+
 mason_null_ls.setup({
     ensure_installed = {
         -- Linters
