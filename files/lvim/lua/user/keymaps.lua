@@ -108,7 +108,22 @@ for k, v in pairs(which_key_mappings) do
 end
 
 -- Extra mappings
-lvim.builtin.which_key.mappings["L"]["w"] = { ":wa<cr>", "Save all buffers" }
-lvim.builtin.which_key.mappings["b"]["k"] = { "<cmd>BufferKill<cr>", "Close buffer" }
-lvim.builtin.which_key.mappings["l"]["R"] = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" }
-lvim.builtin.which_key.mappings["s"]["u"] = { "<cmd>UndotreeToggle<cr>", "Toggle undotree" }
+local extra_mappings = {
+    ["L"] = {
+        ["w"] = { ":wa<cr>", "Save all buffers" },
+    },
+    ["b"] = {
+        ["k"] = { "<cmd>BufferKill<cr>", "Close buffer" },
+    },
+    ["l"] = {
+        ["R"] = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
+    },
+    ["s"] = {
+        ["u"] = { "<cmd>UndotreeToggle<cr>", "Toggle undotree" },
+    },
+}
+for k, maps in pairs(extra_mappings) do
+    for v, cmd in pairs(maps) do
+        lvim.builtin.which_key.mappings[k][v] = cmd
+    end
+end
