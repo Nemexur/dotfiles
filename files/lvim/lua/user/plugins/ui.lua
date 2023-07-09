@@ -3,7 +3,6 @@ local M = {}
 M.plugins = {
     { "fladson/vim-kitty" },
     { "towolf/vim-helm" },
-    { "iamcco/markdown-preview.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "Mofiqul/dracula.nvim" },
     {
@@ -17,6 +16,14 @@ M.plugins = {
         opts = {
             autoresize = false,
         },
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        ft = "markdown",
+        build = "cd app && npm install",
+        config = function()
+            vim.g.mkdp_auto_start = 1
+        end,
     },
     {
         "folke/noice.nvim",

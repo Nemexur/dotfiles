@@ -9,17 +9,32 @@ M.plugins = {
     },
     {
         "m4xshen/hardtime.nvim",
-        event = "VeryLazy",
         opts = {
             disable_mouse = false,
             disabled_keys = {},
         },
     },
     {
-        "phaazon/hop.nvim",
-        branch = "v2",
-        opts = {
-            keys = "etovxqpdygfblzhckisuran",
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            {
+                "<C-j>",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
+            {
+                "R",
+                mode = { "o", "x" },
+                function()
+                    require("flash").treesitter_search()
+                end,
+                desc = "Flash Treesitter Search",
+            },
         },
     },
     {
@@ -49,6 +64,7 @@ M.plugins = {
     },
     {
         "andymass/vim-matchup",
+        event = "CursorMoved",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,
