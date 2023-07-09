@@ -12,7 +12,6 @@ local keymaps = {
         ["<C-c>"] = ":qa!<cr>",
         ["<C-k>"] = "<cmd>BufferKill<cr>",
         ["<C-p>"] = "<cmd>YankyRingHistory<cr>",
-        ["<C-w>"] = "<cmd>lua require('hop').hint_patterns()<cr>",
         ["s"] = "<cmd>lua require('substitute').operator()<cr>",
         ["ss"] = "<cmd>lua require('substitute').line()<cr>",
         ["S"] = "<cmd>lua require('substitute').eol()<cr>",
@@ -22,10 +21,6 @@ local keymaps = {
         ["gpd"] = "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
         ["gpi"] = "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
         ["gP"] = "<cmd>lua require('goto-preview').close_all_win()<cr>",
-        ["f"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
-        ["F"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
-        ["t"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
-        ["T"] = "<cmd>lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
         ["p"] = "<Plug>(YankyPutAfter)",
         ["P"] = "<Plug>(YankyPutBefore)",
     },
@@ -124,6 +119,7 @@ local extra_mappings = {
     },
     ["s"] = {
         ["u"] = { "<cmd>UndotreeToggle<cr>", "Toggle undotree" },
+        ["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", "Find File (all)" },
     },
 }
 for k, maps in pairs(extra_mappings) do
