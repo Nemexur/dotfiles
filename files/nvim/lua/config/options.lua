@@ -1,0 +1,40 @@
+vim.g.mapleader = " "
+
+local options = {
+    modifiable = true,
+    mouse = "a",
+    timeoutlen = 30,
+    ttimeoutlen = 0,
+    conceallevel = 0,
+    fileencoding = "utf-8",
+    number = true,
+    relativenumber = true,
+    ignorecase = true,
+    expandtab = true,
+    tabstop = 4,
+    shiftwidth = 4,
+    cursorline = true,
+    smartcase = true,
+    smartindent = true,
+    splitbelow = true,
+    splitright = true,
+    scrolloff = 0,
+    sidescrolloff = 5,
+    fixeol = true,
+    foldenable = false,
+    showtabline = 1,
+    undofile = true,
+    undodir = os.getenv("HOME") .. "/.vim/undodir",
+    guifont = "JetBrainsMono NF",
+    cmdheight = 1,
+    clipboard = "unnamedplus",
+    termguicolors = true,
+    pumheight = 10,
+    writebackup = false,
+    hidden = true,
+    hlsearch = true,
+    title = true,
+}
+for k, v in pairs(options) do
+    vim.opt[k] = v
+end

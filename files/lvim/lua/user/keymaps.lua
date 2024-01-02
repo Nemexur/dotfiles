@@ -4,27 +4,29 @@ lvim.leader = "space"
 -- Convenient keymaps
 local keymaps = {
     normal_mode = {
+        ["j"] = "gj",
+        ["k"] = "gk",
         ["n"] = "nzzzv",
         ["N"] = "Nzzzv",
-        ["<C-s>"] = ":w<cr>",
         ["<C-d>"] = "<C-d>zz",
         ["<C-u>"] = "<C-u>zz",
-        ["<C-c>"] = ":qa!<cr>",
-        ["<C-k>"] = "<cmd>BufferKill<cr>",
         ["<C-p>"] = "<cmd>YankyRingHistory<cr>",
-        ["s"] = "<cmd>lua require('substitute').operator()<cr>",
-        ["ss"] = "<cmd>lua require('substitute').line()<cr>",
-        ["S"] = "<cmd>lua require('substitute').eol()<cr>",
-        ["sx"] = "<cmd>lua require('substitute.exchange').operator()<cr>",
-        ["sxx"] = "<cmd>lua require('substitute.exchange').line()<cr>",
-        ["sxc"] = "<cmd>lua require('substitute.exchange').cancel()<cr>",
+        -- ["s"] = "<cmd>lua require('substitute').operator()<cr>",
+        -- ["ss"] = "<cmd>lua require('substitute').line()<cr>",
+        -- ["S"] = "<cmd>lua require('substitute').eol()<cr>",
+        -- ["sx"] = "<cmd>lua require('substitute.exchange').operator()<cr>",
+        -- ["sxx"] = "<cmd>lua require('substitute.exchange').line()<cr>",
+        -- ["sxc"] = "<cmd>lua require('substitute.exchange').cancel()<cr>",
         ["gpd"] = "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
         ["gpi"] = "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
         ["gP"] = "<cmd>lua require('goto-preview').close_all_win()<cr>",
         ["p"] = "<Plug>(YankyPutAfter)",
         ["P"] = "<Plug>(YankyPutBefore)",
+        ["[c"] = "<cmd>lua require('treesitter-context').go_to_context()<cr>",
     },
     visual_mode = {
+        ["j"] = "gj",
+        ["k"] = "gk",
         ["s"] = "<cmd>lua require('substitute').visual()<cr>",
         ["X"] = "<cmd>lua require('substitute.exchange').visual()<cr>",
         ["J"] = ":m '>+1<cr>gv=gv",
@@ -42,7 +44,14 @@ end
 local which_key_mappings = {
     ["C"] = { "<cmd>BufferKill<cr>", "Close Buffer" },
     ["u"] = { "<C-r>", "Redo" },
-    ["o"] = { "o<esc>", "New Line" },
+    ["z"] = { "zz", "Center buffer" },
+    ["o"] = {
+        name = "Obsidian",
+        f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
+        n = { "<cmd>ObsidianNew<cr>", "New file" },
+        s = { "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch" },
+        o = { string.format("<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")), "Open Obsidian" },
+    },
     ["a"] = {
         name = "Attempt Buffer",
         l = { "<cmd>Telescope attempt<cr>", "Select Script" },
@@ -60,7 +69,6 @@ local which_key_mappings = {
     ["w"] = {
         name = "Windows",
         m = { "<cmd>FocusMaxOrEqual<cr>", "Toggle Maximized" },
-        f = { "<cmd>FocusToggle<cr>", "Toggle Focus" },
         s = { "<C-w>s", "Horizontal" },
         v = { "<C-w>v", "Vertical" },
         c = { "<C-w>q", "Close" },
@@ -91,6 +99,7 @@ local which_key_mappings = {
     },
     ["P"] = {
         name = "Plugins",
+        o = { "<cmd>Lazy<cr>", "Open" },
         i = { "<cmd>Lazy install<cr>", "Install" },
         s = { "<cmd>Lazy sync<cr>", "Sync" },
         S = { "<cmd>Lazy clear<cr>", "Status" },
@@ -99,6 +108,16 @@ local which_key_mappings = {
         p = { "<cmd>Lazy profile<cr>", "Profile" },
         l = { "<cmd>Lazy log<cr>", "Log" },
         d = { "<cmd>Lazy debug<cr>", "Debug" },
+    },
+    ["f"] = {
+        name = "Files",
+        f = {
+            function()
+                require("lvim.core.telescope.custom-finders").find_project_files({ previewer = false })
+            end,
+            "Find File",
+        },
+        b = { "<cmd>Telescope file_browser<cr>", "File Browser" },
     },
     ["p"] = {},
 }
@@ -112,7 +131,10 @@ local extra_mappings = {
         ["w"] = { ":wa<cr>", "Save all buffers" },
     },
     ["b"] = {
-        ["k"] = { "<cmd>BufferKill<cr>", "Close buffer" },
+        f = {},
+        k = { "<cmd>BufferKill<cr>", "Close buffer" },
+        b = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
+        p = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
     },
     ["l"] = {
         ["R"] = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },

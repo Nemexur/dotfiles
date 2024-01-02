@@ -1,75 +1,59 @@
 {
-	"title": "Ultimate backspace to delete words.",
-	"rules": [
-		{
-			"description": "Alt-Backspace -> Command-Backspace",
-			"manipulators": [
-				{
-					"from": {
-						"key_code": "delete_or_backspace",
-						"modifiers": {
-							"mandatory": [
-								"option"
-							],
-							"optional": [
-								"any"
-							]
-						}
-					},
-					"to": [
-						{
-							"key_code": "delete_or_backspace",
-							"modifiers": [
-								"command"
-							]
-						}
-					],
-					"type": "basic"
-				}
-			]
-		},
-		{
-			"description": "Backspace -> Alt-Backspace",
-			"manipulators": [
-				{
-					"from": {
-						"key_code": "delete_or_backspace"
-					},
-					"to": [
-						{
-							"key_code": "delete_or_backspace",
-							"modifiers": [
-								"left_alt"
-							]
-						}
-					],
-					"type": "basic"
-				}
-			]
-		},
-		{
-			"description": "Alt-Backspace -> Backspace",
-			"manipulators": [
-				{
-					"from": {
-						"key_code": "delete_or_backspace",
-						"modifiers": {
-							"mandatory": [
-								"command"
-							],
-							"optional": [
-								"any"
-							]
-						}
-					},
-					"to": [
-						{
-							"key_code": "delete_or_backspace"
-						}
-					],
-					"type": "basic"
-				}
-			]
-		}
-	]
+    "title": "Ultimate backspace to delete words.",
+    "rules": [
+        {
+            "description": "Alt-Backspace -> Command-Backspace",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "delete_or_backspace",
+                        "modifiers": {
+                            "mandatory": [
+                                "option"
+                            ],
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "delete_or_backspace",
+                            "modifiers": [
+                                "command"
+                            ]
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "description": "Command-Backspace -> Alt-Backspace",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "delete_or_backspace",
+                        "modifiers": {
+                            "mandatory": [
+                                "command"
+                            ],
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "delete_or_backspace",
+                            "modifiers": [
+                                "left_alt"
+                            ]
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
 }

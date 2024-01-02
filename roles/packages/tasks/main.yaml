@@ -10,7 +10,7 @@
     cmd: "go install {{ item.package }}"
     creates: "{{ item.creates }}"
   environment:
-    GOPATH: "{{ home_dir }}/go"
+    GOPATH: "{{ home_dir }}/.go"
     GOROOT: "{{ packages_go_root }}"
     PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
   loop: "{{ packages_go_packages }}"

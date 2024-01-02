@@ -287,11 +287,6 @@ if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}
 endif
 
-" vimwiki
-let g:vimwiki_list = [{'path': '~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents',
-  \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-let g:vimwiki_listsym_rejected = '✗'
 " vim-instant-markdown - Instant Markdown previews from Vim
 " https://github.com/suan/vim-instant-markdown
 let g:instant_markdown_autostart = 0	" disable autostart

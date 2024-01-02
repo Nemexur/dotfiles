@@ -8,15 +8,26 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-    tab name="ranger" {
-        pane command="ranger"
-    }
     tab focus=true {
         pane
     }
 }
 keybinds {
-    normal {
-        bind "Ctrl f" { GoToTab 1; }
+    shared {
+        bind "Alt f" {
+            Run "zellij-cht.sh" {
+                direction "Right"
+            }
+        }
+        bind "Alt d" {
+            Run "git" "diff" "--staged" {
+                direction "Right"
+            }
+        }
+        bind "Ctrl n" {
+            Run "navi" {
+                direction "Right"
+            }
+        }
     }
 }

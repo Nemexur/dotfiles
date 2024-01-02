@@ -42,5 +42,6 @@ mason_null_ls.setup({
         "prettier",
         "shfmt",
         "sqlfmt",
+        "golines",
     }
 })

@@ -22,7 +22,7 @@
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version | default('master') }}"
-    update: false
+    update: true
     depth: 1
   loop: "{{ zsh_oh_my_zsh_plugins }}"
 

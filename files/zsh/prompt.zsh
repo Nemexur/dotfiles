@@ -70,14 +70,6 @@ precmd() {
   set_prompt
 }
 
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
-user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-
 ask_user () {
   printf "\r  [ \033[0;33m??\033[0m ] $1 "
 }

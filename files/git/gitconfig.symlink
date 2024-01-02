@@ -14,6 +14,7 @@
   count             = shortlog -sn
   undo              = reset --soft HEAD~
   amend             = commit --amend
+  clone-bare        = !$ZSH/bin/git-clone-bare
   glog              = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 [color]
   diff   = auto
@@ -23,7 +24,7 @@
 [core]
   pager        = bat
   excludesfile = ~/.gitignore
-  editor       = lvim
+  editor       = nvim
 [apply]
   whitespace = nowarn
 [mergetool]

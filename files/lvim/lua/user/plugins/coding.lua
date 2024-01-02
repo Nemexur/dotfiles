@@ -25,7 +25,8 @@ M.plugins = {
     },
     {
         "kylechui/nvim-surround",
-        event = "BufEnter",
+        version = "*",
+        event = "VeryLazy",
         opts = {},
     },
     {

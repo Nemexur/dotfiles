@@ -1,0 +1,17 @@
+export LSCOLORS="exfxcxdxbxegedabagacad"
+export CLICOLOR=true
+
+# Path to your oh-my-zsh installation oh-my-zsh specific settings
+export ZSH=~/.oh-my-zsh
+export DOTFILES=~/.dotfiles
+export GPG_TTY=$(tty)
+
+# Other exports
+export EDITOR='nvim'
+export LANG=en_US.UTF-8
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export TERM=xterm-256color
+export LIBFM_PATH="${HOME}/Developer/libfm/bin/"
+
+# Carto envs
+. "${HOME}/.cargo/env"

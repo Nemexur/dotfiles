@@ -1,15 +1,7 @@
-local function add_plugins(m)
-    for _, v in ipairs(m.plugins) do
-        table.insert(lvim.plugins, v)
-    end
-end
-
-add_plugins(require("user.plugins.ansible"))
-add_plugins(require("user.plugins.coding"))
-add_plugins(require("user.plugins.editor"))
-add_plugins(require("user.plugins.extras"))
-add_plugins(require("user.plugins.go"))
-add_plugins(require("user.plugins.python"))
-add_plugins(require("user.plugins.ui"))
-
-require "user.plugins.config"
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.ansible").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.coding").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.editor").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.extras").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.go").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.python").plugins)
+vim.tbl_extend("error", lvim.plugins, require("user.plugins.ui").plugins)

@@ -6,6 +6,7 @@
     mode: 0640
 
 - name: Unarchive krew script
+  become: true
   ansible.builtin.unarchive:
     src: "{{ misc_krew_install_path }}"
     dest: "{{ misc_krew_install_dir }}"

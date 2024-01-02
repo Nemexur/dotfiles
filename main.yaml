@@ -19,24 +19,12 @@
       tags: always
 
   roles:
-    #
-    # Packages
-    #
     - role: packages
       tags: packages
-    #
-    # System
-    #
     - role: system
       tags: system
-    #
-    # Git
-    #
     - role: git
       tags: git
-    #
-    # Terminal
-    #
     - role: terminal/zsh
       tags:
         - zsh
@@ -49,17 +37,9 @@
       tags:
         - ranger
         - terminal
-    #
-    # Editors
-    #
     - role: editors/vim
       tags:
         - vim
-        - editors
-    - role: editors/emacs
-      when: emacs_editor_enabled | default(false) | bool
-      tags:
-        - emacs
         - editors
     - role: editors/vscode
       tags:
@@ -69,9 +49,11 @@
       tags:
         - lunarvim
         - editors
-    #
-    # Filesystem
-    #
+    - role: editors/emacs
+      when: editors_emacs_enabled | default(false) | bool
+      tags:
+        - emacs
+        - editors
     - role: filesystem/symlink
       tags:
         - symlink
@@ -81,8 +63,5 @@
       tags:
         - install
         - filesystem
-    #
-    # Misc
-    #
     - role: misc
       tags: misc

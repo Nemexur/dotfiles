@@ -1,7 +1,7 @@
 [user]
-        name = {{ git_config_name_local }}
-        email = {{ git_config_email_local }}
+    name = {{ git_config_name_local }}
+    email = {{ git_config_email_local }}
 {% if ansible_os_family == "Darwin" %}
 [credential]
-        helper = osxkeychain
+    helper = osxkeychain
 {% endif %}

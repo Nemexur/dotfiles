@@ -26,16 +26,23 @@ zsh_oh_my_zsh_plugins:
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-z"
   - repo: "https://github.com/zsh-users/zsh-completions.git"
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-completions"
+    version: "0.35.0"
   - repo: "https://github.com/zsh-users/zsh-autosuggestions.git"
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-autosuggestions"
   - repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-syntax-highlighting"
   - repo: https://github.com/marlonrichert/zsh-autocomplete.git
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-autocomplete"
-    version: main
+    version: "23.07.13"
   - repo: https://github.com/joshskidmore/zsh-fzf-history-search
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-fzf-history-search"
     version: master
+  - repo: https://github.com/jeffreytse/zsh-vi-mode
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-vi-mode"
+    version: "v0.11.0"
+  - repo: https://github.com/softmoth/zsh-vim-mode.git
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-vim-mode"
+    version: main
 #
 # Ranger
 #
@@ -63,10 +70,12 @@ misc_go_packages:
     package: "golang.org/x/tools/gopls@latest"
   - name: protoc-gen-go
     package: "google.golang.org/protobuf/cmd/protoc-gen-go@latest"
+  - name: swag
+    package: "github.com/swaggo/swag/cmd/swag@latest"
 #
 # VSCode
 #
-vscode_extensions: 
+vscode_extensions:
   # Themes
   - dracula-theme.theme-dracula
   - Equinusocio.vsc-material-theme

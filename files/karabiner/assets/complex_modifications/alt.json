@@ -1,0 +1,69 @@
+{
+    "title": "Option",
+    "rules": [
+        {
+            "description": "Tab to alt if pressed with something",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "tab",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "basic": {
+                            "to_if_alone_timeout_milliseconds": 400
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_option",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "tab"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "description": "Backslash to alt if pressed with something",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "backslash",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "basic": {
+                            "to_if_alone_timeout_milliseconds": 400
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_option",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "backslash"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

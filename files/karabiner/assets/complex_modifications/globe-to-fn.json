@@ -1,0 +1,24 @@
+{
+    "title": "Change Globe (f20) to other keys",
+    "rules": [
+        {
+            "description": "Change Globe (f20) to other keys, if alone",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "f20"
+                    },
+                    "to_if_alone": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [
+                                "left_command"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

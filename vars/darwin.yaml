@@ -8,18 +8,26 @@ packages_go_root: "/usr/local/opt/go/libexec"
 # Symlink
 #
 symlink_directories:
-  - "{{ home_dir }}/.tmux"
   - "{{ home_dir }}/.config"
+  - "{{ home_dir }}/.config/tmux/plugins/tpm"
   - '{{ home_dir }}/Library/Application Support/Code/User'
 symlink_additional_files:
-  - path: "{{ dotfiles_dir_files }}/tmux/responsive"
-    dest: "{{ home_dir }}/.tmux/responsive"
+  - path: "{{ dotfiles_dir_files }}/tmux"
+    dest: "{{ home_dir }}/.config/tmux"
   - path: "{{ dotfiles_dir_files }}/karabiner"
     dest: "{{ home_dir }}/.config/karabiner"
-  - path: "{{ dotfiles_dir_files }}/lvim"
-    dest: "{{ home_dir }}/.config/lvim"
   - path: "{{ dotfiles_dir_files }}/kitty"
     dest: "{{ home_dir }}/.config/kitty"
+  - path: "{{ dotfiles_dir_files }}/wezterm"
+    dest: "{{ home_dir }}/.config/wezterm"
+  - path: "{{ dotfiles_dir_files }}/itermcfg"
+    dest: "{{ home_dir }}/.itermcfg"
+  - path: "{{ dotfiles_dir_files }}/nvim"
+    dest: "{{ home_dir }}/.config/nvim"
+  - path: "{{ dotfiles_dir_files }}/lvim"
+    dest: "{{ home_dir }}/.config/lvim"
+  - path: "{{ dotfiles_dir_files }}/doom.d"
+    dest: "{{ home_dir }}/.doom.d"
   - path: "{{ dotfiles_dir_files }}/ranger/rc.conf"
     dest: "{{ home_dir }}/.config/ranger/rc.conf"
   - path: "{{ dotfiles_dir_files }}/starship/starship.toml"
@@ -35,11 +43,8 @@ symlink_additional_files:
 # Homebrew
 #
 homebrew_taps:
-  - homebrew/cask
-  - homebrew/core
   - homebrew/bundle
   - homebrew/cask-fonts
-  - homebrew/cask-drivers
   - elastic/tap
   - minio/stable
   - vectordotdev/brew
@@ -49,9 +54,14 @@ homebrew_taps:
   - elastic/tap
   - saulpw/vd
   - hashicorp/tap
+  - jorgelbg/tap
   - metafates/mangal
   - teamookla/speedtest
 homebrew_installed_packages:
+  # Shell command parallelization utility
+  - parallel
+  # Reattach process (e.g., tmux) to background
+  - reattach-to-user-namespace
   # Zsh requirements
   - zsh
   - zsh-completions
@@ -60,10 +70,10 @@ homebrew_installed_packages:
   - docker
   - docker-compose
   - docker-buildx
-  # Search tool like grep, but optimized for programmers
-  - ack
-  # Optimized alrternative to ack
-  - the_silver_searcher
+  # Play, record, convert, and stream audio and video
+  - ffmpeg
+  # Search tool like grep and The Silver Searcher
+  - ripgrep
   # Like sed, awk, cut, join & sort for name-indexed data such as CSV
   - miller
   # df utility but better
@@ -82,16 +92,24 @@ homebrew_installed_packages:
   - pre-commit
   # Simple, fast and user-friendly alternative to find
   - fd
+  # GitHub command-line tool
+  - gh
   # Validating, recursive, caching DNS resolver
   - unbound
-  # GNU Transport Layer Security (TLS) Library
-  - gnutls
-  # GNU Pretty Good Privacy (PGP) package
+  # GNU Tools
+  - coreutils
+  - gawk
   - gnupg
+  - gnutls
+  - gnu-sed
+  - gnu-tar
+  - gnu-time
+  - gnu-getopt
+  - gnu-indent
+  - gnu-which
+  - gnu-units
   # Cross-platform make
   - cmake
-  # GNU File, Shell, and Text utilities
-  - coreutils
   # Tool for exploring each layer in a docker image
   - dive
   # Command-line fuzzy finder written in Go
@@ -221,10 +239,9 @@ homebrew_installed_packages:
   - ansible-lint
   - molecule
   - yamllint
-  # Distributed search & analytics engine
-  - elasticsearch-full
   # Pinentry for GPG on Mac
   - pinentry-mac
+  - pinentry-touchid
   # TaskWarrior setup
   - task
   - taskd
@@ -247,12 +264,14 @@ homebrew_installed_packages:
   - ranger
   # Safeily delete files
   - trash-cli
-  # macOS system monitor in your menu bar
-  - stats
   # The most advanced CLI manga downloader in the entire universe!
   - mangal
   # Automatic workarounds for problems in Wine
   - winetricks
+  # Fast linters runner for Go
+  - golangci-lint
+  # SshPass
+  - hudochenkov/sshpass/sshpass
 homebrew_cask_apps:
   # Browsers
   - sigmaos
@@ -269,6 +288,7 @@ homebrew_cask_apps:
   # Tools
   - alfred
   - numi
+  - stats
   - handbrake
   - rectangle
   - karabiner-elements
@@ -283,16 +303,14 @@ homebrew_cask_apps:
   - vscodium
   - visual-studio-code
   - dbeaver-community
-  - virtualbox
-  - vagrant
+  # - virtualbox
+  # - vagrant
   - vagrant-manager
   - google-cloud-sdk
-  - synergy
   # Others
   - font-jetbrains-mono-nerd-font
   - spotify
   - 1password
-  - mactex
   - dropbox
   - iina
   - imazing
@@ -373,8 +391,8 @@ system_macos_defaults:
     value: true
   - domain: org.gpgtools.common
     key: UseKeychain
-    type: string
-    value: "NO"
+    type: bool
+    value: false
   # Set up iTerm
   - domain: com.googlecode.iterm2
     key: PrefsCustomFolder
@@ -503,8 +521,8 @@ system_macos_defaults:
   # Visualize CPU usage in the Activity Monitor Dock icon
   - domain: com.apple.ActivityMonitor
     key: IconType
-    type: int 
-    value: 5 
+    type: int
+    value: 5
   # Show all processes in Activity Monitor
   - domain: com.apple.ActivityMonitor
     key: ShowCategory

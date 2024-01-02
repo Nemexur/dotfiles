@@ -1,26 +1,33 @@
 local M = {}
 
 M.plugins = {
-    { "michaeljsmith/vim-indent-object" },
     { "chaoren/vim-wordmotion" },
     {
         "mbbill/undotree",
         event = "VeryLazy",
     },
     {
-        "m4xshen/hardtime.nvim",
-        opts = {
-            disable_mouse = false,
-            disabled_keys = {},
-        },
-    },
-    {
         "folke/flash.nvim",
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            label = {
+                rainbow = {
+                    enabled = true,
+                },
+            },
+            highlight = {
+                priority = 9000,
+            },
+            modes = {
+                char = {
+                    autohide = true,
+                    highlight = { backdrop = false },
+                },
+            },
+        },
         keys = {
             {
-                "<C-j>",
+                "<C-f>",
                 mode = { "n", "x", "o" },
                 function()
                     require("flash").jump()
@@ -47,11 +54,6 @@ M.plugins = {
         opts = {},
     },
     {
-        "ThePrimeagen/harpoon",
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "andrewferrier/wrapping.nvim",
         opts = {},
     },
@@ -64,7 +66,6 @@ M.plugins = {
     },
     {
         "andymass/vim-matchup",
-        event = "CursorMoved",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,

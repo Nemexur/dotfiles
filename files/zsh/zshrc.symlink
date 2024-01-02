@@ -1,48 +1,33 @@
-# Path to your oh-my-zsh installation oh-my-zsh specific settings
-export ZSH=~/.oh-my-zsh
-export DOTFILES=~/.dotfiles
 export GPG_TTY=$(tty)
-
 # ZSH Customization Settings
-KEYTIMEOUT=1
+KEYTIMEOUT=25
 ZSH_THEME="robbyrussell"
+# Default username to hide "user@hostname" info
+DEFAULT_USER="$(whoami)"
 
 # fix pasting speed
 # ref https://github.com/zsh-users/zsh-autosuggestions/issues/238
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 zstyle ':omz:update' frequency 7
 
-# Default username to hide "user@hostname" info
-DEFAULT_USER="$(whoami)"
-
-# Better history
-# Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
-
 # Set Open Files limits
 ulimit -n 200000
 ulimit -u 2048
-
-# Useful Key Bindings
-bindkey -s '^f' 'cd_with_fzf^M'
-bindkey -s '^b' 'brew_install^M'
-bindkey -s '^g' 'pass_with_fzf^M'
 
 # Oh My Zsh
 plugins=(
   copypath
   thefuck
+  dotenv
   docker
   docker-compose
   zsh-interactive-cd
   zsh-autosuggestions
+  zsh-vi-mode
   zsh-fzf-history-search
 )
+
+source $DOTFILES/files/zsh/config.zsh
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,27 +43,11 @@ source ~/.theme.zshrc
 unsetopt correct_all
 unsetopt completealiases
 
-# Other exports
-export EDITOR='lvim'
-export LANG=en_US.UTF-8
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export TERM=xterm-256color
-export LIBFM_PATH=$HOME/Developer/libfm/bin/
-
-# # The next line updates PATH for Yandex Cloud CLI.
-# if [ -f '$HOME/yandex-cloud/path.bash.inc' ]; then source '$HOME/yandex-cloud/path.bash.inc'; fi
-
-# # The next line enables shell command completion for yc.
-# if [ -f '$HOME/yandex-cloud/completion.zsh.inc' ]; then source '$HOME/yandex-cloud/completion.zsh.inc'; fi
-
 # Zoxide
 eval "$(zoxide init zsh)"
 
 # Starship
 eval "$(starship init zsh)"
-
-# # Perl
-# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 
 # PyEnv
 export PYENV_ROOT="$HOME/.pyenv"

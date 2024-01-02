@@ -1,18 +1,22 @@
 open_with_fzf() {
-    fd -t f -H -I --strip-cwd-prefix --full-path ${HOME} | fzf -m | xargs open
+	(cd "${HOME}/Developer" && fd -t f | fzf -m --print0 | xargs -0 nvim)
 }
 
 cd_with_fzf() {
-    local dir="$(fd -t d -I --strip-cwd-prefix --full-path ${HOME} | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
-    if [[ -n $dir ]]; then
-        cd $dir
-    fi
+	dir="$(cd "${HOME}/Developer" && fd -t d -I --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
+    dir="${HOME}/Developer/${dir}"
+	if [[ -n "$dir" ]]; then
+		cd "${dir}" || return
+	fi
 }
 
 pass_with_fzf() {
-    local password="$(gopass ls --flat | fzf -m)" 
-    if [[ -n $password ]]; then
-        gopass show -c $password 2>/dev/null
-    fi
+	password="$(gopass ls --flat | fzf -m)"
+	if [[ -n $password ]]; then
+		gopass show -c "$password" 2>/dev/null
+	fi
 }
 
+fzf_second_brain() {
+	(cd "${SECOND_BRAIN}" && fd -t f -IH --exclude ".git" --exclude ".obsidian" --exclude "attachments" --exclude "_resources" | fzf -m --print0 | xargs -0 e)
+}
