@@ -112,7 +112,8 @@ local mappings = {
     },
     g = {
         name = "Git",
-        g = { "<cmd>LazyGit<cr>", "LazyGit" },
+        l = { "<cmd>LazyGit<cr>", "LazyGit" },
+        n = { "<cmd>Neogit<cr>", "NeoGit" },
         w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
     },
     f = {
