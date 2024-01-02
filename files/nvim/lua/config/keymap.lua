@@ -17,10 +17,9 @@ local keymaps = {
         ["<C-p>"] = "<cmd>YankyRingHistory<cr>",
         ["p"] = "<Plug>(YankyPutAfter)",
         ["P"] = "<Plug>(YankyPutBefore)",
-        ["<C-h>"] = "<C-w>h",
-        ["<C-l>"] = "<C-w>l",
-        ["<C-j>"] = "<C-w>j",
-        ["<C-k>"] = "<C-w>k",
+        ["<C-e>"] = "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>",
+        ["<C-h>"] = "<cmd>lua require('harpoon'):list():select(1)<cr>",
+        ["<C-j>"] = "<cmd>lua require('harpoon'):list():select(2)<cr>",
     },
 }
 for mode, mappings in pairs(keymaps) do
@@ -54,9 +53,8 @@ local vopts = {
 local mappings = {
     c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
     u = { "<C-r>", "Redo" },
-    d = { "<C-z>", "Detach" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
-    h = { "<cmd>nohlsearch<CR>", "No Highlight" },
+    h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },

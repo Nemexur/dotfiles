@@ -1,5 +1,6 @@
 return {
     { "stsewd/gx-extended.vim" },
+    { "romainl/vim-cool" },
     {
         "pwntester/octo.nvim",
         cmd = "Octo",

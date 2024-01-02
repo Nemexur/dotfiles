@@ -36,7 +36,16 @@ return {
     },
     {
         "Wansmer/treesj",
-        keys = { "<space>m" },
+        keys = {
+            {
+                "<space>m",
+                mode = { "n", "x", "o" },
+                function()
+                    require("treesj").toggle()
+                end,
+                desc = "Toggle Node",
+            },
+        },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {},
     },

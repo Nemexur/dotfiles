@@ -31,6 +31,15 @@ return {
         },
     },
     {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        event = "BufRead",
+        opts = {},
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+        },
+    },
+    {
         "mbbill/undotree",
         event = "VeryLazy",
     },
@@ -63,7 +72,7 @@ return {
                 desc = "Flash",
             },
             {
-                "R",
+                "r",
                 mode = { "o", "x" },
                 function()
                     require("flash").treesitter_search()
