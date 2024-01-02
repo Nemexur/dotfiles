@@ -22,7 +22,6 @@ null_ls.setup({
         null_ls.builtins.formatting.markdownlint.with({ extra_args = { "-r", "~MD013" } }),
         -- Shell
         null_ls.builtins.formatting.shfmt.with({ filetypes = { "sh", "zsh", "bash" } }),
-        null_ls.builtins.diagnostics.shellcheck.with({ filetypes = { "sh", "zsh", "bash" } }),
         -- SQL
         null_ls.builtins.formatting.sqlfmt,
         -- Json

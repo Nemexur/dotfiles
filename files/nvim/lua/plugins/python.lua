@@ -1,6 +1,3 @@
 return {
-    {
-        "jeetsukumaran/vim-pythonsense",
-        ft = "python",
-    },
+    { "jeetsukumaran/vim-pythonsense", ft = "python" },
 }

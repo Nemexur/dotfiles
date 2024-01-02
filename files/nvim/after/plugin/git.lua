@@ -1,5 +1,5 @@
-local status_ok, gitlinker = pcall(require, "gitlinker")
-if not status_ok then
+local gitlinker_ok, gitlinker = pcall(require, "gitlinker")
+if not gitlinker_ok then
     return
 end
 

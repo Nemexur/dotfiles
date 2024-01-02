@@ -1,19 +1,5 @@
 return {
     {
-        "Mofiqul/dracula.nvim",
-        opts = {
-            colors = {
-                visual = "#9197D4",
-            },
-            transparent_bg = true,
-            italic_comment = true,
-        },
-    },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine",
-    },
-    {
         "nvim-lualine/lualine.nvim",
         event = "VimEnter",
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -35,6 +21,7 @@ return {
                 ["<C-t>"] = "actions.select_tab",
                 ["<C-p>"] = "actions.preview",
                 ["<C-c>"] = "actions.close",
+                ["q"] = "actions.close",
                 ["gr"] = "actions.refresh",
                 ["H"] = "actions.parent",
                 ["L"] = "actions.open_cwd",
@@ -66,18 +53,20 @@ return {
         },
     },
     {
-        "beauwilliams/focus.nvim",
-        lazy = true,
-        version = "*",
-        opts = {},
-        keys = {
-            {
-                "<leader>wf",
-                "<cmd>FocusToggle<cr>",
-                mode = { "n" },
-                desc = "Toggle Focus",
-            },
+        "anuvyklack/windows.nvim",
+        event = "WinNew",
+        dependencies = {
+            { "anuvyklack/middleclass" },
+            { "anuvyklack/animation.nvim", enabled = false },
         },
+        keys = { { "<leader>wm", "<cmd>WindowsMaximize<cr>", desc = "Windows Maximize" } },
+        config = function()
+            vim.o.winwidth = 5
+            vim.o.equalalways = false
+            require("windows").setup({
+                animation = { enable = false, duration = 150 },
+            })
+        end,
     },
     {
         "iamcco/markdown-preview.nvim",
@@ -111,6 +100,9 @@ return {
         init = function()
             vim.cmd([[ hi NotifyBackground guibg = #000000 ]])
         end,
+        opts = {
+            background_colour = "#000000",
+        },
     },
     {
         "nacro90/numb.nvim",

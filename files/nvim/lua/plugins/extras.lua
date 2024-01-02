@@ -1,4 +1,10 @@
 return {
+    { "stsewd/gx-extended.vim" },
+    {
+        "pwntester/octo.nvim",
+        cmd = "Octo",
+        opts = {},
+    },
     {
         "m4xshen/autoclose.nvim",
         event = "BufReadPre",

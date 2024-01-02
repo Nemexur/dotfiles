@@ -1,5 +1,5 @@
-local status_ok, lsp_zero = pcall(require, "lsp-zero")
-if not status_ok then
+local lsp_zero_ok, lsp_zero = pcall(require, "lsp-zero")
+if not lsp_zero_ok then
     return
 end
 

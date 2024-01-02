@@ -117,8 +117,10 @@ telescope.setup({
         },
     },
     extensions = {
-        ["ui-select"] = require("telescope.themes").get_dropdown(),
         ["attempt"] = require("telescope.themes").get_dropdown(),
+        ["ui-select"] = require("telescope.themes").get_dropdown(),
+        ["yanky_history"] = require("telescope.themes").get_dropdown(),
+        ["git_worktree"] = require("telescope.themes").get_dropdown(),
     },
 })
 pcall(telescope.load_extension, "fzf")
@@ -126,3 +128,5 @@ pcall(telescope.load_extension, "ui-select")
 pcall(telescope.load_extension, "attempt")
 pcall(telescope.load_extension, "macros")
 pcall(telescope.load_extension, "file_browser")
+pcall(telescope.load_extension, "yank_history")
+pcall(telescope.load_extension, "git_worktree")

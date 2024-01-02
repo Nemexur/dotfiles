@@ -1,10 +1,19 @@
-local utils = require("yanky.utils")
-local mapping = require("yanky.telescope.mapping")
-local telescope = require("telescope")
+local yanky_ok, yanky = pcall(require, "yanky")
+if not yanky_ok then
+    return
+end
 
-telescope.load_extension("yank_history")
+local utils_ok, utils = pcall(require, "yanky.utils")
+if not utils_ok then
+    return
+end
 
-require("yanky").setup({
+local mapping_ok, mapping = pcall(require, "yanky.telescope.mapping")
+if not mapping_ok then
+    return
+end
+
+yanky.setup({
     picker = {
         telescope = {
             mappings = {
@@ -19,9 +28,9 @@ require("yanky").setup({
                     p = mapping.put("p"),
                     P = mapping.put("P"),
                     d = mapping.delete(),
-                    r = mapping.set_register(utils.get_default_register())
+                    r = mapping.set_register(utils.get_default_register()),
                 },
-            }
-        }
-    }
+            },
+        },
+    },
 })

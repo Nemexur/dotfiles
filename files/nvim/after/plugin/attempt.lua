@@ -1,9 +1,9 @@
-local status_ok, attempt = pcall(require, "attempt")
-if not status_ok then
+local attempt_ok, attempt = pcall(require, "attempt")
+if not attempt_ok then
     return
 end
 
-local unix = vim.fn.has 'unix' == 1
+local unix = vim.fn.has("unix") == 1
 local path_separator = unix and "/" or "\\"
 
 local function initial_content_fn(ext)
@@ -11,7 +11,7 @@ local function initial_content_fn(ext)
 end
 
 attempt.setup({
-    dir = (unix and "/tmp/" or vim.fn.expand "$TEMP\\") .. "attempt.nvim" .. path_separator,
+    dir = (unix and "/tmp/" or vim.fn.expand("$TEMP\\")) .. "attempt.nvim" .. path_separator,
     autosave = false,
     list_buffers = false,
     initial_content = {
@@ -28,5 +28,5 @@ attempt.setup({
         py = { "w !python" },
         go = { "w !go run %" },
         sh = { "w !bash" },
-    }
+    },
 })

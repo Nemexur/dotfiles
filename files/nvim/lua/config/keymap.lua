@@ -29,8 +29,8 @@ for mode, mappings in pairs(keymaps) do
     end
 end
 
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
+local which_key_ok, which_key = pcall(require, "which-key")
+if not which_key_ok then
     return
 end
 
@@ -83,10 +83,11 @@ local mappings = {
         r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
         w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
         b = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
+        s = { "<cmd>lua require('ssr').open()<cr>", "Structrual Search" },
+        n = { ":IncRename ", "Incremental Rename" },
     },
     w = {
         name = "Windows",
-        m = { "<cmd>FocusMaxOrEqual<cr>", "Toggle Maximized" },
         s = { "<C-w>s", "Horizontal" },
         v = { "<C-w>v", "Vertical" },
         c = { "<C-w>q", "Close" },
@@ -113,7 +114,8 @@ local mappings = {
     },
     g = {
         name = "Git",
-        g = { "<cmd>LazyGit<CR>", "LazyGit" },
+        g = { "<cmd>LazyGit<cr>", "LazyGit" },
+        w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
     },
     f = {
         name = "Find",
