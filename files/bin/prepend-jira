@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Helper script to prepend Jira Task
 # at the beginnnig of git branch to commit
@@ -12,7 +12,7 @@ fi
 
 if [ ! -d "${DIR}/.git/hooks" ]; then
     info "Creating hooks directory"
-    mkdir ${DIR}/.git/hooks
+    mkdir "${DIR}/.git/hooks"
 fi
 
 

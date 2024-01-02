@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Source: https://github.com/jdxcode/tmux-spotify-info
 
 NOW_PLAYING=$(osascript <<EOF

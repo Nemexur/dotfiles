@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+
+usage() {
+    cat << EOF
+Send message to Telegram.
+
+Usage: ${script_name} [OPTIONS] [TEXT]...
+
+Arguments:
+  [TEXT]...
+    Message to send.
+    Use a dash ('-') or no argument at all to read from stdin.
+
+Options:
+  -c, --chat-id    Chat ID in Telegram
+  -t, --token      Telegram API Token
+  -q, --quiet      Do not print to stdout or stderr, except for errors
+  -d, --dry-run    Validate command
+  -h, --help       Print help
+EOF
+    exit
+}
+
+msg() {
+    echo >&2 -e "${1-}"
+}
+
+die() {
+    local msg=$1
+    local code=${2-1}
+    msg "${script_name}: ${msg}"
+    exit "${code}"
+}
+
+parse_params() {
+    while :; do
+        case "${1-}" in
+        -h | --help) usage ;;
+        -c | --chat)
+            chat_id="${2-}"
+            shift
+            ;;
+        -t | --token)
+            api_token="${2-}"
+            shift
+            ;;
+        -q | --quiet)
+            options="${options} -q"
+            ;;
+        -d | --dry-run)
+            dry_run=true
+            ;;
+        -?*) die "Unknown option: $1" ;;
+        *) break ;;
+        esac
+        shift
+    done
+    argv=("$@")
+    if ${stdin}; then
+        return 0
+    fi
+    return 0
+}
+
+get_text() {
+    if [[ ${#argv[@]} -eq 0 || ${argv[0]} == "-" ]]; then
+        text=$(</dev/stdin)
+        return 0
+    fi
+    text="${argv[*]}"
+}
+
+run() {
+    if ${dry_run}; then
+        echo "$@"
+        return 0
+    fi
+    "$@"
+}
+
+retry="${TG_MSG_RETRY:-1}"
+chat_id="${TELEGRAM_CHAT:-}"
+api_token="${TELEGRAM_TOKEN:-}"
+options="--ignore-stdin"
+stdin=false
+dry_run=false
+
+parse_params "$@"
+
+get_text
+
+# shellcheck disable=SC2086
+for _ in $(seq "${retry}"); do
+    run http ${options} POST \
+        https://api.telegram.org/bot"${api_token}"/sendMessage \
+        chat_id="${chat_id}" \
+        text="${text}" && break
+    sleep 1
+done

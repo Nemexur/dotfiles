@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# Download streams from Twitch.
+#
+
+cd ~/Documents/Streams && twitch-dl download "$1" -q source

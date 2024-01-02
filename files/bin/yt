@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Downloads the embedded video on any web page straight to the desktop.
 #
