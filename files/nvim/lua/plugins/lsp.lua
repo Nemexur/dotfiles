@@ -68,11 +68,6 @@ return {
         dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
     },
     {
-        "nvimtools/none-ls.nvim",
-        lazy = true,
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    },
-    {
         "williamboman/mason-lspconfig.nvim",
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         cmd = { "LspInstall", "LspUninstall" },
@@ -88,11 +83,6 @@ return {
         "williamboman/mason.nvim",
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
         opts = {},
-        build = function()
-            pcall(function()
-                require("mason-registry").refresh()
-            end)
-        end,
     },
     {
         "jay-babu/mason-null-ls.nvim",
@@ -102,6 +92,10 @@ return {
             "williamboman/mason.nvim",
             "nvimtools/none-ls.nvim",
         },
+    },
+    {
+        "nvimtools/none-ls.nvim",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     },
     {
         "hrsh7th/nvim-cmp",

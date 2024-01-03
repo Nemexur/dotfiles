@@ -1,3 +1,35 @@
+local mason_null_ls_ok, mason_null_ls = pcall(require, "mason-null-ls")
+if not mason_null_ls_ok then
+    return
+end
+
+mason_null_ls.setup({
+    automatic_installation = false,
+    ensure_installed = {
+        -- Linters
+        "ansiblelint",
+        "editorconfig_checker",
+        "golangci_lint",
+        "jsonlint",
+        "markdownlint",
+        "shellcheck",
+        "yamllint",
+        "pylint",
+        "flake8",
+        -- Formatters
+        "stylua",
+        "black",
+        "isort",
+        "gofumpt",
+        "goimports",
+        "markdown_toc",
+        "prettier",
+        "shfmt",
+        "sqlfmt",
+        "golines",
+    },
+})
+
 local null_ls_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_ok then
     return
@@ -32,37 +64,5 @@ null_ls.setup({
         null_ls.builtins.diagnostics.ansiblelint,
         -- Editorconfig
         null_ls.builtins.diagnostics.editorconfig_checker,
-    },
-})
-
-local mason_null_ls_ok, mason_null_ls = pcall(require, "mason-null-ls")
-if not mason_null_ls_ok then
-    return
-end
-
-mason_null_ls.setup({
-    automatic_installation = false,
-    ensure_installed = {
-        -- Linters
-        "ansiblelint",
-        "editorconfig_checker",
-        "golangci_lint",
-        "jsonlint",
-        "markdownlint",
-        "shellcheck",
-        "yamllint",
-        "pylint",
-        "flake8",
-        -- Formatters
-        "stylua",
-        "black",
-        "isort",
-        "gofumpt",
-        "goimports",
-        "markdown_toc",
-        "prettier",
-        "shfmt",
-        "sqlfmt",
-        "golines",
     },
 })
