@@ -33,12 +33,6 @@ setopt INC_APPEND_HISTORY SHARE_HISTORY # adds history incrementally and share i
 setopt HIST_IGNORE_ALL_DUPS             # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
-bindkey '^[^[[D' backward-word
-bindkey '^[^[[C' forward-word
-bindkey '^[[5D' beginning-of-line
-bindkey '^[[5C' end-of-line
-bindkey '^[[3~' delete-char
-bindkey '^?' backward-delete-char
 bindkey -r '^l'
 
 fancy-ctrl-z() {
@@ -54,16 +48,16 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 function cd-with-fzf {
-    cd_with_fzf
-    zle accept-line
+	cd_with_fzf
+	zle accept-line
 }
 
 zle -N cd-with-fzf
 bindkey '^D' cd-with-fzf
 
 function open-with-fzf {
-    open_with_fzf
-    zle accept-line
+	open_with_fzf
+	zle accept-line
 }
 
 zle -N open-with-fzf

@@ -17,7 +17,6 @@ ulimit -u 2048
 # Oh My Zsh
 plugins=(
   copypath
-  thefuck
   dotenv
   docker
   docker-compose
