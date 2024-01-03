@@ -22,10 +22,6 @@ return {
                 desc = "NeoGit",
             },
         },
-        init = function()
-            vim.api.nvim_set_hl(0, "NeogitDiffAdd", { bg = "#45475a", fg = "#50fa7b" })
-            vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { bg = "#45475a", fg = "#50fa7b" })
-        end,
         opts = {
             integrations = {
                 telescope = true,

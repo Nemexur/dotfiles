@@ -1,13 +1,26 @@
 return {
     {
         "Mofiqul/dracula.nvim",
-        opts = {
-            colors = {
-                visual = "#6c7086",
-            },
-            transparent_bg = true,
-            italic_comment = true,
-        },
+        priority = 1000,
+        config = function()
+            require("dracula").setup({
+                show_end_of_buffer = false,
+                colors = {
+                    visual = "#6e6a86",
+                    menu = "none",
+                },
+                transparent_bg = true,
+                italic_comment = true,
+                overrides = {
+                    Normal = { bg = "none" },
+                    NormalFloat = { bg = "none" },
+                    PMenu = { bg = "none" },
+                    NeogitDiffAdd = { bg = "#45475a", fg = "#50fa7b" },
+                    NeogitDiffAddHighlight = { bg = "#45475a", fg = "#50fa7b" },
+                },
+            })
+            vim.cmd.colorscheme("dracula")
+        end,
     },
     {
         "rose-pine/neovim",

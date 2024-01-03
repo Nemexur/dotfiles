@@ -1,5 +1,11 @@
 return {
-    { "ruifm/gitlinker.nvim" },
+    {
+        "ruifm/gitlinker.nvim",
+        event = "VeryLazy",
+        opts = {
+            mappings = nil,
+        },
+    },
     {
         "folke/todo-comments.nvim",
         lazy = true,

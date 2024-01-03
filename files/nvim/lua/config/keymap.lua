@@ -155,6 +155,10 @@ local mappings = {
     g = {
         name = "Git",
         w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
+        H = {
+            "<cmd>lua require('gitlinker').get_repo_url({action_callback = require('gitlinker.actions').open_in_browser})<cr>",
+            "Open homepage",
+        },
     },
     f = {
         name = "Find",
