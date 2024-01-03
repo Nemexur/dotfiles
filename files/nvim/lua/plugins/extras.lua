@@ -13,16 +13,34 @@ return {
     },
     {
         "NeogitOrg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim", -- required
-            "sindrets/diffview.nvim", -- optional - Diff integration
-            -- Only one of these is needed, not both.
-            "nvim-telescope/telescope.nvim", -- optional
+        keys = {
+            {
+                "<leader>gn",
+                function()
+                    require("neogit").open({ kind = "split_above" })
+                end,
+                desc = "NeoGit",
+            },
         },
-        config = true,
+        init = function()
+            vim.api.nvim_set_hl(0, "NeogitDiffAdd", { bg = "#45475a", fg = "#50fa7b" })
+            vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { bg = "#45475a", fg = "#50fa7b" })
+        end,
+        opts = {
+            integrations = {
+                telescope = true,
+                diffview = true,
+            },
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
     },
     {
         "kdheepak/lazygit.nvim",
+        keys = { { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" } },
         dependencies = {
             "nvim-lua/plenary.nvim",
         },

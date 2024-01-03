@@ -10,14 +10,14 @@ return {
             "TSInstallSync",
             "TSInstallFromGrammar",
         },
-        event = "User FileOpened",
+        event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter-textobjects" }
+            { "nvim-treesitter/nvim-treesitter-textobjects" },
         },
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        event = "User FileOpened",
+        event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
             -- When in diff mode, we want to use the default
             -- vim text objects c & C instead of the treesitter ones.
@@ -27,8 +27,7 @@ return {
                 if name:find("goto") == 1 then
                     move[name] = function(q, ...)
                         if vim.wo.diff then
-                            local config = configs.get_module("textobjects.move")
-                                [name] ---@type table<string,string>
+                            local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
                             for key, query in pairs(config or {}) do
                                 if q == query and key:find("[%]%[][cC]") then
                                     vim.cmd("normal! " .. key)
@@ -44,10 +43,11 @@ return {
     },
     {
         "JoosepAlviste/nvim-ts-context-commentstring",
-        lazy = true,
+        event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
         opts = { max_lines = 1 },
+        event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
     },
 }

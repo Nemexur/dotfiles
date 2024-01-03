@@ -64,23 +64,24 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        lazy = true,
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
     },
     {
         "nvimtools/none-ls.nvim",
         lazy = true,
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        lazy = true,
-        event = "User FileOpened",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         cmd = { "LspInstall", "LspUninstall" },
         dependencies = "mason.nvim",
     },
     {
         "tamago324/nlsp-settings.nvim",
         lazy = true,
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         cmd = "LspSettings",
     },
     {
@@ -92,12 +93,10 @@ return {
                 require("mason-registry").refresh()
             end)
         end,
-        event = "User FileOpened",
-        lazy = true,
     },
     {
         "jay-babu/mason-null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {},
         dependencies = {
             "williamboman/mason.nvim",

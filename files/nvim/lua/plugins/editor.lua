@@ -33,7 +33,7 @@ return {
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        event = "BufRead",
+        event = "VeryLazy",
         opts = {},
         dependencies = {
             { "nvim-lua/plenary.nvim" },
@@ -92,8 +92,8 @@ return {
         config = true,
     },
     {
-        "windwp/nvim-spectre",
-        event = "BufRead",
+        "nvim-pack/nvim-spectre",
+        event = "VeryLazy",
         opts = {},
     },
     {

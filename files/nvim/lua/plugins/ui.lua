@@ -10,6 +10,11 @@ return {
         },
     },
     {
+        "NvChad/nvim-colorizer.lua",
+        event = "BufRead",
+        opts = {},
+    },
+    {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
@@ -36,8 +41,7 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
-        event = "User FileOpened",
-        cmd = "Gitsigns",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     },
     {
         "andrewferrier/wrapping.nvim",
@@ -64,6 +68,10 @@ return {
             vim.o.equalalways = false
             require("windows").setup({
                 animation = { enable = false, duration = 150 },
+                ignore = {
+                    buftype = { "quickfix" },
+                    filetype = { "NvimTree", "neo-tree", "undotree", "NeogitStatus" },
+                },
             })
         end,
     },
@@ -96,9 +104,6 @@ return {
     {
         "rcarriga/nvim-notify",
         event = "VeryLazy",
-        init = function()
-            vim.cmd([[ hi NotifyBackground guibg = #000000 ]])
-        end,
         opts = {
             background_colour = "#000000",
         },

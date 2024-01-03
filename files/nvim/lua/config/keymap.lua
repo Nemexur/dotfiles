@@ -1,32 +1,76 @@
-local keymaps = {
-    v = {
-        ["j"] = "gj",
-        ["k"] = "gk",
-        ["s"] = "<cmd>lua require('substitute').visual()<cr>",
-        ["X"] = "<cmd>lua require('substitute.exchange').visual()<cr>",
-        ["J"] = ":m '>+1<cr>gv=gv",
-        ["K"] = ":m '<-2<cr>gv=gv",
-    },
-    n = {
-        ["j"] = "gj",
-        ["k"] = "gk",
-        ["n"] = "nzzzv",
-        ["N"] = "Nzzzv",
-        ["<C-d>"] = "<C-d>zz",
-        ["<C-u>"] = "<C-u>zz",
-        ["<C-p>"] = "<cmd>YankyRingHistory<cr>",
-        ["p"] = "<Plug>(YankyPutAfter)",
-        ["P"] = "<Plug>(YankyPutBefore)",
-        ["<C-e>"] = "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>",
-        ["<C-h>"] = "<cmd>lua require('harpoon'):list():select(1)<cr>",
-        ["<C-j>"] = "<cmd>lua require('harpoon'):list():select(2)<cr>",
-    },
-}
-for mode, mappings in pairs(keymaps) do
-    for k, v in pairs(mappings) do
-        vim.keymap.set(mode, k, v, { noremap = true, silent = true })
+local function map(mode, lhs, rhs, opts)
+    local keys = require("lazy.core.handler").handlers.keys
+    ---@cast keys LazyKeysHandler
+    local modes = type(mode) == "string" and { mode } or mode
+
+    ---@param m string
+    modes = vim.tbl_filter(function(m)
+        return not (keys.have and keys:have(lhs, m))
+    end, modes)
+
+    -- do not create the keymap if a lazy keys handler exists
+    if #modes > 0 then
+        opts = opts or {}
+        opts.silent = opts.silent ~= false
+        if opts.remap and not vim.g.vscode then
+            ---@diagnostic disable-next-line: no-unknown
+            opts.remap = nil
+        end
+        vim.keymap.set(modes, lhs, rhs, opts)
     end
 end
+
+-- Better up/down
+map({ "n", "x", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x", "v" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ "n", "x", "v" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
+
+-- Substitute
+map("v", "s", "<cmd>lua require('substitute').visual()<cr>", { desc = "Substitute visual" })
+map("v", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { desc = "Substitute exchange visual" })
+
+-- Visual Move
+map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move visual down" })
+map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move visual up" })
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+
+-- Save file
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- Better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- Harpoon
+map(
+    "n",
+    "<C-e>",
+    "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>",
+    { desc = "Harpoon List" }
+)
+
+-- Sane C-d, C-u
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+
+-- Yanky Paste
+map("n", "<C-p>", "<cmd>YankyRingHistory<cr>", { desc = "Yanky History" })
+map("n", "p", "<Plug>(YankyPutAfter)")
+map("n", "P", "<Plug>(YankyPutBefore)")
 
 local which_key_ok, which_key = pcall(require, "which-key")
 if not which_key_ok then
@@ -55,6 +99,7 @@ local mappings = {
     u = { "<C-r>", "Redo" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
+    k = { "<cmd>norm! K<cr>", "Keywordprg" },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
@@ -62,22 +107,8 @@ local mappings = {
         s = { "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch" },
         o = { string.format("<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")), "Open Obsidian" },
     },
-    p = {
-        name = "Persistence",
-        r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
-        l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
-        Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
-    },
-    a = {
-        name = "Attempt Buffer",
-        s = { "<cmd>Telescope attempt<cr>", "Select Script" },
-        l = { "<cmd>lua require('attempt').new_select()<cr>", "Select Lang" },
-        r = { "<cmd>lua require('attempt').run()<cr>", "Run Script" },
-        d = { "<cmd>lua require('attempt').delete_buf()<cr>", "Delete Script" },
-        c = { "<cmd>lua require('attempt').delete_buf()<cr>", "Rename Script" },
-    },
     r = {
-        name = "Spectre",
+        name = "Search and Replace",
         r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
         w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
         b = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
@@ -103,17 +134,26 @@ local mappings = {
         n = { "<cmd>bnext<cr>", "Next" },
         W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
         c = { "<cmd>bd<cr>", "Close buffer" },
+        a = {
+            name = "Attempt",
+            s = { "<cmd>Telescope attempt<cr>", "Select Script" },
+            l = { "<cmd>lua require('attempt').new_select()<cr>", "Select Lang" },
+            r = { "<cmd>lua require('attempt').run()<cr>", "Run Script" },
+            d = { "<cmd>lua require('attempt').delete_buf()<cr>", "Delete Script" },
+            c = { "<cmd>lua require('attempt').delete_buf()<cr>", "Rename Script" },
+        },
     },
     q = {
         name = "Quit",
-        q = { ":qa<cr>", "Quit all buffers" },
-        a = { ":wqa<cr>", "Save all buffers and quit" },
-        f = { ":qa!<cr>", "Force quit all buffers" },
+        q = { "<cmd>:qa<cr>", "Quit all buffers" },
+        a = { "<cmd>:wqa<cr>", "Save all buffers and quit" },
+        f = { "<cmd>:qa!<cr>", "Force quit all buffers" },
+        r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
+        l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+        Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
     },
     g = {
         name = "Git",
-        l = { "<cmd>LazyGit<cr>", "LazyGit" },
-        n = { "<cmd>Neogit<cr>", "NeoGit" },
         w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
     },
     f = {
@@ -125,7 +165,7 @@ local mappings = {
         H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
         M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
         r = { "<cmd>Telescope oldfiles theme=dropdown<cr>", "Open Recent File" },
-        t = { "<cmd>Telescope live_grep<cr>", "Text" },
+        t = { "<cmd>Telescope live_grep theme=dropdown<cr>", "Text" },
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
@@ -148,8 +188,8 @@ local mappings = {
         e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
         R = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
     },
-    n = {
-        name = "Neogen",
+    a = {
+        name = "Annotaions",
         c = { "<cmd>lua require('neogen').generate({ type = 'class' })<cr>", "Class Doc" },
         f = { "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", "Function Doc" },
         t = { "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", "Type Doc" },
