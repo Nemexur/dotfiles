@@ -16,7 +16,7 @@ return {
     },
     {
         "stevearc/oil.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        lazy = false,
         opts = {
             delete_to_trash = true,
             keymaps = {
@@ -38,19 +38,20 @@ return {
             },
             use_default_keymaps = false,
         },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
         "lewis6991/gitsigns.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+        event = "VeryLazy",
     },
     {
         "andrewferrier/wrapping.nvim",
-        lazy = true,
+        event = "VeryLazy",
         opts = {},
     },
     {
         "m4xshen/smartcolumn.nvim",
-        lazy = true,
+        event = "VeryLazy",
         opts = {
             colorcolumn = "120",
         },
@@ -77,11 +78,10 @@ return {
     },
     {
         "iamcco/markdown-preview.nvim",
-        lazy = true,
-        ft = "markdown",
-        build = "cd app && npm install",
-        config = function()
-            vim.g.mkdp_auto_start = 1
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function()
+            vim.fn["mkdp#util#install"]()
         end,
     },
     {
@@ -100,6 +100,25 @@ return {
             { "MunifTanjim/nui.nvim" },
             { "rcarriga/nvim-notify" },
         },
+        opts = {
+            lsp = {
+                signature = {
+                    enabled = false,
+                },
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
+            presets = {
+                bottom_search = true, -- use a classic bottom cmdline for search
+                command_palette = true, -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = true, -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = true, -- add a border to hover docs and signature help
+            },
+        },
     },
     {
         "rcarriga/nvim-notify",
@@ -110,7 +129,7 @@ return {
     },
     {
         "nacro90/numb.nvim",
-        event = "BufRead",
+        event = "VeryLazy",
         opts = {
             show_numbers = true, -- Enable 'number' for the window while peeking
             show_cursorline = true, -- Enable 'cursorline' for the window while peeking

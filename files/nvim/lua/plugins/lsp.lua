@@ -1,6 +1,7 @@
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
+        event = "VeryLazy",
         branch = "v3.x",
         config = false,
         init = function()
@@ -17,17 +18,58 @@ return {
             { "nlsp-settings.nvim" },
             -- Autocompletion
             { "nvim-cmp" },
-            { "cmp-buffer" },
-            { "cmp-path" },
-            { "cmp_luasnip" },
-            { "cmp-nvim-lsp" },
-            { "cmp-nvim-lua" },
-            { "cmp-cmdline" },
         },
     },
     {
+        "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        event = "VeryLazy",
+        cmd = { "LspInstall", "LspUninstall" },
+        dependencies = "mason.nvim",
+    },
+    {
+        "tamago324/nlsp-settings.nvim",
+        event = "VeryLazy",
+        cmd = "LspSettings",
+    },
+    {
+        "williamboman/mason.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+        opts = {},
+    },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = "VeryLazy",
+        opts = {},
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
+    },
+    {
+        "nvimtools/none-ls.nvim",
+        event = "VeryLazy",
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        event = "InsertEnter",
+        dependencies = {
+            "friendly-snippets",
+            "cmp_luasnip",
+        },
+    },
+    {
+        "folke/neodev.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {
         "onsails/lspkind.nvim",
-        lazy = true,
+        event = "VeryLazy",
         init = function()
             require("lspkind").init({
                 mode = "symbol_text",
@@ -63,94 +105,29 @@ return {
         end,
     },
     {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        dependencies = { "mason-lspconfig.nvim", "nlsp-settings.nvim" },
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        cmd = { "LspInstall", "LspUninstall" },
-        dependencies = "mason.nvim",
-    },
-    {
-        "tamago324/nlsp-settings.nvim",
-        lazy = true,
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        cmd = "LspSettings",
-    },
-    {
-        "williamboman/mason.nvim",
-        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        opts = {},
-    },
-    {
-        "jay-babu/mason-null-ls.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        opts = {},
-        dependencies = {
-            "williamboman/mason.nvim",
-            "nvimtools/none-ls.nvim",
-        },
-    },
-    {
-        "nvimtools/none-ls.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    },
-    {
         "hrsh7th/nvim-cmp",
+        lazy = false,
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            "cmp-nvim-lsp",
-            "cmp-nvim-lua",
-            "cmp_luasnip",
-            "cmp-buffer",
-            "cmp-path",
-            "cmp-cmdline",
+            { "cmp-nvim-lsp" },
+            { "cmp-nvim-lua" },
+            { "cmp-buffer" },
+            { "cmp-cmdline" },
+            { "cmp-path" },
+            { "cmp-calc" },
+            { "cmp-emoji" },
+            { "cmp_luasnip" },
+            { "cmp-treesitter" },
         },
     },
-    {
-        "hrsh7th/cmp-nvim-lsp",
-        lazy = true,
-    },
-    {
-        "hrsh7th/cmp-nvim-lua",
-        lazy = true,
-    },
-    {
-        "saadparwaiz1/cmp_luasnip",
-        lazy = true,
-    },
-    {
-        "hrsh7th/cmp-buffer",
-        lazy = true,
-    },
-    {
-        "hrsh7th/cmp-path",
-        lazy = true,
-    },
-    {
-        "hrsh7th/cmp-cmdline",
-        lazy = true,
-    },
-    {
-        "rafamadriz/friendly-snippets",
-        lazy = true,
-    },
-    {
-        "saadparwaiz1/cmp_luasnip",
-        lazy = true,
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        event = "InsertEnter",
-        dependencies = {
-            "friendly-snippets",
-            "cmp_luasnip",
-        },
-    },
-    {
-        "folke/neodev.nvim",
-        opts = {},
-    },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-nvim-lua" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-cmdline" },
+    { "hrsh7th/cmp-path" },
+    { "hrsh7th/cmp-calc" },
+    { "hrsh7th/cmp-emoji" },
+    { "ray-x/cmp-treesitter" },
+    { "saadparwaiz1/cmp_luasnip" },
+    { "rafamadriz/friendly-snippets" },
 }

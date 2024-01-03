@@ -2,13 +2,20 @@ return {
     { "stsewd/gx-extended.vim" },
     { "romainl/vim-cool" },
     {
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
+        config = function()
+            vim.g.startuptime_tries = 10
+        end,
+    },
+    {
         "pwntester/octo.nvim",
         cmd = "Octo",
         opts = {},
     },
     {
         "m4xshen/autoclose.nvim",
-        event = "BufReadPre",
+        event = "VeryLazy",
         opts = {},
     },
     {
@@ -36,7 +43,9 @@ return {
     },
     {
         "kdheepak/lazygit.nvim",
-        keys = { { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" } },
+        keys = {
+            { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        },
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
@@ -51,13 +60,14 @@ return {
     },
     {
         "ecthelionvi/NeoComposer.nvim",
-        lazy = true,
+        event = "VeryLazy",
         opts = {},
-        dependencies = { "kkharji/sqlite.lua" },
+        dependencies = {
+            "kkharji/sqlite.lua",
+        },
     },
     {
         "epwalsh/obsidian.nvim",
-        lazy = true,
         event = {
             string.format("BufReadPre %s/**.md", os.getenv("SECOND_BRAIN")),
             string.format("BufNewFile %s/**.md", os.getenv("SECOND_BRAIN")),
@@ -79,6 +89,15 @@ return {
             mappings = {},
             finder = "telescope.nvim",
             open_notes_in = "current",
+        },
+    },
+    {
+        "tris203/hawtkeys.nvim",
+        cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
+        config = true,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
         },
     },
 }

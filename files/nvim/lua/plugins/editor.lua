@@ -2,10 +2,11 @@ return {
     { "chaoren/vim-wordmotion" },
     {
         "numToStr/Comment.nvim",
-        lazy = true,
         opts = {},
-        keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
-        event = "User FileOpened",
+        keys = {
+            { "gc", mode = { "n", "v" } },
+            { "gb", mode = { "n", "v" } },
+        },
     },
     {
         "folke/which-key.nvim",
@@ -83,7 +84,7 @@ return {
     },
     {
         "cshuaimin/ssr.nvim",
-        event = "BufRead",
+        event = "VeryLazy",
         opts = {},
     },
     {
@@ -98,12 +99,38 @@ return {
     },
     {
         "gbprod/yanky.nvim",
-        lazy = true,
-        opts = {},
+        event = "VeryLazy",
+        config = function()
+            local yanky = require("yanky")
+            local utils = require("yanky.utils")
+            local mapping = require("yanky.telescope.mapping")
+
+            yanky.setup({
+                picker = {
+                    telescope = {
+                        mappings = {
+                            default = mapping.put("p"),
+                            i = {
+                                ["<c-p>"] = mapping.put("p"),
+                                ["<c-k>"] = mapping.put("P"),
+                                ["<c-x>"] = mapping.delete(),
+                                ["<c-r>"] = mapping.set_register(utils.get_default_register()),
+                            },
+                            n = {
+                                p = mapping.put("p"),
+                                P = mapping.put("P"),
+                                d = mapping.delete(),
+                                r = mapping.set_register(utils.get_default_register()),
+                            },
+                        },
+                    },
+                },
+            })
+        end,
     },
     {
         "gbprod/substitute.nvim",
-        lazy = true,
+        event = "VeryLazy",
         config = function()
             require("substitute").setup({
                 on_substitute = require("yanky.integration").substitute(),
@@ -112,7 +139,7 @@ return {
     },
     {
         "andymass/vim-matchup",
-        lazy = true,
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,

@@ -8,19 +8,33 @@ return {
     },
     {
         "folke/todo-comments.nvim",
-        lazy = true,
         cmd = { "TodoTrouble", "TodoTelescope" },
-        event = { "BufReadPost", "BufNewFile" },
+        event = "VeryLazy",
+        opts = {},
     },
     {
         "danymat/neogen",
-        event = "BufEnter",
-    },
-    {
-        "m-demare/attempt.nvim",
-        lazy = true,
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
+        event = "VeryLazy",
+        opts = {
+            snippet_engine = "luasnip",
+            enabled = true,
+            languages = {
+                lua = {
+                    template = {
+                        annotation_convention = "emmylua",
+                    },
+                },
+                python = {
+                    template = {
+                        annotation_convention = "numpydoc",
+                    },
+                },
+                rust = {
+                    template = {
+                        annotation_convention = "rustdoc",
+                    },
+                },
+            },
         },
     },
     {
@@ -32,12 +46,6 @@ return {
         "kylechui/nvim-surround",
         version = "*",
         event = "VeryLazy",
-        opts = {},
-    },
-    {
-        "echasnovski/mini.trailspace",
-        main = "mini.trailspace",
-        event = "BufEnter",
         opts = {},
     },
     {
@@ -57,7 +65,6 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
-        event = "BufRead",
         opts = {},
     },
     {
