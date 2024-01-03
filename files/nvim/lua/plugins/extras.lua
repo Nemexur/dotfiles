@@ -17,7 +17,7 @@ return {
             {
                 "<leader>gn",
                 function()
-                    require("neogit").open({ kind = "split_above" })
+                    require("neogit").open({ kind = "tab" })
                 end,
                 desc = "NeoGit",
             },
