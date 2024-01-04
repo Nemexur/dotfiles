@@ -2,7 +2,15 @@ local M = {}
 
 M.plugins = {
     { "lervag/vimtex" },
-    { "jay-babu/mason-null-ls.nvim" },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+        opts = {},
+    },
     {
         "folke/persistence.nvim",
         event = "BufReadPre", -- this will only start session saving when an actual file was opened
