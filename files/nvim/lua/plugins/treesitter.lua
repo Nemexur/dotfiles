@@ -135,6 +135,9 @@ return {
     {
         "JoosepAlviste/nvim-ts-context-commentstring",
         event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
+        opts = {
+            enable_autocmd = false,
+        },
     },
     {
         "nvim-treesitter/nvim-treesitter-context",

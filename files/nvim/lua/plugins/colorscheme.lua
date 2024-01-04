@@ -4,11 +4,13 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("dracula").setup({
+            local dracula = require("dracula")
+            local colors = dracula.colors()
+
+            dracula.setup({
                 show_end_of_buffer = false,
                 colors = {
                     visual = "#6e6a86",
-                    menu = "none",
                 },
                 transparent_bg = true,
                 italic_comment = true,
@@ -16,8 +18,12 @@ return {
                     Normal = { bg = "none" },
                     NormalFloat = { bg = "none" },
                     PMenu = { bg = "none" },
-                    NeogitDiffAdd = { bg = "#45475a", fg = "#50fa7b" },
-                    NeogitDiffAddHighlight = { bg = "#45475a", fg = "#50fa7b" },
+                    CmpItemAbbr = { bg = "none" },
+                    CmpItemKind = { bg = "none" },
+                    CmpItemAbbrDeprecated = { bg = "none" },
+                    CmpItemAbbrMatch = { fg = colors.cyan, bg = "none" },
+                    NeogitDiffAdd = { fg = colors.green, bg = "#45475a" },
+                    NeogitDiffAddHighlight = { fg = colors.green, bg = "#45475a" },
                 },
             })
             vim.cmd.colorscheme("dracula")

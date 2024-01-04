@@ -24,9 +24,16 @@ return {
         opts = {},
     },
     {
-        "m4xshen/autoclose.nvim",
-        event = "VeryLazy",
-        opts = {},
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup({
+                map_c_w = true,
+            })
+            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+            local cmp = require("cmp")
+            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
     },
     {
         "NeogitOrg/neogit",
