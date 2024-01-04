@@ -35,7 +35,6 @@ local opts = {
     title = true,
     updatetime = 200,
     grepprg = "rg --vimgrep",
-    wildmode = "longest:full,full",
     undodir = os.getenv("HOME") .. "/.vim/undodir",
     guifont = "JetBrainsMono NF",
     sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" },

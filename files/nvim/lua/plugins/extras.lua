@@ -1,6 +1,16 @@
 return {
-    { "stsewd/gx-extended.vim" },
-    { "romainl/vim-cool" },
+    {
+        "stsewd/gx-extended.vim",
+        lazy = false,
+    },
+    {
+        "romainl/vim-cool",
+        lazy = false,
+    },
+    {
+        "christoomey/vim-tmux-navigator",
+        lazy = false,
+    },
     {
         "dstein64/vim-startuptime",
         cmd = "StartupTime",

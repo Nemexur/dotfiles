@@ -16,7 +16,7 @@ return {
     },
     {
         "stevearc/oil.nvim",
-        lazy = false,
+        event = "VimEnter",
         opts = {
             delete_to_trash = true,
             keymaps = {

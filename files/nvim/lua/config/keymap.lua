@@ -1,9 +1,7 @@
 local function map(mode, lhs, rhs, opts)
     local keys = require("lazy.core.handler").handlers.keys
-    ---@cast keys LazyKeysHandler
     local modes = type(mode) == "string" and { mode } or mode
 
-    ---@param m string
     modes = vim.tbl_filter(function(m)
         return not (keys.have and keys:have(lhs, m))
     end, modes)
@@ -25,12 +23,6 @@ map({ "n", "x", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent =
 map({ "n", "x", "v" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map({ "n", "x", "v" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- Substitute
 map("v", "s", "<cmd>lua require('substitute').visual()<cr>", { desc = "Substitute visual" })
@@ -177,19 +169,16 @@ local mappings = {
     l = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-        b = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-        w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+        q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
+        b = { "<cmd>TroubleToggle document_diagnostics<cr>", "Buffer Diagnostics" },
+        w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics" },
         f = { "<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<cr>", "Format" },
         i = { "<cmd>LspInfo<cr>", "Info" },
         I = { "<cmd>Mason<cr>", "Mason Info" },
-        n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
-        p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
         l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
         r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
-        e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
         R = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
     },
     a = {

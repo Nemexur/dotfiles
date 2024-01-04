@@ -60,6 +60,7 @@ return {
             pcall(telescope.load_extension, "file_browser")
             pcall(telescope.load_extension, "yank_history")
             pcall(telescope.load_extension, "git_worktree")
+            pcall(telescope.load_extension, "noice")
         end,
     },
     {
