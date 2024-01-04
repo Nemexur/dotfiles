@@ -3,9 +3,9 @@ return {
         "mfussenegger/nvim-dap",
         event = "VeryLazy",
         dependencies = {
-            { "rcarriga/nvim-dap-ui" },
-            { "jay-babu/mason-nvim-dap.nvim" },
-            { "theHamsta/nvim-dap-virtual-text" },
+            "rcarriga/nvim-dap-ui",
+            "jay-babu/mason-nvim-dap.nvim",
+            "theHamsta/nvim-dap-virtual-text",
         },
     },
     {
@@ -47,15 +47,18 @@ return {
         end,
     },
     {
+        "jay-babu/mason-nvim-dap.nvim",
+        event = "VeryLazy",
+        cmd = { "DapInstall", "DapUninstall" },
+        opts = {
+            automatic_installation = false,
+            ensure_installed = { "python", "delve", "cppdbg" },
+        },
+        dependencies = { "williamboman/mason.nvim" },
+    },
+    {
         "theHamsta/nvim-dap-virtual-text",
         event = "VeryLazy",
         opts = {},
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        cmd = { "DapInstall", "DapUninstall" },
-        dependencies = {
-            { "mason.nvim" },
-        },
     },
 }

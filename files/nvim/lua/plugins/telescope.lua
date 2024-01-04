@@ -2,13 +2,6 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-fzf-native.nvim",
-            "nvim-telescope/telescope-ui-select.nvim",
-            "nvim-telescope/telescope-file-browser.nvim",
-            "debugloop/telescope-undo.nvim",
-        },
         config = function()
             local telescope = require("telescope")
             local actions = require("telescope.actions")
@@ -72,6 +65,13 @@ return {
             pcall(telescope.load_extension, "noice")
             pcall(telescope.load_extension, "undo")
         end,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
+            "debugloop/telescope-undo.nvim",
+        },
     },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-ui-select.nvim" },

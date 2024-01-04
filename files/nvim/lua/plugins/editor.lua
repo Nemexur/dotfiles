@@ -2,11 +2,12 @@ return {
     { "chaoren/vim-wordmotion", lazy = false },
     {
         "numToStr/Comment.nvim",
-        opts = {},
+        event = "VeryLazy",
         keys = {
             { "gc", mode = { "n", "v" } },
             { "gb", mode = { "n", "v" } },
         },
+        opts = {},
     },
     {
         "folke/which-key.nvim",
@@ -36,9 +37,7 @@ return {
         branch = "harpoon2",
         event = "VeryLazy",
         opts = {},
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-        },
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "folke/flash.nvim",

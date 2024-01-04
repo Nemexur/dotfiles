@@ -8,8 +8,8 @@ return {
     },
     {
         "folke/todo-comments.nvim",
-        cmd = { "TodoTrouble", "TodoTelescope" },
         event = "VeryLazy",
+        cmd = { "TodoTrouble", "TodoTelescope" },
         opts = {},
     },
     {
@@ -44,8 +44,8 @@ return {
     },
     {
         "kylechui/nvim-surround",
-        version = "*",
         event = "VeryLazy",
+        version = "*",
         opts = {},
     },
     {
@@ -65,10 +65,12 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
         opts = {},
     },
     {
         "folke/trouble.nvim",
+        event = "VeryLazy",
         cmd = { "TroubleToggle", "Trouble" },
         opts = {
             use_diagnostic_signs = true,
@@ -76,6 +78,7 @@ return {
     },
     {
         "monaqa/dial.nvim",
+        event = "VeryLazy",
         keys = {
             {
                 "<C-a>",

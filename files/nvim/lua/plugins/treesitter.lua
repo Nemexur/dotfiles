@@ -11,9 +11,6 @@ return {
             "TSInstallFromGrammar",
         },
         event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
-        dependencies = {
-            { "nvim-treesitter/nvim-treesitter-textobjects" },
-        },
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
@@ -105,6 +102,9 @@ return {
                 },
             })
         end,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        },
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -141,7 +141,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        opts = { max_lines = 1 },
         event = { "VeryLazy", "BufReadPost", "BufNewFile", "BufWritePre" },
+        opts = { max_lines = 1 },
     },
 }

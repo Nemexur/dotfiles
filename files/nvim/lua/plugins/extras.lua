@@ -54,9 +54,7 @@ return {
         keys = {
             { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" },
         },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "folke/persistence.nvim",
@@ -70,9 +68,7 @@ return {
         "ecthelionvi/NeoComposer.nvim",
         event = "VeryLazy",
         opts = {},
-        dependencies = {
-            "kkharji/sqlite.lua",
-        },
+        dependencies = { "kkharji/sqlite.lua" },
     },
     {
         "epwalsh/obsidian.nvim",

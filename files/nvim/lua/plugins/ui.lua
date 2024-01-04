@@ -2,12 +2,12 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VimEnter",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             options = {
                 theme = "dracula-nvim",
             },
         },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
         "NvChad/nvim-colorizer.lua",
@@ -60,10 +60,6 @@ return {
     {
         "anuvyklack/windows.nvim",
         event = "WinNew",
-        dependencies = {
-            { "anuvyklack/middleclass" },
-            { "anuvyklack/animation.nvim", enabled = false },
-        },
         keys = { { "<leader>wm", "<cmd>WindowsMaximize<cr>", desc = "Windows Maximize" } },
         config = function()
             vim.o.winwidth = 5
@@ -76,6 +72,10 @@ return {
                 },
             })
         end,
+        dependencies = {
+            "anuvyklack/middleclass",
+            { "anuvyklack/animation.nvim", enabled = false },
+        },
     },
     {
         "iamcco/markdown-preview.nvim",
@@ -98,10 +98,6 @@ return {
     {
         "folke/noice.nvim",
         event = "VeryLazy",
-        dependencies = {
-            { "MunifTanjim/nui.nvim" },
-            { "rcarriga/nvim-notify" },
-        },
         opts = {
             lsp = {
                 signature = {
@@ -120,6 +116,10 @@ return {
                 inc_rename = true, -- enables an input dialog for inc-rename.nvim
                 lsp_doc_border = true, -- add a border to hover docs and signature help
             },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
         },
     },
     {
