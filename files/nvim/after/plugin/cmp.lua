@@ -13,7 +13,6 @@ if not cmp_ok then
     return
 end
 
-lsp_zero.extend_cmp()
 local cmp_action = lsp_zero.cmp_action()
 
 cmp.setup({

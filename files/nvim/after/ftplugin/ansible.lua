@@ -4,25 +4,27 @@ if not lspconfig_ok then
 end
 
 lspconfig.ansiblels.setup({
+    autostart = false,
     filetypes = { "yaml.ansible" },
     settings = {
         ansible = {
             ansible = {
-                path = "ansible"
+                path = "ansible",
             },
             executionEnvironment = {
-                enabled = false
+                enabled = false,
             },
             python = {
-                interpreterPath = "python"
+                interpreterPath = "python",
             },
             validation = {
                 enabled = true,
                 lint = {
                     enabled = true,
-                    path = "ansible-lint"
-                }
-            }
-        }
+                    path = "ansible-lint",
+                },
+            },
+        },
     },
 })
+lspconfig.ansiblels.launch()

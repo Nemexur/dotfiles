@@ -4,6 +4,7 @@ if not lspconfig_ok then
 end
 
 lspconfig.gopls.setup({
+    autostart = false,
     settings = {
         gopls = {
             usePlaceholders = false,
@@ -21,7 +22,7 @@ lspconfig.gopls.setup({
         },
     },
 })
-lspconfig.golangci_lint_ls.setup({})
+lspconfig.gopls.launch()
 
 local gopher_ok, gopher = pcall(require, "gopher")
 if not gopher_ok then
@@ -44,12 +45,12 @@ if not which_key_ok then
 end
 
 local opts = {
-    mode = "n",     -- NORMAL mode
+    mode = "n", -- NORMAL mode
     prefix = "<leader>",
-    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,  -- use `silent` when creating keymaps
+    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = true,  -- use `nowait` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
 }
 local mappings = {
     c = {

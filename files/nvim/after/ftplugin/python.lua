@@ -4,6 +4,7 @@ if not lspconfig_ok then
 end
 
 lspconfig.pyright.setup({
+    autostart = false,
     single_file_support = true,
     settings = {
         pyright = {
@@ -15,11 +16,10 @@ lspconfig.pyright.setup({
                 autoImportCompletions = true,
                 autoSearchPaths = true,
                 diagnosticMode = "workspace", -- openFilesOnly, workspace
-                typeCheckingMode = "basic",   -- off, basic, strict
+                typeCheckingMode = "basic", -- off, basic, strict
                 useLibraryCodeForTypes = true,
             },
         },
     },
 })
-
-lspconfig.ruff_lsp.setup({})
+lspconfig.pyright.launch()
