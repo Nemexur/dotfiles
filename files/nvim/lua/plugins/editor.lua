@@ -1,5 +1,5 @@
 return {
-    { "chaoren/vim-wordmotion" },
+    { "chaoren/vim-wordmotion", lazy = false },
     {
         "numToStr/Comment.nvim",
         opts = {},
@@ -39,10 +39,6 @@ return {
         dependencies = {
             { "nvim-lua/plenary.nvim" },
         },
-    },
-    {
-        "mbbill/undotree",
-        event = "VeryLazy",
     },
     {
         "folke/flash.nvim",
