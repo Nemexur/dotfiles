@@ -165,6 +165,7 @@ local mappings = {
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
         p = { "<cmd>YankyRingHistory<cr>", "Paste History" },
         u = { "<cmd>Telescope undo<cr>", "Undo History" },
+        s = { "<cmd>Telescope spell_suggest theme=dropdown<cr>", "Suggest Spelling" },
     },
     l = {
         name = "LSP",
