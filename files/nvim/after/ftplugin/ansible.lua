@@ -4,7 +4,6 @@ if not lspconfig_ok then
 end
 
 lspconfig.ansiblels.setup({
-    autostart = false,
     filetypes = { "yaml.ansible" },
     settings = {
         ansible = {
@@ -27,4 +26,3 @@ lspconfig.ansiblels.setup({
         },
     },
 })
-lspconfig.ansiblels.launch()

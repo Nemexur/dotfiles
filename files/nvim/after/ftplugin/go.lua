@@ -4,7 +4,6 @@ if not lspconfig_ok then
 end
 
 lspconfig.gopls.setup({
-    autostart = false,
     settings = {
         gopls = {
             usePlaceholders = false,
@@ -22,7 +21,6 @@ lspconfig.gopls.setup({
         },
     },
 })
-lspconfig.gopls.launch()
 
 local gopher_ok, gopher = pcall(require, "gopher")
 if not gopher_ok then

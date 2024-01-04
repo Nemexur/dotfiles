@@ -4,7 +4,6 @@ if not lspconfig_ok then
 end
 
 lspconfig.pyright.setup({
-    autostart = false,
     single_file_support = true,
     settings = {
         pyright = {
@@ -22,4 +21,3 @@ lspconfig.pyright.setup({
         },
     },
 })
-lspconfig.pyright.launch()
