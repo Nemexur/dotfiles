@@ -11,7 +11,6 @@ local function map(mode, lhs, rhs, opts)
         opts = opts or {}
         opts.silent = opts.silent ~= false
         if opts.remap and not vim.g.vscode then
-            ---@diagnostic disable-next-line: no-unknown
             opts.remap = nil
         end
         vim.keymap.set(modes, lhs, rhs, opts)
@@ -60,7 +59,6 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
 -- Yanky Paste
-map("n", "<C-p>", "<cmd>YankyRingHistory<cr>", { desc = "Yanky History" })
 map("n", "p", "<Plug>(YankyPutAfter)")
 map("n", "P", "<Plug>(YankyPutBefore)")
 
@@ -165,6 +163,8 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
+        p = { "<cmd>YankyRingHistory<cr>", "Paste History" },
+        u = { "<cmd>Telescope undo<cr>", "Undo History" },
     },
     l = {
         name = "LSP",

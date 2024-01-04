@@ -2,12 +2,12 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
-        lazy = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
             "nvim-telescope/telescope-file-browser.nvim",
+            "debugloop/telescope-undo.nvim",
         },
         config = function()
             local telescope = require("telescope")
@@ -48,10 +48,19 @@ return {
                     },
                 },
                 extensions = {
-                    ["attempt"] = require("telescope.themes").get_dropdown(),
                     ["ui-select"] = require("telescope.themes").get_dropdown(),
-                    ["yanky_history"] = require("telescope.themes").get_dropdown(),
-                    ["git_worktree"] = require("telescope.themes").get_dropdown(),
+                    yanky_history = {
+                        theme = "dropdown",
+                        initial_mode = "normal",
+                    },
+                    git_worktree = {
+                        theme = "dropdown",
+                        initial_mode = "normal",
+                    },
+                    undo = {
+                        theme = "dropdown",
+                        initial_mode = "normal",
+                    },
                 },
             })
             pcall(telescope.load_extension, "fzf")
@@ -61,19 +70,11 @@ return {
             pcall(telescope.load_extension, "yank_history")
             pcall(telescope.load_extension, "git_worktree")
             pcall(telescope.load_extension, "noice")
+            pcall(telescope.load_extension, "undo")
         end,
     },
-    {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        lazy = true,
-    },
-    {
-        "nvim-telescope/telescope-ui-select.nvim",
-        lazy = true,
-    },
-    {
-        "nvim-telescope/telescope-file-browser.nvim",
-        lazy = true,
-    },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-ui-select.nvim" },
+    { "nvim-telescope/telescope-file-browser.nvim" },
+    { "debugloop/telescope-undo.nvim" },
 }
