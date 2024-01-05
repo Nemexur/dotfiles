@@ -58,12 +58,6 @@ return {
         },
     },
     {
-        "ecthelionvi/NeoComposer.nvim",
-        event = "VeryLazy",
-        opts = {},
-        dependencies = { "kkharji/sqlite.lua" },
-    },
-    {
         "epwalsh/obsidian.nvim",
         event = {
             string.format("BufReadPre %s/**.md", os.getenv("SECOND_BRAIN")),

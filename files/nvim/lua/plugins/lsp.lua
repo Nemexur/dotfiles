@@ -1,28 +1,16 @@
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
-        event = "VeryLazy",
         branch = "v3.x",
         config = false,
         init = function()
             vim.g.lsp_zero_extend_cmp = 0
             vim.g.lsp_zero_extend_lspconfig = 0
         end,
-        dependencies = {
-            -- LSP Support
-            "neovim/nvim-lspconfig",
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "nvimtools/none-ls.nvim",
-            "tamago324/nlsp-settings.nvim",
-            "folke/neodev.nvim",
-            -- Autocompletion
-            "hrsh7th/nvim-cmp",
-        },
     },
     {
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = "InsertEnter",
         config = function()
             local lsp_zero = require("lsp-zero")
             lsp_zero.extend_cmp()
@@ -142,6 +130,7 @@ return {
             })
         end,
         dependencies = {
+            "folke/neodev.nvim",
             "williamboman/mason-lspconfig.nvim",
             "tamago324/nlsp-settings.nvim",
             "ray-x/lsp_signature.nvim",
@@ -149,24 +138,20 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy",
         cmd = { "LspInstall", "LspUninstall" },
         dependencies = { "williamboman/mason.nvim" },
     },
     {
         "tamago324/nlsp-settings.nvim",
-        event = "VeryLazy",
         cmd = "LspSettings",
     },
     {
         "williamboman/mason.nvim",
-        event = "VeryLazy",
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
         opts = {},
     },
     {
         "L3MON4D3/LuaSnip",
-        event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
             "saadparwaiz1/cmp_luasnip",
@@ -180,14 +165,9 @@ return {
     { "ray-x/cmp-treesitter" },
     { "saadparwaiz1/cmp_luasnip" },
     { "rafamadriz/friendly-snippets" },
-    {
-        "folke/neodev.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
+    { "folke/neodev.nvim", opts = {} },
     {
         "onsails/lspkind.nvim",
-        event = "VeryLazy",
         init = function()
             require("lspkind").init({
                 mode = "symbol_text",

@@ -58,7 +58,6 @@ return {
             })
             pcall(telescope.load_extension, "fzf")
             pcall(telescope.load_extension, "ui-select")
-            pcall(telescope.load_extension, "macros")
             pcall(telescope.load_extension, "file_browser")
             pcall(telescope.load_extension, "yank_history")
             pcall(telescope.load_extension, "git_worktree")

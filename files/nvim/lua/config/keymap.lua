@@ -115,7 +115,6 @@ local mappings = {
         k = { "<C-w>k", "Go Up" },
         l = { "<C-w>l", "Go Down" },
         m = { "<cmd>WindowsMaximize<cr>", "Windows Maximize" },
-        w = { "<cmd>ToggleWrapMode<cr>", "Toggle word wrap mode" },
     },
     b = {
         name = "Buffers",
@@ -163,7 +162,7 @@ local mappings = {
     },
     l = {
         name = "LSP",
-        a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+        a = { "<cmd>lua require('telescope'); vim.lsp.buf.code_action()<cr>", "Code Action" },
         q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
         b = { "<cmd>TroubleToggle document_diagnostics<cr>", "Buffer Diagnostics" },
         w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics" },
