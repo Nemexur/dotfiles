@@ -66,18 +66,62 @@ return {
             {
                 "<C-a>",
                 function()
-                    return require("dial.map").inc_normal()
+                    return require("dial.map").manipulate("increment", "normal")
                 end,
-                expr = true,
                 desc = "Increment",
             },
             {
                 "<C-x>",
                 function()
-                    return require("dial.map").dec_normal()
+                    return require("dial.map").manipulate("decrement", "normal")
                 end,
-                expr = true,
                 desc = "Decrement",
+            },
+            {
+                "g<C-a>",
+                function()
+                    return require("dial.map").manipulate("increment", "gnormal")
+                end,
+                desc = "gIncrement",
+            },
+            {
+                "g<C-x>",
+                function()
+                    return require("dial.map").manipulate("decrement", "gnormal")
+                end,
+                desc = "gDecrement",
+            },
+            {
+                "<C-a>",
+                function()
+                    return require("dial.map").manipulate("increment", "visual")
+                end,
+                mode = { "v" },
+                desc = "Increment",
+            },
+            {
+                "<C-x>",
+                function()
+                    return require("dial.map").manipulate("decrement", "visual")
+                end,
+                mode = { "v" },
+                desc = "Decrement",
+            },
+            {
+                "g<C-a>",
+                function()
+                    return require("dial.map").manipulate("increment", "gvisual")
+                end,
+                mode = { "v" },
+                desc = "gIncrement",
+            },
+            {
+                "g<C-x>",
+                function()
+                    return require("dial.map").manipulate("decrement", "gvisual")
+                end,
+                mode = { "v" },
+                desc = "gDecrement",
             },
         },
         config = function()

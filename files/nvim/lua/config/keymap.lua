@@ -46,6 +46,14 @@ map("v", ">", ">gv")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
+-- substitute.nvim
+map("v", "s", "<cmd>lua require('substitute').visual()<cr>", { desc = "Substitute visual" })
+map("v", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { desc = "Substitute exchange visual" })
+
+-- flash.nvim
+map({ "n", "x", "o" }, "<C-f>", "<cmd>lua require('flash').jump()<cr>", { desc = "Flash jump" })
+map({ "o", "x" }, "r", "<cmd>lua require('flash').treesitter_search()<cr>", { desc = "Flash Treesitter Search" })
+
 -- Harpoon
 map(
     "n",
@@ -116,7 +124,6 @@ local mappings = {
         n = { "<cmd>bnext<cr>", "Next" },
         W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
         q = { "<cmd>bd<cr>", "Quit buffer" },
-        c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
         w = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle wrapping" },
     },
     q = {
@@ -124,7 +131,7 @@ local mappings = {
         q = { "<cmd>:qa<cr>", "Quit all buffers" },
         a = { "<cmd>:wqa<cr>", "Save all buffers and quit" },
         f = { "<cmd>:qa!<cr>", "Force quit all buffers" },
-        r = { "<cmd>lua require('persistence').load()<cr>", "Resore session" },
+        r = { "<cmd>lua require('persistence').load()<cr>", "Restore session" },
         l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
         Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
     },
@@ -153,7 +160,6 @@ local mappings = {
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
         u = { "<cmd>Telescope undo<cr>", "Undo History" },
         s = { "<cmd>Telescope spell_suggest theme=dropdown<cr>", "Suggest Spelling" },
-        p = { "<cmd>YankyRingHistory<cr>", "Paste History" },
     },
     l = {
         name = "LSP",
@@ -169,6 +175,7 @@ local mappings = {
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
         R = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
+        c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
     },
     a = {
         name = "Annotaions",

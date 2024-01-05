@@ -15,6 +15,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "nvimtools/none-ls.nvim",
             "tamago324/nlsp-settings.nvim",
+            "folke/neodev.nvim",
             -- Autocompletion
             "hrsh7th/nvim-cmp",
         },

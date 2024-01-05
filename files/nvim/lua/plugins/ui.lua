@@ -19,6 +19,7 @@ return {
         event = "VimEnter",
         opts = {
             delete_to_trash = true,
+            use_default_keymaps = false,
             keymaps = {
                 ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
@@ -37,7 +38,6 @@ return {
                 ["g."] = "actions.toggle_hidden",
                 ["g\\"] = "actions.toggle_trash",
             },
-            use_default_keymaps = false,
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
