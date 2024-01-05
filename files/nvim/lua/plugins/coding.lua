@@ -1,7 +1,6 @@
 return {
     {
         "ruifm/gitlinker.nvim",
-        event = "VeryLazy",
         opts = {
             mappings = nil,
         },
@@ -37,7 +36,6 @@ return {
     },
     {
         "ThePrimeagen/git-worktree.nvim",
-        event = "VeryLazy",
         opts = {},
     },
     {
@@ -53,7 +51,6 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
         opts = {},
     },
     {

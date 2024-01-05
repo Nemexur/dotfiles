@@ -44,11 +44,15 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
+        opts = {},
     },
     {
         "andrewferrier/wrapping.nvim",
-        event = "VeryLazy",
-        opts = {},
+        opts = {
+            notify_on_switch = true,
+            create_commands = false,
+            create_keymaps = false,
+        },
     },
     {
         "m4xshen/smartcolumn.nvim",

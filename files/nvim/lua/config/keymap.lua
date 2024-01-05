@@ -77,7 +77,6 @@ local vopts = {
 }
 
 local mappings = {
-    c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
     u = { "<C-r>", "Redo" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
@@ -116,7 +115,9 @@ local mappings = {
         p = { "<cmd>bprevious<cr>", "Previous" },
         n = { "<cmd>bnext<cr>", "Next" },
         W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
-        c = { "<cmd>bd<cr>", "Close buffer" },
+        q = { "<cmd>bd<cr>", "Quit buffer" },
+        c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
+        w = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle wrapping" },
     },
     q = {
         name = "Quit",
