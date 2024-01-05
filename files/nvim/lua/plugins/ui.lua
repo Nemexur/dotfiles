@@ -5,6 +5,8 @@ return {
         opts = {
             options = {
                 theme = "dracula-nvim",
+                component_separators = { left = "", right = "" },
+                section_separators = { left = "", right = "" },
             },
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
