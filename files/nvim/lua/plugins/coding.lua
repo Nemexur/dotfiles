@@ -9,12 +9,15 @@ return {
     {
         "folke/todo-comments.nvim",
         event = "VeryLazy",
-        cmd = { "TodoTrouble", "TodoTelescope" },
         opts = {},
     },
     {
         "danymat/neogen",
-        event = "VeryLazy",
+        keys = {
+            { "<leader>ac", mode = { "n" } },
+            { "<leader>af", mode = { "n" } },
+            { "<leader>at", mode = { "n" } },
+        },
         opts = {
             snippet_engine = "luasnip",
             enabled = true,
@@ -70,7 +73,6 @@ return {
     },
     {
         "folke/trouble.nvim",
-        event = "VeryLazy",
         cmd = { "TroubleToggle", "Trouble" },
         opts = {
             use_diagnostic_signs = true,
@@ -78,7 +80,6 @@ return {
     },
     {
         "monaqa/dial.nvim",
-        event = "VeryLazy",
         keys = {
             {
                 "<C-a>",

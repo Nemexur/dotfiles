@@ -23,10 +23,6 @@ map({ "n", "x", "v" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, sil
 map({ "n", "x", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map({ "n", "x", "v" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Substitute
-map("v", "s", "<cmd>lua require('substitute').visual()<cr>", { desc = "Substitute visual" })
-map("v", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { desc = "Substitute exchange visual" })
-
 -- Visual Move
 map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move visual down" })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move visual up" })
@@ -57,10 +53,6 @@ map(
 -- Sane C-d, C-u
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
-
--- Yanky Paste
-map("n", "p", "<Plug>(YankyPutAfter)")
-map("n", "P", "<Plug>(YankyPutBefore)")
 
 local which_key_ok, which_key = pcall(require, "which-key")
 if not which_key_ok then
@@ -123,14 +115,6 @@ local mappings = {
         n = { "<cmd>bnext<cr>", "Next" },
         W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
         c = { "<cmd>bd<cr>", "Close buffer" },
-        a = {
-            name = "Attempt",
-            s = { "<cmd>Telescope attempt<cr>", "Select Script" },
-            l = { "<cmd>lua require('attempt').new_select()<cr>", "Select Lang" },
-            r = { "<cmd>lua require('attempt').run()<cr>", "Run Script" },
-            d = { "<cmd>lua require('attempt').delete_buf()<cr>", "Delete Script" },
-            c = { "<cmd>lua require('attempt').delete_buf()<cr>", "Rename Script" },
-        },
     },
     q = {
         name = "Quit",
@@ -162,9 +146,9 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
-        p = { "<cmd>YankyRingHistory<cr>", "Paste History" },
         u = { "<cmd>Telescope undo<cr>", "Undo History" },
         s = { "<cmd>Telescope spell_suggest theme=dropdown<cr>", "Suggest Spelling" },
+        p = { "<cmd>YankyRingHistory<cr>", "Paste History" },
     },
     l = {
         name = "LSP",

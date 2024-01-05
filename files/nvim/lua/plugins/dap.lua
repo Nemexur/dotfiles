@@ -10,7 +10,6 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        event = "VeryLazy",
         keys = {
             {
                 "<leader>du",

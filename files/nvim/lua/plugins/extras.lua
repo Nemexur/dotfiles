@@ -11,13 +11,12 @@ return {
     },
     {
         "pwntester/octo.nvim",
-        event = "VeryLazy",
         cmd = "Octo",
         opts = {},
     },
     {
         "laytan/cloak.nvim",
-        event = "VeryLazy",
+        lazy = false,
         opts = {},
     },
     {
@@ -25,6 +24,7 @@ return {
         event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({
+                map_c_h = true,
                 map_c_w = true,
             })
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")

@@ -97,7 +97,7 @@ return {
     },
     {
         "folke/noice.nvim",
-        event = "VeryLazy",
+        event = "CmdlineEnter",
         opts = {
             lsp = {
                 signature = {
