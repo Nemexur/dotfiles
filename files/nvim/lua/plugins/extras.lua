@@ -34,15 +34,7 @@ return {
     },
     {
         "NeogitOrg/neogit",
-        keys = {
-            {
-                "<leader>gn",
-                function()
-                    require("neogit").open({ kind = "tab" })
-                end,
-                desc = "NeoGit",
-            },
-        },
+        event = "VeryLazy",
         opts = {
             integrations = {
                 telescope = true,
@@ -52,13 +44,13 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
             "sindrets/diffview.nvim",
-            "nvim-telescope/telescope.nvim",
         },
     },
     {
         "kdheepak/lazygit.nvim",
+        cmd = "LazyGit",
         keys = {
-            { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+            { "<leader>gl", mode = { "n" } },
         },
         dependencies = { "nvim-lua/plenary.nvim" },
     },

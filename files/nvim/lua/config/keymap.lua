@@ -82,6 +82,7 @@ local mappings = {
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
     k = { "<cmd>norm! K<cr>", "Keywordprg" },
+    m = { "<cmd>lua require('treesj').toggle()<cr>", "ToggleNode" },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
@@ -106,6 +107,7 @@ local mappings = {
         j = { "<C-w>j", "Go Right" },
         k = { "<C-w>k", "Go Up" },
         l = { "<C-w>l", "Go Down" },
+        m = { "<cmd>WindowsMaximize<cr>", "Windows Maximize" },
         w = { "<cmd>ToggleWrapMode<cr>", "Toggle word wrap mode" },
     },
     b = {
@@ -128,6 +130,8 @@ local mappings = {
     g = {
         name = "Git",
         w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
+        n = { "<cmd>lua require('neogit').open({kind = 'tab'})<cr>", "NeoGit" },
+        l = { "<cmd>LazyGit<cr>", "LazyGit" },
         H = {
             "<cmd>lua require('gitlinker').get_repo_url({action_callback = require('gitlinker.actions').open_in_browser})<cr>",
             "Open homepage",

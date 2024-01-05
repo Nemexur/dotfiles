@@ -54,17 +54,10 @@ return {
     {
         "Wansmer/treesj",
         keys = {
-            {
-                "<space>m",
-                mode = { "n", "x", "o" },
-                function()
-                    require("treesj").toggle()
-                end,
-                desc = "Toggle Node",
-            },
+            { "<leader>m", mode = { "n", "x", "o" } },
         },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {},
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
     {
         "ray-x/lsp_signature.nvim",
