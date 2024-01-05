@@ -1,4 +1,4 @@
-local wezterm = require "wezterm"
+local wezterm = require("wezterm")
 
 local function update(cfg, c)
     for k, v in pairs(c) do

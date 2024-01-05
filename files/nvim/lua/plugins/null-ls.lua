@@ -65,6 +65,7 @@ return {
                 "shfmt",
                 "sqlfmt",
                 "golines",
+                "yamlfmt",
             },
         },
         dependencies = {
