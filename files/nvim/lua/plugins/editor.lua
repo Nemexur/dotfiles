@@ -77,18 +77,10 @@ return {
     },
     {
         "nvim-pack/nvim-spectre",
-        keys = {
-            { "<leader>rr", mode = { "n" } },
-            { "<leader>rw", mode = { "n" } },
-            { "<leader>rb", mode = { "n" } },
-        },
         opts = {},
     },
     {
         "cshuaimin/ssr.nvim",
-        keys = {
-            { "<leader>rs", mode = { "n" } },
-        },
         opts = {},
     },
     {

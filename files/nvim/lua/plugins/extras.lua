@@ -27,9 +27,7 @@ return {
                 map_c_h = true,
                 map_c_w = true,
             })
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            local cmp = require("cmp")
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+            require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
         end,
     },
     {
@@ -49,9 +47,6 @@ return {
     {
         "kdheepak/lazygit.nvim",
         cmd = "LazyGit",
-        keys = {
-            { "<leader>gl", mode = { "n" } },
-        },
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     {

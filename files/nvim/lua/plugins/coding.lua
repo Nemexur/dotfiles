@@ -13,11 +13,6 @@ return {
     },
     {
         "danymat/neogen",
-        keys = {
-            { "<leader>ac", mode = { "n" } },
-            { "<leader>af", mode = { "n" } },
-            { "<leader>at", mode = { "n" } },
-        },
         opts = {
             snippet_engine = "luasnip",
             enabled = true,
@@ -53,9 +48,6 @@ return {
     },
     {
         "Wansmer/treesj",
-        keys = {
-            { "<leader>m", mode = { "n", "x", "o" } },
-        },
         opts = {},
         dependencies = { "nvim-treesitter/nvim-treesitter" },
     },

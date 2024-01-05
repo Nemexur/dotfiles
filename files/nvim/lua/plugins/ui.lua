@@ -60,9 +60,7 @@ return {
     {
         "anuvyklack/windows.nvim",
         event = "WinNew",
-        keys = {
-            { "<leader>wm", mode = { "n" } },
-        },
+        cmd = "WindowsMaximize",
         config = function()
             vim.o.winwidth = 5
             vim.o.equalalways = false

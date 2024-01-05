@@ -42,6 +42,10 @@ map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+-- Sane C-d, C-u
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+
 -- Harpoon
 map(
     "n",
@@ -49,10 +53,6 @@ map(
     "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>",
     { desc = "Harpoon List" }
 )
-
--- Sane C-d, C-u
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
 
 local which_key_ok, which_key = pcall(require, "which-key")
 if not which_key_ok then
@@ -175,6 +175,30 @@ local mappings = {
         f = { "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", "Function Doc" },
         t = { "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", "Type Doc" },
     },
+    d = {
+        name = "Debug",
+        u = { "<cmd>lua require('dapui').toggle({})<cr>", "Dap UI" },
+        e = { "<cmd>lua require('dapui').eval({})<cr>", "Dap UI Eval" },
+        b = { "<cmd>lua require('dap').toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+        B = {
+            "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+            "Breakpoint Condition",
+        },
+        c = { "<cmd>lua require('dap').continue()<cr>", "Continue" },
+        C = { "<cmd>lua require('dap').run_to_cursor()<cr>", "Run to Cursor" },
+        g = { "<cmd>lua require('dap').goto_()<cr>", "Go to line (no execute)" },
+        i = { "<cmd>lua require('dap').step_into()<cr>", "Step Info" },
+        j = { "<cmd>lua require('dap').down()<cr>", "Down" },
+        k = { "<cmd>lua require('dap').up()<cr>", "Up" },
+        l = { "<cmd>lua require('dap').run_last()<cr>", "Run Last" },
+        o = { "<cmd>lua require('dap').step_out()<cr>", "Step Out" },
+        O = { "<cmd>lua require('dap').step_over()<cr>", "Step Over" },
+        p = { "<cmd>lua require('dap').pause()<cr>", "Pause" },
+        r = { "<cmd>lua require('dap').repl.toggle()<cr>", "Toggle REPL" },
+        s = { "<cmd>lua require('dap').session()<cr>", "Session" },
+        t = { "<cmd>lua require('dap').terminat()<cr>", "Terminate" },
+        w = { "<cmd>lua require('dap.ui.widgets').hover()<cr>", "Widgets" },
+    },
 }
 
 local vmappings = {
@@ -182,6 +206,10 @@ local vmappings = {
     l = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+    },
+    d = {
+        name = "Debug",
+        e = { "<cmd>lua require('dapui').eval({})<cr>", "Dap UI Eval" },
     },
 }
 

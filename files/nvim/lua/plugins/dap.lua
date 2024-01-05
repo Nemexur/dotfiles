@@ -1,7 +1,6 @@
 return {
     {
         "mfussenegger/nvim-dap",
-        event = "VeryLazy",
         dependencies = {
             "rcarriga/nvim-dap-ui",
             "jay-babu/mason-nvim-dap.nvim",
@@ -10,23 +9,6 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        keys = {
-            {
-                "<leader>du",
-                function()
-                    require("dapui").toggle({})
-                end,
-                desc = "Dap UI",
-            },
-            {
-                "<leader>de",
-                function()
-                    require("dapui").eval()
-                end,
-                desc = "Eval",
-                mode = { "n", "v" },
-            },
-        },
         config = function()
             local dap = require("dap")
             local dapui = require("dapui")
@@ -46,6 +28,10 @@ return {
         end,
     },
     {
+        "theHamsta/nvim-dap-virtual-text",
+        opts = {},
+    },
+    {
         "jay-babu/mason-nvim-dap.nvim",
         event = "VeryLazy",
         cmd = { "DapInstall", "DapUninstall" },
@@ -54,10 +40,5 @@ return {
             ensure_installed = { "python", "delve", "cppdbg" },
         },
         dependencies = { "williamboman/mason.nvim" },
-    },
-    {
-        "theHamsta/nvim-dap-virtual-text",
-        event = "VeryLazy",
-        opts = {},
     },
 }
