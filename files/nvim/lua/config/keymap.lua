@@ -109,7 +109,6 @@ local mappings = {
         name = "Windows",
         s = { "<C-w>s", "Horizontal" },
         v = { "<C-w>v", "Vertical" },
-        c = { "<C-w>q", "Close" },
         q = { "<C-w>q", "Close" },
         h = { "<C-w>h", "Go Left" },
         j = { "<C-w>j", "Go Right" },

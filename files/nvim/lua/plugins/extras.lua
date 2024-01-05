@@ -11,7 +11,13 @@ return {
     },
     {
         "pwntester/octo.nvim",
+        event = "VeryLazy",
         cmd = "Octo",
+        opts = {},
+    },
+    {
+        "laytan/cloak.nvim",
+        event = "VeryLazy",
         opts = {},
     },
     {
