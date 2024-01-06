@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <!DOCTYPE keyboard SYSTEM "file://localhost/System/Library/DTDs/KeyboardLayout.dtd">
 <!--Created by Ukelele version 359 on 2023-10-05 at 23:53 (GMT+3)-->
-<!--Last edited by Ukelele version 359 on 2023-11-16 at 13:52 (GMT+3)-->
-<keyboard group="0" id="14037" name="Engrammer" maxout="1">
+<!--Last edited by Ukelele version 359 on 2024-01-06 at 14:11 (GMT+3)-->
+<keyboard group="126" id="-20066" name="Engrammer" maxout="1">
     <layouts>
         <layout first="0" last="17" mapSet="ANSI" modifiers="Modifiers"/>
         <layout first="18" last="18" mapSet="JIS" modifiers="Modifiers"/>
@@ -57,7 +57,7 @@
             <key code="14" output="o"/>
             <key code="15" output="u"/>
             <key code="16" output=";"/>
-            <key code="17" output=","/>
+            <key code="17" output="&#x0027;"/>
             <key code="18" output="1"/>
             <key code="19" output="2"/>
             <key code="20" output="3"/>
@@ -346,6 +346,7 @@
             <key code="7" output="x"/>
             <key code="8" output="c"/>
             <key code="9" output="v"/>
+            <key code="10" output=""/>
             <key code="11" output="b"/>
             <key code="12" output="q"/>
             <key code="13" output="w"/>
@@ -389,6 +390,7 @@
             <key code="51" output="&#x0008;"/>
             <key code="53" output="&#x001B;"/>
             <key code="64" output="&#x0010;"/>
+            <key code="65" output=""/>
             <key code="66" output="&#x001D;"/>
             <key code="67" output="*"/>
             <key code="69" output="+"/>
