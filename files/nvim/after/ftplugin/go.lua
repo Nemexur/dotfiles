@@ -18,6 +18,14 @@ lspconfig.gopls.setup({
                 test = true,
                 tidy = true,
             },
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
         },
     },
 })

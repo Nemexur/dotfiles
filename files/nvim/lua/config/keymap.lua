@@ -55,12 +55,13 @@ map({ "n", "x", "o" }, "<C-f>", "<cmd>lua require('flash').jump()<cr>", { desc =
 map({ "o", "x" }, "r", "<cmd>lua require('flash').treesitter_search()<cr>", { desc = "Flash Treesitter Search" })
 
 -- Harpoon
-map(
-    "n",
-    "<C-e>",
-    "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>",
-    { desc = "Harpoon List" }
-)
+map("n", "<C-e>", function()
+    local harpoon_ok, harpoon = pcall(require, "harpoon")
+    if not harpoon_ok then
+        return
+    end
+    harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon List" })
 
 local which_key_ok, which_key = pcall(require, "which-key")
 if not which_key_ok then
@@ -88,8 +89,7 @@ local mappings = {
     u = { "<C-r>", "Redo" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
-    k = { "<cmd>norm! K<cr>", "Keywordprg" },
-    m = { "<cmd>lua require('treesj').toggle()<cr>", "ToggleNode" },
+    m = { "<cmd>lua require('treesj').toggle()<cr>", "Toggle Node" },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
@@ -162,17 +162,23 @@ local mappings = {
     },
     l = {
         name = "LSP",
-        a = { "<cmd>lua require('telescope'); vim.lsp.buf.code_action()<cr>", "Code Action" },
+        a = {
+            function()
+                pcall(require, "telescope")
+                vim.lsp.buf.code_action()
+            end,
+            "Code Action",
+        },
+        f = { "<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<cr>", "Format" },
+        l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
         q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
         b = { "<cmd>TroubleToggle document_diagnostics<cr>", "Buffer Diagnostics" },
         w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics" },
-        f = { "<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<cr>", "Format" },
-        i = { "<cmd>LspInfo<cr>", "Info" },
-        I = { "<cmd>Mason<cr>", "Mason Info" },
-        l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
+        i = { "<cmd>LspInfo<cr>", "Info" },
+        I = { "<cmd>Mason<cr>", "Mason Info" },
         R = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
         c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
     },
@@ -209,10 +215,15 @@ local mappings = {
 }
 
 local vmappings = {
-    ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
     l = {
         name = "LSP",
-        a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+        a = {
+            function()
+                pcall(require, "telescope")
+                vim.lsp.buf.code_action()
+            end,
+            "Code Action",
+        },
     },
     d = {
         name = "Debug",

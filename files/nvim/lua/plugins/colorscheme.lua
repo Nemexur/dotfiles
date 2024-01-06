@@ -24,6 +24,7 @@ return {
                     CmpItemAbbrMatch = { fg = colors.cyan, bg = "none" },
                     NeogitDiffAdd = { fg = colors.green, bg = "#45475a" },
                     NeogitDiffAddHighlight = { fg = colors.green, bg = "#45475a" },
+                    LspInlayHint = { link = "Comment" },
                 },
             })
             vim.cmd.colorscheme("dracula")

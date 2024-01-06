@@ -39,7 +39,7 @@ return {
                 },
                 preselect = "item",
                 completion = {
-                    keyword_length = 2,
+                    keyword_length = 1,
                     completeopt = "menu,menuone,noinsert,noselect",
                 },
                 mapping = cmp.mapping.preset.insert({
@@ -109,8 +109,8 @@ return {
                     "clangd",
                     "docker_compose_language_service",
                     "dockerls",
-                    "golangci_lint_ls",
                     "gopls",
+                    "golangci_lint_ls",
                     "helm_ls",
                     "jsonls",
                     "lua_ls",
@@ -119,6 +119,7 @@ return {
                     "sqlls",
                     "vimls",
                     "yamlls",
+                    "rust_analyzer",
                 },
                 handlers = {
                     lsp_zero.default_setup,
@@ -152,11 +153,43 @@ return {
     },
     {
         "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
+        keys = {
+            {
+                "<tab>",
+                function()
+                    return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+                end,
+                expr = true,
+                silent = true,
+                mode = "i",
+            },
+            {
+                "<tab>",
+                function()
+                    require("luasnip").jump(1)
+                end,
+                mode = "s",
+            },
+            {
+                "<s-tab>",
+                function()
+                    require("luasnip").jump(-1)
+                end,
+                mode = { "i", "s" },
+            },
+        },
         dependencies = {
             "rafamadriz/friendly-snippets",
             "saadparwaiz1/cmp_luasnip",
         },
     },
+    { "folke/neodev.nvim", opts = {} },
     { "hrsh7th/cmp-nvim-lsp" },
     { "hrsh7th/cmp-nvim-lua" },
     { "hrsh7th/cmp-buffer" },
@@ -164,8 +197,13 @@ return {
     { "hrsh7th/cmp-emoji" },
     { "ray-x/cmp-treesitter" },
     { "saadparwaiz1/cmp_luasnip" },
-    { "rafamadriz/friendly-snippets" },
-    { "folke/neodev.nvim", opts = {} },
+    {
+        "rafamadriz/friendly-snippets",
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+    },
+    { "lvimuser/lsp-inlayhints.nvim", opts = {} },
     {
         "onsails/lspkind.nvim",
         init = function()

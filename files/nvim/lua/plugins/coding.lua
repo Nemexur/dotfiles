@@ -31,8 +31,14 @@ return {
                         annotation_convention = "rustdoc",
                     },
                 },
+                go = {
+                    template = {
+                        annotation_convention = "godoc",
+                    },
+                },
             },
         },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
     {
         "ThePrimeagen/git-worktree.nvim",
