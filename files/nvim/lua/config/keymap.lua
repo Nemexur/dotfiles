@@ -46,6 +46,10 @@ map("v", ">", ">gv")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
+-- Folding
+map("n", "zR", "<cmd>lua require('ufo').openAllFolds()<cr>", { desc = "Open all folds" })
+map("n", "zM", "<cmd>lua require('ufo').closeAllFolds()<cr>", { desc = "Close all folds" })
+
 -- substitute.nvim
 map("v", "s", "<cmd>lua require('substitute').visual()<cr>", { desc = "Substitute visual" })
 map("v", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { desc = "Substitute exchange visual" })
@@ -90,6 +94,7 @@ local mappings = {
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
     m = { "<cmd>lua require('treesj').toggle()<cr>", "Toggle Node" },
+    z = { "za", "Toggle Folding" },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },

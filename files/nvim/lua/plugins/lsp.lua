@@ -92,7 +92,16 @@ return {
                 })
                 require("lsp_signature").on_attach({ bind = true, handler_opts = { border = "rounded" } }, bufnr)
             end)
-
+            lsp_zero.set_server_config({
+                capabilities = {
+                    textDocument = {
+                        foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true,
+                        },
+                    },
+                },
+            })
             lsp_zero.format_on_save({
                 format_opts = {
                     async = false,
@@ -126,6 +135,19 @@ return {
                     lua_ls = function()
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require("lspconfig").lua_ls.setup(lua_opts)
+                    end,
+                    -- https://github.com/kevinhwang91/nvim-ufo/issues/72
+                    yamlls = function()
+                        require("lspconfig").yamlls.setup({
+                            capabilities = {
+                                textDocument = {
+                                    foldingRange = {
+                                        dynamicRegistration = false,
+                                        lineFoldingOnly = true,
+                                    },
+                                },
+                            },
+                        })
                     end,
                 },
             })

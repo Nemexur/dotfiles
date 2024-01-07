@@ -179,9 +179,7 @@ return {
                 on_substitute = require("yanky.integration").substitute(),
             })
         end,
-        dependencies = {
-            "gbprod/yanky.nvim",
-        },
+        dependencies = { "gbprod/yanky.nvim" },
     },
     {
         "andymass/vim-matchup",
@@ -189,5 +187,16 @@ return {
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,
+    },
+    {
+        "kevinhwang91/nvim-ufo",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+        opts = {
+            open_fold_hl_timeout = 0,
+            provider_selector = function(bufnr, filetype, buftype)
+                return { "lsp", "indent" }
+            end,
+        },
+        dependencies = { "kevinhwang91/promise-async" },
     },
 }
