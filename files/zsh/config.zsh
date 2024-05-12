@@ -53,15 +53,7 @@ function cd-with-fzf {
 }
 
 zle -N cd-with-fzf
-bindkey '^D' cd-with-fzf
-
-function open-with-fzf {
-	open_with_fzf
-	zle accept-line
-}
-
-zle -N open-with-fzf
-bindkey '^F' open-with-fzf
+bindkey '^[d' cd-with-fzf
 
 if type brew &>/dev/null; then
 	FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"

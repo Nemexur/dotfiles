@@ -16,7 +16,7 @@ require("lazy").setup("plugins", {
         lazy = true,
     },
     install = {
-        colorscheme = { "dracula" },
+        colorscheme = { "eldritich" },
     },
     performance = {
         cache = {

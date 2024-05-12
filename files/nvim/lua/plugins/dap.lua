@@ -1,14 +1,6 @@
 return {
     {
         "mfussenegger/nvim-dap",
-        dependencies = {
-            "rcarriga/nvim-dap-ui",
-            "jay-babu/mason-nvim-dap.nvim",
-            "theHamsta/nvim-dap-virtual-text",
-        },
-    },
-    {
-        "rcarriga/nvim-dap-ui",
         config = function()
             local dap = require("dap")
             local dapui = require("dapui")
@@ -26,10 +18,12 @@ return {
                 dapui.close()
             end
         end,
-    },
-    {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "jay-babu/mason-nvim-dap.nvim",
+            "theHamsta/nvim-dap-virtual-text",
+            "leoluz/nvim-dap-go",
+        },
     },
     {
         "jay-babu/mason-nvim-dap.nvim",
@@ -41,4 +35,7 @@ return {
         },
         dependencies = { "williamboman/mason.nvim" },
     },
+    { "rcarriga/nvim-dap-ui", opts = {} },
+    { "theHamsta/nvim-dap-virtual-text", opts = {} },
+    { "leoluz/nvim-dap-go", opts = {} },
 }

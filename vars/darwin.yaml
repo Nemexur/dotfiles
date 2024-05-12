@@ -34,6 +34,10 @@ symlink_additional_files:
     dest: "{{ home_dir }}/.config/starship.toml"
   - path: "{{ dotfiles_dir_files }}/zellij"
     dest: "{{ home_dir }}/.config/zellij"
+  - path: "{{ dotfiles_dir_files }}/yabai"
+    dest: "{{ home_dir }}/.config/yabai"
+  - path: "{{ dotfiles_dir_files }}/skhd"
+    dest: "{{ home_dir }}/.config/skhd"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
@@ -60,16 +64,19 @@ homebrew_taps:
 homebrew_installed_packages:
   # Shell command parallelization utility
   - parallel
-  # Reattach process (e.g., tmux) to background
-  - reattach-to-user-namespace
   # Zsh requirements
   - zsh
   - zsh-completions
+  # Download youtube videos
+  - yt-dlp
   # Docker is our best friend
   - colima
   - docker
   - docker-compose
   - docker-buildx
+  # Window manager
+  - yabai
+  - skhd
   # Play, record, convert, and stream audio and video
   - ffmpeg
   # Search tool like grep and The Silver Searcher
@@ -97,6 +104,7 @@ homebrew_installed_packages:
   # Validating, recursive, caching DNS resolver
   - unbound
   # GNU Tools
+  - bash
   - coreutils
   - gawk
   - gnupg
@@ -138,18 +146,26 @@ homebrew_installed_packages:
   - jq
   - yq
   - jc
+  # Fast CSV command-line toolkit
+  - xsv
+  # Elixir
+  - elixir
+  # Ocaml
+  - ocaml
+  # Gleam Lang
+  - gleam
   # Domain specific configuration language for defining JSON data
   - jsonnet
   # Internet goes brrrrr
   - speedtest
   # Network authentication protocol
   - krb5
-  # Kubernetes command-line interface
+  # Everything for K8s
   - kubernetes-cli
-  # Tool that can switch between kubectl contexts easily and create aliases
   - kubectx
-  # Kubernetes CLI To Manage Your Clusters In Style!
   - k9s
+  - helm
+  - kustomize
   # C library of Git core methods that is re-entrant and linkable
   - libgit2
   # Platform built on V8 to build network applications
@@ -214,8 +230,6 @@ homebrew_installed_packages:
   - pass
   # Just like pass but in GOOOOO
   - gopass
-  # Ultimate template for K8s
-  - helm
   # Git for lazy
   - lazygit
   # Terminal notifier for timers
@@ -270,6 +284,8 @@ homebrew_installed_packages:
   - winetricks
   # Fast linters runner for Go
   - golangci-lint
+  # Golang migrations
+  - golang-migrate
   # SshPass
   - hudochenkov/sshpass/sshpass
 homebrew_cask_apps:
@@ -280,12 +296,14 @@ homebrew_cask_apps:
   - iterm2
   - kitty
   # Notes
+  - mactex
   - notion
   - evernote
   - obsidian
   - sioyek
   - raindropio
   # Tools
+  - meetingbar
   - alfred
   - numi
   - stats

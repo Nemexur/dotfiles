@@ -13,27 +13,22 @@ return {
                     -- Go
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports,
-                    null_ls.builtins.formatting.golines,
+                    null_ls.builtins.formatting.golines.with({ extra_args = { "--max-len", "120" } }),
                     null_ls.builtins.diagnostics.golangci_lint,
                     -- Python
                     null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "100" } }),
                     null_ls.builtins.formatting.isort.with({ extra_args = { "--line-length", "100" } }),
                     -- Markdown
-                    null_ls.builtins.formatting.markdown_toc,
                     null_ls.builtins.formatting.prettier.with({ filetypes = { "md" } }),
                     null_ls.builtins.formatting.markdownlint.with({ extra_args = { "-r", "~MD013" } }),
                     -- Shell
                     null_ls.builtins.formatting.shfmt.with({ filetypes = { "sh", "zsh", "bash" } }),
                     -- SQL
                     null_ls.builtins.formatting.sqlfmt,
-                    -- Json
-                    null_ls.builtins.diagnostics.jsonlint,
                     -- Yaml
                     null_ls.builtins.diagnostics.yamllint,
                     -- Ansible
                     null_ls.builtins.diagnostics.ansiblelint,
-                    -- Editorconfig
-                    null_ls.builtins.diagnostics.editorconfig_checker,
                 },
             })
         end,
@@ -46,9 +41,7 @@ return {
             ensure_installed = {
                 -- Linters
                 "ansiblelint",
-                "editorconfig_checker",
                 "golangci_lint",
-                "jsonlint",
                 "markdownlint",
                 "shellcheck",
                 "yamllint",
@@ -60,7 +53,6 @@ return {
                 "isort",
                 "gofumpt",
                 "goimports",
-                "markdown_toc",
                 "prettier",
                 "shfmt",
                 "sqlfmt",

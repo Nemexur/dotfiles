@@ -22,9 +22,12 @@ plugins=(
   docker-compose
   zsh-interactive-cd
   zsh-autosuggestions
-  zsh-vi-mode
   zsh-fzf-history-search
 )
+
+# Disable zsh options
+unsetopt correct_all
+unsetopt completealiases
 
 source $DOTFILES/files/zsh/config.zsh
 
@@ -37,10 +40,6 @@ done
 
 # Enable zsh syntax hightlights
 source ~/.theme.zshrc
-
-# Disable zsh options
-unsetopt correct_all
-unsetopt completealiases
 
 # Zoxide
 eval "$(zoxide init zsh)"

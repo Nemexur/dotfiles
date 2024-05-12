@@ -3,11 +3,14 @@ open_with_fzf() {
 }
 
 cd_with_fzf() {
-	dir="$(cd "${HOME}/Developer" && fd -t d -I --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
+    local cur_dir="${PWD}"
+    cd "${HOME}/Developer"
+	dir="$(fd -t d -I --strip-cwd-prefix | fzf --preview="tree -L 1 {}" --bind="tab:toggle-preview" --preview-window=:hidden)"
     dir="${HOME}/Developer/${dir}"
 	if [[ -n "$dir" ]]; then
 		cd "${dir}" || return
 	fi
+    cd "${cur_dir}"
 }
 
 pass_with_fzf() {

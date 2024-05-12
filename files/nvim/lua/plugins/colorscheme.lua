@@ -1,33 +1,52 @@
 return {
     {
         "Mofiqul/dracula.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("dracula").setup({
+                colors = { visual = "#6e6a86" },
+                show_end_of_buffer = false,
+                transparent_bg = true,
+                italic_comment = true,
+                overrides = {},
+            })
+        end,
+    },
+    {
+        "eldritch-theme/eldritch.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            local dracula = require("dracula")
-            local colors = dracula.colors()
+            local transparent = true
+            require("eldritch").setup({
+                transparent = transparent,
+                hide_inactive_statusline = true,
+                lualine_bold = true,
+                on_highlights = function(highlights, colors)
+                    local util = require("eldritch.util")
 
-            dracula.setup({
-                show_end_of_buffer = false,
-                colors = {
-                    visual = "#6e6a86",
-                },
-                transparent_bg = true,
-                italic_comment = true,
-                overrides = {
-                    Normal = { bg = "none" },
-                    NormalFloat = { bg = "none" },
-                    PMenu = { bg = "none" },
-                    CmpItemAbbr = { bg = "none" },
-                    CmpItemKind = { bg = "none" },
-                    CmpItemAbbrDeprecated = { bg = "none" },
-                    CmpItemAbbrMatch = { fg = colors.cyan, bg = "none" },
-                    NeogitDiffAdd = { fg = colors.green, bg = "#45475a" },
-                    NeogitDiffAddHighlight = { fg = colors.green, bg = "#45475a" },
-                    LspInlayHint = { link = "Comment" },
-                },
+                    highlights["@variable"] = { fg = colors.white }
+                    highlights.Function = { fg = colors.orange }
+                    highlights.LineNr = { fg = util.darken(colors.purple, 0.5) }
+                    highlights.DiagnosticVirtualTextError = {
+                        fg = colors.red,
+                        bg = transparent and colors.none or util.darken(colors.red, 0.1),
+                    }
+                    highlights.DiagnosticVirtualTextWarn = {
+                        fg = colors.orange,
+                        bg = transparent and colors.none or util.darken(colors.orange, 0.1),
+                    }
+                    highlights.DiagnosticVirtualTextInfo = {
+                        fg = colors.yellow,
+                        bg = transparent and colors.none or util.darken(colors.yellow, 0.1),
+                    }
+                    highlights.DiagnosticVirtualTextHint = {
+                        fg = colors.dark_green,
+                        bg = transparent and colors.none or util.darken(colors.dark_green, 0.1),
+                    }
+                end,
             })
-            vim.cmd.colorscheme("dracula")
+            vim.cmd.colorscheme("eldritch")
         end,
     },
     {

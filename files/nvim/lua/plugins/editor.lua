@@ -1,5 +1,4 @@
 return {
-    { "chaoren/vim-wordmotion", event = "VeryLazy" },
     {
         "numToStr/Comment.nvim",
         keys = {

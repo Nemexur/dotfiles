@@ -44,16 +44,3 @@ augroup ansible_vim_fthosts
     au!
     au BufNewFile,BufRead hosts set ft=ansible_hosts
 augroup END
-
-" Docker Compose
-function! s:isDockerCompose()
-  let filename = expand("%:t")
-  let s:ftdetect_filename_regex = '\vdocker-compose\.ya?ml$'
-  if filename =~ s:ftdetect_filename_regex | return 1 | en
-  return 0
-endfunction
-
-augroup docker_vim_ftyaml_docker_compose
-    au!
-    au BufNewFile,BufRead * if s:isDockerCompose() | set ft=yaml.docker-compose | en
-augroup END

@@ -90,7 +90,7 @@ local vopts = {
 }
 
 local mappings = {
-    u = { "<C-r>", "Redo" },
+    u = { "<cmd>Telescope undo<cr>", "Undo History" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
     m = { "<cmd>lua require('treesj').toggle()<cr>", "Toggle Node" },
@@ -129,6 +129,7 @@ local mappings = {
         W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
         q = { "<cmd>bd<cr>", "Quit buffer" },
         w = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle wrapping" },
+        c = { "<cmd>CloakToggle<cr>", "Toggle Cloak" },
     },
     q = {
         name = "Quit",
@@ -162,7 +163,6 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
-        u = { "<cmd>Telescope undo<cr>", "Undo History" },
         s = { "<cmd>Telescope spell_suggest theme=dropdown<cr>", "Suggest Spelling" },
     },
     l = {

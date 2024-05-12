@@ -30,6 +30,7 @@ return {
                     "latex",
                     "make",
                     "markdown",
+                    "markdown_inline",
                     "sql",
                     "toml",
                 },

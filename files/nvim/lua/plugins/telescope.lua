@@ -51,7 +51,6 @@ return {
                         initial_mode = "normal",
                     },
                     undo = {
-                        theme = "dropdown",
                         initial_mode = "normal",
                     },
                 },

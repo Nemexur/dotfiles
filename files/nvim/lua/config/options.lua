@@ -3,11 +3,15 @@ vim.g.maplocalleader = "\\"
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+-- Setup VimTex
+vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_quickfix_mode = 2
+vim.g.vimtex_syntax_enabled = 0
 
 local opts = {
     mouse = "a",
     fileencoding = "utf-8",
-    spelllang = { "en", "ru" },
+    spelllang = { "en" },
     undofile = true,
     undodir = os.getenv("HOME") .. "/.vim/undodir",
     grepprg = "rg --vimgrep",
@@ -17,7 +21,7 @@ local opts = {
     formatoptions = "jcroqlnt", -- tcqj
     clipboard = "unnamedplus", -- Sync with system clipboard
     timeoutlen = 300, -- Time in milliseconds to wait for a mapped sequence to complete.
-    conceallevel = 2, -- Hide * markup for bold and italic
+    conceallevel = 1, -- Hide * markup for bold and italic
     confirm = true, -- Confirm to save changes before exiting modified buffer
     number = true, -- Print line number
     relativenumber = true, -- Relative line numbers

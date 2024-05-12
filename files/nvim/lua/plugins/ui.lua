@@ -14,7 +14,7 @@ return {
         end,
         opts = {
             options = {
-                theme = "dracula-nvim",
+                theme = "eldritch",
                 component_separators = { left = "", right = "" },
                 section_separators = { left = "", right = "" },
             },
@@ -75,6 +75,9 @@ return {
                 ["gx"] = "actions.open_external",
                 ["g."] = "actions.toggle_hidden",
                 ["g\\"] = "actions.toggle_trash",
+            },
+            view_options = {
+                show_hidden = true,
             },
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -141,7 +144,16 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
+            messages = {
+                enabled = false,
+            },
+            notify = {
+                enabled = false,
+            },
             lsp = {
+                progress = {
+                    enabled = false,
+                },
                 signature = {
                     enabled = false,
                 },

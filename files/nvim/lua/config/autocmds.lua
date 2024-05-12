@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("wrap_spell"),
-    pattern = { "NeogitCommitMessage", "gitcommit", "markdown" },
+    pattern = { "NeogitCommitMessage", "gitcommit" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
@@ -75,6 +75,18 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = augroup("remove_trailing_whitespaces"),
     pattern = { "*" },
     command = [[%s/\s\+$//e]],
+})
+
+-- set docker-compose filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    group = augroup("docker_compose"),
+    pattern = {
+        "docker-compose.yml",
+        "docker-compose.yaml",
+    },
+    callback = function()
+        vim.cmd("set ft=yaml.docker-compose")
+    end,
 })
 
 -- enables lsp inlay hints

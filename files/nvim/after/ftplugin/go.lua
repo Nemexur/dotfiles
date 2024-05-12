@@ -6,7 +6,7 @@ end
 lspconfig.gopls.setup({
     settings = {
         gopls = {
-            usePlaceholders = false,
+            usePlaceholders = true,
             gofumpt = true,
             analyses = {
                 unusedparams = true,
@@ -27,21 +27,6 @@ lspconfig.gopls.setup({
                 rangeVariableTypes = true,
             },
         },
-    },
-})
-
-local gopher_ok, gopher = pcall(require, "gopher")
-if not gopher_ok then
-    return
-end
-
-gopher.setup({
-    commands = {
-        go = "go",
-        gomodifytags = "gomodifytags",
-        gotests = "gotests",
-        impl = "impl",
-        iferr = "iferr",
     },
 })
 
@@ -69,7 +54,6 @@ local mappings = {
         g = { "<cmd>GoGenerate<cr>", "Go Generate" },
         G = { "<cmd>GoGenerate %<cr>", "Go Generate File" },
         c = { "<cmd>GoCmt<cr>", "Generate Comment" },
-        T = { "<cmd>lua require('dap-go').debug_test()<cr>", "Debug Test" },
         e = { "<cmd>GoIfErr<cr>", "Generate if err" },
         d = { "<cmd>GoCmt<cr>", "Generate doc" },
         t = {

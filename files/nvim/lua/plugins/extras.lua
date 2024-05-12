@@ -1,7 +1,7 @@
 return {
-    { "stsewd/gx-extended.vim", lazy = false },
     { "romainl/vim-cool", event = "VeryLazy" },
     { "christoomey/vim-tmux-navigator", event = "VeryLazy" },
+    { "tpope/vim-eunuch", event = "VeryLazy" },
     {
         "dstein64/vim-startuptime",
         cmd = "StartupTime",
@@ -24,7 +24,7 @@ return {
         event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({
-                map_c_h = true,
+                map_c_ = true,
                 map_c_w = true,
             })
             require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
@@ -37,6 +37,8 @@ return {
                 telescope = true,
                 diffview = true,
             },
+            disable_insert_on_commit = true,
+            grap_style = "unicode",
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -58,28 +60,35 @@ return {
     },
     {
         "epwalsh/obsidian.nvim",
-        event = {
-            string.format("BufReadPre %s/**.md", os.getenv("SECOND_BRAIN")),
-            string.format("BufNewFile %s/**.md", os.getenv("SECOND_BRAIN")),
-        },
-        dependencies = { "nvim-lua/plenary.nvim" },
+        event = "VeryLazy",
+        version = "*",
+        ft = "markdown",
         opts = {
             dir = os.getenv("SECOND_BRAIN"),
-            log_level = vim.log.levels.DEBUG,
             notes_subdir = "0 Inbox",
+            new_notes_location = "current_dir",
             completion = {
                 nvim_cmp = true,
                 min_chars = 2,
-                new_notes_location = "current_dir",
-                prepend_note_id = true,
             },
             note_id_func = function(title)
-                return "Untitled"
+                local suffix = ""
+                if title ~= nil then
+                    suffix = title
+                else
+                    -- If title is nil, just add 4 random uppercase letters to the suffix.
+                    for _ = 1, 4 do
+                        suffix = suffix .. string.char(math.random(65, 90))
+                    end
+                end
+                return suffix .. " " .. tostring(os.time())
             end,
+            disable_frontmatter = true,
             mappings = {},
             finder = "telescope.nvim",
             open_notes_in = "current",
         },
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "tris203/hawtkeys.nvim",
@@ -89,5 +98,19 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
+    },
+    {
+        "chrishrb/gx.nvim",
+        keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+        cmd = { "Browse" },
+        init = function()
+            vim.g.netrw_nogx = 1 -- disable netrw gx
+        end,
+        opts = {
+            handler_options = {
+                search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
+            },
+        },
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
 }
