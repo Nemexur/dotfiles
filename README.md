@@ -63,5 +63,5 @@ dot packages system
 
 **If tags are not specified, everything is enabled.**
 
-[badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/test.yml/badge.svg?branch=main&event=push
-[link-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/test.yml
+[badge-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml/badge.svg?branch=main&event=push
+[link-gh-actions]: https://github.com/Nemexur/dotfiles/actions/workflows/ci.yml
