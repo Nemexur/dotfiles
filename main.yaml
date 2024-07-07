@@ -46,6 +46,7 @@
         - vscode
         - editors
     - role: editors/lunarvim
+      when: editors_lunarvim_enabled | default(false) | bool
       tags:
         - lunarvim
         - editors
