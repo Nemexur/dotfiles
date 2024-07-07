@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# mustacheme 
+# mustacheme
 #   expanded from an idea from Rick Olson (@technoweenie)
 #
 # Takes a .gif, splits it into constituent frames, mustaches each, restitches

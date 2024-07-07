@@ -19,4 +19,3 @@ gitlinker.setup({
         mappings = "<leader>gy",
     },
 })
-

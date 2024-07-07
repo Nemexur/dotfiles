@@ -7,4 +7,4 @@ all:
 
 local:
   hosts:
-    localhost: 
+    localhost:

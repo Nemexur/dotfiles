@@ -174,7 +174,7 @@ let python_highlight_all=1
 " ------
 
 " Setup for tex
-au BufNewFile,BufRead *.tex 
+au BufNewFile,BufRead *.tex
     \ set wrap |
     \ set linebreak |
     \ set tabstop=4 |

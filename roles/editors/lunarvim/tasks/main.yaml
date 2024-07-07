@@ -8,7 +8,7 @@
 
 - name: Ensure lunarvim install path is present
   ansible.builtin.file:
-    path: "{{ lunarvim_install_path }}/bin" 
+    path: "{{ lunarvim_install_path }}/bin"
     state: directory
     mode: 0751
 

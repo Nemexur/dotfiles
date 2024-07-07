@@ -2,7 +2,7 @@
 #
 # Helper script to get password with dmenu-mac.
 
- # 1. Get stored 
+ # 1. Get stored
 password_files=$(gopass ls --flat)
 
 # 2. Prompt user for the password

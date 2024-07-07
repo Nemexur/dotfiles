@@ -1,7 +1,5 @@
 {
-    // Modules
     "go.toolsEnvVars": {"GO111MODULE": "auto"},
-    // Language Server
     "go.useLanguageServer": true,
     "gopls": {
         "ui.codelenses": {
@@ -9,12 +7,10 @@
         },
         "formatting.gofmpt": true
     },
-    // Linting
     "go.lintTool": "golangci-lint",
     "go.lintFlags": [
         "--fast"
     ],
-    // Tests and Coverage
     "go.coverageDecorator": {
         "type": "gutter",
         "coveredHighlightColor": "rgba(64,128,128,0.5)",
@@ -25,7 +21,6 @@
     "go.coverageOptions": "showUncoveredCodeOnly",
     "go.coverOnSingleTest": true,
     "go.testFlags": ["-v", "-cover"],
-    // Other
     "go.buildOnSave": "off",
     "go.addTags": {
         "tags": "json",

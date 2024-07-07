@@ -9,9 +9,7 @@
     "editor.wordWrapColumn": 150,
     "editor.scrollBeyondLastLine": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    /// Prettier
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    // Environment Settings
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
@@ -21,7 +19,6 @@
     "gitProjectManager.baseProjectsFolders": [
         "~/Developer/"
     ],
-    // Color Override
     "workbench.colorCustomizations": {
         "activityBarBadge.background": "#E86100",
         "list.activeSelectionForeground": "#E86100",
@@ -44,15 +41,11 @@
         "menubar.selectionForeground": "#E86100"
     },
     "git.path": "/usr/local/bin/git",
-    // Material Theme/Icon
     "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.folders.theme": "specific",
-    // Latex Setup
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-utilities.countWord.format": "${words} Words",
-    // Spelling settings
     "cSpell.language": "en,ru",
-    // Files settings
     "files.insertFinalNewline": true,
     "files.associations": {
         "*.rmd": "markdown",
@@ -60,13 +53,11 @@
         "Pipfile": "ini",
         ".ansible-lint": "yaml"
     },
-    // Docstring settings
     "autoDocstring.docstringFormat": "numpy",
     "autoDocstring.generateDocstringOnEnter": true,
     "autoDocstring.guessTypes": true,
     "autoDocstring.startOnNewLine": true,
     "autoDocstring.quoteStyle": "\"\"\"",
-    // Highlight TODO, FIXME
     "todo-tree.general.statusBar": "total",
     "todo-tree.highlights.defaultHighlight": {
         "icon": "gear",
@@ -94,8 +85,6 @@
         "**/.venv/**",
         "**/.vscode/**"
     ],
-    // Vim VSCode
-    /// EasyMotion
     "vim.smartRelativeLine": true,
     "vim.enableNeovim": true,
     "vim.neovimUseConfigFile": true,
@@ -176,19 +165,16 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
-    // Code-Runner
     "code-runner.clearPreviousOutput": true,
     "code-runner.executorMap": {
         "python": "$pythonPath -u $fullFileName",
         "go": "go run"
     },
-    // Pylance
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "python.defaultInterpreterPath": "python",
     "python.venvPath": "${workspaceFolder}/.venv",
     "python.poetryPath": "poetry",
-    // Go
     "go.docsTool": "godoc",
     "docker.explorerRefreshInterval": 5000,
     "go.toolsManagement.autoUpdate": true,
@@ -196,33 +182,21 @@
         "ui.semanticTokens": true,
         "ui.diagnostic.staticcheck": true
     },
-    // Specific language settings
     "[python]": {
-        // Controls if quick suggestions should show up while typing
         "editor.quickSuggestions": {
             "other": true,
             "comments": false,
             "strings": false
         },
-        // Controls if suggestions should be accepted on 'Enter' - in addition to 'Tab'. Helps to avoid ambiguity between inserting new lines or accepting suggestions. The value 'smart' means only accept a suggestion with Enter when it makes a textual change
         "editor.acceptSuggestionOnEnter": "on",
-        // Controls the delay in ms after which quick suggestions will show up.
         "editor.quickSuggestionsDelay": 10,
-        // Controls if suggestions should automatically show up when typing trigger characters
         "editor.suggestOnTriggerCharacters": true,
-        // Controls if pressing tab inserts the best suggestion and if tab cycles through other suggestions
         "editor.tabCompletion": "on",
-        // Controls whether sorting favours words that appear close to the cursor
         "editor.suggest.localityBonus": true,
-        // Controls how suggestions are pre-selected when showing the suggest list
         "editor.suggestSelection": "recentlyUsed",
-        // Enable word based suggestions
         "editor.wordBasedSuggestions": "matchingDocuments",
-        // Enable parameter hints
         "editor.parameterHints.enabled": true,
-        // AutoComplete Brackets
         "editor.autoClosingBrackets": "languageDefined",
-        // Disable semantic highlighting for Pylance
         "editor.semanticHighlighting.enabled": false,
         "editor.formatOnType": true
     },
@@ -240,13 +214,13 @@
         "editor.insertSpaces": false,
         "editor.autoClosingBrackets": "languageDefined",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         }
     },
     "[go.mod]": {
         "editor.formatOnPaste": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         }
     },
     "projectManager.tags": [
@@ -264,5 +238,5 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
         }
-    },
+    }
 }
