@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+
+usage() {
+    cat << EOF
+Dotfiles management.
+
+Usage: ${script_name} [OPTIONS] [TAGS]...
+
+Arguments:
+  [TAGS]...
+    Run ansible-playbook tasks tagged with these values.
+
+Options:
+  -d, --dry-run       Validate the script
+  -c, --edit          Open dotfiles directory for editing
+  -e, --extra-vars    Extra options for ansible-playbook
+  -h, --help          Print help
+EOF
+    exit
+}
+
+msg() {
+    echo >&2 -e "${1-}"
+}
+
+die() {
+    local msg=$1
+    local code=${2-1}
+    msg "${script_name}: ${msg}"
+    exit "${code}"
+}
+
+parse_params() {
+    while :; do
+        case "${1-}" in
+        -h | --help) usage ;;
+        -c | --edit)
+            exec "${EDITOR}" "${DOTFILES}"
+            ;;
+        -d | --dry-run)
+            dry_run=true
+            ;;
+        -e | --extra-vars)
+            options="${options} ${2-}"
+            shift
+            ;;
+        -?*) die "Unknown option: $1" ;;
+        *) break ;;
+        esac
+        shift
+    done
+    argv=("$@")
+}
+
+run() {
+    if ${dry_run}; then
+        echo "$@"
+        return 0
+    fi
+    "$@"
+}
+
+if [[ -z "${DOTFILES}" ]]; then
+    die "DOTFILES envvar is empty. Aborting..."
+fi
+
+dry_run=false
+options="-K"
+
+parse_params "$@"
+
+if ! command -v ansible-galaxy &> /dev/null; then
+    die "ansible-galaxy is not installed. Aborting..."
+fi
+if ! command -v ansible-playbook &> /dev/null; then
+    die "ansible-playbook is not installed. Aborting..."
+fi
+tags="${argv[*]}"
+if [[ -n "${tags}" ]]; then
+    options="${options} --tags ${tags// /,}"
+fi
+run ansible-galaxy install --role-file "${DOTFILES}/requirements.yaml"
+# shellcheck disable=SC2086
+run ansible-playbook ${options} "${DOTFILES}/main.yaml"
