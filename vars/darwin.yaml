@@ -9,12 +9,10 @@ packages_go_root: "/opt/homebrew/opt/go/libexec"
 #
 symlink_directories:
   - "{{ home_dir }}/.config"
-  - "{{ home_dir }}/.config/tmux/plugins/tpm"
   - '{{ home_dir }}/Library/Application Support/Code/User'
 symlink_additional_files:
   - path: "{{ dotfiles_dir_files }}/tmux"
     dest: "{{ home_dir }}/.config/tmux"
-    force: true
   - path: "{{ dotfiles_dir_files }}/karabiner"
     dest: "{{ home_dir }}/.config/karabiner"
   - path: "{{ dotfiles_dir_files }}/kitty"
