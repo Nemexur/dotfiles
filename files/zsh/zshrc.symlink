@@ -16,14 +16,14 @@ ulimit -u 2048
 
 # Oh My Zsh
 plugins=(
-  evalcache
-  copypath
-  dotenv
-  docker
-  docker-compose
-  zsh-interactive-cd
-  zsh-autosuggestions
-  zsh-fzf-history-search
+	evalcache
+	copypath
+	dotenv
+	docker
+	docker-compose
+	zsh-interactive-cd
+	zsh-autosuggestions
+	zsh-fzf-history-search
 )
 
 # Disable zsh options
@@ -34,9 +34,8 @@ source $DOTFILES/files/zsh/config.zsh
 
 source $ZSH/oh-my-zsh.sh
 
-for f in $DOTFILES/files/**/*.zsh
-do
-    source $f
+for f in $DOTFILES/files/**/*.zsh; do
+	source $f
 done
 
 # Enable zsh syntax hightlights
