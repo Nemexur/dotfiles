@@ -77,9 +77,14 @@ return {
     },
     {
         "epwalsh/obsidian.nvim",
-        event = "VeryLazy",
         version = "*",
         ft = "markdown",
+        cmd = {
+            "ObsidianFollowLink",
+            "ObsidianNew",
+            "ObsidianQuickSwitch",
+            "ObsidianSearch",
+        },
         opts = {
             dir = os.getenv("SECOND_BRAIN"),
             notes_subdir = "0 Inbox",
