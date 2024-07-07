@@ -2,8 +2,8 @@
 #
 # Misc
 #
-homebrew_bin_path: "/usr/local/bin"
-packages_go_root: "/usr/local/opt/go/libexec"
+homebrew_bin_path: "/opt/homebrew/bin"
+packages_go_root: "/opt/homebrew/opt/go/libexec"
 #
 # Symlink
 #
@@ -85,6 +85,8 @@ homebrew_installed_packages:
   - miller
   # df utility but better
   - duf
+  # Linter for YAML files
+  - yamllint
   # Cryptography and SSL/TLS Toolkit
   - openssl
   # Library for command-line editing
@@ -99,6 +101,8 @@ homebrew_installed_packages:
   - pre-commit
   # Simple, fast and user-friendly alternative to find
   - fd
+  # ps but better
+  - procs
   # GitHub command-line tool
   - gh
   # Validating, recursive, caching DNS resolver
@@ -116,6 +120,8 @@ homebrew_installed_packages:
   - gnu-indent
   - gnu-which
   - gnu-units
+  # CLang compiler infrastructure
+  - llvm
   # Cross-platform make
   - cmake
   # Tool for exploring each layer in a docker image
@@ -151,7 +157,7 @@ homebrew_installed_packages:
   # Elixir
   - elixir
   # Ocaml
-  - ocaml
+  - opam
   # Gleam Lang
   - gleam
   # Domain specific configuration language for defining JSON data
@@ -262,8 +268,8 @@ homebrew_installed_packages:
   - tasksh
   # Modern cd replacement
   - zoxide
-  # Modern ls replacement
-  - exa
+  # A modern, maintained replacement for ls.
+  - eza
   # A High-Performance Log, Metrics, and Events Router
   - vector
   # Persistent key-value database, with built-in net interface
