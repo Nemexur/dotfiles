@@ -99,6 +99,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         "requirements.yaml",
         "playbook.yml",
         "playbook.yaml",
+        "*/host_vars/*.yml",
+        "*/host_vars/*.yaml",
+        "*/group_vars/*.yml",
+        "*/group_vars/*.yaml",
+        "*/group_vars/*/*.yml",
+        "*/group_vars/*/*.yaml",
+        "*/playbooks/*.yml",
+        "*/playbooks/*.yaml",
+        "*/roles/*/tasks/*.yml",
+        "*/roles/*/tasks/*.yaml",
+        "*/roles/*/handlers/*.yml",
+        "*/roles/*/handlers/*.yaml",
     },
     callback = function()
         vim.bo.filetype = "yaml.ansible"
