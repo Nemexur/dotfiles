@@ -33,9 +33,10 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-11
-          - macos-12
-          - macos-latest
+          - macos-13
+          - macos-13-arm64
+          - macos-14
+          - macos-14-arm64
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
