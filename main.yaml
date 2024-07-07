@@ -23,6 +23,15 @@
       tags: packages
     - role: system
       tags: system
+    - role: filesystem/symlink
+      tags:
+        - symlink
+        - filesystem
+    - role: filesystem/install
+      when: filesystem_install_enabled | default(false) | bool
+      tags:
+        - install
+        - filesystem
     - role: git
       tags: git
     - role: terminal/zsh
@@ -55,14 +64,5 @@
       tags:
         - emacs
         - editors
-    - role: filesystem/symlink
-      tags:
-        - symlink
-        - filesystem
-    - role: filesystem/install
-      when: filesystem_install_enabled | default(false) | bool
-      tags:
-        - install
-        - filesystem
     - role: misc
       tags: misc
