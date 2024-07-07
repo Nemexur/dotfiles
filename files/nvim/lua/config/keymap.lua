@@ -17,6 +17,30 @@ local function map(mode, lhs, rhs, opts)
     end
 end
 
+local function toggle_term()
+    local is_term_open = vim.g.term_win_id ~= nil and vim.api.nvim_win_is_valid(vim.g.term_win_id)
+    if is_term_open then
+        vim.api.nvim_win_hide(vim.g.term_win_id)
+        vim.g.term_win_id = nil
+        return
+    end
+    vim.cmd.new()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 12)
+    vim.wo.winfixheight = true
+    vim.g.term_win_id = vim.api.nvim_get_current_win()
+    -- Reuse the buffer if possible
+    local has_term_buf = vim.g.term_buf_id ~= nil and vim.api.nvim_buf_is_valid(vim.g.term_buf_id)
+    if has_term_buf then
+        local prev_win_buf = vim.api.nvim_win_get_buf(vim.g.term_win_id)
+        vim.api.nvim_win_set_buf(vim.g.term_win_id, vim.g.term_buf_id)
+        vim.api.nvim_buf_delete(prev_win_buf, { force = true })
+        return
+    end
+    vim.cmd.term()
+    vim.g.term_buf_id = vim.api.nvim_get_current_buf()
+end
+
 -- Better up/down
 map({ "n", "x", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x", "v" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -58,6 +82,39 @@ map("v", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { desc = "
 map({ "n", "x", "o" }, "<C-f>", "<cmd>lua require('flash').jump()<cr>", { desc = "Flash jump" })
 map({ "o", "x" }, "r", "<cmd>lua require('flash').treesitter_search()<cr>", { desc = "Flash Treesitter Search" })
 
+-- Size of splits
+map("n", "<M-,>", "<c-w>5<", { desc = "Increase size of vsplit" })
+map("n", "<M-.>", "<c-w>5>", { desc = "Decrease size of vsplit" })
+map("n", "<M-t>", "<C-W>+", { desc = "Increase size of hsplit" })
+map("n", "<M-s>", "<C-W>-", { desc = "Decrease size of hsplit" })
+
+-- Easily hit escape in terminal mode.
+map("t", "<esc><esc>", "<c-\\><c-n>")
+
+-- Open a terminal at the bottom of the screen with a fixed height.
+map("n", "<c-t>", toggle_term, { desc = "Toggle [T]erminal" })
+map("t", "<c-t>", toggle_term, { desc = "Toggle [^] [T]erminal" })
+
+-- Expand luasnip snippets
+map({ "i", "s" }, "<c-k>", function()
+    local ls_ok, ls = pcall(require, "luasnip")
+    if not ls_ok then
+        return
+    end
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end, { silent = true })
+map({ "i", "s" }, "<c-j>", function()
+    local ls_ok, ls = pcall(require, "luasnip")
+    if not ls_ok then
+        return
+    end
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end, { silent = true })
+
 -- Harpoon
 map("n", "<C-e>", function()
     local harpoon_ok, harpoon = pcall(require, "harpoon")
@@ -90,11 +147,15 @@ local vopts = {
 }
 
 local mappings = {
+    x = { "<cmd>. lua<cr>", "Execute the current line" },
     u = { "<cmd>Telescope undo<cr>", "Undo History" },
     e = { "<cmd>Oil<cr>", "Open parent directory" },
     h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
     m = { "<cmd>lua require('treesj').toggle()<cr>", "Toggle Node" },
     z = { "za", "Toggle Folding" },
+    ["<leader>"] = {
+        x = { "<cmd>source %<cr>", "Exectue the current file" },
+    },
     o = {
         name = "Obsidian",
         f = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },

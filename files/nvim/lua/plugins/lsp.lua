@@ -25,13 +25,27 @@ return {
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
-                    { name = "buffer" },
                     { name = "path" },
-                    { name = "luasnip" },
-                    { name = "treesitter" },
+                    { name = "buffer" },
                     { name = "emoji" },
                     { name = "calc" },
                     { name = "vimtex" },
+                },
+                mapping = {
+                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-e>"] = cmp.mapping.abort(),
+                    ["<C-y>"] = cmp.mapping(
+                        cmp.mapping.confirm({
+                            behavior = cmp.ConfirmBehavior.Insert,
+                            select = true,
+                        }),
+                        { "i", "c" }
+                    ),
+                },
+                preselect = cmp.PreselectMode.None,
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
                 },
                 formatting = {
                     fields = { "abbr", "kind", "menu" },
@@ -45,14 +59,22 @@ return {
                     },
                     duplicates_default = 0,
                 },
-                preselect = "item",
-                completion = {
-                    keyword_length = 1,
-                },
                 snippet = {
                     expand = function(args)
                         require("luasnip").lsp_expand(args.body)
                     end,
+                },
+                experimental = {
+                    ghost_text = {
+                        hl_group = "CmpGhostText",
+                    },
+                },
+            })
+            -- Setup up vim-dadbod
+            cmp.setup.filetype({ "sql" }, {
+                sources = {
+                    { name = "vim-dadbod-completion" },
+                    { name = "buffer" },
                 },
             })
         end,
@@ -96,7 +118,7 @@ return {
                     timeout_ms = 10000,
                 },
                 servers = {
-                    ["null-ls"] = { "lua", "go", "json", "md" },
+                    ["null-ls"] = { "lua", "go", "json", "md", "js" },
                 },
             })
             require("mason-lspconfig").setup({

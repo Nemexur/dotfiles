@@ -29,6 +29,8 @@ return {
                     null_ls.builtins.diagnostics.yamllint,
                     -- Ansible
                     null_ls.builtins.diagnostics.ansiblelint,
+                    -- JavaScript
+                    null_ls.builtins.formatting.prettier.with({ filetypes = { "js" } }),
                 },
             })
         end,

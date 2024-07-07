@@ -89,6 +89,28 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
+-- Set local settings for terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = augroup("custom-term-open"),
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.scrolloff = 0
+    end,
+})
+
+-- Disable terminal when recovering from session manager
+vim.api.nvim_create_user_command("TermKill", function()
+    if vim.g.term_win_id ~= nil then
+        vim.api.nvim_win_close(vim.g.term_win_id, true)
+        vim.g.term_win_id = nil
+    end
+    if vim.g.term_buf_id ~= nil then
+        vim.api.nvim_buf_delete(vim.g.term_buf_id, { force = true })
+        vim.g.term_buf_id = nil
+    end
+end, {})
+
 -- enables lsp inlay hints
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --     group = augroup("lsp_inlay_hints"),
