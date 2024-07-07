@@ -28,6 +28,4 @@ disabled = true
 disabled = true
 
 [kubernetes]
-disabled = false
-style = "bold #fda172"
-detect_folders = ["helm"]
+disabled = true
