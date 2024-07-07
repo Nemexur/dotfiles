@@ -53,13 +53,17 @@ fancy-ctrl-z() {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-function cd-with-fzf {
+cd-with-fzf() {
 	cd_with_fzf
 	zle accept-line
 }
-
 zle -N cd-with-fzf
 bindkey '^[d' cd-with-fzf
+
+timezsh() {
+	shell=${1-$SHELL}
+	for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
 
 if type brew &>/dev/null; then
 	FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
