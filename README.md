@@ -31,7 +31,7 @@ There are a few particular files in the hierarchy:
 - **files/{topic}/completion.zsh**: Any file named `completion.zsh` is loaded
   last and is expected to setup autocomplete.
 - **files/{topic}/install.yaml**: Any file named `install.yaml` is executed when you run `dot installs`. These are specific installation scripts for topics.
-- **files/topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
+- **files/{topic}/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `dot symlinks`.
