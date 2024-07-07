@@ -3,7 +3,7 @@
 # Misc
 #
 homebrew_bin_path: "/opt/homebrew/bin"
-packages_go_root: "{{ (go_arch == go_arch_map.aarch64) | ternary('/opt/homebrew/opt/go/libexec', '/usr/local/opt/go/libexec') }}"
+packages_go_root: "{{ (ansible_machine == machine_arch_map.aarch64) | ternary('/opt/homebrew/opt/go/libexec', '/usr/local/opt/go/libexec') }}"
 #
 # Symlink
 #

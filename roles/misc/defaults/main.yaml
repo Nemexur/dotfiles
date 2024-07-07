@@ -8,7 +8,7 @@ misc_cheat_sh_script_url: "https://cht.sh/:cht.sh"
 misc_cheat_sh_install_dir: "{{ home_dir }}/.local/bin"
 misc_cheat_sh_install_path: "{{ misc_cheat_sh_install_dir }}/cht.sh"
 # Krew
-misc_krew_script: "krew-{{ ansible_os_family | lower }}_{{ go_arch }}"
+misc_krew_script: "krew-{{ ansible_os_family | lower }}_{{ ansible_machine }}"
 misc_krew_script_url: "https://github.com/kubernetes-sigs/krew/releases/latest/download/{{ misc_krew_script }}.tar.gz"
 misc_krew_install_dir: "/tmp"
 misc_krew_install_path: "{{ misc_krew_install_dir }}/krew.tar.gz"
