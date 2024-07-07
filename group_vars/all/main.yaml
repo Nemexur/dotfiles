@@ -57,7 +57,7 @@ ranger_plugins:
 #
 # Misc/Go
 #
-misc_go_packages:
+packages_go_packages:
   - name: gofumpt
     package: "mvdan.cc/gofumpt@latest"
   - name: cobra-cli
