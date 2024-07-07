@@ -75,7 +75,7 @@ packages_go_packages:
   - name: swag
     package: "github.com/swaggo/swag/cmd/swag@latest"
   - name: nilaway
-    packages: "go.uber.org/nilaway/cmd/nilaway@latest"
+    package: "go.uber.org/nilaway/cmd/nilaway@latest"
 #
 # VSCode
 #
