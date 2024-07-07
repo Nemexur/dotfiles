@@ -160,8 +160,8 @@ local mappings = {
         name = "Obsidian",
         l = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
         n = { "<cmd>ObsidianNew<cr>", "New file" },
-        s = { "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch" },
-        f = { "<cmd>ObsidianSearch<cr>", "Search Notes" },
+        f = { "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch" },
+        t = { "<cmd>ObsidianSearch<cr>", "Search Inside Notes" },
         o = { string.format("<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")), "Open Obsidian" },
     },
     r = {
