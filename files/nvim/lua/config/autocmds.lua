@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     command = [[%s/\s\+$//e]],
 })
 
--- set docker-compose filetype
+-- set yaml.docker-compose filetype
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     group = augroup("docker_compose"),
     pattern = {
@@ -85,7 +85,23 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         "docker-compose.yaml",
     },
     callback = function()
-        vim.cmd("set ft=yaml.docker-compose")
+        vim.bo.filetype = "yaml.docker-compose"
+    end,
+})
+
+-- set yaml.ansible filetype for particular yaml files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    group = augroup("ansible"),
+    pattern = {
+        "main.yml",
+        "main.yaml",
+        "requirements.yml",
+        "requirements.yaml",
+        "playbook.yml",
+        "playbook.yaml",
+    },
+    callback = function()
+        vim.bo.filetype = "yaml.ansible"
     end,
 })
 
