@@ -31,9 +31,15 @@ setopt IGNORE_EOF
 setopt APPEND_HISTORY                   # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY # adds history incrementally and share it across sessions
 setopt HIST_IGNORE_ALL_DUPS             # don't record dupes in history
+setopt HIST_SAVE_NO_DUPS                # don't record dupes in history
+setopt HIST_IGNORE_DUPS                 # don't record dupes in history
+setopt HIST_IGNORE_SPACE                # ignore commands with space prefix
 setopt HIST_REDUCE_BLANKS
 
+bindkey -e
 bindkey -r '^l'
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
 
 fancy-ctrl-z() {
 	if [[ $#BUFFER -eq 0 ]]; then
