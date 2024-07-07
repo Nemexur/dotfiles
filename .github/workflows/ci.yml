@@ -1,5 +1,5 @@
 ---
-name: test
+name: CI
 
 on:
   pull_request:
@@ -33,6 +33,8 @@ jobs:
     strategy:
       matrix:
         os:
+          - macos-11
+          - macos-12
           - macos-latest
     steps:
       - name: Check out the codebase.
