@@ -1,0 +1,30 @@
+---
+- name: "Darwin: Ensure go is present"
+  when: ansible_os_family == "Darwin"
+  community.general.homebrew:
+    name: go
+    state: present
+
+- name: "Fedora: Ensure go is present"
+  when: ansible_os_family == "RedHat"
+  become: true
+  ansible.builtin.dnf:
+    name: golang
+    state: present
+    update_cache: true
+
+- name: Ensure GOPATH exists
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.go"
+    state: directory
+    mode: 0751
+
+- name: Ensure go packages installed
+  ansible.builtin.command:
+    cmd: "go install {{ item.package }}"
+    creates: "{{ lookup('env', 'GOPATH', default=home_dir + '/.go') }}/bin/{{ item.name }}"
+  environment:
+    GOPATH: "{{ home_dir }}/.go"
+    GOROOT: "{{ packages_go_root }}"
+    PATH: "{{ lookup('env', 'PATH') }}:{{ homebrew_bin_path }}"
+  loop: "{{ packages_go_packages }}"

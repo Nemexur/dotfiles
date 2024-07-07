@@ -1,0 +1,9 @@
+---
+- name: Ensure proper ownership on homebrew_install_path subdirs (again).
+  become: true
+  ansible.builtin.file:
+    path: "{{ homebrew_install_path }}"
+    state: directory
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+    recurse: true

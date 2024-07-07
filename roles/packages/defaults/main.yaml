@@ -1,9 +1,13 @@
 ---
-# All
+# Go
 packages_go_packages: []
-# Darwin
+# Homebrew
+homebrew_prefix: "{{ (ansible_machine == 'arm64') | ternary('/opt/homebrew', '/usr/local') }}"
+homebrew_install_path: "{{ homebrew_prefix }}{{ '/Homebrew' if ansible_machine != 'arm64' }}"
 homebrew_use_brewfile: false
 homebrew_cask_appdir: /Applications
+homebrew_user: "{{ ansible_user_id }}"
+homebrew_group: "{{ ansible_user_gid }}"
 # Debian
 packages_apt_repos: []
 packages_apt_packages: []
