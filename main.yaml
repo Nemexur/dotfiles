@@ -30,6 +30,7 @@
         - zsh
         - terminal
     - role: terminal/ranger
+      when: terminal_ranger_enabled | default(false) | bool
       tags:
         - ranger
         - terminal
