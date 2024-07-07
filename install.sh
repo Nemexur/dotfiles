@@ -20,7 +20,7 @@ EOF
 }
 
 msg() {
-    echo >&2 -e "${1-}"
+    echo >&2 -e "$@"
 }
 
 die() {
@@ -56,11 +56,11 @@ parse_params() {
 
 run() {
     if ${dry_run}; then
-        echo "$@"
+        msg "$@"
         return 0
     fi
     if ${verbose}; then
-        echo "$@"
+        msg "$@"
     fi
     "$@"
 }
