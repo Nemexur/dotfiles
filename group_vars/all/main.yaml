@@ -55,7 +55,7 @@ ranger_plugins:
     dest: "{{ ranger_plugins_path }}/fzf-filter"
     version: main
 #
-# Misc/Go
+# Go
 #
 packages_go_packages:
   - name: gofumpt
@@ -70,8 +70,12 @@ packages_go_packages:
     package: "golang.org/x/tools/gopls@latest"
   - name: protoc-gen-go
     package: "google.golang.org/protobuf/cmd/protoc-gen-go@latest"
+  - name: protoc-gen-go-grpc
+    package: "google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest"
   - name: swag
     package: "github.com/swaggo/swag/cmd/swag@latest"
+  - name: nilaway
+    packages: "go.uber.org/nilaway/cmd/nilaway@latest"
 #
 # VSCode
 #
