@@ -1,7 +1,5 @@
 # To enable autocompletion you should add the following script to startup scripts of your shell.
 # It is probably located at ~/.zshrc
-autoload -Uz compinit
-compinit
 
 _s5cmd_cli_zsh_autocomplete() {
 	local -a opts

@@ -43,6 +43,9 @@ zsh_oh_my_zsh_plugins:
   - repo: https://github.com/softmoth/zsh-vim-mode.git
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/zsh-vim-mode"
     version: main
+  - repo: https://github.com/mroth/evalcache.git
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/evalcache"
+    version: master
 #
 # Ranger
 #

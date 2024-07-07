@@ -16,6 +16,7 @@ ulimit -u 2048
 
 # Oh My Zsh
 plugins=(
+  evalcache
   copypath
   dotenv
   docker
@@ -42,15 +43,15 @@ done
 source ~/.theme.zshrc
 
 # Zoxide
-eval "$(zoxide init zsh)"
+_evalcache zoxide init zsh
 
 # Starship
-eval "$(starship init zsh)"
+_evalcache starship init zsh
+
+# Opam
+_evalcache opam env
 
 # PyEnv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-# opam configuration
-[[ ! -r ${HOME}/.opam/opam-init/init.zsh ]] || source ${HOME}/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+_evalcache pyenv init --path
