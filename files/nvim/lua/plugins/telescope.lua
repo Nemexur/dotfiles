@@ -20,12 +20,15 @@ return {
                 },
                 pickers = {
                     find_files = {
+                        theme = "dropdown",
                         hidden = true,
                     },
                     grep_string = {
+                        theme = "dropdown",
                         only_sort_text = true,
                     },
                     live_grep = {
+                        theme = "dropdown",
                         only_sort_text = true,
                     },
                     buffers = {
