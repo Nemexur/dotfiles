@@ -9,6 +9,7 @@ packages_go_root: "{{ (ansible_machine == machine_arch_map.aarch64) | ternary('/
 #
 symlink_directories:
   - "{{ home_dir }}/.config"
+  - "{{ home_dir }}/.config/ranger"
   - '{{ home_dir }}/Library/Application Support/Code/User'
 symlink_additional_files:
   - path: "{{ dotfiles_dir_files }}/tmux"
