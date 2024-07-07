@@ -35,7 +35,7 @@ return {
         },
         dependencies = { "williamboman/mason.nvim" },
     },
-    { "rcarriga/nvim-dap-ui", opts = {} },
+    { "rcarriga/nvim-dap-ui", opts = {}, dependencies = { "nvim-neotest/nvim-nio" } },
     { "theHamsta/nvim-dap-virtual-text", opts = {} },
     { "leoluz/nvim-dap-go", opts = {} },
 }
