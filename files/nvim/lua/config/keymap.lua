@@ -18,27 +18,45 @@ local function map(mode, lhs, rhs, opts)
 end
 
 local function toggle_term()
-    local is_term_open = vim.g.term_win_id ~= nil and vim.api.nvim_win_is_valid(vim.g.term_win_id)
-    if is_term_open then
+    --- @return integer Window handle
+    local function new_win()
+        vim.cmd.new()
+        vim.cmd.wincmd("J")
+        vim.api.nvim_win_set_height(0, 12)
+        vim.wo.winfixheight = true
+        return vim.api.nvim_get_current_win()
+    end
+
+    --- @return integer Buffer handle
+    local function get_buf()
+        local is_valid_buf = vim.g.term_buf_id ~= nil and vim.api.nvim_buf_is_valid(vim.g.term_buf_id)
+        if is_valid_buf then
+            return vim.g.term_buf_id
+        end
+        vim.cmd.term()
+        return vim.api.nvim_get_current_buf()
+    end
+
+    --- @param win_id integer Window handle
+    --- @param buf_id integer Buffer handle
+    local function update_win_buf(win_id, buf_id)
+        local curr_win_buf = vim.api.nvim_win_get_buf(win_id)
+        if buf_id == curr_win_buf then
+            return
+        end
+        vim.api.nvim_win_set_buf(win_id, buf_id)
+        vim.api.nvim_buf_delete(curr_win_buf, { force = true })
+    end
+
+    local is_win_open = vim.g.term_win_id ~= nil and vim.api.nvim_win_is_valid(vim.g.term_win_id)
+    if is_win_open then
         vim.api.nvim_win_hide(vim.g.term_win_id)
         vim.g.term_win_id = nil
         return
     end
-    vim.cmd.new()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 12)
-    vim.wo.winfixheight = true
-    vim.g.term_win_id = vim.api.nvim_get_current_win()
-    -- Reuse the buffer if possible
-    local has_term_buf = vim.g.term_buf_id ~= nil and vim.api.nvim_buf_is_valid(vim.g.term_buf_id)
-    if has_term_buf then
-        local prev_win_buf = vim.api.nvim_win_get_buf(vim.g.term_win_id)
-        vim.api.nvim_win_set_buf(vim.g.term_win_id, vim.g.term_buf_id)
-        vim.api.nvim_buf_delete(prev_win_buf, { force = true })
-        return
-    end
-    vim.cmd.term()
-    vim.g.term_buf_id = vim.api.nvim_get_current_buf()
+    vim.g.term_win_id = new_win()
+    vim.g.term_buf_id = get_buf()
+    update_win_buf(vim.g.term_win_id, vim.g.term_buf_id)
 end
 
 -- Better up/down
