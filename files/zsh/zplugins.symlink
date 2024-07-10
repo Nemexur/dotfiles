@@ -21,4 +21,3 @@ zsh-users/zsh-syntax-highlighting kind:defer
 mroth/evalcache
 romkatv/zsh-bench kind:path
 belak/zsh-utils path:history
-belak/zsh-utils path:utility

@@ -1,6 +1,8 @@
 alias clr='clear'
 alias reload='source ~/.zshrc'
 
+alias type="type -a"
+alias mkdir="mkdir -p"
 alias c='cd'
 alias cz='zi'
 alias cs='cd_with_fzf'
@@ -23,12 +25,34 @@ alias pass='gopass'
 alias pinentry='pinentry-mac'
 alias tnotif='terminal-notifier'
 
-alias zshconfig='nvim ~/.zshrc'
-alias ohmyzsh='nvim ~/.oh-my-zsh'
-alias config='/usr/bin/git --git-dir=/Users/$(whoami)/.cfg/ --work-tree=/Users/$(whoami)'
-alias cur_dir='echo ${PWD##*/}'
-alias chsize='ls -lh'
-alias chdirsize='du -hs'
-alias topndir='du -sxh ./* | sort -rh'
-alias isscreen='echo $STY'
-alias chnumber='ls -1 | wc -l'
+# macOS utils everywhere
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias o='open'
+elif [[ "$OSTYPE" == cygwin* ]]; then
+  alias o='cygstart'
+  alias pbcopy='tee > /dev/clipboard'
+  alias pbpaste='cat /dev/clipboard'
+elif [[ "$OSTYPE" == linux-android ]]; then
+  alias o='termux-open'
+  alias pbcopy='termux-clipboard-set'
+  alias pbpaste='termux-clipboard-get'
+else
+  alias o='xdg-open'
+
+  if [[ -n $DISPLAY ]]; then
+    if (( $+commands[xclip] )); then
+      alias pbcopy='xclip -selection clipboard -in'
+      alias pbpaste='xclip -selection clipboard -out'
+    elif (( $+commands[xsel] )); then
+      alias pbcopy='xsel --clipboard --input'
+      alias pbpaste='xsel --clipboard --output'
+    fi
+  else
+    if (( $+commands[wl-copy] && $+commands[wl-paste] )); then
+      alias pbcopy='wl-copy'
+      alias pbpaste='wl-paste'
+    fi
+  fi
+fi
+alias pbc='pbcopy'
+alias pbp='pbpaste'
