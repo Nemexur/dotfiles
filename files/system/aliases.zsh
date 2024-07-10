@@ -1,11 +1,9 @@
 alias clr='clear'
 alias reload='omz reload'
 
-alias c='z'
+alias c='cd'
 alias cz='zi'
 alias cs='cd_with_fzf'
-alias cd='z'
-alias cdi='zi'
 alias g='rg'
 alias f='fd'
 alias s='sed'

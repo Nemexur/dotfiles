@@ -21,7 +21,7 @@ plugins=(
 	dotenv
 	docker
 	docker-compose
-	zsh-interactive-cd
+    fzf-tab
 	zsh-autosuggestions
 	zsh-fzf-history-search
 )
@@ -41,8 +41,11 @@ done
 # Enable zsh syntax hightlights
 source ~/.theme.zshrc
 
+# fzf
+_evalcache fzf --zsh
+
 # Zoxide
-_evalcache zoxide init zsh
+_evalcache zoxide init --cmd cd zsh
 
 # Starship
 _evalcache starship init zsh
@@ -51,6 +54,5 @@ _evalcache starship init zsh
 _evalcache opam env
 
 # PyEnv
-export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 _evalcache pyenv init --path

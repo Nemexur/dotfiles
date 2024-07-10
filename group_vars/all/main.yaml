@@ -46,6 +46,9 @@ zsh_oh_my_zsh_plugins:
   - repo: https://github.com/mroth/evalcache.git
     dest: "{{ zsh_oh_my_zsh_plugins_path }}/evalcache"
     version: master
+  - repo: https://github.com/Aloxaf/fzf-tab
+    dest: "{{ zsh_oh_my_zsh_plugins_path }}/fzf-tab"
+    version: master
 #
 # Ranger
 #
