@@ -66,6 +66,8 @@ homebrew_installed_packages:
   # Zsh requirements
   - zsh
   - zsh-completions
+  # Plugin Manager for ZSH
+  - antidote
   # Download youtube videos
   - yt-dlp
   # Docker is our best friend

@@ -1,4 +1,4 @@
-export PATH="${PATH}:./bin:/usr/local/bin/node:/usr/local/bin:/usr/local/sbin:$DOTFILES/files/bin:$ZSH/bin:$HOME/.local/bin:$HOME/bin"
+export PATH="./bin:/usr/local/bin/node:/usr/local/bin:/usr/local/sbin:$DOTFILES/files/bin:$HOME/.local/bin:$HOME/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export CDPATH=.:..:$HOME:$GOROOT/src:$GOPATH/src/golang.org:$GOPATH/src/github.com
 if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
@@ -14,3 +14,5 @@ export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gnu-time/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/gnu-units/libexec/gnubin:$PATH"
+# PyEnv
+export PATH="$PYENV_ROOT/bin:$PATH"

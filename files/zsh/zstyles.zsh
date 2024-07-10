@@ -1,16 +1,23 @@
-# disable sort when completing `git checkout`
+# Disable compatibility with Antibody
+zstyle ':antidote:compatibility-mode' 'antibody'
+
+# Fix pasting speed
+# ref https://github.com/zsh-users/zsh-autosuggestions/issues/238
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+
+# Disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 
-# set descriptions format to enable group support
+# Set descriptions format to enable group support
 zstyle ':completion:*:descriptions' format '[%d]'
 
-# matches case insensitive for lowercase
+# Matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# pasting with tabs doesn't perform completion
+# Pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
-# make it colourful
+# Make it colourful
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Use fzf-tab for completions

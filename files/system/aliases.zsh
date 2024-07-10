@@ -1,5 +1,5 @@
 alias clr='clear'
-alias reload='omz reload'
+alias reload='source ~/.zshrc'
 
 alias c='cd'
 alias cz='zi'

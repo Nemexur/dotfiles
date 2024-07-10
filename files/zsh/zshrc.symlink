@@ -1,45 +1,11 @@
-export GPG_TTY=$(tty)
-# ZSH Customization Settings
-KEYTIMEOUT=25
-ZSH_THEME="robbyrussell"
-# Default username to hide "user@hostname" info
-DEFAULT_USER="$(whoami)"
-
-# fix pasting speed
-# ref https://github.com/zsh-users/zsh-autosuggestions/issues/238
-zstyle ':bracketed-paste-magic' active-widgets '.self-*'
-zstyle ':omz:update' frequency 7
-
-# Set Open Files limits
-ulimit -n 200000
-ulimit -u 2048
-
-# Oh My Zsh
-plugins=(
-	evalcache
-	copypath
-	dotenv
-	docker
-	docker-compose
-    fzf-tab
-	zsh-autosuggestions
-	zsh-fzf-history-search
-)
-
-# Disable zsh options
-unsetopt correct_all
-unsetopt completealiases
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load ${HOME}/.zplugins
 
 source $DOTFILES/files/zsh/config.zsh
-
-source $ZSH/oh-my-zsh.sh
 
 for f in $DOTFILES/files/**/*.zsh; do
 	source $f
 done
-
-# Enable zsh syntax hightlights
-source ~/.theme.zshrc
 
 # fzf
 _evalcache fzf --zsh
@@ -47,12 +13,8 @@ _evalcache fzf --zsh
 # Zoxide
 _evalcache zoxide init --cmd cd zsh
 
+# PyEnv
+_evalcache pyenv init --path
+
 # Starship
 _evalcache starship init zsh
-
-# Opam
-_evalcache opam env
-
-# PyEnv
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-_evalcache pyenv init --path
