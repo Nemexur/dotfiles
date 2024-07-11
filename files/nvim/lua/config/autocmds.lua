@@ -138,16 +138,3 @@ vim.api.nvim_create_user_command("TermKill", function()
         vim.g.term_buf_id = nil
     end
 end, {})
-
--- enables lsp inlay hints
--- vim.api.nvim_create_autocmd("LspAttach", {
---     group = augroup("lsp_inlay_hints"),
---     callback = function(event)
---         if not (event.data and event.data.client_id) then
---             return
---         end
---         local bufnr = event.buf
---         local client = vim.lsp.get_client_by_id(event.data.client_id)
---         require("lsp-inlayhints").on_attach(client, bufnr)
---     end,
--- })
