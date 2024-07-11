@@ -6,6 +6,7 @@ ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 
 # Completions
 $DOTFILES/files/functions kind:fpath
+$HOMEBREW_PREFIX/share/zsh/site-functions kind:fpath
 zsh-users/zsh-completions kind:fpath path:src
 belak/zsh-utils path:completion
 
