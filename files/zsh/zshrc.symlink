@@ -12,9 +12,9 @@ done
 _evalcache starship init zsh
 
 # Zoxide
-_evalcache zoxide init --cmd cd zsh
+zsh-defer _evalcache zoxide init --cmd cd zsh
 
-# fzf
+# Fzf
 zsh-defer _evalcache fzf --zsh
 
 # PyEnv

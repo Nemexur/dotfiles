@@ -1,6 +1,0 @@
-require "user.plugins.config.attempt"
-require "user.plugins.config.git"
-require "user.plugins.config.spectre"
-require "user.plugins.config.neogen"
-require "user.plugins.config.todo-comments"
-require "user.plugins.config.yanky"

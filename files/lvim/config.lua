@@ -1,7 +1,0 @@
-reload("user.keymaps")
-reload("user.lsp")
-reload("user.options")
-reload("user.plugins")
-reload("user.plugins.config")
-reload("user.telescope")
-reload("user.treesitter")
