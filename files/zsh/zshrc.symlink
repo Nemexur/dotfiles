@@ -1,20 +1,21 @@
 source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load ${HOME}/.zplugins
 
-source $DOTFILES/files/zsh/config.zsh
-
 for f in $DOTFILES/files/**/*.zsh; do
-	source $f
+    if [[ $f =~ config.zsh$ ]]; then
+        continue
+    fi
+    source $f
 done
 
-# fzf
-_evalcache fzf --zsh
+# Starship
+_evalcache starship init zsh
 
 # Zoxide
 _evalcache zoxide init --cmd cd zsh
 
-# PyEnv
-_evalcache pyenv init --path
+# fzf
+zsh-defer _evalcache fzf --zsh
 
-# Starship
-_evalcache starship init zsh
+# PyEnv
+zsh-defer _evalcache pyenv init --path

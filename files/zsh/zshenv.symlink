@@ -1,14 +1,13 @@
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
-# Path to your oh-my-zsh installation oh-my-zsh specific settings
-export DOTFILES=~/.dotfiles
+export DOTFILES="${HOME}/.dotfiles"
 export GPG_TTY=$(tty)
 
-# Other exports
-export EDITOR='nvim'
+export EDITOR="nvim"
 export LANG=en_US.UTF-8
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERM=xterm-256color
 export LIBFM_PATH="${HOME}/Developer/libfm/bin/"
 export PYENV_ROOT="$HOME/.pyenv"
+export FZF_DEFAULT_OPTS="--bind=ctrl-n:down,ctrl-p:up,ctrl-y:accept"
