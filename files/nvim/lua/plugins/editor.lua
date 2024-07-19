@@ -62,6 +62,14 @@ return {
         opts = {},
     },
     {
+        "MagicDuck/grug-far.nvim",
+        cmd = "GrugFar",
+        opts = {
+            windowCreationCommand = "tabnew",
+            startInInsertMode = false,
+        },
+    },
+    {
         "cshuaimin/ssr.nvim",
         opts = {},
     },
