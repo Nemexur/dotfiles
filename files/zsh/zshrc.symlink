@@ -19,3 +19,8 @@ zsh-defer _evalcache fzf --zsh
 
 # PyEnv
 zsh-defer _evalcache pyenv init --path
+
+# OCaml
+if [[ -f "${HOME}/.opam/opam-init/init.zsh" ]]; then
+    zsh-defer source "${HOME}/.opam/opam-init/init.zsh"
+fi
