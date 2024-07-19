@@ -1,5 +1,6 @@
 return {
     { "tpope/vim-rsi", lazy = false },
+    { "tpope/vim-abolish", lazy = false },
     {
         "numToStr/Comment.nvim",
         keys = {
