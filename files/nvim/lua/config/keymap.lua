@@ -142,179 +142,166 @@ map("n", "<C-e>", function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = "Harpoon List" })
 
-local which_key_ok, which_key = pcall(require, "which-key")
-if not which_key_ok then
+local wk_ok, wk = pcall(require, "which-key")
+if not wk_ok then
     return
 end
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
-local vopts = {
-    mode = "v", -- VISUAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
-
-local mappings = {
-    x = { "<cmd>. lua<cr>", "Execute the current line" },
-    u = { "<cmd>Telescope undo<cr>", "Undo History" },
-    e = { "<cmd>Oil<cr>", "Open parent directory" },
-    h = { "<cmd>lua require('harpoon'):list():append()<CR>", "Harpoon append" },
-    m = { "<cmd>lua require('treesj').toggle()<cr>", "Toggle Node" },
-    z = { "za", "Toggle Folding" },
-    ["<leader>"] = {
-        x = { "<cmd>source %<cr>", "Exectue the current file" },
+wk.add({
+    { "<leader>x", "<cmd>. lua<cr>", desc = "Execute the current line", mode = "n" },
+    { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Undo History", mode = "n" },
+    { "<leader>e", "<cmd>Oil<cr>", desc = "Open parent directory", mode = "n" },
+    { "<leader>h", "<cmd>lua require('harpoon'):list():append()<CR>", desc = "Harpoon append", mode = "n" },
+    { "<leader>m", "<cmd>lua require('treesj').toggle()<cr>", desc = "Toggle Node", mode = "n" },
+    { "<leader>z", "za", desc = "Toggle Folding", mode = "n" },
+    { "<leader><leader>x", "<cmd>source %<cr>", desc = "Exectue the current file", mode = "n" },
+    -- Obsidian
+    { "<leader>o", group = "Obsidian" },
+    { "<leader>ol", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link", mode = "n" },
+    { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New file", mode = "n" },
+    { "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch", mode = "n" },
+    { "<leader>ot", "<cmd>ObsidianSearch<cr>", desc = "Search Inside Notes", mode = "n" },
+    {
+        "<leader>oo",
+        string.format("<leader>o", "<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")),
+        desc = "Open Obsidian",
+        mode = "n",
     },
-    o = {
-        name = "Obsidian",
-        l = { "<cmd>ObsidianFollowLink<cr>", "Follow link" },
-        n = { "<cmd>ObsidianNew<cr>", "New file" },
-        f = { "<cmd>ObsidianQuickSwitch<cr>", "Quick Switch" },
-        t = { "<cmd>ObsidianSearch<cr>", "Search Inside Notes" },
-        o = { string.format("<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")), "Open Obsidian" },
+    -- Search and Replace
+    { "<leader>r", group = "Search and Replace" },
+    { "<leader>rr", "<cmd>lua require('spectre').open()<cr>", desc = "Replace", mode = "n" },
+    {
+        "<leader>rw",
+        "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+        desc = "Replace Word",
+        mode = "n",
     },
-    r = {
-        name = "Search and Replace",
-        r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-        w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-        b = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-        s = { "<cmd>lua require('ssr').open()<cr>", "Structrual Search" },
-        n = { ":IncRename ", "Incremental Rename" },
+    { "<leader>rb", "<cmd>lua require('spectre').open_file_search()<cr>", desc = "Replace Buffer", mode = "n" },
+    { "<leader>rs", "<cmd>lua require('ssr').open()<cr>", desc = "Structrual Search", mode = "n" },
+    { "<leader>rn", ":IncRename ", desc = "Incremental Rename", mode = "n" },
+    -- Windows
+    { "<leader>w", group = "Windows" },
+    { "<leader>ws", "<C-w>s", desc = "Horizontal", mode = "n" },
+    { "<leader>wv", "<C-w>v", desc = "Vertical", mode = "n" },
+    { "<leader>wq", "<C-w>q", desc = "Close", mode = "n" },
+    { "<leader>wh", "<C-w>h", desc = "Go Left", mode = "n" },
+    { "<leader>wj", "<C-w>j", desc = "Go Right", mode = "n" },
+    { "<leader>wk", "<C-w>k", desc = "Go Up", mode = "n" },
+    { "<leader>wl", "<C-w>l", desc = "Go Down", mode = "n" },
+    { "<leader>wm", "<cmd>WindowsMaximize<cr>", desc = "Windows Maximize", mode = "n" },
+    -- Buffers
+    { "<leader>b", group = "Buffers" },
+    { "<leader>bb", "<cmd>Telescope buffers previewer=false theme=dropdown<cr>", desc = "Find", mode = "n" },
+    { "<leader>bp", "<cmd>bprevious<cr>", desc = "Previous", mode = "n" },
+    { "<leader>bn", "<cmd>bnext<cr>", desc = "Next", mode = "n" },
+    { "<leader>bW", "<cmd>noautocmd w<cr>", desc = "Save without formatting (noautocmd)", mode = "n" },
+    { "<leader>bq", "<cmd>bd<cr>", desc = "Quit buffer", mode = "n" },
+    { "<leader>bw", "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", desc = "Toggle wrapping", mode = "n" },
+    { "<leader>bc", "<cmd>CloakToggle<cr>", desc = "Toggle Cloak", mode = "n" },
+    -- Quit
+    { "<leader>q", group = "Quit" },
+    { "<leader>qq", "<cmd>:qa<cr>", desc = "Quit all buffers", mode = "n" },
+    { "<leader>qa", "<cmd>:wqa<cr>", desc = "Save all buffers and quit", mode = "n" },
+    { "<leader>qf", "<cmd>:qa!<cr>", desc = "Force quit all buffers", mode = "n" },
+    { "<leader>qr", "<cmd>lua require('persistence').load()<cr>", desc = "Restore session", mode = "n" },
+    {
+        "<leader>ql",
+        "<cmd>lua require('persistence').load({ last = true })<cr>",
+        desc = "Restore last session",
+        mode = "n",
     },
-    w = {
-        name = "Windows",
-        s = { "<C-w>s", "Horizontal" },
-        v = { "<C-w>v", "Vertical" },
-        q = { "<C-w>q", "Close" },
-        h = { "<C-w>h", "Go Left" },
-        j = { "<C-w>j", "Go Right" },
-        k = { "<C-w>k", "Go Up" },
-        l = { "<C-w>l", "Go Down" },
-        m = { "<cmd>WindowsMaximize<cr>", "Windows Maximize" },
+    { "<leader>qQ", "<cmd>lua require('persistence').stop()<cr>", desc = "Quit without saving session", mode = "n" },
+    -- Git
+    { "<leader>g", group = "Git" },
+    { "<leader>gw", "<cmd>Telescope git_worktree theme=dropdown<cr>", desc = "Worktree", mode = "n" },
+    { "<leader>gn", "<cmd>lua require('neogit').open({kind = 'tab'})<cr>", desc = "NeoGit", mode = "n" },
+    { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit", mode = "n" },
+    {
+        "<leader>gH",
+        "<cmd>lua require('gitlinker').get_repo_url({action_callback = require('gitlinker.actions').open_in_browser})<cr>",
+        desc = "Open homepage",
+        mode = "n",
     },
-    b = {
-        name = "Buffers",
-        b = { "<cmd>Telescope buffers previewer=false theme=dropdown<cr>", "Find" },
-        p = { "<cmd>bprevious<cr>", "Previous" },
-        n = { "<cmd>bnext<cr>", "Next" },
-        W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
-        q = { "<cmd>bd<cr>", "Quit buffer" },
-        w = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle wrapping" },
-        c = { "<cmd>CloakToggle<cr>", "Toggle Cloak" },
+    -- Find
+    { "<leader>f", group = "Find" },
+    { "<leader>fb", "<cmd>Telescope git_branches theme=dropdown<cr>", desc = "Checkout branch", mode = "n" },
+    { "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme", mode = "n" },
+    {
+        "<leader>ff",
+        "<cmd>Telescope find_files hidden=true previewer=false theme=dropdown<cr>",
+        desc = "Find File",
+        mode = "n",
     },
-    q = {
-        name = "Quit",
-        q = { "<cmd>:qa<cr>", "Quit all buffers" },
-        a = { "<cmd>:wqa<cr>", "Save all buffers and quit" },
-        f = { "<cmd>:qa!<cr>", "Force quit all buffers" },
-        r = { "<cmd>lua require('persistence').load()<cr>", "Restore session" },
-        l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
-        Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+    { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", mode = "n" },
+    { "<leader>fH", "<cmd>Telescope highlights<cr>", desc = "Find highlight groups", mode = "n" },
+    { "<leader>fM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages", mode = "n" },
+    { "<leader>fr", "<cmd>Telescope oldfiles theme=dropdown<cr>", desc = "Open Recent File", mode = "n" },
+    { "<leader>ft", "<cmd>Telescope live_grep theme=dropdown<cr>", desc = "Text", mode = "n" },
+    { "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", mode = "n" },
+    { "<leader>fC", "<cmd>Telescope commands<cr>", desc = "Commands", mode = "n" },
+    { "<leader>fl", "<cmd>Telescope resume theme=dropdown<cr>", desc = "Resume last search", mode = "n" },
+    { "<leader>fs", "<cmd>Telescope spell_suggest theme=dropdown<cr>", desc = "Suggest Spelling", mode = "n" },
+    -- LSP
+    { "<leader>l", group = "LSP" },
+    {
+        "<leader>la",
+        function()
+            pcall(require, "telescope")
+            vim.lsp.buf.code_action()
+        end,
+        desc = "Code Action",
+        mode = "n",
     },
-    g = {
-        name = "Git",
-        w = { "<cmd>Telescope git_worktree theme=dropdown<cr>", "Worktree" },
-        n = { "<cmd>lua require('neogit').open({kind = 'tab'})<cr>", "NeoGit" },
-        l = { "<cmd>LazyGit<cr>", "LazyGit" },
-        H = {
-            "<cmd>lua require('gitlinker').get_repo_url({action_callback = require('gitlinker.actions').open_in_browser})<cr>",
-            "Open homepage",
-        },
+    {
+        "<leader>lf",
+        "<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<cr>",
+        desc = "Format",
+        mode = "n",
     },
-    f = {
-        name = "Find",
-        b = { "<cmd>Telescope git_branches theme=dropdown<cr>", "Checkout branch" },
-        c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-        f = { "<cmd>Telescope find_files hidden=true previewer=false theme=dropdown<cr>", "Find File" },
-        h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-        H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
-        M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-        r = { "<cmd>Telescope oldfiles theme=dropdown<cr>", "Open Recent File" },
-        t = { "<cmd>Telescope live_grep theme=dropdown<cr>", "Text" },
-        k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-        C = { "<cmd>Telescope commands<cr>", "Commands" },
-        l = { "<cmd>Telescope resume theme=dropdown<cr>", "Resume last search" },
-        s = { "<cmd>Telescope spell_suggest theme=dropdown<cr>", "Suggest Spelling" },
+    { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action", mode = { "n", "v" } },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode = "n" },
+    { "<leader>lq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix", mode = "n" },
+    { "<leader>lb", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Buffer Diagnostics", mode = "n" },
+    { "<leader>lw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Diagnostics", mode = "n" },
+    { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols", mode = "n" },
+    { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols", mode = "n" },
+    { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info", mode = "n" },
+    { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Info", mode = "n" },
+    { "<leader>lR", "<cmd>LspRestart<cr>", desc = "Restart LSP in buffer", mode = "n" },
+    {
+        "<leader>lc",
+        "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>",
+        desc = "Goto Context",
+        mode = "n",
     },
-    l = {
-        name = "LSP",
-        a = {
-            function()
-                pcall(require, "telescope")
-                vim.lsp.buf.code_action()
-            end,
-            "Code Action",
-        },
-        f = { "<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 10000})<cr>", "Format" },
-        l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-        q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
-        b = { "<cmd>TroubleToggle document_diagnostics<cr>", "Buffer Diagnostics" },
-        w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Diagnostics" },
-        s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-        S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
-        i = { "<cmd>LspInfo<cr>", "Info" },
-        I = { "<cmd>Mason<cr>", "Mason Info" },
-        R = { "<cmd>LspRestart<cr>", "Restart LSP in buffer" },
-        c = { "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>", "Goto Context" },
+    -- Annotaions
+    { "<leader>a", group = "Annotaions" },
+    { "<leader>ac", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>", desc = "Class Doc", mode = "n" },
+    { "<leader>af", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", desc = "Function Doc", mode = "n" },
+    { "<leader>at", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", desc = "Type Doc", mode = "n" },
+    -- Debug
+    { "<leader>d", group = "Debug" },
+    { "<leader>du", "<cmd>lua require('dapui').toggle({})<cr>", desc = "Dap UI", mode = "n" },
+    { "<leader>de", "<cmd>lua require('dapui').eval({})<cr>", desc = "Dap UI Eval", mode = { "n", "v" } },
+    { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle Breakpoint", mode = "n" },
+    {
+        "<leader>dB",
+        "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+        desc = "Breakpoint Condition",
+        mode = "n",
     },
-    a = {
-        name = "Annotaions",
-        c = { "<cmd>lua require('neogen').generate({ type = 'class' })<cr>", "Class Doc" },
-        f = { "<cmd>lua require('neogen').generate({ type = 'func' })<cr>", "Function Doc" },
-        t = { "<cmd>lua require('neogen').generate({ type = 'type' })<cr>", "Type Doc" },
-    },
-    d = {
-        name = "Debug",
-        u = { "<cmd>lua require('dapui').toggle({})<cr>", "Dap UI" },
-        e = { "<cmd>lua require('dapui').eval({})<cr>", "Dap UI Eval" },
-        b = { "<cmd>lua require('dap').toggle_breakpoint()<cr>", "Toggle Breakpoint" },
-        B = {
-            "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
-            "Breakpoint Condition",
-        },
-        c = { "<cmd>lua require('dap').continue()<cr>", "Continue" },
-        C = { "<cmd>lua require('dap').run_to_cursor()<cr>", "Run to Cursor" },
-        g = { "<cmd>lua require('dap').goto_()<cr>", "Go to line (no execute)" },
-        i = { "<cmd>lua require('dap').step_into()<cr>", "Step Info" },
-        j = { "<cmd>lua require('dap').down()<cr>", "Down" },
-        k = { "<cmd>lua require('dap').up()<cr>", "Up" },
-        l = { "<cmd>lua require('dap').run_last()<cr>", "Run Last" },
-        o = { "<cmd>lua require('dap').step_out()<cr>", "Step Out" },
-        O = { "<cmd>lua require('dap').step_over()<cr>", "Step Over" },
-        p = { "<cmd>lua require('dap').pause()<cr>", "Pause" },
-        r = { "<cmd>lua require('dap').repl.toggle()<cr>", "Toggle REPL" },
-        s = { "<cmd>lua require('dap').session()<cr>", "Session" },
-        t = { "<cmd>lua require('dap').terminat()<cr>", "Terminate" },
-        w = { "<cmd>lua require('dap.ui.widgets').hover()<cr>", "Widgets" },
-    },
-}
-
-local vmappings = {
-    l = {
-        name = "LSP",
-        a = {
-            function()
-                pcall(require, "telescope")
-                vim.lsp.buf.code_action()
-            end,
-            "Code Action",
-        },
-    },
-    d = {
-        name = "Debug",
-        e = { "<cmd>lua require('dapui').eval({})<cr>", "Dap UI Eval" },
-    },
-}
-
-which_key.register(mappings, opts)
-which_key.register(vmappings, vopts)
+    { "<leader>dc", "<cmd>lua require('dap').continue()<cr>", desc = "Continue", mode = "n" },
+    { "<leader>dC", "<cmd>lua require('dap').run_to_cursor()<cr>", desc = "Run to Cursor", mode = "n" },
+    { "<leader>dg", "<cmd>lua require('dap').goto_()<cr>", desc = "Go to line (no execute)", mode = "n" },
+    { "<leader>di", "<cmd>lua require('dap').step_into()<cr>", desc = "Step Info", mode = "n" },
+    { "<leader>dj", "<cmd>lua require('dap').down()<cr>", desc = "Down", mode = "n" },
+    { "<leader>dk", "<cmd>lua require('dap').up()<cr>", desc = "Up", mode = "n" },
+    { "<leader>dl", "<cmd>lua require('dap').run_last()<cr>", desc = "Run Last", mode = "n" },
+    { "<leader>do", "<cmd>lua require('dap').step_out()<cr>", desc = "Step Out", mode = "n" },
+    { "<leader>dO", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over", mode = "n" },
+    { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "Pause", mode = "n" },
+    { "<leader>dr", "<cmd>lua require('dap').repl.toggle()<cr>", desc = "Toggle REPL", mode = "n" },
+    { "<leader>ds", "<cmd>lua require('dap').session()<cr>", desc = "Session", mode = "n" },
+    { "<leader>dt", "<cmd>lua require('dap').terminat()<cr>", desc = "Terminate", mode = "n" },
+    { "<leader>dw", "<cmd>lua require('dap.ui.widgets').hover()<cr>", desc = "Widgets", mode = "n" },
+})

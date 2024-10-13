@@ -14,7 +14,6 @@ return {
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.goimports,
                     null_ls.builtins.formatting.golines.with({ extra_args = { "--max-len", "120" } }),
-                    null_ls.builtins.diagnostics.golangci_lint,
                     -- Python
                     null_ls.builtins.formatting.black.with({ extra_args = { "--line-length", "100" } }),
                     null_ls.builtins.formatting.isort.with({ extra_args = { "--line-length", "100" } }),

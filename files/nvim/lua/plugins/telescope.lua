@@ -9,13 +9,15 @@ return {
             telescope.setup({
                 defaults = {
                     path_display = nil,
-                },
-                mappings = {
-                    i = {
-                        ["<esc>"] = actions.close,
-                    },
-                    n = {
-                        ["<esc>"] = actions.close,
+                    mappings = {
+                        i = {
+                            ["<esc>"] = actions.close,
+                            ["<C-y>"] = actions.select_default,
+                        },
+                        n = {
+                            ["<esc>"] = actions.close,
+                            ["<C-y>"] = actions.select_default,
+                        },
                     },
                 },
                 pickers = {

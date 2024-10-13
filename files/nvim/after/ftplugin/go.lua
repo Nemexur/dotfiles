@@ -30,37 +30,24 @@ lspconfig.gopls.setup({
     },
 })
 
-local which_key_ok, which_key = pcall(require, "which-key")
-if not which_key_ok then
+local wk_ok, wk = pcall(require, "which-key")
+if not wk_ok then
     return
 end
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
-local mappings = {
-    c = {
-        name = "Go",
-        i = { "<cmd>GoInstallDeps<cr>", "Install Go Dependencies" },
-        f = { "<cmd>GoMod tidy<cr>", "Tidy" },
-        a = { "<cmd>GoTestAdd<cr>", "Add Test" },
-        A = { "<cmd>GoTestsAll<cr>", "Add All Tests" },
-        E = { "<cmd>GoTestsExp<cr>", "Add Exported Tests" },
-        g = { "<cmd>GoGenerate<cr>", "Go Generate" },
-        G = { "<cmd>GoGenerate %<cr>", "Go Generate File" },
-        c = { "<cmd>GoCmt<cr>", "Generate Comment" },
-        e = { "<cmd>GoIfErr<cr>", "Generate if err" },
-        d = { "<cmd>GoCmt<cr>", "Generate doc" },
-        t = {
-            name = "Struct tags",
-            j = { "<cmd>GoTagAdd json<cr>", "json" },
-            y = { "<cmd>GoTagAdd yaml<cr>", "yaml" },
-        },
-    },
-}
-which_key.register(mappings, opts)
+wk.add({
+    { "<leader>c", group = "Go" },
+    { "<leader>ci", "<cmd>GoInstallDeps<cr>", desc = "Install Go Dependencies", mode = "n" },
+    { "<leader>cf", "<cmd>GoMod tidy<cr>", desc = "Tidy", mode = "n" },
+    { "<leader>ca", "<cmd>GoTestAdd<cr>", desc = "Add Test", mode = "n" },
+    { "<leader>cA", "<cmd>GoTestsAll<cr>", desc = "Add All Tests", mode = "n" },
+    { "<leader>cE", "<cmd>GoTestsExp<cr>", desc = "Add Exported Tests", mode = "n" },
+    { "<leader>cg", "<cmd>GoGenerate<cr>", desc = "Go Generate", mode = "n" },
+    { "<leader>cG", "<cmd>GoGenerate %<cr>", desc = "Go Generate File", mode = "n" },
+    { "<leader>cc", "<cmd>GoCmt<cr>", desc = "Generate Comment", mode = "n" },
+    { "<leader>ce", "<cmd>GoIfErr<cr>", desc = "Generate if err", mode = "n" },
+    { "<leader>cd", "<cmd>GoCmt<cr>", desc = "Generate doc", mode = "n" },
+    { "<leader>ct", group = "Struct Tags" },
+    { "<leader>ctj", "<cmd>GoTagAdd json<cr>", desc = "JSON", mode = "n" },
+    { "<leader>cty", "<cmd>GoTagAdd yaml<cr>", desc = "YAML", mode = "n" },
+})
