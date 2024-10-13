@@ -1,12 +1,12 @@
 {
-    "title": "Option",
+    "title": "Command",
     "rules": [
         {
-            "description": "Tab to alt if pressed with something",
+            "description": "Esc to command if pressed with something",
             "manipulators": [
                 {
                     "from": {
-                        "key_code": "tab",
+                        "key_code": "escape",
                         "modifiers": {
                             "optional": [
                                 "any"
@@ -20,13 +20,13 @@
                     },
                     "to": [
                         {
-                            "key_code": "left_option",
+                            "key_code": "left_command",
                             "lazy": true
                         }
                     ],
                     "to_if_alone": [
                         {
-                            "key_code": "tab"
+                            "key_code": "escape"
                         }
                     ],
                     "type": "basic"
@@ -34,11 +34,11 @@
             ]
         },
         {
-            "description": "Backslash to alt if pressed with something",
+            "description": "Quote to command if pressed with something",
             "manipulators": [
                 {
                     "from": {
-                        "key_code": "backslash",
+                        "key_code": "quote",
                         "modifiers": {
                             "optional": [
                                 "any"
@@ -52,13 +52,13 @@
                     },
                     "to": [
                         {
-                            "key_code": "left_option",
+                            "key_code": "left_command",
                             "lazy": true
                         }
                     ],
                     "to_if_alone": [
                         {
-                            "key_code": "backslash"
+                            "key_code": "quote"
                         }
                     ],
                     "type": "basic"
