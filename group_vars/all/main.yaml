@@ -125,7 +125,6 @@ vscode_extensions:
   - James-Yu.latex-workshop
   - nickfode.latex-formatter
   - tecosaur.latex-utilities
-  - torn4dom4n.latex-support
   - twday.bibmanager
   # Json
   - heptio.jsonnet
