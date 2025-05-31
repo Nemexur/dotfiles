@@ -1,0 +1,9 @@
+# Appearance
+theme = Dracula
+font-family = JetBrainsMono NF
+font-size = 15
+background-opacity = 0.8
+background-blur = 8
+
+# Keybind
+macos-option-as-alt = true
