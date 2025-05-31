@@ -21,6 +21,12 @@ style = "bold yellow"
 threshold = 100
 style = "bold green"
 
+[git_status]
+disabled = true
+
+[python]
+disabled = true
+
 [gcloud]
 disabled = true
 
