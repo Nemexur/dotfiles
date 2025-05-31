@@ -16,6 +16,14 @@ config.inactive_pane_hsb = {
     saturation = 0.9,
     brightness = 0.6,
 }
+config.window_decorations = "RESIZE"
+config.use_fancy_tab_bar = true
+config.tab_bar_at_bottom = true
+config.hide_tab_bar_if_only_one_tab = true
+config.window_frame = {
+	inactive_titlebar_bg = "none",
+	active_titlebar_bg = "none",
+}
 -- Font
 config.font = wezterm.font("JetBrainsMono NF")
 config.font_size = 15.0
