@@ -1,40 +1,73 @@
 #!/usr/bin/env bash
-#
-# Helper script to prepend Jira Task
-# at the beginnnig of git branch to commit
 
-DIR=${1:-.}
+set -Eeuo pipefail
 
-HOOK_FILENAME="${DIR}/.git/hooks/prepare-commit-msg"
-if [ ! -d "${DIR}/.git" ]; then
-    fail "This is not git repository root"
+script_name=$(basename "${BASH_SOURCE[0]}")
+
+usage() {
+	cat <<EOF
+Add Jira Ticket from branch name to the beginning of commit message.
+
+USAGE: ${script_name} [OPTIONS]
+
+OPTIONS:
+  -h, --help    Print help.
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	return 0
+}
+
+parse_params "$@"
+
+if ! [ -e "${PWD}/.git" ]; then
+	die "fatal: not a git repository"
 fi
 
-if [ ! -d "${DIR}/.git/hooks" ]; then
-    info "Creating hooks directory"
-    mkdir "${DIR}/.git/hooks"
-fi
+mkdir -p "${PWD}/.git/hooks"
+hook_filename="${PWD}/.git/hooks/prepare-commit-msg"
 
-
-echo '#!/bin/bash
+cat >"${hook_filename}" <<"EOF"
+#!/usr/bin/env bash
 
 COMMIT_MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-if [[ -z "$COMMIT_SOURCE" ]]; then
-    BRANCH_NAME=$(git symbolic-ref --short HEAD)
-    HAS_JIRA_TASK=$(echo $BRANCH_NAME | grep -cE "^[a-zA-Z]{2,}-[0-9]+")
-    if [[ $HAS_JIRA_TASK == 0 ]]; then
-        echo "This branch is not connected to any JIRA task"
-    else
-        JIRA_TASK=$(echo $BRANCH_NAME | grep -oE "^[a-zA-Z]{2,}-[0-9]+")
-        HINT=$(cat "$COMMIT_MSG_FILE")
-        echo "${JIRA_TASK}: " > "$COMMIT_MSG_FILE"
-        echo "${HINT}" >> "$COMMIT_MSG_FILE"
-    fi
-fi
-' > $HOOK_FILENAME
+BRANCH_NAME="$(git branch --show-current)"
+PATTERN="^[a-zA-Z]{2,}-[0-9]+"
+JIRA_TASK="$(grep -oE "${PATTERN}" <<< "${BRANCH_NAME}")"
 
-echo "Created hook $HOOK_FILENAME"
-chmod +x $HOOK_FILENAME
+if [[ -z "${JIRA_TASK}" ]]; then
+    echo >&2 -e "${BRANCH_NAME} is not connected with Jira"
+    exit 0
+fi
+if sed -n '1p' "${COMMIT_MSG_FILE}" | grep -oE "${PATTERN}"; then
+    echo >&2 -e "Commit ${SHA1} is already connected to jira task."
+    exit 0
+fi
+
+sed -i "1 s/^/${JIRA_TASK}: /" "${COMMIT_MSG_FILE}"
+EOF
+chmod +x "${hook_filename}"

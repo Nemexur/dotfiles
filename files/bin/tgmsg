@@ -4,6 +4,14 @@ set -Eeuo pipefail
 
 script_name=$(basename "${BASH_SOURCE[0]}")
 
+retry="1"
+sleep_sec="1"
+chat_id="${TELEGRAM_CHAT:-}"
+api_token="${TELEGRAM_TOKEN:-}"
+options="--ignore-stdin"
+stdin=false
+dry_run=false
+
 usage() {
     cat << EOF
 Send message to Telegram.
@@ -16,11 +24,13 @@ Arguments:
     Use a dash ('-') or no argument at all to read from stdin.
 
 Options:
-  -c, --chat-id    Chat ID in Telegram
-  -t, --token      Telegram API Token
-  -q, --quiet      Do not print to stdout or stderr, except for errors
-  -d, --dry-run    Validate command
-  -h, --help       Print help
+  -R, --retry        Retry counter. Default: ${retry}.
+  -S, --sleep-sec    Sleep period in seconds. Default: ${sleep_sec}.
+  -c, --chat-id      Chat ID in Telegram. Default: TELEGRAM_CHAT envvar.
+  -t, --token        Telegram API Token. Default: TELEGRAM_TOKEN envvar.
+  -q, --quiet        Do not print to stdout or stderr, except for errors.
+  -d, --dry-run      Validate command.
+  -h, --help         Print help.
 EOF
     exit
 }
@@ -40,6 +50,14 @@ parse_params() {
     while :; do
         case "${1-}" in
         -h | --help) usage ;;
+        -R | --retry)
+            retry="${2-}"
+            shift
+            ;;
+        -S | --sleep-sec)
+            sleep_sec="${2-}"
+            shift
+            ;;
         -c | --chat)
             chat_id="${2-}"
             shift
@@ -66,7 +84,7 @@ parse_params() {
     return 0
 }
 
-get_text() {
+parse_text_input() {
     if [[ ${#argv[@]} -eq 0 || ${argv[0]} == "-" ]]; then
         text=$(</dev/stdin)
         return 0
@@ -82,16 +100,9 @@ run() {
     "$@"
 }
 
-retry="${TG_MSG_RETRY:-1}"
-chat_id="${TELEGRAM_CHAT:-}"
-api_token="${TELEGRAM_TOKEN:-}"
-options="--ignore-stdin"
-stdin=false
-dry_run=false
-
 parse_params "$@"
 
-get_text
+parse_text_input
 
 # shellcheck disable=SC2086
 for _ in $(seq "${retry}"); do
@@ -99,5 +110,5 @@ for _ in $(seq "${retry}"); do
         https://api.telegram.org/bot"${api_token}"/sendMessage \
         chat_id="${chat_id}" \
         text="${text}" && break
-    sleep 1
+    sleep "${sleep_sec}"
 done
