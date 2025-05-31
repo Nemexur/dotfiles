@@ -6,6 +6,7 @@
                 "rules": [
                     {
                         "description": "Esc to command if pressed with something",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -26,6 +27,7 @@
                     },
                     {
                         "description": "Quote to command if pressed with something",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -205,7 +207,7 @@
                                 "parameters": { "basic": { "to_if_alone_timeout_milliseconds": 400 } },
                                 "to": [
                                     {
-                                        "key_code": "left_option",
+                                        "key_code": "left_alt",
                                         "lazy": true
                                     }
                                 ],
@@ -225,7 +227,7 @@
                                 "parameters": { "basic": { "to_if_alone_timeout_milliseconds": 400 } },
                                 "to": [
                                     {
-                                        "key_code": "left_option",
+                                        "key_code": "left_alt",
                                         "lazy": true
                                     }
                                 ],
@@ -344,14 +346,11 @@
             "selected": true,
             "simple_modifications": [
                 {
-                    "from": { "key_code": "right_control" },
-                    "to": [{ "key_code": "left_option" }]
-                },
-                {
                     "from": { "key_code": "right_option" },
                     "to": [{ "key_code": "left_option" }]
                 }
-            ]
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
 }
