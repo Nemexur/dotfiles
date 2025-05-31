@@ -36,10 +36,19 @@ symlink_additional_files:
     dest: "{{ home_dir }}/.config/yabai"
   - path: "{{ dotfiles_dir_files }}/skhd"
     dest: "{{ home_dir }}/.config/skhd"
+  - path: "{{ dotfiles_dir_files }}/ghostty"
+    dest: "{{ home_dir }}/.config/ghostty"
   - path: "{{ dotfiles_dir_files }}/vscode/settings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/settings.json'
   - path: "{{ dotfiles_dir_files }}/vscode/keybindings.json"
     dest: '{{ home_dir }}/Library/Application Support/Code/User/keybindings.json'
+#
+# Cron
+#
+cron_tasks:
+  - name: kill old tmux sessions
+    job: 'tmux-kill-session -v --filter "dotfiles|ssh|skip" --inactive-mins-max 720'
+    hour: "*/3"  # every 3 hours
 #
 # Homebrew
 #
@@ -73,6 +82,12 @@ homebrew_installed_packages:
   - docker
   - docker-compose
   - docker-buildx
+  # Collection of csv utilities
+  - csvkit
+  # Collection of awesome utilities
+  - moreutils
+  # Turn text to diagrams
+  - d2
   # Window manager
   - yabai
   - skhd
@@ -151,6 +166,7 @@ homebrew_installed_packages:
   - jq
   - yq
   - jc
+  - fx
   # Fast CSV command-line toolkit
   - xsv
   # Elixir
@@ -293,6 +309,8 @@ homebrew_installed_packages:
   - golang-migrate
   # SshPass
   - hudochenkov/sshpass/sshpass
+  # Parse HTML at the command-line
+  - pup
 homebrew_cask_apps:
   # Browsers
   - sigmaos
