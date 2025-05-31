@@ -55,6 +55,7 @@ You can filter which part of the provisioning process to run by specifying a set
 - filesystem
 - symlink
 - install
+- cron
 - misc
 
 ```bash
