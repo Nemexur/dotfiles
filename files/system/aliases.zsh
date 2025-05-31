@@ -20,9 +20,11 @@ alias ls='eza --icons --color=always'
 alias ll='eza --icons --color=always -l'
 alias la='eza --icons --color=always -la'
 alias lt='eza --icons --color=always -T'
+alias ssh='tmux-ssh'
 alias pass='gopass'
 alias pinentry='pinentry-mac'
 alias tnotif='terminal-notifier'
+alias icat='kitty icat'
 
 # macOS utils everywhere
 if [[ "$OSTYPE" == darwin* ]]; then

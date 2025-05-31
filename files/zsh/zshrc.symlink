@@ -1,5 +1,11 @@
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-antidote load ${HOME}/.zplugins
+zsh_plugins=${HOME}/.zplugins
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins} ]]; then
+  (
+    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+    antidote bundle <${zsh_plugins} >${zsh_plugins}.zsh
+  )
+fi
+source ${zsh_plugins}.zsh
 
 for f in $DOTFILES/files/**/*.zsh; do
     if [[ $f =~ config.zsh$ ]]; then

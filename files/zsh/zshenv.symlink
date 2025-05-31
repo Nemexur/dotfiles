@@ -1,13 +1,46 @@
+export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+export HOMEBREW_PREFIX=/opt/homebrew
+export HOMEBREW_REPOSITORY=/opt/homebrew
+
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
-export DOTFILES="${HOME}/.dotfiles"
 export GPG_TTY=$(tty)
 
 export EDITOR="nvim"
 export LANG=en_US.UTF-8
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export TERM=xterm-256color
+export MANPAGER='nvim +Man!'
 export LIBFM_PATH="${HOME}/Developer/libfm/bin/"
-export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_ROOT="${HOME}/.pyenv"
 export FZF_DEFAULT_OPTS="--bind=ctrl-n:down,ctrl-p:up,ctrl-y:accept"
+
+export C_INCLUDE_PATH="${HOMEBREW_CELLAR}/librdkafka/2.6.0/include/"
+export LIBRARY_PATH="${HOMEBREW_CELLAR}/librdkafka/2.6.0/include/"
+
+export DOTFILES="${HOME}/.dotfiles"
+export PATH="./bin:${DOTFILES}/files/bin:$PATH"
+
+export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
+export GOPATH="${HOME}/.go"
+export PATH="${GOPATH}/bin:${PATH}"
+
+export PATH="${HOME}/.krew/bin:${PATH}"
+
+export PATH="${HOME}/.emacs.d/bin:${PATH}"
+
+export PATH="${HOME}/.poetry/bin:${PATH}"
+
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+	export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gawk/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-getopt/bin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-indent/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-time/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-which/libexec/gnubin:$PATH"
+	export PATH="${HOMEBREW_PREFIX}/opt/gnu-units/libexec/gnubin:$PATH"
+fi
+
+export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+export CDPATH=.:..:$HOME:$GOROOT/src:$GOPATH/src/golang.org:$GOPATH/src/github.com
