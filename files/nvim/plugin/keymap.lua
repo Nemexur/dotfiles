@@ -28,21 +28,26 @@ map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move visual down" })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move visual up" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 map("n", "n", "'Nn'[v:searchforward].'zz'", { expr = true, desc = "Next search result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map("n", "N", "'nN'[v:searchforward].'zz'", { expr = true, desc = "Prev search result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("n", "[e", ":<c-u>execute 'move -1-'. v:count1<cr>", { desc = "Move one line up" })
+map("n", "]e", ":<c-u>execute 'move +'. v:count1<cr>", { desc = "Move one line down" })
 
 -- delete with mini-pairs
 map("i", "<C-h>", "v:lua.MiniPairs.bs()", { expr = true, replace_keycodes = false, desc = "Delete character" })
 map("i", "<C-w>", 'v:lua.MiniPairs.bs("\23")', { expr = true, replace_keycodes = false, desc = "Delete word" })
-map("i", "<C-u>", 'v:lua.MiniPairs.bs("\21")', { expr = true, replace_keycodes = false, desc = "Delete to the beginning" })
-
--- better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map(
+    "i",
+    "<C-u>",
+    'v:lua.MiniPairs.bs("\21")',
+    { expr = true, replace_keycodes = false, desc = "Delete to the beginning" }
+)
 
 -- sane C-d, C-u
 map("n", "<C-d>", "<C-d>zz")
