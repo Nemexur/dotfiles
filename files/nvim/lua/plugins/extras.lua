@@ -1,96 +1,18 @@
 return {
-    { "tpope/vim-rsi", lazy = false },
+    { "vuciv/golf",       cmd = "Golf" },
     { "romainl/vim-cool", event = "VeryLazy" },
-    { "tpope/vim-eunuch", event = "VeryLazy" },
     {
-        "christoomey/vim-tmux-navigator",
-        cmd = {
-            "TmuxNavigateLeft",
-            "TmuxNavigateDown",
-            "TmuxNavigateUp",
-            "TmuxNavigateRight",
-            "TmuxNavigatePrevious",
-        },
-        keys = {
-            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-        },
-    },
-    {
-        "dstein64/vim-startuptime",
-        cmd = "StartupTime",
-        config = function()
-            vim.g.startuptime_tries = 10
-        end,
-    },
-    {
-        "pwntester/octo.nvim",
-        cmd = "Octo",
-        opts = {},
-    },
-    {
-        "laytan/cloak.nvim",
-        lazy = false,
-        opts = {},
-    },
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup({
-                map_c_ = true,
-                map_c_w = true,
-            })
-            require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
-        end,
-    },
-    {
-        "NeogitOrg/neogit",
-        opts = {
-            integrations = {
-                telescope = true,
-                diffview = true,
-            },
-            disable_insert_on_commit = true,
-            grap_style = "unicode",
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
-        },
-    },
-    {
-        "kdheepak/lazygit.nvim",
-        cmd = "LazyGit",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-        "folke/persistence.nvim",
-        event = "BufReadPre",
-        opts = {
-            dir = vim.fn.expand(vim.fn.stdpath("config") .. "/session/"),
-            options = { "buffers", "curdir", "tabpages", "winsize" },
-        },
-    },
-    {
-        "epwalsh/obsidian.nvim",
+        "obsidian-nvim/obsidian.nvim",
         version = "*",
         ft = "markdown",
-        cmd = {
-            "ObsidianFollowLink",
-            "ObsidianNew",
-            "ObsidianQuickSwitch",
-            "ObsidianSearch",
-        },
+        dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
         opts = {
             dir = os.getenv("SECOND_BRAIN"),
             notes_subdir = "0 Inbox",
             new_notes_location = "current_dir",
             completion = {
-                nvim_cmp = true,
+                nvim_cmp = false,
+                blink = true,
                 min_chars = 2,
             },
             note_id_func = function(title)
@@ -105,34 +27,78 @@ return {
                 end
                 return suffix .. " " .. tostring(os.time())
             end,
-            disable_frontmatter = true,
+            disable_frontmatter = false,
             mappings = {},
-            finder = "telescope.nvim",
+            picker = { name = "snacks.pick" },
             open_notes_in = "current",
         },
-        dependencies = { "nvim-lua/plenary.nvim" },
+        keys = {
+            { "<leader>ol", "<cmd>ObsidianFollowLink<cr>",  desc = "Follow link" },
+            { "<leader>on", "<cmd>ObsidianNew<cr>",         desc = "New file" },
+            { "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch" },
+            { "<leader>ot", "<cmd>ObsidianSearch<cr>",      desc = "Search Inside Notes" },
+            {
+                "<leader>oo",
+                string.format("<leader>o", "<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")),
+                desc = "Open Obsidian",
+            },
+        },
+    },
+    {
+        "dstein64/vim-startuptime",
+        config = function()
+            vim.g.startuptime_tries = 10
+        end,
+        cmd = "StartupTime",
     },
     {
         "tris203/hawtkeys.nvim",
-        cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
+        dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
         config = true,
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
+        cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
     },
     {
         "chrishrb/gx.nvim",
-        keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
-        cmd = { "Browse" },
-        init = function()
-            vim.g.netrw_nogx = 1 -- disable netrw gx
-        end,
+        dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
             handler_options = {
                 search_engine = "https://search.brave.com/search?q=", -- or you can pass in a custom search engine
             },
         },
-        dependencies = { "nvim-lua/plenary.nvim" },
+        init = function()
+            vim.g.netrw_nogx = 1 -- disable netrw gx
+        end,
+        keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    },
+    {
+        "fredrikaverpil/godoc.nvim",
+        version = "*",
+        dependencies = {
+            { "folke/snacks.nvim" },
+            { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = { "go" } } },
+        },
+        build = "go install github.com/lotusirous/gostdsym/stdsym@latest",
+        cmd = { "GoDoc" },
+        opts = { picker = { type = "snacks" } },
+    },
+    {
+        "Wansmer/langmapper.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {
+        "m4xshen/hardtime.nvim",
+        event = "VeryLazy",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
+            max_count = 5,
+            disable_mouse = false,
+            disabled_keys = {
+                ["<Up>"] = false,
+                ["<Down>"] = false,
+                ["<Left>"] = false,
+                ["<Right>"] = false,
+            },
+        },
     },
 }

@@ -1,20 +1,17 @@
-local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_ok then
-    return
-end
-
-lspconfig.ansiblels.setup({
+return {
+    cmd = { "ansible-language-server", "--stdio" },
+    root_markers = { "ansible.cfg", ".ansible-lint" },
     filetypes = { "yaml.ansible" },
     settings = {
         ansible = {
+            python = {
+                interpreterPath = "python",
+            },
             ansible = {
                 path = "ansible",
             },
             executionEnvironment = {
                 enabled = false,
-            },
-            python = {
-                interpreterPath = "python",
             },
             validation = {
                 enabled = true,
@@ -25,4 +22,4 @@ lspconfig.ansiblels.setup({
             },
         },
     },
-})
+}

@@ -1,223 +1,124 @@
 return {
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
-        config = false,
-        init = function()
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
-        end,
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
-        config = function()
-            local lsp_zero = require("lsp-zero")
-            lsp_zero.extend_cmp()
-
-            local cmp = require("cmp")
-
-            cmp.setup({
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lua" },
-                    { name = "path" },
-                    { name = "buffer" },
-                    { name = "emoji" },
-                    { name = "calc" },
-                    { name = "vimtex" },
-                },
-                mapping = {
-                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<C-y>"] = cmp.mapping(
-                        cmp.mapping.confirm({
-                            behavior = cmp.ConfirmBehavior.Insert,
-                            select = true,
-                        }),
-                        { "i", "c" }
-                    ),
-                },
-                preselect = cmp.PreselectMode.None,
-                completion = {
-                    completeopt = "menu,menuone,noinsert",
-                },
-                formatting = {
-                    fields = { "abbr", "kind", "menu" },
-                    format = require("lspkind").cmp_format({ mode = "symbol_text" }),
-                    expandable_indicator = true,
-                    duplicates = {
-                        buffer = 1,
-                        path = 1,
-                        nvim_lsp = 0,
-                        luasnip = 1,
-                    },
-                    duplicates_default = 0,
-                },
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-                experimental = {
-                    ghost_text = {
-                        hl_group = "CmpGhostText",
-                    },
-                },
-            })
-            -- Setup up vim-dadbod
-            cmp.setup.filetype({ "sql" }, {
-                sources = {
-                    { name = "vim-dadbod-completion" },
-                    { name = "buffer" },
-                },
-            })
+        "saghen/blink.cmp",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+        version = "1.*",
+        enabled = function()
+            return not vim.tbl_contains({ "tex" }, vim.bo.filetype) and vim.bo.filetype ~= "prompt"
         end,
         dependencies = {
             "L3MON4D3/LuaSnip",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-emoji",
-            "hrsh7th/cmp-calc",
-            "saadparwaiz1/cmp_luasnip",
-            "onsails/lspkind.nvim",
-            "micangl/cmp-vimtex",
+            "rafamadriz/friendly-snippets",
+            "saghen/blink.compat",
         },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
         config = function()
-            local lsp_zero = require("lsp-zero")
-            lsp_zero.extend_lspconfig()
-
-            lsp_zero.on_attach(function(_, bufnr)
-                lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
-                require("lsp_signature").on_attach({ bind = true, handler_opts = { border = "rounded" } }, bufnr)
-            end)
-            lsp_zero.set_server_config({
-                capabilities = {
-                    textDocument = {
-                        foldingRange = {
-                            dynamicRegistration = false,
-                            lineFoldingOnly = true,
+            local blink = require("blink.cmp")
+            blink.setup({
+                snippets = { preset = "luasnip" },
+                keymap = { preset = "default" },
+                appearance = {
+                    use_nvim_cmp_as_default = true,
+                    nerd_font_variant = "mono",
+                },
+                sources = {
+                    default = { "lazydev", "lsp", "path", "snippets", "buffer", "dadbod" },
+                    providers = {
+                        lazydev = {
+                            name = "LazyDev",
+                            module = "lazydev.integrations.blink",
+                            score_offset = 100,
                         },
+                        dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
                     },
                 },
+                cmdline = {
+                    enabled = false,
+                },
+                completion = {
+                    accept = {
+                        auto_brackets = {
+                            enabled = true,
+                        },
+                    },
+                    menu = {
+                        border = "single",
+                        draw = {
+                            components = {
+                                kind_icon = {
+                                    ellipsis = false,
+                                    text = function(ctx)
+                                        return require("lspkind").symbolic(ctx.kind, {
+                                            mode = "symbol",
+                                        })
+                                    end,
+                                },
+                            },
+                            columns = {
+                                { "label", "label_description", gap = 1 },
+                                { "kind_icon", "kind", gap = 1 },
+                            },
+                            treesitter = { "lsp" },
+                        },
+                    },
+                    documentation = {
+                        auto_show = true,
+                        auto_show_delay_ms = 200,
+                        window = { border = "single" },
+                    },
+                    ghost_text = { enabled = true },
+                },
             })
-            lsp_zero.format_on_save({
-                format_opts = {
-                    async = false,
-                    timeout_ms = 10000,
+            local capabilities = {
+                textDocument = {
+                    foldingRange = {
+                        dynamicRegistration = false,
+                        lineFoldingOnly = true,
+                    },
                 },
-                servers = {
-                    ["null-ls"] = { "lua", "go", "json", "md", "js" },
-                },
-            })
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "ansiblels",
-                    "bashls",
-                    "clangd",
-                    "docker_compose_language_service",
-                    "dockerls",
-                    "gopls",
-                    "golangci_lint_ls",
-                    "helm_ls",
-                    "jsonls",
-                    "lua_ls",
-                    "pyright",
-                    "ruff_lsp",
-                    "sqlls",
-                    "vimls",
-                    "yamlls",
-                    "rust_analyzer",
-                },
-                handlers = {
-                    lsp_zero.default_setup,
-                    lua_ls = function()
-                        local lua_opts = lsp_zero.nvim_lua_ls()
-                        require("lspconfig").lua_ls.setup(lua_opts)
-                    end,
-                },
-            })
+            }
+            vim.lsp.config("*", { capabilities = blink.get_lsp_capabilities(capabilities, true) })
         end,
-        dependencies = {
-            "folke/neodev.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "tamago324/nlsp-settings.nvim",
-            "ray-x/lsp_signature.nvim",
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                { path = "snacks.nvim", words = { "Snacks" } },
+                { path = "lazy.nvim", words = { "LazyVim" } },
+            },
         },
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        cmd = { "LspInstall", "LspUninstall" },
-        dependencies = { "williamboman/mason.nvim" },
-    },
-    {
-        "tamago324/nlsp-settings.nvim",
-        cmd = "LspSettings",
     },
     {
         "williamboman/mason.nvim",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        opts = {},
+        dependencies = { "saghen/blink.cmp" },
+        config = function()
+            require("mason").setup()
+            for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
+                local name = vim.fn.fnamemodify(f, ":t:r")
+                local cmd = dofile(f).cmd[1]
+                if vim.fn.executable(cmd) == 0 then
+                    vim.cmd("MasonInstall " .. name)
+                end
+                vim.lsp.enable(name)
+            end
+        end,
     },
     {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
         build = "make install_jsregexp",
-        keys = {
-            {
-                "<tab>",
-                function()
-                    return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-                end,
-                expr = true,
-                silent = true,
-                mode = "i",
-            },
-            {
-                "<tab>",
-                function()
-                    require("luasnip").jump(1)
-                end,
-                mode = "s",
-            },
-            {
-                "<s-tab>",
-                function()
-                    require("luasnip").jump(-1)
-                end,
-                mode = { "i", "s" },
-            },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
         },
         opts = {
             history = true,
             delete_check_events = "TextChanged",
         },
-        dependencies = {
-            "rafamadriz/friendly-snippets",
-            "saadparwaiz1/cmp_luasnip",
-        },
     },
-    { "folke/neodev.nvim", opts = {} },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-nvim-lua" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    { "hrsh7th/cmp-emoji" },
-    { "hrsh7th/cmp-calc" },
-    { "micangl/cmp-vimtex" },
-    { "ray-x/cmp-treesitter" },
-    { "saadparwaiz1/cmp_luasnip" },
     {
         "rafamadriz/friendly-snippets",
         config = function()
@@ -226,7 +127,6 @@ return {
             require("luasnip.loaders.from_snipmate").lazy_load()
         end,
     },
-    { "lvimuser/lsp-inlayhints.nvim", opts = {} },
     {
         "onsails/lspkind.nvim",
         init = function()
@@ -262,16 +162,5 @@ return {
                 },
             })
         end,
-    },
-    {
-        "j-hui/fidget.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            notification = {
-                window = {
-                    winblend = 0,
-                },
-            },
-        },
     },
 }
