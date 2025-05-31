@@ -1,0 +1,11 @@
+---
+- name: Ensure cron task is present
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    job: "{{ item.job }}"
+    month: "{{ item.month | default('*')}}"
+    weekday: "{{ item.weekday | default('*')}}"
+    hour: "{{ item.hour | default('*')}}"
+    minute: "{{ item.minute | default('*')}}"
+    state: "present"
+  loop: "{{ cron_tasks }}"
