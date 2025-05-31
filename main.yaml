@@ -65,5 +65,9 @@
       tags:
         - tmux
         - terminal
+    - role: cron
+      tags:
+        - cron
+        - system
     - role: misc
       tags: misc
