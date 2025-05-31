@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+args=(DIR)
+
+declare -a default_paths paths
+default_paths=(
+	"${HOME}/Desktop"
+	"${HOME}/Documents"
+	"${HOME}/Developer"
+	"${HOME}/.dotfiles"
+)
+paths=()
+
+usage() {
+	cat <<EOF
+Switch to a tmux-session based on the passed directory.
+It the DIR is empty, fzf picker is launched.
+
+USAGE: ${script_name} [OPTIONS] ${args[*]}
+
+OPTIONS:
+  -h, --help    Print help.
+  -p, --path    Base paths for fzf-picker. Default:
+$(tr " " "\n" <<<"${default_paths[@]}" | sed 's/^/                - /').
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-p | --path)
+			paths+=("${2-}")
+			shift
+			;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	if [[ "${#paths[@]}" -eq 0 ]]; then
+		paths=("${default_paths[@]}")
+	fi
+	argv=("$@")
+}
+
+switch_to() {
+	if [[ -z "${TMUX}" ]]; then
+		tmux attach-session -t "$1"
+	else
+		tmux switch-client -t "$1"
+	fi
+}
+
+has_session() {
+	tmux list-sessions | grep -q "^$1:"
+}
+
+parse_params "$@"
+
+if [[ "${#argv[@]}" -eq 1 ]]; then
+	start_directory="${argv[0]}"
+else
+	fzf_cmd=$([[ -z "${TMUX}" ]] && echo "fzf" || echo "fzf --tmux 70%")
+	# shellcheck disable=SC2048,SC2086
+	start_directory=$(fd -H -td -E venv -E .venv -E .git --full-path . ${paths[*]} |
+		cat <(tr " " "\n" <<<"${paths[*]}") - | sed "s#^${HOME}#~#" |
+		${fzf_cmd} | sed "s#~#${HOME}#")
+fi
+
+if [[ -z "${start_directory}" ]]; then
+	die "start directory is empty" 0
+fi
+
+base_dir="$(basename "$(dirname "${start_directory}")")"
+base_name="$(basename "${start_directory}")"
+session_name=$(tr . _ <<<"${base_dir}/${base_name}")
+tmux_running=$(pgrep tmux)
+
+if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then
+	tmux new-session -s "${session_name}" -c "${start_directory}" \
+		'tmux new-window -n zsh && tmux new-window -dn term'
+	exit 0
+fi
+
+if ! has_session "${session_name}"; then
+	tmux new-session -ds "${session_name}" -c "${start_directory}" \
+		'tmux new-window -n zsh && tmux new-window -dn term'
+fi
+
+switch_to "${session_name}"

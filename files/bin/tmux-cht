@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 FILES_DIR="${DOTFILES}/files/cht.sh"
 
