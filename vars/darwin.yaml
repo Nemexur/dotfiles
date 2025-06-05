@@ -152,6 +152,8 @@ homebrew_installed_packages:
   - go
   # The power of REST API representation
   - go-swagger
+  # Draw Diagrams
+  - plantuml
   # Improved top (interactive process viewer)
   - htop
   - gotop
