@@ -24,7 +24,7 @@ alias ssh='tmux-ssh'
 alias pass='gopass'
 alias pinentry='pinentry-mac'
 alias tnotif='terminal-notifier'
-alias icat='kitty icat'
+alias icat='kitty icat --align left'
 
 # macOS utils everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
