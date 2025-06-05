@@ -35,7 +35,7 @@ return {
             { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
             { "<c-t>", function() Snacks.terminal() end, desc = "Toggle Terminal" },
             -- find
-            { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files (cwd)" },
+            { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = "Find Files (cwd)" },
             { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
             { "<leader>bb", function() Snacks.picker.buffers() end, desc = "Buffers" },
             { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
