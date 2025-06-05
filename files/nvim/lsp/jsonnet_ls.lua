@@ -11,9 +11,7 @@ return {
     cmd = { "jsonnet-language-server" },
     filetypes = { "jsonnet", "libsonnet" },
     single_file_support = true,
-    root_dir = function(fname)
-        return vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
-    end,
+    root_markers = { ".git" },
     on_new_config = function(new_config, root_dir)
         if not new_config.cmd_env then
             new_config.cmd_env = {}
