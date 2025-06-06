@@ -37,34 +37,190 @@ return {
             },
         },
         keys = {
-            { "<leader>,", function() Snacks.picker.buffers() end, desc = "Switch Buffer" },
-            { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
-            { "<c-t>", function() Snacks.terminal() end, desc = "Toggle Terminal" },
+            {
+                "<leader>,",
+                function()
+                    Snacks.picker.buffers()
+                end,
+                desc = "Switch Buffer",
+            },
+            {
+                "<leader>:",
+                function()
+                    Snacks.picker.command_history()
+                end,
+                desc = "Command History",
+            },
+            {
+                "<c-t>",
+                function()
+                    Snacks.terminal()
+                end,
+                desc = "Toggle Terminal",
+            },
             -- find
-            { "<leader>ff", function() Snacks.picker.files({ hidden = true }) end, desc = "Find Files (cwd)" },
-            { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Files (git-files)" },
-            { "<leader>bb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-            { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
-            { "<leader>fc", function() Snacks.picker.colorschemes() end, desc = "Colorscheme with Preview" },
-            { "<leader>fs", function() Snacks.picker.spelling() end, desc = "Spell" },
+            {
+                "<leader>ff",
+                function()
+                    Snacks.picker.files({ hidden = true })
+                end,
+                desc = "Find Files (cwd)",
+            },
+            {
+                "<leader>fg",
+                function()
+                    Snacks.picker.git_files()
+                end,
+                desc = "Find Files (git-files)",
+            },
+            {
+                "<leader>bb",
+                function()
+                    Snacks.picker.buffers()
+                end,
+                desc = "Buffers",
+            },
+            {
+                "<leader>fr",
+                function()
+                    Snacks.picker.recent()
+                end,
+                desc = "Recent",
+            },
+            {
+                "<leader>fc",
+                function()
+                    Snacks.picker.colorschemes()
+                end,
+                desc = "Colorscheme with Preview",
+            },
+            {
+                "<leader>fs",
+                function()
+                    Snacks.picker.spelling()
+                end,
+                desc = "Spell",
+            },
             -- search
-            { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
-            { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep (cwd)" },
-            { "<leader>sb", function() Snacks.picker.lines() end, desc = "Grep (buffer)" },
-            { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Auto Commands" },
-            { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
-            { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
-            { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-            { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
-            { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
-            { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Search Highlight Groups" },
-            { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumplist" },
-            { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Key Maps" },
-            { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
-            { "<leader>sm", function() Snacks.picker.marks() end, desc = "Jump to Mark" },
-            { "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume" },
-            { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons & Emoji"},
-            { "<leader>s/", function() Snacks.picker.search_history() end, desc = "Search History"},
+            {
+                '<leader>s"',
+                function()
+                    Snacks.picker.registers()
+                end,
+                desc = "Registers",
+            },
+            {
+                "<leader>sg",
+                function()
+                    Snacks.picker.grep()
+                end,
+                desc = "Grep (cwd)",
+            },
+            {
+                "<leader>sb",
+                function()
+                    Snacks.picker.lines()
+                end,
+                desc = "Grep (buffer)",
+            },
+            {
+                "<leader>sa",
+                function()
+                    Snacks.picker.autocmds()
+                end,
+                desc = "Auto Commands",
+            },
+            {
+                "<leader>sc",
+                function()
+                    Snacks.picker.command_history()
+                end,
+                desc = "Command History",
+            },
+            {
+                "<leader>sC",
+                function()
+                    Snacks.picker.commands()
+                end,
+                desc = "Commands",
+            },
+            {
+                "<leader>sd",
+                function()
+                    Snacks.picker.diagnostics()
+                end,
+                desc = "Diagnostics",
+            },
+            {
+                "<leader>sD",
+                function()
+                    Snacks.picker.diagnostics_buffer()
+                end,
+                desc = "Buffer Diagnostics",
+            },
+            {
+                "<leader>sh",
+                function()
+                    Snacks.picker.help()
+                end,
+                desc = "Help Pages",
+            },
+            {
+                "<leader>sH",
+                function()
+                    Snacks.picker.highlights()
+                end,
+                desc = "Search Highlight Groups",
+            },
+            {
+                "<leader>sj",
+                function()
+                    Snacks.picker.jumps()
+                end,
+                desc = "Jumplist",
+            },
+            {
+                "<leader>sk",
+                function()
+                    Snacks.picker.keymaps()
+                end,
+                desc = "Key Maps",
+            },
+            {
+                "<leader>sM",
+                function()
+                    Snacks.picker.man()
+                end,
+                desc = "Man Pages",
+            },
+            {
+                "<leader>sm",
+                function()
+                    Snacks.picker.marks()
+                end,
+                desc = "Jump to Mark",
+            },
+            {
+                "<leader>sr",
+                function()
+                    Snacks.picker.resume()
+                end,
+                desc = "Resume",
+            },
+            {
+                "<leader>si",
+                function()
+                    Snacks.picker.icons()
+                end,
+                desc = "Icons & Emoji",
+            },
+            {
+                "<leader>s/",
+                function()
+                    Snacks.picker.search_history()
+                end,
+                desc = "Search History",
+            },
             {
                 "<leader>su",
                 function()
@@ -253,8 +409,20 @@ return {
     {
         "folke/todo-comments.nvim",
         keys = {
-            { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
-            { "<leader>sT", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+            {
+                "<leader>st",
+                function()
+                    Snacks.picker.todo_comments()
+                end,
+                desc = "Todo",
+            },
+            {
+                "<leader>sT",
+                function()
+                    Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+                end,
+                desc = "Todo/Fix/Fixme",
+            },
         },
         opts = {},
     },
