@@ -26,3 +26,4 @@ zstyle ':completion:*' menu no
 # Add preview to the completions
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-flags --bind=ctrl-n:down,ctrl-p:up,ctrl-y:accept
