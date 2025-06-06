@@ -16,6 +16,12 @@ return {
                     input = {
                         keys = {
                             ["<C-y>"] = { "confirm", mode = { "n", "i" } },
+                            ["<a-g>"] = { "toggle_ignored", mode = { "i", "n" } },
+                        },
+                    },
+                    list = {
+                        keys = {
+                            ["<a-g>"] = "toggle_ignored",
                         },
                     },
                 },
