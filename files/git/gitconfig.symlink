@@ -46,6 +46,7 @@
   # Disable fast-forward merges as default merge strategy.
   # Force explicit call of `git merge --ff …`.
   ff = true
+  conflictStyle = zdiff3
 [pull]
   rebase = true
 [push]
