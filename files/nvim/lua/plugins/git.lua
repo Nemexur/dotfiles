@@ -108,8 +108,4 @@ return {
         opts = { picker = "snacks" },
         cmd = "Octo",
     },
-    {
-        "ThePrimeagen/git-worktree.nvim",
-        opts = {},
-    },
 }

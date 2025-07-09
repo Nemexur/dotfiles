@@ -1,5 +1,5 @@
 return {
-    { "vuciv/golf",       cmd = "Golf" },
+    { "vuciv/golf", cmd = "Golf" },
     { "romainl/vim-cool", event = "VeryLazy" },
     {
         "obsidian-nvim/obsidian.nvim",
@@ -33,10 +33,10 @@ return {
             open_notes_in = "current",
         },
         keys = {
-            { "<leader>ol", "<cmd>ObsidianFollowLink<cr>",  desc = "Follow link" },
-            { "<leader>on", "<cmd>ObsidianNew<cr>",         desc = "New file" },
+            { "<leader>ol", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link" },
+            { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New file" },
             { "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch" },
-            { "<leader>ot", "<cmd>ObsidianSearch<cr>",      desc = "Search Inside Notes" },
+            { "<leader>ot", "<cmd>ObsidianSearch<cr>", desc = "Search Inside Notes" },
             {
                 "<leader>oo",
                 string.format("<leader>o", "<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")),
@@ -100,5 +100,10 @@ return {
                 ["<Right>"] = false,
             },
         },
+    },
+    {
+        "meznaric/key-analyzer.nvim",
+        opts = {},
+        cmd = { "KeyAnalyzer" },
     },
 }
