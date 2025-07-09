@@ -76,8 +76,11 @@ if [[ "${#argv[@]}" -eq 1 ]]; then
 else
 	fzf_cmd=$([[ -z "${TMUX}" ]] && echo "fzf" || echo "fzf --tmux 70%")
 	# shellcheck disable=SC2048,SC2086
-	start_directory=$(fd -H -td -E venv -E .venv -E .git --full-path . ${paths[*]} |
-		cat <(tr " " "\n" <<<"${paths[*]}") - | sed "s#^${HOME}#~#" |
+	start_directory=$(cat \
+		<(tmux ls -F '#{session_name}' | rg -v 'popup' | sed 's#^#tmux:#') \
+		<(tr " " "\n" <<<"${paths[*]}") \
+		<(fd -H -td -E venv -E .venv -E .git --full-path . ${paths[*]}) |
+		sed "s#^${HOME}#dir:~#" |
 		${fzf_cmd} | sed "s#~#${HOME}#")
 fi
 
@@ -85,10 +88,16 @@ if [[ -z "${start_directory}" ]]; then
 	die "start directory is empty" 0
 fi
 
-base_dir="$(basename "$(dirname "${start_directory}")")"
-base_name="$(basename "${start_directory}")"
-session_name=$(tr . _ <<<"${base_dir}/${base_name}")
 tmux_running=$(pgrep tmux)
+
+if [[ ${start_directory} == "tmux:"* ]]; then
+	session_name="${start_directory##tmux:}"
+else
+	start_directory="${start_directory##dir:}"
+	base_dir="$(basename "$(dirname "${start_directory}")")"
+	base_name="$(basename "${start_directory}")"
+	session_name=$(tr . _ <<<"${base_dir}/${base_name}")
+fi
 
 if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then
 	tmux new-session -s "${session_name}" -c "${start_directory}" \
