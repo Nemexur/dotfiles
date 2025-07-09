@@ -103,7 +103,9 @@ return {
                 if vim.fn.executable(cmd) == 0 then
                     vim.cmd("MasonInstall " .. name)
                 end
-                vim.lsp.enable(name)
+                if name ~= "ty" then
+                    vim.lsp.enable(name)
+                end
             end
         end,
     },

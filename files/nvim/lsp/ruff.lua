@@ -8,7 +8,7 @@ return {
             lineLength = 100,
             organizeImports = true,
             showSyntaxErrors = true,
-            codeAction = { fixViolation = { enable = false } },
+            codeAction = { fixViolation = { enable = true } },
             format = {
                 preview = true,
                 ["quote-style"] = "double",
