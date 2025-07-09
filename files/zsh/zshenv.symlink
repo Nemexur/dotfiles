@@ -18,7 +18,7 @@ export C_INCLUDE_PATH="${HOMEBREW_CELLAR}/librdkafka/2.6.0/include/"
 export LIBRARY_PATH="${HOMEBREW_CELLAR}/librdkafka/2.6.0/include/"
 
 export DOTFILES="${HOME}/.dotfiles"
-export PATH="./bin:${DOTFILES}/files/bin:$PATH"
+export PATH="./bin:${DOTFILES}/files/bin:${HOME}/.local/bin:$PATH"
 
 export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
 export GOPATH="${HOME}/.go"
