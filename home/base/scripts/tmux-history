@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+args=(PANE_LOG_FILE)
+
+usage() {
+	cat <<EOF
+Show tmux capture-pane in NeoVim. If PANE_LOG_FILE is empty, tmp file is created.
+
+USAGE: ${script_name} [OPTIONS] ${args[*]}
+
+OPTIONS:
+  -h, --help    Print help.
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	argv=("$@")
+	return 0
+}
+
+parse_params "$@"
+
+if [[ "${#argv[@]}" -eq 1 ]]; then
+	hist_file="${argv[0]}"
+else
+    hist_file="$(mktemp)"
+fi
+tmux capture-pane -pS -32768 > "${hist_file}"
+tmux display-popup -xC -yC -w 50% -h 50% -E "nvim -c 'set filetype=hist' ${hist_file}"

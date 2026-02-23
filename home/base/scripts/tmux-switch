@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+args=(SESSION_NAME)
+
+usage() {
+	cat <<EOF
+Switch to a tmux-session. If the SESSION_NAME argument is empty, fzf picker is launched.
+
+USAGE: ${script_name} [OPTIONS] ${args[*]}
+
+OPTIONS:
+  -h, --help    Print help.
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-p | --path)
+			paths+=("${2-}")
+			shift
+			;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	argv=("$@")
+}
+
+switch_to() {
+	if [[ -z "${TMUX}" ]]; then
+		tmux attach-session -t "$1"
+	else
+		tmux switch-client -t "$1"
+	fi
+}
+
+parse_params "$@"
+
+tmux_running=$(pgrep tmux)
+if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then
+    die "TMUX must be running"
+fi
+
+if [[ "${#argv[@]}" -eq 1 ]]; then
+	session_name="${argv[0]}"
+else
+    session_name=$(tmux ls -F '#{session_name}' | rg -v 'popup' | fzf --tmux 70%)
+fi
+if [[ -z "${session_name}" ]]; then
+    die "session name is empty" 0
+fi
+
+switch_to "${session_name}"

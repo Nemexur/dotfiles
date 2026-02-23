@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+
+filter=""
+inactive_mins_max=60
+logs_path="/tmp/tmux-kill-session.log"
+verbose=false
+
+usage() {
+	cat <<EOF
+Kill old tmux sessions.
+
+USAGE: ${script_name} [OPTIONS]
+
+OPTIONS:
+  --inactive-mins-max    Maximum elapsed time in minutes since last activity. Default: ${inactive_mins_max}.
+  -f, --filter           Regex filter for sessions. Default ${filter:-"none"}.
+  -v, --verbose          Verbosity mode. Logs will be saved to ${logs_path}.
+  -h, --help             Print help.
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+    if ${verbose}; then
+        echo -e "${1-}" | ts >> "${logs_path}"
+    fi
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-f | --filter)
+			filter="${2-}"
+			shift
+			;;
+		--inactive-mins-max)
+			inactive_mins_max="${2-}"
+			shift
+			;;
+		-v | --verbose)
+			verbose=true
+			;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	return 0
+}
+
+parse_params "$@"
+
+now=$(date +%s)
+
+# shellcheck disable=SC2015
+tmux ls -F '#{session_name} #{session_activity}' | ([[ -n "${filter}" ]] && rg -v "${filter}" || cat) | while read -r session_name session_last_activity; do
+	session_last_activity_mins_elapsed=$(((now - session_last_activity) / 60))
+    msg "${session_name} is ${session_last_activity_mins_elapsed}min"
+	if [[ "${session_last_activity_mins_elapsed}" -gt "${inactive_mins_max}" ]]; then
+        msg "Killed session: ${session_name} (Inactive for ${session_last_activity_mins_elapsed}min)"
+		tmux kill-session -t "${session_name}"
+	fi
+done
