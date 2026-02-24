@@ -8,6 +8,7 @@ vim.g.vimtex_syntax_enabled = 0
 vim.g.trouble_lualine = true
 
 vim.opt.mouse = "a"
+vim.opt.smoothscroll = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.spelllang = { "en" }
 vim.opt.undofile = true
@@ -77,3 +78,11 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
+
+-- Extensions
+vim.filetype.add({
+    extension = {
+        ["http"] = "http",
+        ["rest"] = "rest",
+    },
+})

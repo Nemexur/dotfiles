@@ -19,14 +19,6 @@ return {
         },
     },
     {
-        "kdheepak/lazygit.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "LazyGit",
-        keys = {
-            { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit", mode = "n" },
-        },
-    },
-    {
         "ruifm/gitlinker.nvim",
         opts = { mappings = nil },
         keys = {
@@ -60,41 +52,45 @@ return {
             on_attach = function(buffer)
                 local gs = require("gitsigns")
 
-                local function map(mode, l, r, desc)
-                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-                end
-
                 -- stylua: ignore start
-                map("n", "]h", function()
+                Snacks.keymap.set("n", "]h", function()
                     if vim.wo.diff then
                         vim.cmd.normal({ "]c", bang = true })
                     else
                         gs.nav_hunk("next")
                     end
-                end, "Next Hunk")
-                map("n", "[h", function()
+                end, { desc = "Next Hunk", buffer = buffer })
+                Snacks.keymap.set("n", "[h", function()
                     if vim.wo.diff then
                         vim.cmd.normal({ "[c", bang = true })
                     else
                         gs.nav_hunk("prev")
                     end
-                end, "Prev Hunk")
-                map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
-                map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
-                map("n", "<leader>ghs", gs.stage_hunk, "Stage Hunk")
-                map('v', '<leader>hs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, "Stage hunk")
-                map("n", "<leader>ghr", gs.reset_hunk, "Reset Hunk")
-                map('v', '<leader>hr', function() gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, "Reset hunk")
-                map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-                map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-                map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
-                map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-                map("n", "<leader>ghB", gs.blame, "Blame Buffer")
-                map("n", "<leader>ghd", gs.diffthis, "Diff This")
-                map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
-                map('n', '<leader>ghQ', function() gs.setqflist('all') end, "QuickFix list with hunks (all)")
-                map('n', '<leader>ghq', gs.setqflist, "QuickFix list with hunks (buffer)")
-                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+                end, { desc = "Prev Hunk", buffer = buffer })
+                Snacks.keymap.set("n", "]H", function() gs.nav_hunk("last") end, { desc = "Last Hunk", buffer = buffer })
+                Snacks.keymap.set("n", "[H", function() gs.nav_hunk("first") end, { desc = "First Hunk", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghs", gs.stage_hunk, { desc = "Stage Hunk", buffer = buffer })
+                Snacks.keymap.set('v', '<leader>hs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end,
+                    { desc = "Stage hunk", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghr", gs.reset_hunk, { desc = "Reset Hunk", buffer = buffer })
+                Snacks.keymap.set('v', '<leader>hr', function() gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end,
+                    { desc = "Reset hunk", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghS", gs.stage_buffer, { desc = "Stage Buffer", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghR", gs.reset_buffer, { desc = "Reset Buffer", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghp", gs.preview_hunk_inline,
+                    { desc = "Preview Hunk Inline", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghb", function() gs.blame_line({ full = true }) end,
+                    { desc = "Blame Line", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghB", gs.blame, { desc = "Blame Buffer", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghd", gs.diffthis, { desc = "Diff This", buffer = buffer })
+                Snacks.keymap.set("n", "<leader>ghD", function() gs.diffthis("~") end,
+                    { desc = "Diff This ~", buffer = buffer })
+                Snacks.keymap.set('n', '<leader>ghQ', function() gs.setqflist('all') end,
+                    { desc = "QuickFix list with hunks (all)", buffer = buffer })
+                Snacks.keymap.set('n', '<leader>ghq', gs.setqflist,
+                    { desc = "QuickFix list with hunks (buffer)", buffer = buffer })
+                Snacks.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>",
+                    { desc = "GitSigns Select Hunk", buffer = buffer })
             end,
         },
     },

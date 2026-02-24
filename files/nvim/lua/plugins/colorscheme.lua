@@ -11,11 +11,19 @@ return {
                 lualine_bold = true,
                 use_background = false,
                 sidebars = { "help" },
+                styles = {
+                    comments = { italic = true },
+                    keywords = { bold = true },
+                },
                 on_highlights = function(highlights, colors)
                     local util = require("eldritch.util")
 
                     highlights["@variable"] = { fg = colors.white }
+                    highlights["@lsp.type.parameter"] = { fg = colors.white }
+                    highlights["@keyword.import"] = { fg = util.darken(colors.pink, 0.9) }
+                    highlights.StatusLine = { bg = colors.none }
                     highlights.Function = { fg = colors.orange }
+                    highlights.Type = { fg = colors.cyan, style = { italic = true, bold = true } }
                     highlights.LineNr = { fg = util.darken(colors.purple, 0.5) }
                     highlights.DiagnosticVirtualTextError = {
                         fg = colors.red,
@@ -45,6 +53,21 @@ return {
                 end,
             })
             vim.cmd.colorscheme("eldritch")
+        end,
+    },
+    {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            require("nightfox").setup({
+                options = {
+                    transparent = true,
+                    styles = {
+                        comments = "italic",
+                        keywords = "bold",
+                        types = "italic,bold",
+                    },
+                },
+            })
         end,
     },
     {

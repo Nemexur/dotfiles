@@ -96,7 +96,7 @@ else
 	start_directory="${start_directory##dir:}"
 	base_dir="$(basename "$(dirname "${start_directory}")")"
 	base_name="$(basename "${start_directory}")"
-	session_name=$(tr . _ <<<"${base_dir}/${base_name}")
+	session_name=$(tr '. ' '__' <<<"${base_dir}/${base_name}")
 fi
 
 if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then

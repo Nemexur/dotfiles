@@ -1,119 +1,159 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        event = "VeryLazy",
+        branch = "main",
+        version = false,
+        lazy = false,
         build = ":TSUpdate",
-        main = "nvim-treesitter.configs",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            "nvim-treesitter/nvim-treesitter-context",
-        },
+        cmd = { "TSUpdate", "TSInstall", "TSUninstall", "TSLog" },
+        opts_extend = { "ensure_installed" },
         opts = {
-            sync_install = false,
-            auto_install = false,
-            ignore_install = {},
             ensure_installed = {
                 "bash",
-                "json",
-                "lua",
-                "python",
-                "yaml",
+                "c",
+                "diff",
+                "dockerfile",
+                "gitcommit",
+                "gitignore",
                 "go",
+                "gomod",
+                "gosum",
+                "helm",
+                "html",
+                "javascript",
+                "jsdoc",
+                "json",
+                "jsonnet",
                 "latex",
+                "lua",
+                "luadoc",
+                "luap",
                 "make",
-                "markdown",
                 "markdown_inline",
+                "markdown",
+                "printf",
+                "proto",
+                "python",
+                "query",
+                "regex",
                 "sql",
                 "toml",
-                "jsonnet",
+                "tsx",
+                "typescript",
+                "vim",
+                "vimdoc",
+                "xml",
+                "yaml",
+                "zsh",
             },
-            indent = { enable = true, disable = { "ruby" } },
-            autotag = { enable = true },
-            matchup = { enable = true },
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = { "ruby" },
-            },
-            textobjects = {
-                select = {
-                    enable = true,
-                    lookahead = true,
-                    selection_modes = {
-                        ["@parameter.outer"] = "v",
-                        ["@function.outer"] = "V",
-                        ["@class.outer"] = "<c-v>",
+        },
+        config = function(_, opts)
+            local TS = require("nvim-treesitter")
+            TS.setup(opts)
+
+            local installed = {}
+            for _, lang in ipairs(require("nvim-treesitter").get_installed("parsers")) do
+                installed[lang] = true
+            end
+
+            local install = vim.tbl_filter(function(lang)
+                return installed[lang] == nil
+            end, opts.ensure_installed or {})
+            TS.install(install, { summary = true })
+        end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+        version = false,
+        event = "VeryLazy",
+        opts = {
+            move = {
+                keys = {
+                    goto_next_start = {
+                        ["]f"] = "@function.outer",
+                        ["]c"] = "@class.outer",
+                        ["]a"] = "@parameter.inner",
                     },
-                    keymaps = {
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["as"] = "@class.outer",
-                        ["is"] = "@class.inner",
-                        ["ac"] = "@call.outer",
-                        ["ic"] = "@call.inner",
-                        ["aa"] = "@parameter.outer",
-                        ["ia"] = "@parameter.inner",
-                        ["al"] = "@loop.outer",
-                        ["il"] = "@loop.inner",
-                        ["ai"] = "@conditional.outer",
-                        ["ii"] = "@conditional.inner",
-                        ["a/"] = "@comment.outer",
-                        ["i/"] = "@comment.inner",
-                        ["ab"] = "@block.outer",
-                        ["ib"] = "@block.inner",
-                        ["aA"] = "@attribute.outer",
-                        ["iA"] = "@attribute.inner",
-                        ["aF"] = "@frame.outer",
-                        ["iF"] = "@frame.inner",
-                    },
-                },
-                move = {
-                    enable = true,
-                    set_jumps = true,
-                    goto_next_start = { ["]f"] = "@function.outer", ["]s"] = "@class.outer" },
                     goto_next_end = {
                         ["]F"] = "@function.outer",
-                        ["]S"] = "@class.outer",
+                        ["]C"] = "@class.outer",
+                        ["]A"] = "@parameter.inner",
                     },
-                    goto_previous_start = { ["[f"] = "@function.outer", ["[s"] = "@class.outer" },
-                    goto_previous_end = { ["[F"] = "@function.outer", ["[S"] = "@class.outer" },
-                },
-                swap = {
-                    enable = true,
-                    swap_next = {
-                        ["<leader>ns"] = "@parameter.inner",
+                    goto_previous_start = {
+                        ["[f"] = "@function.outer",
+                        ["[c"] = "@class.outer",
+                        ["[a"] = "@parameter.inner",
                     },
-                    swap_previous = {
-                        ["<leader>nS"] = "@parameter.inner",
-                    },
-                },
-                lsp_interop = {
-                    enable = true,
-                    floating_preview_opts = {
-                        border = "rounded",
-                    },
-                    peek_definition_code = {
-                        ["<leader>lf"] = "@function.outer",
-                        ["<leader>ls"] = "@class.outer",
+                    goto_previous_end = {
+                        ["[F"] = "@function.outer",
+                        ["[C"] = "@class.outer",
+                        ["[A"] = "@parameter.inner",
                     },
                 },
             },
-        },
-    },
-    {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        opts = { enable_autocmd = false },
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = { max_lines = 1 },
-        keys = {
-            {
-                "[c",
-                "<cmd>lua require('treesitter-context').go_to_context(vim.v.count1)<cr>",
-                mode = { "n", "v" },
-                desc = "Goto Context",
+            swap = {
+                swap_next = {
+                    ["<leader>ns"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["<leader>nS"] = "@parameter.inner",
+                },
             },
         },
+        config = function(_, opts)
+            local TS = require("nvim-treesitter-textobjects")
+            TS.setup(opts)
+
+            local function attach(buf)
+                local moves = vim.tbl_get(opts, "move", "keys") or {}
+                local swaps = vim.tbl_get(opts, "swap") or {}
+
+                for method, keymaps in pairs(moves) do
+                    for key, query in pairs(keymaps) do
+                        local queries = type(query) == "table" and query or { query }
+                        local parts = {}
+                        for _, q in ipairs(queries) do
+                            local part = q:gsub("@", ""):gsub("%..*", "")
+                            part = part:sub(1, 1):upper() .. part:sub(2)
+                            table.insert(parts, part)
+                        end
+                        local desc = table.concat(parts, " or ")
+                        desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
+                        desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
+                        if not (vim.wo.diff and key:find("[cC]")) then
+                            vim.keymap.set({ "n", "x", "o" }, key, function()
+                                require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+                            end, {
+                                buffer = buf,
+                                desc = desc,
+                                silent = true,
+                            })
+                        end
+                    end
+                end
+                for method, keymaps in pairs(swaps) do
+                    for key, query in pairs(keymaps) do
+                        local part = method:gsub("@", ""):gsub(".*_", "")
+                        local desc = "Swap Parameter " .. part:sub(1, 1):upper() .. part:sub(2)
+                        vim.keymap.set({ "n" }, key, function()
+                            require("nvim-treesitter-textobjects.swap")[method](query)
+                        end, {
+                            buffer = buf,
+                            desc = desc,
+                            silent = true,
+                        })
+                    end
+                end
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("nemexur_treesitter_textobjects", { clear = true }),
+                callback = function(ev)
+                    attach(ev.buf)
+                end,
+            })
+            vim.tbl_map(attach, vim.api.nvim_list_bufs())
+        end,
     },
 }

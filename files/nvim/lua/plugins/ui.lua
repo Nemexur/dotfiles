@@ -10,6 +10,14 @@ return {
             quickfile = { enabled = true },
             words = { enabled = true },
             terminal = { enabled = true },
+            image = { enabled = true },
+            toggle = { enabled = true },
+            scratch = { enabled = true },
+            notifier = {
+                enabled = true,
+                style = "compact",
+                top_down = false,
+            },
             picker = {
                 enabled = true,
                 win = {
@@ -24,15 +32,6 @@ return {
                             ["<a-g>"] = "toggle_ignored",
                         },
                     },
-                },
-            },
-            indent = {
-                enabled = true,
-                animate = {
-                    enabled = vim.fn.has("nvim-0.10") == 1,
-                    style = "out",
-                    easing = "linear",
-                    duration = { step = 20, total = 100 },
                 },
             },
         },
@@ -242,11 +241,39 @@ return {
                 end,
                 desc = "Undotree",
             },
+            {
+                "<leader>sn",
+                function()
+                    Snacks.notifier.show_history()
+                end,
+            },
+            {
+                "<leader>gl",
+                function()
+                    Snacks.lazygit()
+                end,
+                desc = "LazyGit",
+            },
+            {
+                "<leader>.",
+                function()
+                    Snacks.scratch()
+                end,
+                desc = "Toggle Scratch Buffer",
+            },
+            {
+                "<leader>S",
+                function()
+                    Snacks.scratch.select()
+                end,
+                desc = "Select Scratch Buffer",
+            },
         },
     },
     {
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         init = function()
             vim.g.lualine_laststatus = vim.o.laststatus
             if vim.fn.argc(-1) > 0 then
@@ -258,25 +285,137 @@ return {
             end
         end,
         config = function()
+            local lazy_status = require("lazy.status")
+
             local colors = require("eldritch.colors")
 
-            require("lualine").setup({
-                extensions = { "quickfix", "oil", "trouble" },
+            local opts = {
                 options = {
-                    theme = "eldritch",
-                    component_separators = { left = "", right = "" },
+                    icons_enabled = true,
+                    disabled_filetypes = { "snacks_dashboard", "TelescopePrompt", "mason" },
+                    always_divide_middle = true,
+                    globalstatus = true,
+                    component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
                 },
-            })
-            for _, section in ipairs({ "a", "b", "c" }) do
-                vim.api.nvim_set_hl(
-                    0,
-                    "lualine_" .. section .. "_inactive",
-                    { fg = colors.fg, bg = colors.none, bold = true }
-                )
+                sections = {
+                    lualine_a = {
+                        {
+                            function()
+                                if vim.bo.modified then
+                                    return " "
+                                else
+                                    return "󰄳 "
+                                end
+                            end,
+                            separator = { left = "", right = "" },
+                            padding = { left = 0, right = 0 },
+                        },
+                        {
+                            "mode",
+                            separator = { left = "", right = "" },
+                            padding = { left = 0, right = 0 },
+                        },
+                    },
+                    lualine_b = {
+                        { "branch", icon = "", separator = "" },
+                        { "filename", icon = "" },
+                    },
+                    lualine_c = {
+                        {
+                            "filetype",
+                            colored = true,
+                            icon_only = true,
+                            icon = { align = "left" },
+                            padding = { left = 1, right = 0 },
+                        },
+                        {
+                            "lsp_status",
+                            icon = "",
+                            padding = 0,
+                            symbols = { done = "", separator = "  " },
+                            ignore_lsp = { "copilot" },
+                        },
+                        {
+                            "diagnostics",
+                            symbols = { error = " ", warn = " ", hint = "󰌵", info = " " },
+                        },
+                        function()
+                            if vim.bo.readonly then
+                                return " "
+                            else
+                                return ""
+                            end
+                        end,
+                    },
+                    lualine_x = {
+                        {
+                            "diff",
+                            symbols = { added = " ", modified = " ", removed = " " },
+                        },
+                        {
+                            lazy_status.updates,
+                            cond = lazy_status.has_updates,
+                            color = { fg = colors.orange },
+                        },
+                        function()
+                            local reg = vim.fn.reg_recording()
+                            if reg ~= "" then
+                                return "recording @" .. reg
+                            end
+                            reg = vim.fn.reg_recorded()
+                            if reg ~= "" then
+                                return "recorded @" .. reg
+                            end
+
+                            return ""
+                        end,
+                        {
+                            "copilot",
+                            symbols = {
+                                status = {
+                                    icons = { unknown = " " },
+                                },
+                            },
+                        },
+                    },
+                    lualine_y = {
+                        { "encoding", right_padding = 2 },
+                    },
+                    lualine_z = {
+                        { "location", padding = 0 },
+                        {
+                            function()
+                                local cursorcol = vim.fn.virtcol(".")
+                                if cursorcol >= 10 then
+                                    return "  "
+                                else
+                                    return " "
+                                end
+                            end,
+                            padding = 0,
+                        },
+                        {
+                            "progress",
+                            separator = { right = "" },
+                            icon = { "󰇽", align = "left" },
+                            padding = { left = 0, right = 1 },
+                        },
+                    },
+                },
+                extensions = { "oil", "man", "quickfix", "mason", "lazy", "trouble", "toggleterm" },
+            }
+
+            local theme = require("lualine.themes.auto")
+            local lualine_modes = { "insert", "normal", "visual", "command", "replace", "inactive", "terminal" }
+            for _, field in ipairs(lualine_modes) do
+                if theme[field] and theme[field].c then
+                    theme[field].c.bg = colors.none
+                end
             end
+            opts.options.theme = theme
+            require("lualine").setup(opts)
         end,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
         "NvChad/nvim-colorizer.lua",
@@ -285,11 +424,12 @@ return {
     },
     {
         "stevearc/oil.nvim",
-        event = "VimEnter",
+        lazy = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             delete_to_trash = true,
             use_default_keymaps = false,
+            view_options = { show_hidden = true },
             keymaps = {
                 ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
@@ -308,9 +448,6 @@ return {
                 ["gx"] = "actions.open_external",
                 ["g."] = "actions.toggle_hidden",
                 ["g\\"] = "actions.toggle_trash",
-            },
-            view_options = {
-                show_hidden = true,
             },
         },
         keys = {
@@ -338,30 +475,16 @@ return {
         opts = { colorcolumn = "100" },
     },
     {
-        "iamcco/markdown-preview.nvim",
-        ft = "markdown",
-        build = "cd app && yarn install",
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-        end,
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    },
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = { "MunifTanjim/nui.nvim" },
         opts = {
             background_colour = "#000000",
-            messages = {
-                enabled = true,
-            },
-            notify = {
-                enabled = false,
-            },
+            cmdline = { enabled = true },
+            messages = { enabled = true },
+            notify = { enabled = false },
             lsp = {
-                progress = {
-                    enabled = true,
-                },
+                progress = { enabled = true },
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,
@@ -386,27 +509,6 @@ return {
         },
     },
     {
-        "ThePrimeagen/harpoon",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        branch = "harpoon2",
-        opts = {},
-        keys = {
-            {
-                "<C-e>",
-                function()
-                    local harpoon = require("harpoon")
-                    harpoon.ui:toggle_quick_menu(harpoon:list())
-                end,
-                desc = "Harpoon List",
-            },
-            {
-                "<leader>h",
-                "<cmd>lua require('harpoon'):list():add()<CR>",
-                desc = "Harpoon Append",
-            },
-        },
-    },
-    {
         "folke/todo-comments.nvim",
         keys = {
             {
@@ -427,26 +529,24 @@ return {
         opts = {},
     },
     {
-        "kevinhwang91/nvim-ufo",
-        dependencies = { "kevinhwang91/promise-async" },
+        "chrisgrieser/nvim-origami",
+        event = "VeryLazy",
+        init = function()
+            vim.opt.foldlevel = 99
+            vim.opt.foldlevelstart = 99
+        end,
         opts = {
-            open_fold_hl_timeout = 0,
-            provider_selector = function(bufnr, filetype, buftype)
-                return { "lsp", "indent" }
-            end,
-        },
-        keys = {
-            { "<leader>z", "za", desc = "Toggle Folding" },
-            { "zR", "<cmd>lua require('ufo').openAllFolds()<cr>", desc = "Open all folds" },
-            { "zM", "<cmd>lua require('ufo').closeAllFolds()<cr>", desc = "Close all folds" },
+            foldKeymaps = {
+                setup = false,
+            },
         },
     },
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
         dependencies = {
-            "echasnovski/mini.icons",
             "nvim-tree/nvim-web-devicons",
+            { "nvim-mini/mini.icons", version = false },
         },
         init = function()
             vim.o.timeout = true
@@ -455,29 +555,36 @@ return {
         opts = {
             preset = "helix",
             defaults = {},
+            triggers = {
+                { "<auto>", mode = "nxso" },
+                { "s",      mode = "nxso" },
+            },
             spec = {
                 { "<leader><leader>", group = "Exec", icon = "" },
+                { "<leader>c", group = "[C]oding", icon = "" },
+                { "<leader>o", group = "[O]bsidian", icon = "" },
+                { "<leader>r", group = "[R]eplace", icon = "" },
+                { "<leader>t", group = "[T]ab", icon = "" },
+                { "<leader>b", group = "[B]uffers", icon = "" },
+                { "<leader>x", group = "E[x]tra", icon = "" },
+                { "<leader>g", group = "[G]it", icon = "" },
+                { "<leader>gh", group = "Signs", icon = "" },
+                { "<leader>f", group = "[F]ind", icon = "󰀶" },
+                { "<leader>s", group = "[S]earch", icon = "" },
+                { "<leader>l", group = "[L]SP", icon = "󰒋" },
+                { "<leader>a", group = "[A]nnotaions", icon = "" },
+                { "<leader>d", group = "[D]ebug", icon = "" },
+                { "<leader>n", group = "[N]ode", icon = "" },
+                { "<leader>q", group = "[Q]uickFix Lists", icon = "󱉯" },
+                { "<leader>R", group = "[R]est", icon = "󰖟" },
+                { "<leader>u", group = "[U]I", icon = "" },
                 { "<leader><leader>l", "<cmd>. lua<cr>", desc = "Execute the current line", mode = "n" },
                 { "<leader><leader>x", "<cmd>source %<cr>", desc = "Exectue the current file", mode = "n" },
-                { "<leader>c", group = "Coding", icon = "" },
-                { "<leader>o", group = "Obsidian", icon = "" },
-                { "<leader>r", group = "Replace", icon = "" },
-                { "<leader>t", group = "Tab" },
-                { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close" },
-                { "<leader>b", group = "Buffers" },
                 { "<leader>bp", "<cmd>bprevious<cr>", desc = "Previous", mode = "n" },
                 { "<leader>bn", "<cmd>bnext<cr>", desc = "Next", mode = "n" },
                 { "<leader>bW", "<cmd>noautocmd w<cr>", desc = "Save without formatting (noautocmd)", mode = "n" },
-                { "<leader>bq", "<cmd>bd<cr>", desc = "Quit buffer", mode = "n" },
-                { "<leader>x", group = "Extra", icon = "" },
-                { "<leader>g", group = "Git", icon = "" },
-                { "<leader>f", group = "Find" },
-                { "<leader>s", group = "Search" },
-                { "<leader>l", group = "LSP", icon = "󰒋" },
-                { "<leader>a", group = "Annotaions", icon = "" },
-                { "<leader>d", group = "Debug", icon = "" },
-                { "<leader>n", group = "Node", icon = "" },
-                { "<leader>q", group = "FixLists", icon = "󱉯" },
+                { "<leader>bq", "<cmd>bd<cr>", desc = "[Q]uit [B]uffer", mode = "n" },
+                { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close" },
             },
         },
         keys = {
@@ -494,26 +601,23 @@ return {
         "nvim-pack/nvim-spectre",
         opts = {},
         keys = {
-            { "<leader>rr", "<cmd>lua require('spectre').open()<cr>", desc = "Replace" },
+            { "<leader>rr", "<cmd>lua require('spectre').open()<cr>", desc = "[R]eplace" },
             {
                 "<leader>rw",
                 "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
-                desc = "Replace Word",
+                desc = "[R]eplace [W]ord",
             },
             {
                 "<leader>rb",
                 "<cmd>lua require('spectre').open_file_search()<cr>",
-                desc = "Replace Buffer",
+                desc = "[R]eplace [B]uffer",
             },
         },
     },
     {
         "MagicDuck/grug-far.nvim",
-        opts = {
-            windowCreationCommand = "vsplit",
-            startInInsertMode = false,
-        },
         cmd = "GrugFar",
+        opts = { windowCreationCommand = "vsplit", startInInsertMode = false },
         keys = {
             { "<leader>rg", "<cmd>GrugFar<cr>", desc = "[R]eplace with [G]rugFar" },
         },

@@ -7,21 +7,47 @@ return {
             return not vim.tbl_contains({ "tex" }, vim.bo.filetype) and vim.bo.filetype ~= "prompt"
         end,
         dependencies = {
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
             "saghen/blink.compat",
+            { "nvim-mini/mini.icons", version = false },
+            { "mikavilpas/blink-ripgrep.nvim", version = "*" },
         },
         config = function()
             local blink = require("blink.cmp")
             blink.setup({
-                snippets = { preset = "luasnip" },
-                keymap = { preset = "default" },
+                fuzzy = {
+                    implementation = "prefer_rust_with_warning",
+                },
+                snippets = {
+                    preset = "mini_snippets",
+                    expand = function(snippet)
+                        local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
+                        insert({ body = snippet })
+                        blink.resubscribe()
+                    end,
+                    active = function()
+                        return MiniSnippets.session.get(false) ~= nil
+                    end,
+                    jump = function(direction)
+                        local is_active = MiniSnippets.session.get(false) ~= nil
+                        if is_active then
+                            MiniSnippets.session.jump(direction == -1 and "prev" or "next")
+                        end
+                    end,
+                },
+                keymap = {
+                    preset = "default",
+                    ["<C-g>"] = {
+                        function(cmp)
+                            cmp.show({ providers = { "ripgrep", "lsp", "path", "buffer" } })
+                        end,
+                    },
+                },
                 appearance = {
                     use_nvim_cmp_as_default = true,
                     nerd_font_variant = "mono",
                 },
                 sources = {
-                    default = { "lazydev", "lsp", "path", "snippets", "buffer", "dadbod" },
+                    default = { "lazydev", "lsp", "path", "buffer", "dadbod" },
                     providers = {
                         lazydev = {
                             name = "LazyDev",
@@ -29,6 +55,11 @@ return {
                             score_offset = 100,
                         },
                         dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+                        ripgrep = {
+                            name = "Ripgrep",
+                            module = "blink-ripgrep",
+                            opts = {},
+                        },
                     },
                 },
                 cmdline = {
@@ -45,11 +76,21 @@ return {
                         draw = {
                             components = {
                                 kind_icon = {
-                                    ellipsis = false,
                                     text = function(ctx)
-                                        return require("lspkind").symbolic(ctx.kind, {
-                                            mode = "symbol",
-                                        })
+                                        local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                                        return kind_icon
+                                    end,
+                                    -- (optional) use highlights from mini.icons
+                                    highlight = function(ctx)
+                                        local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                                        return hl
+                                    end,
+                                },
+                                kind = {
+                                    -- (optional) use highlights from mini.icons
+                                    highlight = function(ctx)
+                                        local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                                        return hl
                                     end,
                                 },
                             },
@@ -70,10 +111,7 @@ return {
             })
             local capabilities = {
                 textDocument = {
-                    foldingRange = {
-                        dynamicRegistration = false,
-                        lineFoldingOnly = true,
-                    },
+                    foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
                 },
             }
             vim.lsp.config("*", { capabilities = blink.get_lsp_capabilities(capabilities, true) })
@@ -86,83 +124,39 @@ return {
             library = {
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
                 { path = "snacks.nvim", words = { "Snacks" } },
-                { path = "lazy.nvim", words = { "LazyVim" } },
+                { path = "mini.snippets", words = { "MiniSnippets" } },
             },
         },
     },
     {
         "williamboman/mason.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        dependencies = { "saghen/blink.cmp" },
-        config = function()
-            require("mason").setup()
-            for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
-                local name = vim.fn.fnamemodify(f, ":t:r")
-                local cmd = dofile(f).cmd[1]
-                if vim.fn.executable(cmd) == 0 then
-                    vim.cmd("MasonInstall " .. name)
-                end
-                if name ~= "ty" then
-                    vim.lsp.enable(name)
-                end
-            end
-        end,
-    },
-    {
-        "L3MON4D3/LuaSnip",
+        lazy = false,
+        branch = "main",
         version = "v2.*",
-        build = "make install_jsregexp",
-        dependencies = {
-            "rafamadriz/friendly-snippets",
-        },
-        opts = {
-            history = true,
-            delete_check_events = "TextChanged",
-        },
-    },
-    {
-        "rafamadriz/friendly-snippets",
-        config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_lua").lazy_load()
-            require("luasnip.loaders.from_snipmate").lazy_load()
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+        opts = {},
+        config = function(_, opts)
+            require("mason").setup(opts)
+            local mr = require("mason-registry")
+            mr:on("package:install:success", function()
+                vim.defer_fn(function()
+                    require("lazy.core.handler.event").trigger({
+                        event = "FileType",
+                        buf = vim.api.nvim_get_current_buf(),
+                    })
+                end, 100)
+            end)
         end,
     },
     {
-        "onsails/lspkind.nvim",
-        init = function()
-            require("lspkind").init({
-                mode = "symbol_text",
-                preset = "codicons",
-                symbol_map = {
-                    Text = "󰉿",
-                    Method = "󰆧",
-                    Function = "󰊕",
-                    Constructor = "",
-                    Field = "󰜢",
-                    Variable = "󰀫",
-                    Class = "󰠱",
-                    Interface = "",
-                    Module = "",
-                    Property = "󰜢",
-                    Unit = "󰑭",
-                    Value = "󰎠",
-                    Enum = "",
-                    Keyword = "󰌋",
-                    Snippet = "",
-                    Color = "󰏘",
-                    File = "󰈙",
-                    Reference = "󰈇",
-                    Folder = "󰉋",
-                    EnumMember = "",
-                    Constant = "󰏿",
-                    Struct = "󰙅",
-                    Event = "",
-                    Operator = "󰆕",
-                    TypeParameter = "",
-                },
-            })
+        "nvim-mini/mini.snippets",
+        event = "InsertEnter",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        opts = function()
+            local mini_snippets = require("mini.snippets")
+            return {
+                snippets = { mini_snippets.gen_loader.from_lang() },
+            }
         end,
     },
 }

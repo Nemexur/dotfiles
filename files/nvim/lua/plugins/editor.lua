@@ -1,16 +1,66 @@
 return {
-    { "tpope/vim-rsi",       lazy = false },
-    { "tpope/vim-abolish",   lazy = false },
-    { "tpope/vim-eunuch",    event = "VeryLazy" },
-    { "echasnovski/mini.ai", version = false,   event = "VeryLazy" },
+    { "tpope/vim-rsi",     lazy = false },
+    { "tpope/vim-abolish", lazy = false },
+    { "tpope/vim-eunuch",  event = "VeryLazy" },
+    {
+        "nvim-mini/mini.indentscope",
+        version = false,
+        event = "VeryLazy",
+        opts = function()
+            return {
+                symbol = "│",
+                draw = {
+                    delay = 0,
+                    animation = require("mini.indentscope").gen_animation.none(),
+                },
+            }
+        end,
+    },
+    {
+        "nvim-mini/mini.ai",
+        version = false,
+        event = "VeryLazy",
+        opts = function()
+            local ai = require("mini.ai")
+            return {
+                n_lines = 500,
+                custom_textobjects = {
+                    o = ai.gen_spec.treesitter({ -- code block
+                        a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+                        i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+                    }),
+                    f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),   -- function
+                    c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),         -- class
+                    ["/"] = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }), -- comment
+                    t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },             -- tags
+                    d = { "%f[%d]%d+" },                                                            -- digits
+                    e = {                                                                           -- Word with case
+                        {
+                            "%u[%l%d]+%f[^%l%d]",
+                            "%f[%S][%l%d]+%f[^%l%d]",
+                            "%f[%P][%l%d]+%f[^%l%d]",
+                            "^[%l%d]+%f[^%l%d]",
+                        },
+                        "^().*()$",
+                    },
+                    g = function()
+                        local from = { line = 1, col = 1 }
+                        local to = {
+                            line = vim.fn.line("$"),
+                            col = math.max(vim.fn.getline("$"):len(), 1),
+                        }
+                        return { from = from, to = to }
+                    end,
+                    u = ai.gen_spec.function_call(),                           -- u for "Usage"
+                    U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+                },
+            }
+        end,
+    },
     {
         "kevinhwang91/nvim-bqf",
         ft = "qf",
-        opts = {
-            preview = {
-                winblend = 0,
-            },
-        },
+        opts = { preview = { winblend = 0 } },
     },
     {
         "stevearc/quicker.nvim",
@@ -40,60 +90,76 @@ return {
                 function()
                     require("quicker").toggle({ focus = true })
                 end,
-                desc = "Toggle Quickfix List",
+                desc = "Toggle [Q]uickfix List",
             },
             {
                 "<leader>ql",
                 function()
                     require("quicker").toggle({ loclist = true, focus = true })
                 end,
-                desc = "Toggle Loclist",
+                desc = "Toggle [L]oclist",
             },
         },
-    },
-    {
-        "numToStr/Comment.nvim",
-        keys = {
-            { "gc", mode = { "n", "v" } },
-            { "gb", mode = { "n", "v" } },
-        },
-        opts = {},
-    },
-    {
-        "jinh0/eyeliner.nvim",
-        event = "VeryLazy",
-        opts = { highlight_on_key = true, dim = true },
     },
     {
         "folke/flash.nvim",
+        event = "VeryLazy",
         opts = {
             label = {
-                rainbow = {
-                    enabled = true,
-                },
-            },
-            highlight = {
-                priority = 9000,
+                rainbow = { enabled = true },
             },
             modes = {
                 char = {
-                    autohide = true,
+                    multi_line = false,
+                    jump_labels = true,
                     highlight = { backdrop = false },
+                    jump = { autojump = true },
+                },
+                search = {
+                    enabled = true,
                 },
             },
         },
         keys = {
             {
-                "<C-f>",
-                "<cmd>lua require('flash').jump()<cr>",
-                desc = "Flash jump",
-                mode = { "n", "x", "o" },
+                "ss",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash",
+            },
+            {
+                "S",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
             },
             {
                 "r",
-                "<cmd>lua require('flash').treesitter_search()<cr>",
-                desc = "Flash Treesitter Search",
-                mode = { "x", "o" },
+                mode = "o",
+                function()
+                    require("flash").remote()
+                end,
+                desc = "Remote Flash",
+            },
+            {
+                "R",
+                mode = { "o" },
+                function()
+                    require("flash").treesitter_search()
+                end,
+                desc = "Treesitter Search",
+            },
+            {
+                "<c-s>",
+                mode = { "c" },
+                function()
+                    require("flash").toggle()
+                end,
+                desc = "Toggle Flash Search",
             },
         },
     },
@@ -103,18 +169,43 @@ return {
         opts = {},
         keys = {
             {
-                "<leader>p",
+                "<leader>sy",
                 function()
                     Snacks.picker.yanky()
                 end,
                 mode = { "n", "x" },
                 desc = "Open Yank History",
             },
-            { "y",     "<Plug>(YankyYank)",                      mode = { "n", "x" },                                desc = "Yank text" },
-            { "p",     "<Plug>(YankyPutAfter)",                  mode = { "n", "x" },                                desc = "Put yanked text after cursor" },
-            { "P",     "<Plug>(YankyPutBefore)",                 mode = { "n", "x" },                                desc = "Put yanked text before cursor" },
-            { "gp",    "<Plug>(YankyGPutAfter)",                 mode = { "n", "x" },                                desc = "Put yanked text after selection" },
-            { "gP",    "<Plug>(YankyGPutBefore)",                mode = { "n", "x" },                                desc = "Put yanked text before selection" },
+            {
+                "y",
+                "<Plug>(YankyYank)",
+                mode = { "n", "x" },
+                desc = "Yank text",
+            },
+            {
+                "p",
+                "<Plug>(YankyPutAfter)",
+                mode = { "n", "x" },
+                desc = "Put yanked text after cursor",
+            },
+            {
+                "P",
+                "<Plug>(YankyPutBefore)",
+                mode = { "n", "x" },
+                desc = "Put yanked text before cursor",
+            },
+            {
+                "gp",
+                "<Plug>(YankyGPutAfter)",
+                mode = { "n", "x" },
+                desc = "Put yanked text after selection",
+            },
+            {
+                "gP",
+                "<Plug>(YankyGPutBefore)",
+                mode = { "n", "x" },
+                desc = "Put yanked text before selection",
+            },
             { "<c-p>", "<Plug>(YankyPreviousEntry)",             desc = "Select previous entry through yank history" },
             { "<c-n>", "<Plug>(YankyNextEntry)",                 desc = "Select next entry through yank history" },
             { "]p",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
@@ -127,27 +218,6 @@ return {
             { "<P",    "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
             { "=p",    "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
             { "=P",    "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
-        },
-    },
-    {
-        "gbprod/substitute.nvim",
-        dependencies = { "gbprod/yanky.nvim" },
-        opts = {
-            on_substitute = function()
-                require("yanky.integration").substitute()
-            end,
-        },
-        keys = {
-            { "s",  "<cmd>lua require('substitute').operator() <cr>", desc = "Substitute text" },
-            { "ss", "<cmd>lua require('substitute').line() <cr>",     desc = "Substitute line" },
-            { "S",  "<cmd>lua require('substitute').eol() <cr>",      desc = "Substitute to EOL" },
-            { "s",  "<cmd>lua require('substitute').visual() <cr>",   desc = "Substitute visual", mode = "v" },
-            {
-                "X",
-                "<cmd>lua require('substitute.exchange').visual() <cr>",
-                desc = "Substitute exchange visual",
-                mode = "v",
-            },
         },
     },
     {
@@ -183,35 +253,83 @@ return {
             {
                 "<leader>ac",
                 "<cmd>lua require('neogen').generate({ type = 'class' })<cr>",
-                desc = "Class Doc",
+                desc = "[C]lass Doc",
                 mode = "n",
             },
             {
                 "<leader>af",
                 "<cmd>lua require('neogen').generate({ type = 'func' })<cr>",
-                desc = "Function Doc",
+                desc = "[F]unction Doc",
                 mode = "n",
             },
             {
                 "<leader>at",
                 "<cmd>lua require('neogen').generate({ type = 'type' })<cr>",
-                desc = "Type Doc",
+                desc = "[T]ype Doc",
                 mode = "n",
             },
         },
     },
     {
-        "kylechui/nvim-surround",
+        "nvim-mini/mini.surround",
         event = "VeryLazy",
-        version = "^3.0.0",
+        version = false,
+        opts = {},
+        keys = {
+            { "sa", desc = "Add Surrounding",       mode = { "n", "x" } },
+            { "sd", desc = "Delete Surrounding" },
+            { "sf", desc = "Find Right Surrounding" },
+            { "sF", desc = "Find Left Surrounding" },
+            { "sh", desc = "Highlight Surrounding" },
+            { "sr", desc = "Replace Surrounding" },
+        },
+    },
+    {
+        "nvim-mini/mini.comment",
+        event = "VeryLazy",
+        version = false,
         opts = {},
     },
     {
-        "Wansmer/treesj",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = { use_default_keymaps = false, max_join_length = 100 },
+        "nvim-mini/mini.splitjoin",
+        event = "VeryLazy",
+        version = false,
+        opts = {
+            mappings = {
+                toggle = "gs",
+                split = "",
+                join = "",
+            },
+        },
+    },
+    {
+        "nvim-mini/mini.align",
+        event = "VeryLazy",
+        version = false,
+        opts = {},
+    },
+    {
+        "echasnovski/mini.pairs",
+        event = "InsertEnter",
+        version = false,
+        opts = {},
+    },
+    {
+        "gbprod/substitute.nvim",
+        opts = {},
         keys = {
-            { "<leader>nn", "<cmd>lua require('treesj').toggle()<cr>", desc = "Toggle Split/Join" },
+            {
+                "<leader>p",
+                "<cmd>lua require('substitute').operator()<cr>",
+                desc = "Substitute",
+                mode = "n",
+            },
+            {
+                "<leader>p",
+                "<cmd>lua require('substitute').visual()<cr>",
+                desc = "Substitute",
+                mode = "x",
+            },
         },
     },
     {
@@ -220,14 +338,17 @@ return {
             local augend = require("dial.augend")
             require("dial.config").augends:register_group({
                 default = {
-                    augend.integer.alias.decimal,
+                    augend.integer.alias.decimal_int,
                     augend.integer.alias.hex,
                     augend.date.alias["%Y/%m/%d"],
                     augend.date.alias["%Y-%m-%d"],
                     augend.date.alias["%m/%d"],
                     augend.date.alias["%H:%M"],
                     augend.constant.alias.bool,
+                    augend.constant.alias.Bool,
                     augend.semver.alias.semver,
+                    augend.constant.alias.en_weekday,
+                    augend.constant.alias.en_weekday_full,
                     augend.constant.new({ elements = { "and", "or" }, word = true, cyclic = true }),
                     augend.constant.new({ elements = { "&&", "||" }, word = false, cyclic = true }),
                 },
@@ -295,12 +416,6 @@ return {
                 desc = "gDecrement",
             },
         },
-    },
-    {
-        "echasnovski/mini.pairs",
-        event = "InsertEnter",
-        version = false,
-        opts = {},
     },
     {
         "christoomey/vim-tmux-navigator",

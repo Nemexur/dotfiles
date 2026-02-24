@@ -33,9 +33,9 @@ vim.api.nvim_create_autocmd("VimResized", {
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = augroup("last_loc"),
-    callback = function(event)
+    callback = function(ev)
         local exclude = { "gitcommit" }
-        local buf = event.buf
+        local buf = ev.buf
         if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].nvim_last_loc then
             return
         end
@@ -74,14 +74,14 @@ vim.api.nvim_create_autocmd("FileType", {
         "checkhealth",
         "grug-far",
     },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
+    callback = function(ev)
+        vim.bo[ev.buf].buflisted = false
         vim.schedule(function()
             vim.keymap.set("n", "q", function()
                 vim.cmd("close")
-                pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+                pcall(vim.api.nvim_buf_delete, ev.buf, { force = true })
             end, {
-                buffer = event.buf,
+                buffer = ev.buf,
                 silent = true,
                 desc = "Quit buffer",
             })
@@ -93,10 +93,12 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_hist_with_q"),
     pattern = { "hist" },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
+    callback = function(ev)
+        vim.bo[ev.buf].buflisted = false
         vim.schedule(function()
-            vim.keymap.set("n", "q", function() vim.cmd("qa") end)
+            vim.keymap.set("n", "q", function()
+                vim.cmd("qa")
+            end)
         end)
     end,
 })
@@ -105,12 +107,12 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("man_unlisted"),
     pattern = { "man" },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
+    callback = function(ev)
+        vim.bo[ev.buf].buflisted = false
     end,
 })
 
--- Fix conceallevel for json files
+-- fix conceallevel for json files
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup("json_conceal"),
     pattern = { "json", "jsonc", "json5" },
@@ -156,6 +158,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
+-- auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    group = augroup("auto_create_dir"),
+    callback = function(ev)
+        if ev.match:match("^%w%w+:[\\/][\\/]") then
+            return
+        end
+        local file = vim.uv.fs_realpath(ev.match) or ev.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
 -- set yaml.ansible filetype for particular yaml files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     group = augroup("ansible"),
@@ -184,119 +198,248 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
-    group = augroup("custom-term-open"),
+-- configure treesitter
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup("treesitter"),
+    pattern = {
+        "bash",
+        "c",
+        "dockerfile",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "gomod",
+        "gosum",
+        "helm",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonnet",
+        "latex",
+        "lua",
+        "luadoc",
+        "luap",
+        "make",
+        "markdown_inline",
+        "markdown",
+        "proto",
+        "python",
+        "regex",
+        "sql",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml.ansible",
+        "yaml.docker-compose",
+        "yaml.gitlab",
+        "yaml",
+        "zsh",
+    },
     callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-        vim.opt_local.scrolloff = 0
+        -- syntax highlighting, provided by Neovim
+        vim.treesitter.start()
+        -- folds, provided by Neovim
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo.foldmethod = "expr"
+        -- indentation, provided by nvim-treesitter
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
 })
 
--- Disable terminal when recovering from session manager
-vim.api.nvim_create_user_command("TermKill", function()
-    if vim.g.term_win_id ~= nil then
-        vim.api.nvim_win_close(vim.g.term_win_id, true)
-        vim.g.term_win_id = nil
-    end
-    if vim.g.term_buf_id ~= nil then
-        vim.api.nvim_buf_delete(vim.g.term_buf_id, { force = true })
-        vim.g.term_buf_id = nil
-    end
-end, {})
+-- set up lsp servers.
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    once = true,
+    callback = function()
+        local servers = vim.iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+            :map(function(file)
+                return vim.fn.fnamemodify(file, ":t:r")
+            end)
+            :filter(function(name)
+                return name ~= "ty"
+            end)
+            :totable()
+        vim.lsp.enable(servers)
+    end,
+})
 
--- Configure LspAttach
+-- configure lspattach
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup("lsp-attach"),
-    callback = function(event)
-        local map = function(keys, func, desc, mode)
-            mode = mode or "n"
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
-        end
+    callback = function()
+        local ms = vim.lsp.protocol.Methods
 
-        map("K", vim.lsp.buf.hover, "Hover")
-        map("<c-s>", vim.lsp.buf.signature_help, "Signature Help")
-        map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        map("grr", vim.lsp.buf.references, "[G]oto [R]eferences")
-        map("gri", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        map("grn", vim.lsp.buf.rename, "[R]ename")
-        map("gra", vim.lsp.buf.code_action, "Code [A]ction", { "n", "x" })
-        map("gy", vim.lsp.buf.type_definition, "Type [D]efinition")
-        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-        map("gO", vim.lsp.buf.document_symbol, "D[O]cument Symbol")
-        map("gK", vim.diagnostic.open_float, "Line Diagnostic")
-        map("gf", function() vim.lsp.buf.format({ async = true, timeout_ms = 10000 }) end, "[F]ormat")
-        map("[d", function()
+        Snacks.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", lsp = { method = ms.textDocument_hover } })
+        Snacks.keymap.set(
+            "n",
+            "<c-s>",
+            vim.lsp.buf.signature_help,
+            { desc = "Signature Help", lsp = { method = ms.textDocument_signatureHelp } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "gd",
+            vim.lsp.buf.definition,
+            { desc = "[G]oto [D]efinition", lsp = { method = ms.textDocument_definition } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "grr",
+            vim.lsp.buf.references,
+            { desc = "[G]oto [R]eferences", lsp = { method = ms.textDocument_references } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "gri",
+            vim.lsp.buf.implementation,
+            { desc = "[G]oto [I]mplementation", lsp = { method = ms.textDocument_implementation } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "grn",
+            vim.lsp.buf.rename,
+            { desc = "[R]ename", lsp = { method = ms.textDocument_rename } }
+        )
+        Snacks.keymap.set(
+            { "n", "x" },
+            "gra",
+            vim.lsp.buf.code_action,
+            { desc = "Code [A]ction", lsp = { method = ms.textDocument_codeAction } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "gy",
+            vim.lsp.buf.type_definition,
+            { desc = "Type [D]efinition", lsp = { method = ms.textDocument_typeDefinition } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "gD",
+            vim.lsp.buf.declaration,
+            { desc = "[G]oto [D]eclaration", lsp = { method = ms.textDocument_declaration } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "gO",
+            vim.lsp.buf.document_symbol,
+            { desc = "D[O]cument Symbol", lsp = { method = ms.textDocument_documentSymbol } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "<leader>lc",
+            vim.lsp.codelens.run,
+            { desc = "Run [C]odeLens", lsp = { method = ms.textDocument_codeLens } }
+        )
+        Snacks.keymap.set(
+            "n",
+            "<leader>lC",
+            vim.lsp.codelens.refresh,
+            { desc = "Refersh & Display [C]odeLens", lsp = { method = ms.textDocument_codeLens } }
+        )
+        Snacks.keymap.set("n", "gK", vim.diagnostic.open_float, { desc = "Line Diagnostic" })
+        Snacks.keymap.set("n", "gf", function()
+            vim.lsp.buf.format({ async = true, timeout_ms = 10000 })
+        end, { desc = "[F]ormat" })
+        Snacks.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = 1, float = true })
-        end, "Goto Diagnostic Next")
-        map("]d", function()
+        end, { desc = "Goto Diagnostic Next" })
+        Snacks.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = -1, float = true })
-        end, "Goto Diagnostic Prev")
-        map("<leader>ll", function()
+        end, { desc = "Goto Diagnostic Prev" })
+        Snacks.keymap.set("n", "<leader>ll", function()
             Snacks.picker.lsp_config()
-        end, "[L]sp Info")
-        map("<leader>lc", vim.lsp.codelens.run, "Run [C]odeLens")
-        map("<leader>lC", vim.lsp.codelens.refresh, "Refersh & Display [C]odeLens")
-        map("<leader>lg", function()
-            require("treesitter-context").go_to_context(vim.v.count1)
-        end, "[G]oto Context")
+        end, { desc = "[L]sp Info" })
 
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+        Snacks.toggle.inlay_hints():map("<leader>lh")
+        Snacks.util.lsp.on({ method = ms.textDocument_inlayHint }, function(buffer)
+            local group = augroup("inlay_hint")
+            vim.api.nvim_create_autocmd("InsertEnter", {
+                group = group,
+                desc = "Enable inlay hints",
+                buffer = buffer,
+                callback = function(ev)
+                    if vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }) then
+                        vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
+                    end
+                end,
+            })
+            vim.api.nvim_create_autocmd("InsertLeave", {
+                group = group,
+                desc = "Disable inlay hints",
+                buffer = buffer,
+                callback = function(ev)
+                    if vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }) then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+                    end
+                end,
+            })
+        end)
+
+        Snacks.util.lsp.on({ method = ms.textDocument_foldingRange }, function()
+            vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.lsp.foldexpr()", { scope = "local" })
+        end)
+
+        Snacks.util.lsp.on({ method = ms.textDocument_codeLens }, function(buffer)
+            vim.lsp.codelens.refresh()
             vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-                group = augroup("codelens-refresh"),
-                buffer = event.buf,
+                group = augroup("codelens"),
+                buffer = buffer,
                 callback = vim.lsp.codelens.refresh,
             })
-        end
-        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        end)
+
+        Snacks.util.lsp.on({ method = ms.textDocument_documentHighlight }, function(buffer)
             local highlight_augroup = augroup("lsp-highlight")
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                 group = highlight_augroup,
-                buffer = event.buf,
+                buffer = buffer,
                 callback = vim.lsp.buf.document_highlight,
             })
             vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
                 group = highlight_augroup,
-                buffer = event.buf,
+                buffer = buffer,
                 callback = vim.lsp.buf.clear_references,
             })
             vim.api.nvim_create_autocmd("LspDetach", {
                 group = augroup("lsp-detach"),
-                callback = function(event2)
+                callback = function(ev)
                     vim.lsp.buf.clear_references()
-                    vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = event2.buf })
+                    vim.api.nvim_clear_autocmds({ group = highlight_augroup, buffer = ev.buf })
                 end,
             })
-        end
-        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map("<leader>lh", function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-            end, "Toggle Inlay [H]ints")
-        end
+        end)
 
-        local icons = { ERROR = "", WARN = "", HINT = "", INFO = "" }
+        local diagnostics_icons = { ERROR = "", WARN = "", HINT = "", INFO = "" }
         vim.diagnostic.config({
             update_in_insert = true,
             signs = {
                 text = {
-                    [vim.diagnostic.severity.ERROR] = icons.ERROR,
-                    [vim.diagnostic.severity.WARN] = icons.WARN,
-                    [vim.diagnostic.severity.HINT] = icons.HINT,
-                    [vim.diagnostic.severity.INFO] = icons.INFO,
+                    [vim.diagnostic.severity.ERROR] = diagnostics_icons.ERROR,
+                    [vim.diagnostic.severity.WARN] = diagnostics_icons.WARN,
+                    [vim.diagnostic.severity.HINT] = diagnostics_icons.HINT,
+                    [vim.diagnostic.severity.INFO] = diagnostics_icons.INFO,
                 },
             },
             virtual_lines = {
                 current_line = true,
                 format = function(diagnostic)
                     local severity = vim.diagnostic.severity[diagnostic.severity]
-                    return icons[severity] .. " " .. diagnostic.message
+                    return diagnostics_icons[severity] .. " " .. diagnostic.message
                 end,
             },
             underline = true,
             severity_sort = true,
             float = {
-                source = true,
+                source = "if_many",
+                -- Show severity icons as prefixes.
+                prefix = function(diag)
+                    local level = vim.diagnostic.severity[diag.severity]
+                    local prefix = string.format(" %s ", diagnostics_icons[level])
+                    return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
+                end,
                 severity_sort = true,
                 focusable = true,
                 style = "minimal",

@@ -32,10 +32,17 @@ if sysname == "Darwin" then
     fzf_path = "/opt/homebrew/opt/fzf"
 end
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+    spec = {
+        { import = "plugins" },
+    },
     defaults = { lazy = true },
-    install = { colorscheme = { "eldritich" } },
+    install = {
+        missing = false,
+        colorscheme = { "eldritch" },
+    },
     change_detection = { enabled = true, notify = false },
+    rocks = { enabled = false },
     ui = {
         border = "rounded",
         backdrop = 100,

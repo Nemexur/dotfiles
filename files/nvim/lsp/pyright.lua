@@ -16,8 +16,8 @@ return {
         },
         python = {
             analysis = {
-                ignore = { "*" }, -- Using Ruff
-                typeCheckingMode = "off",
+                -- ignore = { "*" }, -- Using Ruff
+                typeCheckingMode = "basic",
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
                 diagnosticMode = "openFilesOnly",

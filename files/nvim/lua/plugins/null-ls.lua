@@ -26,7 +26,7 @@ return {
                     "golines",
                     "yamlfmt",
                 },
-                handlers = {}
+                handlers = {},
             })
             require("null-ls").setup({ border = "rounded" })
         end,
