@@ -1,13 +1,11 @@
 let
-  hostname = "luffy";
+  hostName = "luffy";
 in {
   imports = [
     ./hardware-configuration.nix
   ];
   networking = {
-    inherit hostname;
-    computerName = hostname;
-    wireless.enable = true;
+    inherit hostName;
   };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

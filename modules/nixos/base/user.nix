@@ -1,7 +1,7 @@
 {
   myVars,
   username ? myVars.username,
-  userFullName ? myVars.userFullName,
+  userfullname ? myVars.userfullname,
   ...
 }: {
   users.groups = {
@@ -12,7 +12,7 @@
 
   users.users."${username}" = {
     home = "/home/${username}";
-    description = userFullName;
+    description = userfullname;
     isNormalUser = true;
     extraGroups = [
       username

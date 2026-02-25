@@ -27,7 +27,7 @@
   };
 
   nixosSystems = {
-    x86_64-linux = import ./aarch64-linux (args // {system = "x86_64-linux";});
+    x86_64-linux = import ./x86_64-linux (args // {system = "x86_64-linux";});
   };
   darwinSystems = {
     aarch64-darwin = import ./aarch64-darwin (args // {system = "aarch64-darwin";});

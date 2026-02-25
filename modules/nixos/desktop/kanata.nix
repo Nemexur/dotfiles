@@ -60,7 +60,7 @@ in {
               ;; CapsLock -> Escape/Controlll
               caps-ctrl (tap-hold-press $tap-time $hold-time esc lctl)
               ;; Enable HJKL when F is pressed
-              f-hjkl (tap-hold-press $tap-time $hold-time f (layer-while-held move))
+              f-hjkl (tap-hold $tap-time $hold-time f (layer-while-held move))
             )
 
             (deflayer base

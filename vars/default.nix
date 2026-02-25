@@ -1,6 +1,6 @@
 {
   username = "nemexur";
-  userFullName = "Aleksandr Milogradskiy";
+  userfullname = "Aleksandr Milogradskiy";
   projectRoot = ../.;
   localBin = "~/.local/bin";
 }

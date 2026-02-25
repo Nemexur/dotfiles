@@ -1,9 +1,9 @@
-{pkgs, ...}: {
+{pkgs, pkgs-unstable, ...}: {
   environment.systemPackages = with pkgs; [
     # Core Tools
     zsh
-    fastfetch
     neovim
+    fastfetch
     gnumake
     just
     git

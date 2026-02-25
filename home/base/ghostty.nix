@@ -10,7 +10,7 @@
     settings = {
       theme = "Dracula";
       font-family = "JetBrainsMono NF";
-      font-size = 15;
+      font-size = if pkgs.stdenv.isDarwin then 15 else 12;
 
       background-opacity = 0.8;
       background-blur = 8;

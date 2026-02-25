@@ -1,9 +1,9 @@
 {
   zramSwap = {
     enable = true;
-    algorithm = "lz4";
-    priority = 999;
-    memoryPercent = 100;
+    algorithm = "lzo-rle";
+    priority = 100;
+    memoryPercent = 50;
   };
 
   boot.kernel.sysctl = {

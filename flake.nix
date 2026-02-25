@@ -4,8 +4,8 @@
   inputs = {
     # Official NixOS packages source
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Collection of NixOS modules for hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -38,6 +38,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Import Modules in a Directory
+    import-tree.url = "github:vic/import-tree";
+
+    # Optimized settings for Gaming
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";

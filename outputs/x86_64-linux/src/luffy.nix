@@ -11,11 +11,13 @@
 
   name = "luffy";
   username = "nemexur";
+  userfullname = myVars.userfullname;
 
   specialArgs =
     (genSpecialArgs system)
     // {
       inherit username;
+      inherit userfullname;
     };
 
   nixos-modules = map buildPath ["modules/nixos/desktop" "hosts/nixos-${name}"];
@@ -25,13 +27,15 @@ in {
   nixosConfigurations.${name} = nixpkgs.lib.nixosSystem {
     inherit system specialArgs;
     modules =
-      nixos-modules
+      [inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen5]
+      ++ nixos-modules
       ++ [
         {
           modules.nixos-base.ssh.enable = false;
-          modules.nixos-base.power.enable = true;
           modules.nixos-desktop.gaming.enable = true;
+          modules.nixos-base.power.enable = true;
           modules.nixos-desktop.kanata.enable = true;
+          modules.nixos-desktop.fingerprint.enable = true;
         }
       ]
       ++ [
@@ -42,7 +46,14 @@ in {
           home-manager.backupFileExtension = "home-manager.backup";
 
           home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users."${username}".imports = home-modules;
+          home-manager.users."${username}" = {
+            imports = home-modules;
+            home-module.browser.zen = {
+              enable = true;
+              enableVaapi = true;
+              useWayland = true;
+            };
+          };
         }
       ];
   };
