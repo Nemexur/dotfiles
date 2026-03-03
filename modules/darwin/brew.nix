@@ -1,7 +1,7 @@
 {
   # homebrew need to be installed manually
   homebrew = {
-    enable = false;
+    enable = true;
 
     onActivation = {
       autoUpdate = true; # fetch the newest stable branch of Homebrew's git repo
@@ -24,50 +24,20 @@
       WireGuard = 1451685025;
     };
 
-    taps = [
-      "hashicorp/tap"
-      "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
-    ];
-
-    brews = [
-      "m-cli"
-
-      "pinentry-touchid"
-    ];
+    brews = ["pinentry-touchid"];
 
     casks = [
-      # browsers
-      "brave-browser"
-      "zen"
-
-      # development tools
-      "visual-studio-code"
-      "dbeaver-community"
-
       # note taking
-      "obsidian"
       "raindropio"
       "mactex"
-      "sioyek"
-
-      # tiling window manager
-      "aerospace"
-
-      # video player
-      "iina"
 
       # tools
       "alfred"
-      "numi"
-      "stats"
-      "rectangle"
-      "karabiner-elements"
       "logitech-options"
       "ukelele"
       "wine-stable"
 
       # others
-      "vagrant-manager"
       "macfuse"
       "imazing"
       "mouse-fix"

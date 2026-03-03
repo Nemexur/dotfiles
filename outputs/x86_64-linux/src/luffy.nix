@@ -32,10 +32,13 @@ in {
       ++ [
         {
           modules.nixos-base.ssh.enable = false;
-          modules.nixos-desktop.gaming.enable = true;
           modules.nixos-base.power.enable = true;
+          modules.nixos-desktop.gaming.enable = true;
           modules.nixos-desktop.kanata.enable = true;
           modules.nixos-desktop.fingerprint.enable = true;
+          modules.nixos-desktop.trackpoint.enable = true;
+          modules.nixos-desktop.niri.enable = true;
+          modules.nixos-desktop.dms.enable = false;
         }
       ]
       ++ [
@@ -48,7 +51,10 @@ in {
           home-manager.extraSpecialArgs = specialArgs;
           home-manager.users."${username}" = {
             imports = home-modules;
-            home-module.browser.zen = {
+            home-modules.gaming.enable = true;
+            home-modules.niri.enable = true;
+            home-modules.shell.noctalia.enable = true;
+            home-modules.browser.zen = {
               enable = true;
               enableVaapi = true;
               useWayland = true;

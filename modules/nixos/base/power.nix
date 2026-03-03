@@ -5,10 +5,8 @@
 }: let
   cfg = config.modules.nixos-base.power;
 in {
-  options.modules.nixos-base = {
-    power = {
-      enable = lib.mkEnableOption "Optimized Power Management";
-    };
+  options.modules.nixos-base.power = {
+    enable = lib.mkEnableOption "Optimized Power Management";
   };
 
   config = lib.mkIf cfg.enable {

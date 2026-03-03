@@ -1,4 +1,4 @@
-{pkgs, pkgs-unstable, ...}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # Core Tools
     zsh
@@ -15,14 +15,6 @@
     # System Monitoring
     procs
     btop
-
-    # TODO: Move
-    # archives
-    # zip
-    # xz
-    # zstd
-    # unzipNLS
-    # p7zip
 
     # GNU Tools
     coreutils
@@ -45,15 +37,6 @@
     yq-go
     jc
 
-    # TODO: Move
-    # Interactively filter its input using fuzzy searching, not limit to filenames.
-    # fzf
-    # # search for files by name, faster than find
-    # fd
-    # findutils
-    # # search for files by its content, replacement of grep
-    # (ripgrep.override { withPCRE2 = true; })
-
     # Disk Tools
     duf
     dust
@@ -74,14 +57,5 @@
     iperf3
     hyperfine
     tcpdump
-
-    # TODO: Move to home manager
-    # file transfer
-    # rsync
-    # croc # File transfer between computers securely and easily
-    #
-    # # misc
-    # file
-    # tealdeer # a very fast version of tldr
   ];
 }

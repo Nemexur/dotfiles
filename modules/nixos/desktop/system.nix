@@ -1,5 +1,9 @@
-{pkgs, ...}: {
-  # Enable CUPS to print documents.
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  # enable CUPS to print documents
   services.printing.enable = true;
 
   # virtualisation
@@ -38,23 +42,12 @@
     # media-session.enable = true;
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # flatpack
+  services.flatpak.enable = true;
 
-  # # services
-  # services = {
-  #   xserver.enable = false; # disable xorg server
-  #   greetd = {
-  #     enable = true;
-  #     settings = {
-  #       default_session = {
-  #         user = myVars.username;
-  #         command = "$HOME/.wayland-session";
-  #       };
-  #     };
-  #   };
-  #   sysprof.enable = true;
-  #   printing.enable = false;
-  #   flatpak.enable = true;
-  # };
+  # sysprof
+  services.sysprof.enable = true;
+
+  # xserver
+  services.xserver.enable = lib.mkDefault true;
 }

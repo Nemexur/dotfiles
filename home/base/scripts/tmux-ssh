@@ -5,8 +5,8 @@ args=(ADDR)
 
 usage() {
     ssh_options=$(mktemp)
-    ssh &> "${ssh_options}"
-	cat <<EOF
+    ssh &>"${ssh_options}"
+    cat <<EOF
 SSH into a remote machine in a separate tmux session.
 
 USAGE: ${script_name} [OPTIONS] ${args[*]} [SSH_OPTIONS...]
@@ -18,49 +18,49 @@ SSH_OPTIONS:
 $(cat "${ssh_options}")
 EOF
     rm "${ssh_options}"
-	exit
+    exit
 }
 
 msg() {
-	echo >&2 -e "${1-}"
+    echo >&2 -e "${1-}"
 }
 
 die() {
-	local msg=$1
-	local code=${2-1}
-	msg "${script_name}: ${msg}"
-	exit "${code}"
+    local msg=$1
+    local code=${2-1}
+    msg "${script_name}: ${msg}"
+    exit "${code}"
 }
 
 parse_params() {
-	while :; do
-		case "${1-}" in
-		-h | --help) usage ;;
-		-?*) die "Unknown option: $1" ;;
-		*) break ;;
-		esac
-		shift
-	done
-	argv=("$@")
-	paste <(tr " " "\n" <<<"${args[@]}") <(tr " " "\n" <<<"${argv[@]:-""}") | grep -v '^\t' |
-		while read -r arg value; do
-			if [ -z "${value}" ]; then
-				die "Missing argument: ${arg}"
-			fi
-		done
-	return 0
+    while :; do
+        case "${1-}" in
+        -h | --help) usage ;;
+        -?*) die "Unknown option: $1" ;;
+        *) break ;;
+        esac
+        shift
+    done
+    argv=("$@")
+    paste <(tr " " "\n" <<<"${args[@]}") <(tr " " "\n" <<<"${argv[@]:-""}") | rg -v '^\t' |
+        while read -r arg value; do
+            if [ -z "${value}" ]; then
+                die "Missing argument: ${arg}"
+            fi
+        done
+    return 0
 }
 
 switch_to() {
-	if [[ -z "${TMUX}" ]]; then
-		tmux attach-session -t "$1"
-	else
-		tmux switch-client -t "$1"
-	fi
+    if [[ -z "${TMUX}" ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
 }
 
 has_session() {
-	tmux list-sessions | grep -q "^$1:"
+    tmux list-sessions | grep -q "^$1:"
 }
 
 parse_params "$@"
@@ -72,12 +72,12 @@ session_name=$(tr . _ <<<"ssh-${ssh_addr}")
 tmux_running=$(pgrep tmux)
 
 if [[ -z "${TMUX}" ]] && [[ -z "${tmux_running}" ]]; then
-	tmux new-session -s "${session_name}" "ssh ${ssh_options[*]:-""} ${ssh_addr}"
-	exit 0
+    tmux new-session -s "${session_name}" "ssh ${ssh_options[*]:-""} ${ssh_addr}"
+    exit 0
 fi
 
 if ! has_session "${session_name}"; then
-	tmux new-session -ds "${session_name}" "ssh ${ssh_options[*]:-""} ${ssh_addr}"
+    tmux new-session -ds "${session_name}" "ssh ${ssh_options[*]:-""} ${ssh_addr}"
 fi
 
 switch_to "${session_name}"

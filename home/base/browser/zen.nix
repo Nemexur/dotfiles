@@ -5,13 +5,13 @@
   zen-browser,
   ...
 }: let
-  cfg = config.home-module.browser.zen;
+  cfg = config.home-modules.browser.zen;
 in {
   imports = [
     zen-browser.homeModules.default
   ];
 
-  options.home-module.browser.zen = {
+  options.home-modules.browser.zen = {
     enable = lib.mkEnableOption "Enables Zen Browser with hardware acceleration";
 
     enableVaapi = lib.mkOption {

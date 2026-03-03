@@ -6,10 +6,8 @@
 }: let
   cfg = config.modules.nixos-desktop.fingerprint;
 in {
-  options.modules.nixos-desktop = {
-    fingerprint = {
-      enable = lib.mkEnableOption "FingerPrint Reader";
-    };
+  options.modules.nixos-desktop.fingerprint = {
+    enable = lib.mkEnableOption "FingerPrint Reader";
   };
 
   config = lib.mkIf cfg.enable {

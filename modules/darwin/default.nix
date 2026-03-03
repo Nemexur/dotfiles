@@ -1,7 +1,7 @@
 {
   imports = [
     ../base
-    ./apps.nix
+    ./brew.nix
     ./ssh.nix
     ./system.nix
     ./user.nix

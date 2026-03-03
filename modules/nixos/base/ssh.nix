@@ -5,10 +5,8 @@
 }: let
   cfg = config.modules.nixos-base.ssh;
 in {
-  options.modules.nixos-base = {
-    ssh = {
-      enable = lib.mkEnableOption "Enable SSH access";
-    };
+  options.modules.nixos-base.ssh = {
+    enable = lib.mkEnableOption "Enable SSH access";
   };
 
   config = lib.mkIf cfg.enable {

@@ -42,7 +42,7 @@ parse_params() {
 		shift
 	done
 	argv=("$@")
-	paste <(tr " " "\n" <<<"${args[@]}") <(tr " " "\n" <<<"${argv[@]:-""}") | grep -v '^\t' |
+	paste <(tr " " "\n" <<<"${args[@]}") <(tr " " "\n" <<<"${argv[@]:-""}") | rg -v '^\t' |
 		while read -r arg value; do
 			if [ -z "${value}" ]; then
 				die "Missing argument: ${arg}"

@@ -12,7 +12,7 @@
     wget
     curl
     tree-sitter
-    ripgrep
+    (ripgrep.override {withPCRE2 = true;})
     fd
     fzf
     cargo

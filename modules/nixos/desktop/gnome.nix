@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{lib, pkgs, ...}: {
   environment = {
     systemPackages = with pkgs; [
       gnomeExtensions.just-perfection
@@ -32,9 +32,9 @@
   programs.kdeconnect.enable = true;
 
   services = {
-    desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = lib.mkDefault true;
     displayManager.gdm = {
-      enable = true;
+      enable = lib.mkDefault true;
       wayland = true;
     };
   };

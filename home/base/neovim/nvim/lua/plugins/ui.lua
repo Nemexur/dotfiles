@@ -420,6 +420,9 @@ return {
     {
         "NvChad/nvim-colorizer.lua",
         opts = {},
+        keys = {
+            { "<leader>uc", "<cmd>ColorizerToggle<cr>", desc = "Toggle Colorizer" },
+        },
         cmd = "ColorizerToggle",
     },
     {

@@ -12,10 +12,8 @@ in {
     nix-gaming.nixosModules.platformOptimizations
   ];
 
-  options.modules.nixos-desktop = {
-    gaming = {
-      enable = lib.mkEnableOption "Gaming Optimizations";
-    };
+  options.modules.nixos-desktop.gaming = {
+    enable = lib.mkEnableOption "Gaming Optimizations";
   };
 
   config = lib.mkIf cfg.enable {

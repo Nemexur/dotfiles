@@ -5,10 +5,8 @@
 }: let
   cfg = config.modules.nixos-desktop.kanata;
 in {
-  options.modules.nixos-desktop = {
-    kanata = {
-      enable = lib.mkEnableOption "Kanata Keyboard Remapping";
-    };
+  options.modules.nixos-desktop.kanata = {
+    enable = lib.mkEnableOption "Kanata Keyboard Remapping";
   };
 
   config = lib.mkIf cfg.enable {
@@ -38,42 +36,54 @@ in {
       enable = true;
       keyboards = {
         internalKeyboard = {
-          extraDefCfg = "process-unmapped-keys yes";
+          extraDefCfg = ''
+            process-unmapped-keys yes
+            concurrent-tap-hold yes
+          '';
           config = ''
+            (defsrc
+              grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+              tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+              caps a    s    d    f    g    h    j    k    l    ;    '    ret
+              lsft z    x    c    v    b    n    m    ,    .    /    rsft
+              lctl wkup lmet lalt           spc            ralt rmet rctl
+            )
+
             (defvar
               tap-time 100
               hold-time 200
             )
 
-            (defsrc
-              tab \
-              ret caps
-              f h j k l
-            )
-
             (defalias
               ;; Tab/BackSlash -> Alt when Held
-              tab-alt (tap-hold-press $tap-time $hold-time tab lalt)
-              bksl-alt (tap-hold-press $tap-time $hold-time \ lalt)
-              ;; Enter -> Enter/Control
-              enter-ctrl (tap-hold-press $tap-time $hold-time ret lctl)
+              tab-alt (tap-hold-press $tap-time $hold-time tab alt)
+              bksl-alt (tap-hold-press $tap-time $hold-time \ alt)
+              ;; Return/Enter -> Enter/Control
+              ret-ctrl (tap-hold-press $tap-time $hold-time ret lctl)
               ;; CapsLock -> Escape/Controlll
               caps-ctrl (tap-hold-press $tap-time $hold-time esc lctl)
               ;; Enable HJKL when F is pressed
-              f-hjkl (tap-hold $tap-time $hold-time f (layer-while-held move))
+              f-hjkl (tap-hold $tap-time $hold-time f (layer-while-held arrows))
+            )
+
+            (defchordsv2
+              (lsft lmet f23) ralt 200 all-released ()
             )
 
             (deflayer base
-              @tab-alt
-              @bksl-alt
-              @enter-ctrl
-              @caps-ctrl
-              @f-hjkl h j k l
+              grv        1    2    3    4       5    6    7    8    9    0    -    =    bspc
+              @tab-alt   q    w    e    r       t    y    u    i    o    p    [    ]    @bksl-alt
+              @caps-ctrl a    s    d    @f-hjkl g    h    j    k    l    ;    '    @ret-ctrl
+              lsft       z    x    c    v       b    n    m    ,    .    /    rsft
+              lctl wkup lalt lmet           spc            rmet ralt rctl
             )
 
-            (deflayer move
-              _ _ _ _ _
-              left down up right
+            (deflayer arrows
+              _    _    _    _    _    _    _    _    _    _    _    _    _    _
+              _    _    _    _    _    _    _    _    _    _    _    _    _    _
+              _    _    _    _    _    _    left down up right  _    _    _
+              _    _    _    _    _    _    _    _    _    _    _    _
+              _    _    _    _              _              _    _    _
             )
           '';
         };
