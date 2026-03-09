@@ -1,5 +1,8 @@
 # Dotfiles
 
+Install easyeffects manually. bash -c "$(curl -fsSL https://raw.githubusercontent.com/kikislater/thinkpad-p14s-g5-linux/master/install_easyeffects.sh)"
+Configurations from here: https://wiki.archlinux.org/title/Lenovo_ThinkPad_P14s_(AMD)_Gen_6
+
 [![Test][badge-gh-actions]][link-gh-actions]
 
 ## Installation

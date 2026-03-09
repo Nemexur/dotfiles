@@ -6,9 +6,6 @@
 }: {
   imports = [../base ./karabiner];
 
-  # enable management of XDG base directories on macOS.
-  xdg.enable = true;
-
   home = {
     inherit username;
     homeDirectory = "/Users/${username}";

@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   # security with polkit
   security.polkit.enable = true;
   # security with gnome-kering
@@ -10,8 +10,19 @@
   };
   # seahorse is a GUI App for GNOME Keyring.
   programs.seahorse.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
 
   # fix for `sudo xxx` in kitty/wezterm/foot and other modern terminal emulators
   security.sudo.keepTerminfo = true;
+
+  # PAM Order
+  security.pam.services = let
+    handle = service: {
+      "${service}" = {
+        rules.auth.fprintd = {
+          order = config.security.pam.services."${service}".rules.auth.unix.order + 50;
+        };
+      };
+    };
+  in
+    handle "greetd" // handle "hyprlock";
 }

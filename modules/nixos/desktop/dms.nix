@@ -2,13 +2,17 @@
   lib,
   config,
   pkgs,
+  pkgs-unstable,
   dms,
   dms-plugin-registry,
   ...
 }: let
   cfg = config.modules.nixos-desktop.dms;
 in {
-  imports = [dms-plugin-registry.modules.default];
+  imports = [
+    dms-plugin-registry.modules.default
+    "${pkgs-unstable.path}/nixos/modules/programs/wayland/dms-shell.nix"
+  ];
 
   options.modules.nixos-desktop.dms = {
     enable = lib.mkEnableOption "Enable DankMaterialShell";

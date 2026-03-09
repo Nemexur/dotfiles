@@ -1,70 +1,76 @@
 {
   lib,
-  config,
-  pkgs,
+  pkgs-unstable,
   ...
-}: let
-  scriptsDir = ./scripts;
-  binScripts =
-    builtins.listToAttrs
-    (map
-      (name: {
-        name = ".local/bin/${name}";
-        value = {
-          source = lib.path.append scriptsDir "${name}";
-          executable = true;
-        };
-      })
-      (builtins.attrNames (builtins.readDir scriptsDir)));
-in {
+}: {
   imports = [
     ./browser
-    ./terminal.nix
-    ./starship.nix
-    ./zsh.nix
-    ./tmux.nix
-    ./neovim
-    ./nh.nix
-    ./zoxide.nix
-    ./zsh.nix
     ./fzf.nix
     ./git.nix
+    ./neovim
+    ./nh.nix
+    ./starship.nix
+    ./tealdeer.nix
+    ./terminal.nix
+    ./tmux.nix
+    ./zoxide.nix
+    ./zsh.nix
   ];
 
-  home.packages = with pkgs; [
-    # Tools
-    eza
-    bat
-    gopass
-    manix
-    tealdeer
-    trash-cli
-    fd
-    (ripgrep.override {withPCRE2 = true;})
+  xdg.enable = true;
 
-    # K8s
-    kubectl
-    kubectx
+  home = {
+    packages = with pkgs-unstable; [
+      # Tools
+      eza
+      bat
+      gopass
+      manix
+      trash-cli
+      fd
+      yazi
+      (lib.hiPrio parallel)
+      (ripgrep.override {withPCRE2 = true;})
 
-    # Compression
-    zip
-    xz
-    zstd
-    unzipNLS
-    p7zip
+      # K8s
+      kubectl
+      kubectx
 
-    # File Transfers
-    rsync
-    croc
+      # Compression
+      zip
+      xz
+      zstd
+      unzipNLS
+      p7zip
 
-    # GUI Apps
-    obsidian
-    dbeaver-bin
-    telegram-desktop
-    sioyek
-    winbox4
-  ];
+      # File Transfers
+      rsync
+      croc
 
-  home.sessionPath = ["$HOME/.local/bin"];
-  home.file = binScripts;
+      # Misc
+      ani-cli
+
+      # GUI Apps
+      obsidian
+      dbeaver-bin
+      telegram-desktop
+      sioyek
+      winbox4
+    ];
+    sessionPath = ["$HOME/.local/bin"];
+    file = let
+      binScripts = scriptsDir:
+        builtins.listToAttrs
+        (map
+          (name: {
+            name = ".local/bin/${name}";
+            value = {
+              source = lib.path.append scriptsDir "${name}";
+              executable = true;
+            };
+          })
+          (builtins.attrNames (builtins.readDir scriptsDir)));
+    in
+      binScripts ./scripts;
+  };
 }

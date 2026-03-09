@@ -1,3 +1,7 @@
-{...}: {
-    imports = [./chrome.nix ./firefox.nix ./zen.nix];
+{
+  imports = [
+    ./chrome.nix
+    ./firefox.nix
+    ./zen.nix
+  ];
 }

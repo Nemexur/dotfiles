@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
+{pkgs-unstable, ...}: {
+  environment.systemPackages = with pkgs-unstable; [
     # Core Tools
     zsh
     neovim
@@ -30,6 +30,7 @@
     getopt
     which
     units
+    bc
 
     # Text Processing
     sad

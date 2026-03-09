@@ -1,4 +1,8 @@
-{lib, pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   environment = {
     systemPackages = with pkgs; [
       gnomeExtensions.just-perfection
@@ -7,25 +11,30 @@
     ];
 
     gnome.excludePackages = with pkgs; [
-      # gnome-text-editor
-      # gnome-console
-      gnome-photos
-      gnome-tour
-      gnome-connections
-      snapshot
+      atomix
+      cheese
+      epiphany
+      evince
+      geary
       gedit
-      cheese # webcam tool
-      epiphany # web browser
-      evince # document viewer
-      totem # video player
-      yelp # Help view
+      gnome-characters
+      gnome-connections
+      gnome-contacts
       gnome-font-viewer
-      gnome-shell-extensions
+      gnome-initial-setup
       gnome-maps
       gnome-music
-      gnome-characters
-      gnome-contacts
-      gnome-initial-setup
+      gnome-photos
+      gnome-shell-extensions
+      gnome-terminal
+      gnome-tour
+      hitori
+      iagno
+      nautilus
+      snapshot
+      tali
+      totem
+      yelp
     ];
   };
 

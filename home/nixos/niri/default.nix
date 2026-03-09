@@ -11,9 +11,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.xwayland-satellite pkgs.wtype];
-
-    programs.swaylock.enable = true;
+    home.packages = with pkgs; [
+      xwayland-satellite
+      wtype
+      swaylock
+    ];
 
     xdg.configFile = let
       mkSymlink = config.lib.file.mkOutOfStoreSymlink;

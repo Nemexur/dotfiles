@@ -2,7 +2,9 @@ let
   hostName = "luffy";
 in {
   imports = [
+    ./amd-optimization.nix
     ./hardware-configuration.nix
+    ./power-optimization.nix
   ];
   networking = {
     inherit hostName;

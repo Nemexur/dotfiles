@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Kitty for icat command
   programs.kitty.enable = true;
 
@@ -21,15 +17,26 @@
           if pkgs.stdenv.isDarwin
           then 15
           else 12;
-
         background-opacity = 0.8;
         background-blur = 8;
-
-        macos-option-as-alt = true;
       }
       // (
-        lib.optionals pkgs.stdenv.isx86_64
-        {window-decoration = "none";}
+        if pkgs.stdenv.isDarwin
+        then {
+          macos-option-as-alt = true;
+        }
+        else {
+          window-padding-x = 12;
+          window-padding-y = 6;
+          window-decoration = "auto";
+          window-theme = "system";
+          window-height = 26;
+          window-width = 90;
+          copy-on-select = true;
+          gtk-single-instance = false;
+          gtk-titlebar = false;
+          confirm-close-surface = false;
+        }
       );
   };
 }

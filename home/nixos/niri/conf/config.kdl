@@ -6,6 +6,13 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+spawn-at-startup "noctalia-shell"
+
 input {
     keyboard {
         repeat-rate 35
@@ -53,12 +60,12 @@ input {
     trackpoint {
         // off
         natural-scroll
-        accel-speed 0.2
+        accel-speed 0.1
         accel-profile "flat"
         scroll-method "on-button-down"
         scroll-button 273
         scroll-button-lock
-        middle-emulation
+        // middle-emulation
     }
 
     // Uncomment this to make the mouse warp to the center of newly focused windows.
@@ -231,11 +238,6 @@ layout {
     }
 }
 
-hotkey-overlay {
-    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    skip-at-startup
-}
-
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
@@ -278,43 +280,67 @@ workspace "else" {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
-window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
 }
 
-// Open the Firefox picture-in-picture player as floating by default.
 window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    geometry-corner-radius 20
+    clip-to-geometry true
+    draw-border-with-background false
+}
+
+// Web browsers - open in workspace 1
+window-rule {
+    match app-id="firefox"
+    open-on-workspace "web"
+    open-maximized true
+}
+window-rule {
+    match app-id="google-chrome"
+    open-on-workspace "web"
+    open-maximized true
+}
+window-rule {
+    match app-id="zen-beta"
+    open-on-workspace "web"
+    open-maximized true
+}
+window-rule {
+    match app-id="zen-beta" title="^Picture-in-Picture$"
     open-floating true
 }
 
-// Example: block out two password managers from screen capture.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
-
-    block-out-from "screen-capture"
-
-    // Use this instead if you want them visible on third-party screenshot tools.
-    // block-out-from "screencast"
+// Terminal applications - open in workspace 2
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    open-on-workspace "term"
+    open-maximized true
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
+// Chat applications - open in workspace 3
 window-rule {
-    geometry-corner-radius 15
-    clip-to-geometry true
-    draw-border-with-background false
+    match title="^Telegram"
+    open-on-workspace "chat"
+}
+
+// Gaming applications - open in workspace 4
+window-rule {
+    match app-id="steam"
+    open-on-workspace "game"
+    open-maximized true
+}
+window-rule {
+    match app-id=".exe$"
+    open-on-workspace "game"
+    open-maximized true
+}
+
+// File managers - open in workspace 5
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    open-floating true
 }
 
 binds {
@@ -340,17 +366,18 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: noctalia-shell" {
+        spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+    }
+
+    // Browser
+    Mod+W { spawn "zen-beta"; }
+    Mod+E { spawn "nautilus"; }
 
     // Launcher
     Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Alt+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     XF86Search { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-
-    // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
-    // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -500,24 +527,24 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
+    Mod+1 { focus-workspace "web"; }
+    Mod+2 { focus-workspace "term"; }
+    Mod+3 { focus-workspace "chat"; }
+    Mod+4 { focus-workspace "game"; }
+    Mod+5 { focus-workspace "file"; }
     Mod+6 { focus-workspace 6; }
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+9 { focus-workspace "else"; }
+    Mod+Ctrl+1 { move-column-to-workspace "web"; }
+    Mod+Ctrl+2 { move-column-to-workspace "term"; }
+    Mod+Ctrl+3 { move-column-to-workspace "chat"; }
+    Mod+Ctrl+4 { move-column-to-workspace "game"; }
+    Mod+Ctrl+5 { move-column-to-workspace "filee"; }
     Mod+Ctrl+6 { move-column-to-workspace 6; }
     Mod+Ctrl+7 { move-column-to-workspace 7; }
     Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+Ctrl+9 { move-column-to-workspace "else"; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
@@ -570,11 +597,6 @@ binds {
     Mod+F       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
-    // Toggle tabbed column display mode.
-    // Windows in this column will appear as vertical tabs,
-    // rather than stacked on top of each other.
-    Mod+W { toggle-column-tabbed-display; }
-
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
     // a matching layout switch hotkey configured in xkb options above.
@@ -604,4 +626,7 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    // Utilities
+    Mod+S { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
 }

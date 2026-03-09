@@ -31,8 +31,8 @@ in {
       ++ nixos-modules
       ++ [
         {
+          modules.host.power-optim.service = "tuned";
           modules.nixos-base.ssh.enable = false;
-          modules.nixos-base.power.enable = true;
           modules.nixos-desktop.gaming.enable = true;
           modules.nixos-desktop.kanata.enable = true;
           modules.nixos-desktop.fingerprint.enable = true;

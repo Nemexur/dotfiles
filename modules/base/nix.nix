@@ -12,11 +12,16 @@
 
   nix.package = pkgs.nix;
 
-  # Disable auto-optimise-store because of this issue:
-  #   https://github.com/NixOS/nix/issues/7273
-  # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
   nix.settings = {
-    auto-optimise-store = false;
+    substituters = [
+      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+    ];
+    builders-use-substitutes = true;
   };
 
   nix.settings.trusted-users = [username];

@@ -15,16 +15,17 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.noctalia-shell = {
-      enable = true;
-      systemd.enable = true;
-    };
+    programs.noctalia-shell.enable = true;
 
     xdg.configFile = let
       mkSymlink = config.lib.file.mkOutOfStoreSymlink;
       configPath = "${config.home.homeDirectory}/.dotfiles/home/nixos/noctalia/conf";
     in {
       "noctalia".source = mkSymlink configPath;
+    };
+
+    home.sessionVariables = {
+      "NOCTALIA_PAM_SERVICE" = "greetd";
     };
   };
 }

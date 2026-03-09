@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   # enable CUPS to print documents
   services.printing.enable = true;
 

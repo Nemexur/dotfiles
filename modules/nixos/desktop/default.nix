@@ -1,7 +1,7 @@
 {
   imports = [
-    ../base
     ../../base
+    ../base
     ./dms.nix
     ./fingerprint.nix
     ./gaming.nix
@@ -12,6 +12,8 @@
     ./security.nix
     ./shell.nix
     ./system.nix
+    ./thunar.nix
     ./trackpoint.nix
+    ./xdg.nix
   ];
 }

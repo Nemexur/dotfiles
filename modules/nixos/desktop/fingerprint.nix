@@ -11,7 +11,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Enable FingerPrint
     services.fprintd = {
       enable = true;
       tod = {

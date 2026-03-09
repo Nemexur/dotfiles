@@ -36,6 +36,8 @@
       ls = "eza --icons --color=always";
       lt = "eza --icons --color=always -T";
       mkdir = "mkdir -p";
+      ns = "nix-shell --command 'zsh'";
+      open = "xdg-open";
       pass = "gopass";
       p = "podman";
       rm = "trash";

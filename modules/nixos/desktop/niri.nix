@@ -23,28 +23,30 @@ in {
         settings = {
           default_session = {
             user = username;
-            command = "niri-session";
+            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
           };
         };
       };
     };
 
+    systemd.services.greetd.serviceConfig = {
+      Type = "idle";
+      StandardInput = "tty";
+      StandardOutput = "tty";
+      StandardError = "journal"; # Without this errors will spam on screen
+      # Without these bootlogs will spam on screen
+      TTYReset = true;
+      TTYVHangup = true;
+      TTYVTDisallocate = true;
+    };
+
     xdg.portal = {
       enable = true;
-
-      config = {
-        common = {
-          # Use xdg-desktop-portal-gtk for every portal interface...
-          default = [
-            "gtk"
-            "gnome"
-          ];
-        };
-      };
+      config.common.default = ["gtk" "kde"];
       xdgOpenUsePortal = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk # for provides file picker / OpenURI
-        xdg-desktop-portal-gnome # for screensharing
+        xdg-desktop-portal-gtk
+        kdePackages.xdg-desktop-portal-kde
       ];
     };
   };

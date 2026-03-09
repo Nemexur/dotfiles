@@ -19,4 +19,5 @@
     usbutils # lsusb
     hdparm # for disk performance, command
   ];
+  services.fwupd.enable = true;
 }

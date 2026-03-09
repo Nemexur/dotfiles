@@ -36,7 +36,6 @@ in {
   config = lib.mkIf cfg.enable {
     programs.zen-browser = {
       enable = true;
-      suppressXdgMigrationWarning = true;
 
       # Policies (admin-level settings)
       policies = {
