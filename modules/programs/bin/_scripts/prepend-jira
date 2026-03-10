@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+
+usage() {
+	cat <<EOF
+Add Jira Ticket from branch name to the beginning of commit message.
+
+USAGE: ${script_name} [OPTIONS]
+
+OPTIONS:
+  -h, --help    Print help.
+EOF
+	exit
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1}
+	msg "${script_name}: ${msg}"
+	exit "${code}"
+}
+
+parse_params() {
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+	return 0
+}
+
+parse_params "$@"
+
+if ! [ -e "${PWD}/.git" ]; then
+	die "fatal: not a git repository"
+fi
+
+mkdir -p "${PWD}/.git/hooks"
+hook_filename="${PWD}/.git/hooks/prepare-commit-msg"
+
+cat >"${hook_filename}" <<"EOF"
+#!/usr/bin/env bash
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+BRANCH_NAME="$(git branch --show-current)"
+PATTERN="^[a-zA-Z]{2,}-[0-9]+"
+JIRA_TASK="$(grep -oE "${PATTERN}" <<< "${BRANCH_NAME}")"
+
+if [[ -z "${JIRA_TASK}" ]]; then
+    echo >&2 -e "${BRANCH_NAME} is not connected with Jira"
+    exit 0
+fi
+if sed -n '1p' "${COMMIT_MSG_FILE}" | grep -oE "${PATTERN}"; then
+    echo >&2 -e "Commit ${SHA1} is already connected to jira task."
+    exit 0
+fi
+
+sed -i "1 s/^/${JIRA_TASK}: /" "${COMMIT_MSG_FILE}"
+EOF
+chmod +x "${hook_filename}"
