@@ -38,7 +38,6 @@
         lt = "eza --icons --color=always -T";
         mkdir = "mkdir -p";
         ns = "nix-shell --command 'zsh'";
-        open = "xdg-open";
         pass = "gopass";
         p = "podman";
         rm = "trash";
@@ -55,6 +54,7 @@
           tnotif = "terminal-notifier";
         }
         else {
+          open = "xdg-open";
           pbc = "wl-copy";
           pbp = "wl-paste";
         }

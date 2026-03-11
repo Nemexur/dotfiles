@@ -58,43 +58,58 @@ in {
   };
 
   flake.modules.homeManager.homePackages = {pkgs, ...}: {
-    home.packages = with pkgs.unstable; [
-      # Tools
-      eza
-      bat
-      gopass
-      manix
-      trash-cli
-      fd
-      yazi
-      (lib.hiPrio parallel)
-      (ripgrep.override {withPCRE2 = true;})
+    home.packages = with pkgs.unstable;
+      [
+        # Tools
+        eza
+        bat
+        gopass
+        manix
+        trash-cli
+        fd
+        yazi
+        (lib.hiPrio parallel)
+        (ripgrep.override {withPCRE2 = true;})
 
-      # K8s
-      kubectl
-      kubectx
+        # K8s
+        kubectl
+        kubectx
 
-      # Compression
-      zip
-      xz
-      zstd
-      unzipNLS
-      p7zip
+        # Compression
+        zip
+        xz
+        zstd
+        unzipNLS
+        p7zip
 
-      # File Transfers
-      rsync
-      croc
+        # File Transfers
+        rsync
+        croc
 
-      # Misc
-      ani-cli
+        # Misc
+        ani-cli
 
-      # GUI Apps
-      obsidian
-      dbeaver-bin
-      telegram-desktop
-      sioyek
-      winbox4
-    ];
+        # GUI Apps
+        obsidian
+        dbeaver-bin
+        telegram-desktop
+        sioyek
+        winbox4
+      ]
+      ++ (lib.optionals pkgs.stdenv.isDarwin [
+        # Tools
+        m-cli
+        numi
+        stats
+        rectangle
+
+        # Video Player
+        iina
+
+        # GUI Apps
+        terminal-notifier
+        pinentry_mac
+      ]);
   };
 
   flake.modules.homeManager.tools = {pkgs, ...}: {

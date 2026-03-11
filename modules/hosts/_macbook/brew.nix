@@ -30,7 +30,6 @@
       casks = [
         # note taking
         "raindropio"
-        "mactex"
 
         # tools
         "alfred"
