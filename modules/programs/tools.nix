@@ -1,4 +1,4 @@
-let
+{inputs, ...}: let
   fzf = {
     programs.fzf = {
       enable = true;
@@ -52,58 +52,60 @@ let
       options = ["--cmd cd"];
     };
   };
-in
-  {
-    flake.modules.homeManager = {
-      inherit fzf nh starship tealdeer zoxide;
-    };
-    flake.modules.homeManager.tools = {pkgs, ...}: {
-      imports = [
+in {
+  flake.modules.homeManager = {
+    inherit fzf nh starship tealdeer zoxide;
+  };
+
+  flake.modules.homeManager.homePackages = {pkgs, ...}: {
+    home.packages = with pkgs.unstable; [
+      # Tools
+      eza
+      bat
+      gopass
+      manix
+      trash-cli
+      fd
+      yazi
+      (lib.hiPrio parallel)
+      (ripgrep.override {withPCRE2 = true;})
+
+      # K8s
+      kubectl
+      kubectx
+
+      # Compression
+      zip
+      xz
+      zstd
+      unzipNLS
+      p7zip
+
+      # File Transfers
+      rsync
+      croc
+
+      # Misc
+      ani-cli
+
+      # GUI Apps
+      obsidian
+      dbeaver-bin
+      telegram-desktop
+      sioyek
+      winbox4
+    ];
+  };
+
+  flake.modules.homeManager.tools = {pkgs, ...}: {
+    imports =
+      [
         fzf
         nh
         starship
         tealdeer
         zoxide
-      ];
-
-      home = {
-        packages = with pkgs.unstable; [
-          # Tools
-          eza
-          bat
-          gopass
-          manix
-          trash-cli
-          fd
-          yazi
-          (lib.hiPrio parallel)
-          (ripgrep.override {withPCRE2 = true;})
-
-          # K8s
-          kubectl
-          kubectx
-
-          # Compression
-          zip
-          xz
-          zstd
-          unzipNLS
-          p7zip
-
-          # File Transfers
-          rsync
-          croc
-
-          # Misc
-          ani-cli
-
-          # GUI Apps
-          obsidian
-          dbeaver-bin
-          telegram-desktop
-          sioyek
-          winbox4
-        ];
-      };
-    };
-  }
+      ]
+      ++ [inputs.self.modules.homeManager.homePackages];
+  };
+}

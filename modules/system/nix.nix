@@ -1,5 +1,5 @@
 {inputs, ...}: let
-  genericPkg = {pkgs, ...}: {
+  genericPkg = trusted-users: {pkgs, ...}: {
     nixpkgs.overlays = [
       (final: _prev: {
         stable = import inputs.nixpkgs-stable {
@@ -32,9 +32,9 @@
       builders-use-substitutes = true;
     };
 
-    nix.settings.trusted-users = ["root" "@wheel"];
+    nix.settings.trusted-users = trusted-users;
   };
 in {
-  flake.modules.nixos.nix = genericPkg;
-  flake.modules.darwin.nix = genericPkg;
+  flake.modules.nixos.nix = genericPkg ["root" "@wheel"];
+  flake.modules.darwin.nix = genericPkg ["root" "@admin"];
 }

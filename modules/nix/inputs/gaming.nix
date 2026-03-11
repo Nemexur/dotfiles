@@ -1,9 +1,6 @@
 {inputs, ...}: {
   flake-file.inputs = {
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
   flake.modules.nixos.gaming = {

@@ -5,8 +5,17 @@
       gamescopeSession.enable = true;
       protontricks.enable = true;
       extest.enable = true;
+      platformOptimizations.enable = true;
       extraCompatPackages = [pkgs.proton-ge-bin];
     };
+
+    # see https://github.com/fufexan/nix-gaming/#pipewire-low-latency
+    services.pipewire.lowLatency.enable = true;
+
+    # Optimise Linux system performance on demand
+    # https://github.com/FeralInteractive/GameMode
+    # https://wiki.archlinux.org/title/Gamemode
+    programs.gamemode.enable = true;
   };
 
   flake.modules.homeManager.gaming = {pkgs, ...}: {
