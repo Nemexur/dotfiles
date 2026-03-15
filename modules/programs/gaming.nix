@@ -9,8 +9,23 @@
       extraCompatPackages = [pkgs.proton-ge-bin];
     };
 
-    # see https://github.com/fufexan/nix-gaming/#pipewire-low-latency
-    services.pipewire.lowLatency.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+
+      lowLatency = {
+        # enable this module
+        enable = true;
+        # defaults (no need to be set unless modified)
+        quantum = 64;
+        rate = 48000;
+      };
+    };
+
+    # make pipewire realtime-capable
+    security.rtkit.enable = true;
 
     # Optimise Linux system performance on demand
     # https://github.com/FeralInteractive/GameMode

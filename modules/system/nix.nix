@@ -1,6 +1,8 @@
 {inputs, ...}: let
-  genericPkg = trusted-users: {pkgs, ...}: {
+  genericPkg = {pkgs, ...}: {
     nixpkgs.overlays = [
+      inputs.brew-nix.overlays.default
+
       (final: _prev: {
         stable = import inputs.nixpkgs-stable {
           inherit (final) config;
@@ -32,9 +34,15 @@
       builders-use-substitutes = true;
     };
 
-    nix.settings.trusted-users = trusted-users;
+    nix.settings.trusted-users =
+      ["root"]
+      ++ (
+        if pkgs.stdenv.isDarwin
+        then ["@admin"]
+        else ["@wheel"]
+      );
   };
 in {
-  flake.modules.nixos.nix = genericPkg ["root" "@wheel"];
-  flake.modules.darwin.nix = genericPkg ["root" "@admin"];
+  flake.modules.nixos.nix = genericPkg;
+  flake.modules.darwin.nix = genericPkg;
 }

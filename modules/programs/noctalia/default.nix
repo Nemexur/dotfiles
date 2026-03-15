@@ -1,12 +1,10 @@
 {
-  flake.modules.nixos.noctalia = {pkgs, ...}: {
-    environment.systemPackages = with pkgs.unstable; [
+  flake.modules.homeManager.noctalia = {config, pkgs, ...}: {
+    home.packages = with pkgs.unstable; [
       wl-clipboard
       wf-recorder
     ];
-  };
 
-  flake.modules.homeManager.noctalia = {config, ...}: {
     programs.noctalia-shell.enable = true;
 
     xdg.configFile = let

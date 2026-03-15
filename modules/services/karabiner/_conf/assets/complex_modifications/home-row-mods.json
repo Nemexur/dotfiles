@@ -1,0 +1,36 @@
+{
+    "title": "Home row mods",
+    "rules": [
+        {
+            "description": "Command",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "a",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "basic.to_if_alone_timeout_milliseconds": 100,
+                        "basic.to_if_held_down_threshold_milliseconds": 200
+                    },
+                    "to_if_held_down": [
+                        {
+                            "key_code": "left_command",
+                            "halt": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "a"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

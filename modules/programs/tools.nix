@@ -32,10 +32,7 @@
         python.disabled = true;
         aws.disabled = true;
         gcloud.disabled = true;
-        kubernetes = {
-          symbol = "⛵";
-          disabled = false;
-        };
+        kubernetes.disabled = true;
         os.disabled = false;
       };
     };
@@ -68,12 +65,11 @@ in {
         trash-cli
         fd
         yazi
+        miller
+        moreutils
+        imagemagick
         (lib.hiPrio parallel)
         (ripgrep.override {withPCRE2 = true;})
-
-        # K8s
-        kubectl
-        kubectx
 
         # Compression
         zip
@@ -87,29 +83,57 @@ in {
         croc
 
         # Misc
+        ctop
+        plantuml-c4
+        vault
+        ffmpeg
         ani-cli
+        pre-commit
 
         # GUI Apps
+        discord
         obsidian
         dbeaver-bin
-        telegram-desktop
         sioyek
         winbox4
       ]
-      ++ (lib.optionals pkgs.stdenv.isDarwin [
+      ++ lib.optionals pkgs.stdenv.isLinux [telegram-desktop]
+      ++ lib.optionals pkgs.stdenv.isDarwin [
         # Tools
         m-cli
         numi
         stats
-        rectangle
-
-        # Video Player
-        iina
 
         # GUI Apps
         terminal-notifier
         pinentry_mac
-      ]);
+
+        # Brew
+        pkgs.brewCasks.neohtop
+        pkgs.brewCasks.mac-mouse-fix
+        pkgs.brewCasks.telegram
+        (pkgs.brewCasks.raindropio.overrideAttrs (o: {
+          unpackPhase = let
+            volumeName = "Raindrop.io ${o.version}-${pkgs.stdenv.hostPlatform.darwinArch}";
+          in ''
+            # Since the .dmg is using APFS we can't use undmg.
+            # I also tried to use _7zz but it corrupts the .app.
+            /usr/bin/hdiutil attach $src
+            cp -r "/Volumes/${volumeName}/Raindrop.io.app" .
+            /usr/bin/hdiutil detach "/Volumes/${volumeName}"
+          '';
+          installPhase = ''
+            mkdir -p "$out/Applications/${o.sourceRoot}"
+            cp -R . "$out/Applications/${o.sourceRoot}"
+          '';
+        }))
+        (pkgs.brewCasks.wine-stable.overrideAttrs (o: {
+          unpackPhase = "${lib.getExe pkgs.gnutar} -xvf $src";
+        }))
+        (pkgs.brewCasks.alfred.overrideAttrs (o: {
+          unpackPhase = "${lib.getExe pkgs.gnutar} -xvzf $src";
+        }))
+      ];
   };
 
   flake.modules.homeManager.tools = {pkgs, ...}: {

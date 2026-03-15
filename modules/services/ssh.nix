@@ -13,6 +13,6 @@
   };
 
   flake.modules.darwin.ssh = {
-    services.openssh.enable = false;
+    services.openssh.enable = true;
   };
 }

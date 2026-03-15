@@ -1,46 +1,24 @@
 {
   flake.modules.nixos.xdg = {
     lib,
-    config,
     pkgs,
     ...
   }: {
-    options.xdgSettings = {
-      terminalDesktop = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
-        description = "Terminal Exec Applications";
-      };
+    xdg = {
+      autostart.enable = lib.mkDefault true;
+      menus.enable = lib.mkDefault true;
+      mime.enable = lib.mkDefault true;
+      icons.enable = lib.mkDefault true;
     };
 
-    config = let
-      cfg = config.xdgSettings;
-    in {
-      xdg.terminal-exec = {
-        enable = true;
-        package = pkgs.xdg-terminal-exec;
-        settings = {
-          default = cfg.terminalDesktop;
-          niri = cfg.terminalDesktop;
-        };
-      };
-
-      xdg = {
-        autostart.enable = lib.mkDefault true;
-        menus.enable = lib.mkDefault true;
-        mime.enable = lib.mkDefault true;
-        icons.enable = lib.mkDefault true;
-      };
-
-      xdg.portal = {
-        enable = true;
-        config.common.default = ["gtk" "kde"];
-        xdgOpenUsePortal = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          kdePackages.xdg-desktop-portal-kde
-        ];
-      };
+    xdg.portal = {
+      enable = true;
+      config.common.default = ["gtk" "kde"];
+      xdgOpenUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        kdePackages.xdg-desktop-portal-kde
+      ];
     };
   };
 
@@ -50,6 +28,11 @@
     ...
   }: {
     options.homeXDGSettings = {
+      terminal = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = "Terminal Exec Applications";
+      };
       browser = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
@@ -86,8 +69,15 @@
       cfg = config.homeXDGSettings;
     in {
       xdg.enable = true;
-
       xdg.configFile."mimeapps.list".force = true;
+
+      xdg.terminal-exec = {
+        enable = true;
+        settings = {
+          default = cfg.terminal;
+          niri = cfg.terminal;
+        };
+      };
 
       # manage $XDG_CONFIG_HOME/mimeapps.list
       # xdg search all desktop entries from $XDG_DATA_DIRS, check it by command:

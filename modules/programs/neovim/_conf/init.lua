@@ -25,13 +25,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- fzf
-local fzf_path = ""
-local sysname = vim.loop.os_uname().sysname
-if sysname == "Darwin" then
-    fzf_path = "/opt/homebrew/opt/fzf"
-end
-
 require("lazy").setup({
     spec = {
         { import = "plugins" },
@@ -55,7 +48,6 @@ require("lazy").setup({
         },
         rtp = {
             reset = true,
-            paths = { fzf_path },
             disabled_plugins = {
                 "gzip",
                 "plugin",

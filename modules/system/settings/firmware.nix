@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.fwupd = {
+  flake.modules.nixos.firmware = {
     services.fwupd.enable = true;
   };
 }

@@ -2,7 +2,6 @@ let
   genericPkg = {pkgs, ...}: {
     environment.systemPackages = with pkgs.unstable; [
       # Core Tools
-      zsh
       neovim
       fastfetch
       gnumake
@@ -18,6 +17,7 @@ let
       btop
 
       # GNU Tools
+      inetutils
       coreutils
       findutils
       binutils

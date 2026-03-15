@@ -4,6 +4,7 @@
       [
         # Minimal
         nix
+        agenix
         home-manager
         systemPackages
 
@@ -13,7 +14,7 @@
         boot
         fingerprint
         trackpoint
-        fwupd
+        firmware
         fonts
         gaming
         locale
@@ -23,7 +24,6 @@
         zram
         xdg
         podman
-        docker
 
         # Services
         kanata
@@ -32,18 +32,19 @@
 
         # Programs
         niri
-        noctalia
         gnome
-        gnupg
-        kde
+        wayland
         manpage
         thunar
       ]
-      ++ [inputs.self.modules.generic.systemConstants]
+      ++ (with inputs.self.modules.generic; [
+        systemConstants
+        pkgs-by-name
+        secrets
+      ])
       ++ [
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen5
         {power-optim.service = "tuned";}
-        {xdgSettings.terminalDesktop = ["com.mitchellh.ghostty.desktop" "kitty.desktop"];}
       ];
   };
 }

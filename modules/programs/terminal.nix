@@ -7,8 +7,8 @@
       enable = true;
       package =
         if pkgs.stdenv.isDarwin
-        then pkgs.hello # pkgs.ghostty is currently broken on darwin
-        else pkgs.ghostty; # the stable version
+        then pkgs.brewCasks.ghostty
+        else pkgs.ghostty;
       installBatSyntax = true;
       settings =
         {
@@ -20,11 +20,13 @@
             else 12;
           background-opacity = 0.8;
           background-blur = 8;
+          copy-on-select = "clipboard";
         }
         // (
           if pkgs.stdenv.isDarwin
           then {
             macos-option-as-alt = true;
+            macos-auto-secure-input = true;
           }
           else {
             window-padding-x = 12;
@@ -33,7 +35,6 @@
             window-theme = "system";
             window-height = 26;
             window-width = 90;
-            copy-on-select = true;
             gtk-single-instance = false;
             gtk-titlebar = false;
             confirm-close-surface = false;

@@ -1,5 +1,5 @@
-let
-  genericPkg = {pkgs, ...}: {
+{
+  flake.modules.nixos.manpage = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [man-pages man-pages-posix];
 
     documentation = {
@@ -10,7 +10,14 @@ let
       nixos.includeAllModules = true;
     };
   };
-in {
-  flake.modules.nixos.manpage = genericPkg;
-  flake.modules.darwin.manpage = genericPkg;
+
+  flake.modules.darwin.manpage = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [man-pages man-pages-posix];
+
+    documentation = {
+      man.enable = true;
+      doc.enable = true;
+      info.enable = true;
+    };
+  };
 }

@@ -14,27 +14,42 @@ in {
     mkNixos = {
       system,
       name,
+      nameAsHostName ? true,
     }: {
       ${name} = inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          inputs.self.modules.nixos.${name}
-          {nixpkgs.hostPlatform = lib.mkDefault system;}
-          {system.stateVersion = lib.mkDefault stateVersion;}
-          {networking.hostName = lib.mkDefault name;}
-        ];
+        specialArgs = {
+          inherit name;
+        };
+        modules =
+          [
+            inputs.self.modules.nixos.${name}
+            {nixpkgs.hostPlatform = lib.mkDefault system;}
+            {system.stateVersion = lib.mkDefault stateVersion;}
+          ]
+          ++ lib.optionals nameAsHostName [
+            {networking.hostName = lib.mkDefault name;}
+          ];
       };
     };
 
     mkDarwin = {
       system,
       name,
+      nameAsHostName ? true,
     }: {
       ${name} = inputs.nix-darwin.lib.darwinSystem {
-        modules = [
-          inputs.self.modules.darwin.${name}
-          {nixpkgs.hostPlatform = lib.mkDefault system;}
-          {networking.hostName = lib.mkDefault name;}
-        ];
+        specialArgs = {
+          inherit name;
+        };
+        modules =
+          [
+            inputs.self.modules.darwin.${name}
+            {nixpkgs.hostPlatform = lib.mkDefault system;}
+            {networking.hostName = lib.mkDefault name;}
+          ]
+          ++ lib.optionals nameAsHostName [
+            {networking.hostName = lib.mkDefault name;}
+          ];
       };
     };
 

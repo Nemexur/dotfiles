@@ -13,9 +13,9 @@ in {
         home = "/home/${username}";
         extraGroups =
           ["${username}" "users"]
-          ++ (lib.optionals isAdmin [
+          ++ lib.optionals isAdmin [
             "wheel"
-          ]);
+          ];
         shell = pkgs.zsh;
       };
       programs.zsh.enable = true;

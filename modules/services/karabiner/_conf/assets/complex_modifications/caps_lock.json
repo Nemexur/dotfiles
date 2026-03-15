@@ -1,0 +1,37 @@
+{
+    "title": "Caps Lock",
+    "rules": [
+        {
+            "description": "Caps Lock to Escape if alone, change Caps Lock to Control.",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "basic": {
+                            "to_if_alone_timeout_milliseconds": 400
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_control",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "escape"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

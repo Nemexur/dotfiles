@@ -1,12 +1,12 @@
 {inputs, ...}: let
   system = "x86_64-linux";
 in {
-  flake.nixosConfigurations = inputs.self.lib.mkNixos {
+  flake.configurations.nixos = inputs.self.lib.mkNixos {
     inherit system;
     name = "luffy";
   };
-  flake.homeConfigurations = inputs.self.lib.mkHomeManager {
+  flake.configurations.homeManager = inputs.self.lib.mkHomeManager {
     inherit system;
-    name = "nemexur-luffy";
+    name = "nemexur";
   };
 }

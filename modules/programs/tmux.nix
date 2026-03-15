@@ -22,46 +22,57 @@
       thm_orange="#fe640b"
       thm_black4="#acb0be"
     '';
-    options = ''
-      # utf8 is on
-      setw -q -g utf8 on
-      set -q -g status-utf8 on
+    options =
+      ''
+        # utf8 is on
+        setw -q -g utf8 on
+        set -q -g status-utf8 on
 
-      # Rename window to reflect current program
-      setw -g automatic-rename off
+        # Rename window to reflect current program
+        setw -g automatic-rename off
 
-      # Renumber windows when a window is closed
-      set -g renumber-windows on
+        # Renumber windows when a window is closed
+        set -g renumber-windows on
 
-      # Activity
-      set -g bell-action none
-      set -g visual-bell off
-      set -g monitor-activity off
-      set -g visual-activity off
+        # Activity
+        set -g bell-action none
+        set -g monitor-bell off
+        set -g visual-bell off
+        set -g monitor-activity off
+        set -g visual-activity off
 
-      # Title
-      set -g set-titles on
-      set -g set-titles-string 'tmux | #S | #W'
+        # Title
+        set -g set-titles on
+        set -g set-titles-string 'tmux | #S | #W'
 
-      # Don't wrap searches; it's super confusing given tmux's reverse-ordering of position info in copy mode.
-      set -w -g wrap-search off
+        # emacs key bindings in tmux command prompt (prefix + :) are better than actually
+        # vi keys, even for vim users.
+        set -g status-keys emacs
+        setw -g mode-keys vi
+        setw -g xterm-keys on
 
-      # Increase tmux messages display duration from 750ms to 4s
-      set -g display-time 4000
+        # Don't wrap searches; it's super confusing given tmux's reverse-ordering of position info in copy mode.
+        set -w -g wrap-search off
 
-      # Refresh 'status-left' and 'status-right' more often, from every 15s to 5s
-      set -g status-interval 5
+        # Increase tmux messages display duration from 750ms to 4s
+        set -g display-time 4000
 
-      # Super useful when using "grouped sessions" and multi-monitor setup
-      setw -g aggressive-resize on
-    '';
+        # Refresh 'status-left' and 'status-right' more often, from every 15s to 5s
+        set -g status-interval 5
+
+        # Super useful when using "grouped sessions" and multi-monitor setup
+        setw -g aggressive-resize on
+      ''
+      + lib.optionalString pkgs.stdenv.isDarwin ''
+        # Fix copy-mode on MacOS
+        set-option -g default-command "${pkgs.reattach-to-user-namespace}/bin/reattach-to-user-namespace -l $SHELL"
+      '';
     keybinds = ''
       # Unbind
       unbind %
       unbind '"'
       unbind a
       unbind &
-      unbind -T copy-mode-vi Enter
 
       # Reload config
       bind R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
@@ -150,6 +161,10 @@
       set -g window-status-current-format "''${window_left_sep}''${window_curr_symbol} ''${window_curr_name}''${window_right_sep}"
     '';
   in {
+    home.packages = lib.mkIf pkgs.stdenv.isDarwin [
+      pkgs.reattach-to-user-namespace
+    ];
+
     programs.tmux = {
       enable = true;
       shortcut = "Space";
@@ -164,6 +179,7 @@
         extrakto
         open
         prefix-highlight
+        yank
         {
           plugin = tmux-fzf;
           extraConfig = ''
