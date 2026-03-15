@@ -40,7 +40,6 @@
       ++ (with inputs.self.modules.generic; [
         systemConstants
         pkgs-by-name
-        secrets
       ])
       ++ [
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen5

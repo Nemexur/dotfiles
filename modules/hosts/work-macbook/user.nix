@@ -31,11 +31,11 @@
 
           # Secrets
           agenix
-          work-macbook-secrets
+          home-envs-secret
+          work-envs-secret
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants
-          secrets
         ])
         ++ [
           {

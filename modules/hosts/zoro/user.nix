@@ -30,7 +30,6 @@
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants
-          secrets
         ])
         ++ [
           {

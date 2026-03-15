@@ -47,11 +47,10 @@
 
           # Secrets
           agenix
-          luffy-secrets
+          home-envs-secret
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants
-          secrets
         ])
         ++ [
           {
