@@ -1,8 +1,6 @@
 {inputs, ...}: let
   genericPkg = {pkgs, ...}: {
     nixpkgs.overlays = [
-      inputs.brew-nix.overlays.default
-
       (final: _prev: {
         stable = import inputs.nixpkgs-stable {
           inherit (final) config;
@@ -44,5 +42,11 @@
   };
 in {
   flake.modules.nixos.nix = genericPkg;
-  flake.modules.darwin.nix = genericPkg;
+  flake.modules.darwin.nix = {
+    imports = [genericPkg];
+
+    nixpkgs.overlays = [
+      inputs.brew-nix.overlays.default
+    ];
+  };
 }

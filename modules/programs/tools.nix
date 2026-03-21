@@ -79,6 +79,7 @@ in {
         p7zip
 
         # File Transfers
+        s5cmd
         rsync
         croc
 

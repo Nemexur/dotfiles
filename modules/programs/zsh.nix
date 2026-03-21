@@ -18,18 +18,20 @@
     aliases =
       {
         a = "awk";
-        cat = "bat";
         c = "cd";
+        cat = "bat";
         clr = "clear";
         d = "docker";
         df = "duf";
+        dig = "doggo";
         du = "ncdu";
         e = "nvim";
         f = "fd";
         g = "rg";
+        gco = "git checkout";
         icat = "kitty icat --align left";
-        kctx = "kubectx";
         k = "kubectl";
+        kctx = "kubectx";
         kns = "kubens";
         la = "eza --icons --color=always -la";
         lgit = "lazygit";
@@ -38,8 +40,8 @@
         lt = "eza --icons --color=always -T";
         mkdir = "mkdir -p";
         ns = "nix-shell --command 'zsh'";
-        pass = "gopass";
         p = "podman";
+        pass = "gopass";
         rm = "trash";
         s = "sed";
         ssh = "tmux-ssh";

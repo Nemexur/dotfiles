@@ -5,8 +5,4 @@ in {
     inherit system;
     name = "luffy";
   };
-  flake.configurations.homeManager = inputs.self.lib.mkHomeManager {
-    inherit system;
-    name = "nemexur";
-  };
 }

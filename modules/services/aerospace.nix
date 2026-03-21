@@ -47,7 +47,8 @@
             alt-ctrl-semicolon = "mode service";
             alt-ctrl-tab = "move-workspace-to-monitor --wrap-around next";
             alt-equal = "resize smart +50";
-            alt-f = "fullscreen";
+            alt-f = "layout floating";
+            alt-m = "fullscreen";
             alt-h = "focus left";
             alt-j = "focus down";
             alt-k = "focus up";
@@ -66,6 +67,28 @@
             r = ["flatten-workspace-tree" "mode main"];
           };
         };
+        on-window-detected = [
+          {
+            "if".app-id = "com.apple.finder";
+            run = "layout floating";
+          }
+          {
+            "if".app-id = "com.apple.ActivityMonitor";
+            run = "layout floating";
+          }
+          {
+            "if".app-id = "app.zen-browser.zen";
+            run = "move-node-to-workspace W";
+          }
+          {
+            "if".app-id = "com.mitchellh.ghostty";
+            run = "move-node-to-workspace T";
+          }
+          {
+            "if".app-id = "ru.keepcoder.Telegram";
+            run = "move-node-to-workspace C";
+          }
+        ];
         on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
         on-mode-changed = [];
         persistent-workspaces = ["W" "T" "C" "Z" "E"];

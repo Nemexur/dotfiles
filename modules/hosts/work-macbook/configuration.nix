@@ -1,5 +1,7 @@
 {inputs, ...}: {
   flake.modules.darwin.work-macbook = {
+    security.pki.certificateFiles = ["/etc/ssl/certs/work-bundle.crt"];
+
     imports = with inputs.self.modules.darwin;
       [
         # Minimal

@@ -23,6 +23,7 @@
           tmux
           zsh
           media
+          ai
 
           # Services
           gnupg

@@ -6,9 +6,7 @@
     system = {
       stateVersion = 6;
 
-      keyboard = {
-        enableKeyMapping = true; # enable key mapping so that we can use `option` as `control`
-      };
+      keyboard.enableKeyMapping = true; # enable key mapping so that we can use `option` as `control`};
 
       defaults = {
         menuExtraClock.Show24Hour = true;
@@ -92,15 +90,15 @@
           GuestEnabled = false; # disable guest user
           SHOWFULLNAME = true; # show full name in login window
         };
+        # Disable the “Are you sure you want to open this application?” dialog
+        LaunchServices.LSQuarantine = false;
         # All custom entries can be found by running `defaults read` command.
         # or `defaults read xxx` to read a specific domain.
         CustomUserPreferences = {
-          NSGlobalDomain = {
-            # Add a context menu item for showing the Web Inspector in web views
-            WebKitDeveloperExtras = true;
-          };
+          # Add a context menu item for showing the Web Inspector in web views
+          NSGlobalDomain.WebKitDeveloperExtras = true;
+          # Avoid creating .DS_Store files on network or USB volumes
           "com.apple.desktopservices" = {
-            # Avoid creating .DS_Store files on network or USB volumes
             DSDontWriteNetworkStores = true;
             DSDontWriteUSBStores = true;
           };
@@ -109,15 +107,11 @@
             askForPassword = 1;
             askForPasswordDelay = 0;
           };
-          "com.apple.AdLib" = {
-            allowApplePersonalizedAdvertising = false;
-          };
+          "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
           # Prevent Photos from opening automatically when devices are plugged in
           "com.apple.ImageCapture".disableHotPlug = true;
           # Configure pinentry-touchid
-          "org.gpgtools.common" = {
-            UseKeychain = true;
-          };
+          "org.gpgtools.common".UseKeychain = true;
           "com.apple.NetworkBrowser".BrowseAllInterfaces = "1";
           # Improve BlueTooth sound quality
           "com.apple.BluetoothAudioAgent" = {
@@ -131,10 +125,89 @@
           };
           # automatically switch to a new space when switching to the application
           ".GlobalPreferences".AppleSpacesSwitchOnActivate = true;
+          # Keyboard Shortcuts
+          "com.apple.symbolichotkeys" = {
+            AppleSymbolicHotKeys = {
+              "60" = {
+                enabled = 1;
+                value = {
+                  parameters = [
+                    32
+                    49
+                    1048576
+                  ];
+                  type = "standard";
+                };
+              };
+              "61" = {
+                enabled = 0;
+                value = {
+                  parameters = [
+                    65535
+                    36
+                    1048576
+                  ];
+                  type = "standard";
+                };
+              };
+              "64" = {
+                enabled = 0;
+                value = {
+                  parameters = [
+                    65535
+                    49
+                    262144
+                  ];
+                  type = "standard";
+                };
+              };
+              "79" = {
+                enabled = 1;
+                value = {
+                  parameters = [
+                    65535
+                    123
+                    8650752
+                  ];
+                  type = "standard";
+                };
+              };
+              "80" = {
+                enabled = 1;
+                value = {
+                  parameters = [
+                    65535
+                    123
+                    8781824
+                  ];
+                  type = "standard";
+                };
+              };
+              "81" = {
+                enabled = 1;
+                value = {
+                  parameters = [
+                    65535
+                    124
+                    8650752
+                  ];
+                  type = "standard";
+                };
+              };
+              "82" = {
+                enabled = 1;
+                value = {
+                  parameters = [
+                    65535
+                    124
+                    8781824
+                  ];
+                  type = "standard";
+                };
+              };
+            };
+          };
         };
-
-        # Disable the “Are you sure you want to open this application?” dialog
-        LaunchServices.LSQuarantine = false;
       };
     };
   };

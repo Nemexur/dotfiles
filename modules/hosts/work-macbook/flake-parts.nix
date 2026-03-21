@@ -6,8 +6,4 @@ in {
     name = "work-macbook";
     nameAsHostName = false;
   };
-  flake.configurations.homeManager = inputs.self.lib.mkHomeManager {
-    inherit system;
-    name = "a.n.milogradskiy";
-  };
 }

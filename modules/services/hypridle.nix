@@ -29,7 +29,6 @@
               on-timeout = "brightnessctl -s set 10"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
               on-resume = "brightnessctl -r"; # monitor backlight restore.
             }
-
             {
               timeout = 1200; # 20 min
               on-timeout = cfg.lockCmd; # lock screen

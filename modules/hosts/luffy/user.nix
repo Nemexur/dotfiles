@@ -14,6 +14,11 @@
     };
 
     home-manager.users.nemexur = {
+      home.sessionVariables = {
+        "NIXOS_OZONE_WL" = "1"; # for any ozone-based browser & electron apps to run on wayland
+        "ELECTRON_OZONE_PLATFORM_HINT" = "auto"; # enable native Wayland support for most Electron apps
+      };
+
       imports = with inputs.self.modules.homeManager;
         [
           # System
@@ -36,6 +41,7 @@
           terminal
           tmux
           zsh
+          ai
 
           # Services
           kdeconnect
@@ -70,11 +76,6 @@
             };
           }
         ];
-
-      home.sessionVariables = {
-        "NIXOS_OZONE_WL" = "1"; # for any ozone-based browser & electron apps to run on wayland
-        "ELECTRON_OZONE_PLATFORM_HINT" = "auto"; # enable native Wayland support for most Electron apps
-      };
     };
   };
 }

@@ -129,26 +129,6 @@ return {
         },
     },
     {
-        "williamboman/mason.nvim",
-        lazy = false,
-        branch = "main",
-        version = "v2.*",
-        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        opts = {},
-        config = function(_, opts)
-            require("mason").setup(opts)
-            local mr = require("mason-registry")
-            mr:on("package:install:success", function()
-                vim.defer_fn(function()
-                    require("lazy.core.handler.event").trigger({
-                        event = "FileType",
-                        buf = vim.api.nvim_get_current_buf(),
-                    })
-                end, 100)
-            end)
-        end,
-    },
-    {
         "nvim-mini/mini.snippets",
         event = "InsertEnter",
         dependencies = { "rafamadriz/friendly-snippets" },

@@ -9,6 +9,7 @@
       };
     };
   };
+
   flake.modules.homeManager.zen-browser = {
     imports = [
       inputs.zen-browser.homeModules.default
