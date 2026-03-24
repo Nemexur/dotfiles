@@ -20,14 +20,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
@@ -42,6 +34,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-24-11.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";

@@ -66,6 +66,7 @@ in {
         fd
         yazi
         miller
+        onefetch
         moreutils
         imagemagick
         (lib.hiPrio parallel)
