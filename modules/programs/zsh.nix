@@ -38,7 +38,6 @@
         ls = "eza --icons --color=always";
         lt = "eza --icons --color=always -T";
         mkdir = "mkdir -p";
-        nd = "nix develop --command 'zsh'";
         ns = "nix-shell --command 'zsh'";
         p = "podman";
         pass = "gopass";

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+script_name=$(basename "${BASH_SOURCE[0]}")
+args=(DEV_SHELL)
+
+usage() {
+    cat <<EOF
+Convenient command to launch predefined nix development sessions.
+If NIX_DEVELOP_OPTIONS are empty --command "zsh" is automatically appended.
+
+USAGE: ${script_name} [OPTIONS] ${args[*]} [NIX_DEVELOP_OPTIONS...]
+
+OPTIONS:
+  -h, --help    Print help.
+EOF
+    exit
+}
+
+msg() {
+    echo >&2 -e "${1-}"
+}
+
+die() {
+    local msg=$1
+    local code=${2-1}
+    msg "${script_name}: ${msg}"
+    exit "${code}"
+}
+
+parse_params() {
+    while :; do
+        case "${1-}" in
+        -h | --help) usage ;;
+        -?*) die "Unknown option: $1" ;;
+        *) break ;;
+        esac
+        shift
+    done
+    argv=("$@")
+    paste <(tr " " "\n" <<<"${args[@]}") <(tr " " "\n" <<<"${argv[@]:-""}") | rg -v '^\t' |
+        while read -r arg value; do
+            if [ -z "${value}" ]; then
+                die "Missing argument: ${arg}"
+            fi
+        done
+    return 0
+}
+
+parse_params "$@"
+
+devshell_name="${argv[0]}"
+nix_develop_options=("${argv[@]:1}")
+
+if [ ${#nix_develop_options[@]} -eq 0 ]; then
+    nix_develop_options=(--command "zsh")
+fi
+
+nix develop "${DOTFILES}#${devshell_name}" "${nix_develop_options[@]}"
