@@ -25,7 +25,6 @@
         df = "duf";
         dig = "doggo";
         du = "ncdu";
-        e = "nvim";
         f = "fd";
         g = "rg";
         gco = "git checkout";
