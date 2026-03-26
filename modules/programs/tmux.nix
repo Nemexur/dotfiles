@@ -65,7 +65,7 @@
       ''
       + lib.optionalString pkgs.stdenv.isDarwin ''
         # Fix copy-mode on MacOS
-        set-option -g default-command "${pkgs.reattach-to-user-namespace}/bin/reattach-to-user-namespace -l $SHELL"
+        set-option -g default-command "${lib.getExe pkgs.reattach-to-user-namespace} -l $SHELL"
       '';
     keybinds = ''
       # Unbind
