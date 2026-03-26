@@ -86,7 +86,7 @@ in {
 
         # Misc
         ctop
-        plantuml-c4
+        plantuml
         vault
         ffmpeg
         ani-cli
