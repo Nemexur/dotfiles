@@ -38,13 +38,11 @@
           name = "go";
           packages = with pkgs; [
             go
-            gopls
             gotools
             gofumpt
             gotools
             golines
             golangci-lint
-            golangci-lint-langserver
             delve
           ];
         };
