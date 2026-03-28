@@ -17,23 +17,21 @@
       vimAlias = true;
       withPython3 = true;
       extraPackages = with pkgs.unstable; [
-        git
-        gcc
-        gnumake
-        unzip
-        wget
-        curl
-        tree-sitter
         (ripgrep.override {withPCRE2 = true;})
+        curl
         fd
         fzf
-        cargo
-        lazygit
-        python3
-        luajitPackages.luarocks
-        lua
-        libxml2
+        gcc
+        git
+        gnumake
         imagemagick
+        lazygit
+        libxml2
+        lua
+        luajitPackages.luarocks
+        tree-sitter
+        unzip
+        wget
 
         # nix
         nil
@@ -51,8 +49,6 @@
         # python
         ruff
         pyright
-        poetry
-        uv
         black
         python314Packages.flake8
         isort
@@ -80,11 +76,9 @@
         yamllint
 
         # go
-        go
         gopls
         gotools
         gofumpt
-        gotools
         golines
         golangci-lint
         golangci-lint-langserver
@@ -97,20 +91,16 @@
         marksman
 
         # json
-        vscode-json-languageserver
         go-jsonnet
         jsonnet-language-server
+        vscode-json-languageserver
 
         # lua
         lua-language-server
         stylua
 
         # rust
-        cargo
-        rustc
-        rustfmt
-        rust-analyzer
-        clippy
+        rustup
 
         # sql
         python314Packages.sqlfmt
