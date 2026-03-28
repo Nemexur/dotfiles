@@ -41,7 +41,6 @@
               Exporter = 1099120373;
               Infuse = 1136220934;
               "MarginNote 4" = 1531657269;
-              Notability = 360593530;
               Twingate = 1501592214;
               UpNote = 1398373917;
               WireGuard = 1451685025;
