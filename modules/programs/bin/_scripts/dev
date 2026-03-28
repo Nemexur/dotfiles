@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 script_name=$(basename "${BASH_SOURCE[0]}")
-args=(DEV_SHELL)
+args=(DEVSHELL)
 
 usage() {
     cat <<EOF

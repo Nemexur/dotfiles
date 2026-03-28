@@ -12,7 +12,7 @@
           name = p;
           value = pkgs.mkShell {
             inherit name;
-            packages = [pkgs."${p}"];
+            packages = with pkgs; [uv pkgs."${p}"];
           };
         }
         rec {
@@ -37,18 +37,21 @@
         go = pkgs.mkShell {
           name = "go";
           packages = with pkgs; [
-            go
-            gotools
-            gofumpt
-            gotools
-            golines
-            golangci-lint
             delve
+            go
+            gofumpt
+            golangci-lint
+            golines
+            gotools
           ];
         };
         zig = pkgs.mkShell {
           name = "zig";
-          packages = with pkgs; [zig zls];
+          packages = with pkgs; [zig];
+        };
+        rust = pkgs.mkShell {
+          name = "rust";
+          packages = with pkgs; [rustc cargo];
         };
       }
       // pythonDevShells;
