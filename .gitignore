@@ -1,10 +1,7 @@
-*.vagrant
-*.vscode
-*.retry
-roles-galaxy*
-collections-galaxy*
 .DS_Store
-config.yaml
 
-files/**/secrets.*
-files/alfred
+result
+result.*
+
+.direnv
+.alfred

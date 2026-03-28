@@ -1,5 +1,0 @@
----
-- name: Include homebrew tasks
-  ansible.builtin.include_tasks: homebrew.yaml
-- name: Include go tasks
-  ansible.builtin.include_tasks: go.yaml

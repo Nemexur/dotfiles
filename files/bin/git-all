@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#
-# Stage all unstaged.
-
-git add -A
