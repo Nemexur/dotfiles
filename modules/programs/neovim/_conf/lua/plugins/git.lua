@@ -3,7 +3,9 @@ return {
         "NeogitOrg/neogit",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
+            "esmuellert/codediff.nvim",
+            "m00qek/baleia.nvim",
+            "folke/snacks.nvim",
         },
         opts = {
             integrations = {
@@ -68,7 +70,8 @@ return {
                     end
                 end, { desc = "Prev Hunk", buffer = buffer })
                 Snacks.keymap.set("n", "]H", function() gs.nav_hunk("last") end, { desc = "Last Hunk", buffer = buffer })
-                Snacks.keymap.set("n", "[H", function() gs.nav_hunk("first") end, { desc = "First Hunk", buffer = buffer })
+                Snacks.keymap.set("n", "[H", function() gs.nav_hunk("first") end,
+                    { desc = "First Hunk", buffer = buffer })
                 Snacks.keymap.set("n", "<leader>ghs", gs.stage_hunk, { desc = "Stage Hunk", buffer = buffer })
                 Snacks.keymap.set('v', '<leader>hs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end,
                     { desc = "Stage hunk", buffer = buffer })
