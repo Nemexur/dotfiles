@@ -4,7 +4,6 @@ return {
     opts = {
         events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         linters_by_ft = {
-            ["yaml.ansible"] = { "ansible-lint" },
             dockerfile = { "hadolint" },
             go = { "golangci-lint" },
             markdown = { "markdownlint-cli2" },
