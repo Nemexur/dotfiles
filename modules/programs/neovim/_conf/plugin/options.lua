@@ -1,13 +1,13 @@
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 -- VimTex
-vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_view_method = "sioyek"
 vim.g.vimtex_quickfix_mode = 2
-vim.g.vimtex_syntax_enabled = 0
 -- Trouble
 vim.g.trouble_lualine = true
 
 vim.opt.mouse = "a"
+vim.opt.shell = "zsh"
 vim.opt.smoothscroll = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.spelllang = { "en" }
