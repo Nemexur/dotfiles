@@ -3,7 +3,6 @@ return {
         "mfussenegger/nvim-dap",
         dependencies = {
             "rcarriga/nvim-dap-ui",
-            "jay-babu/mason-nvim-dap.nvim",
             "theHamsta/nvim-dap-virtual-text",
             "leoluz/nvim-dap-go",
         },
@@ -124,15 +123,6 @@ return {
                 mode = "n",
             },
         },
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        cmd = { "DapInstall", "DapUninstall" },
-        opts = {
-            automatic_installation = false,
-            ensure_installed = { "python", "delve", "cppdbg" },
-        },
-        dependencies = { "williamboman/mason.nvim" },
     },
     { "rcarriga/nvim-dap-ui", opts = {}, dependencies = { "nvim-neotest/nvim-nio" } },
     { "theHamsta/nvim-dap-virtual-text", opts = {} },

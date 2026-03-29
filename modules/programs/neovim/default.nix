@@ -18,6 +18,7 @@
       withPython3 = true;
       extraPackages = with pkgs.unstable; [
         (ripgrep.override {withPCRE2 = true;})
+        codespell
         curl
         fd
         fzf
@@ -62,6 +63,7 @@
         glib
 
         # docker
+        hadolint
         docker-compose-language-service
         dockerfile-language-server
 
@@ -69,7 +71,6 @@
         elixir-ls
 
         # yaml
-        prettier
         gitlab-ci-ls
         yaml-language-server
         yamlfmt
@@ -86,8 +87,9 @@
 
         # markdown
         harper
+        prettier
         markdown-toc
-        markdownlint-cli
+        markdownlint-cli2
         marksman
 
         # json
@@ -103,7 +105,7 @@
         rustup
 
         # sql
-        python314Packages.sqlfmt
+        sqruff
 
         # vim
         vim-language-server

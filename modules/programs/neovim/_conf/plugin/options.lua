@@ -15,7 +15,6 @@ vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.completeopt = "menu,menuone,noselect"
-vim.opt.formatexpr = "v:lua.vim.lsp.formatexpr({ timeout_ms = 3000 })"
 vim.opt.formatoptions = "jcroqlnt" -- tcqj
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"

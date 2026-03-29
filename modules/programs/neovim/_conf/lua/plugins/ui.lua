@@ -292,7 +292,7 @@ return {
             local opts = {
                 options = {
                     icons_enabled = true,
-                    disabled_filetypes = { "snacks_dashboard", "TelescopePrompt", "mason" },
+                    disabled_filetypes = { "snacks_dashboard", "TelescopePrompt" },
                     always_divide_middle = true,
                     globalstatus = true,
                     component_separators = { left = "", right = "" },
@@ -403,7 +403,7 @@ return {
                         },
                     },
                 },
-                extensions = { "oil", "man", "quickfix", "mason", "lazy", "trouble", "toggleterm" },
+                extensions = { "oil", "man", "quickfix", "lazy", "trouble", "toggleterm" },
             }
 
             local theme = require("lualine.themes.auto")

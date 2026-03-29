@@ -34,7 +34,9 @@ return {
                 end
                 return suffix .. " " .. tostring(os.time())
             end,
-            disable_frontmatter = false,
+            frontmatter = {
+                enabled = true,
+            },
             picker = { name = "snacks.pick" },
             open_notes_in = "current",
         },

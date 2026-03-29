@@ -341,7 +341,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
         Snacks.keymap.set("n", "gK", vim.diagnostic.open_float, { desc = "Line Diagnostic" })
         Snacks.keymap.set("n", "gf", function()
-            vim.lsp.buf.format({ async = true, timeout_ms = 10000 })
+            local has_conform, conform = pcall(require, "conform")
+            local formatter = has_conform and conform or vim.lsp.buf
+            formatter.format({ async = true })
         end, { desc = "[F]ormat" })
         Snacks.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = 1, float = true })
