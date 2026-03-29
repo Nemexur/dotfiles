@@ -8,7 +8,7 @@
   in {
     age.secrets.work-envs.file = lib.path.append secretsDir "work-envs.age";
 
-    programs.zsh.initContent = lib.mkOrder 2000 ''
+    programs.zsh.initContent = lib.mkOrder 1100 ''
       if [ -f ${config.age.secrets.work-envs.path} ]; then
         source ${config.age.secrets.work-envs.path}
       fi

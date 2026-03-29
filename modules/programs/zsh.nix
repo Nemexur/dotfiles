@@ -148,6 +148,13 @@
     programs.zsh = {
       enable = true;
       enableCompletion = true;
+      completionInit = ''
+        autoload -Uz compinit
+        for dump in ~/.zcompdump(N.mh+24); do
+          compinit
+        done
+        compinit -C
+      '';
       autosuggestion.enable = true;
       dotDir = "${config.xdg.configHome}/zsh";
       defaultKeymap = "emacs";
@@ -201,7 +208,7 @@
           compdef _ssh_comp tmux-ssh
           compdef _s5cmd_cli_zsh_autocomplete s5cmd
         '';
-        zshConfig = lib.mkOrder 1500 ''
+        zshConfig = lib.mkOrder 1000 ''
           #
           # ZshConfig
           #
@@ -213,7 +220,7 @@
           bindkey "$terminfo[kcuu1]" history-substring-search-up
           bindkey "$terminfo[kcud1]" history-substring-search-down
         '';
-        zshStyles = lib.mkOrder 1500 ''
+        zshStyles = lib.mkOrder 1000 ''
           #
           # ZStyles
           #
