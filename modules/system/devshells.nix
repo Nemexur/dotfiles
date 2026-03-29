@@ -53,6 +53,10 @@
           name = "rust";
           packages = with pkgs; [rustc cargo];
         };
+        latex = pkgs.mkShell {
+          name = "latex";
+          packages = with pkgs; [texliveMedium];
+        };
       }
       // pythonDevShells;
   };
