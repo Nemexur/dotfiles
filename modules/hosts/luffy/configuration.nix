@@ -27,6 +27,7 @@
         podman
 
         # Services
+        gnupg
         kanata
         security
         ssh

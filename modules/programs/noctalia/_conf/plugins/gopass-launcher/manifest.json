@@ -1,0 +1,12 @@
+{
+  "id": "gopass-launcher",
+  "name": "GoPass Launcher",
+  "version": "1.0.0",
+  "minNoctaliaVersion": "3.9.0",
+  "author": "nemexur",
+  "license": "MIT",
+  "description": "Search gopass passwords from Noctalia launcher",
+  "entryPoints": {
+    "launcherProvider": "LauncherProvider.qml"
+  }
+}

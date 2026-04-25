@@ -20,9 +20,11 @@ in {
       parted
       cryptsetup
 
-      # Yubico's official tools
+      # Yubico's tools
       yubioath-flutter
     ];
+
+    programs.yubikey-touch-detector.enable = true;
   };
   flake.modules.darwin.yubikey = genericPkg;
 }

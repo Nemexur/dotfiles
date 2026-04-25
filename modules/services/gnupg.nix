@@ -1,6 +1,10 @@
 {
+  flake.modules.nixos.gnupg = {
+    services.pcscd.enable = true;
+  };
+
   flake.modules.homeManager.gnupg = {pkgs, ...}: {
-    home.packages = [pkgs.pcsclite];
+    home.packages = with pkgs.unstable; [age-plugin-yubikey];
 
     programs.gpg = {
       enable = true;
