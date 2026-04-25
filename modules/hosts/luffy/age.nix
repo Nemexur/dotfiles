@@ -10,7 +10,7 @@
   }: {
     age.identityPaths = ["${config.home.homeDirectory}/.ssh/agenix"];
     age.rekey = {
-      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDad9sqVYn5NAwkAjSfpGmp6n9wie1HaqsshE5yUZIV8";
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ/z0IJo6bPu+y6UwuqcIaQLfteC58rilVeSQKBwgWDp";
       localStorageDir = ../../../secrets/rekeyed/home-luffy;
     };
   };
