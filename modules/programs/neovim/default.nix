@@ -31,7 +31,7 @@
         libxml2
         lua
         luajitPackages.luarocks
-        pkgs.local.tree-sitter
+        tree-sitter
         unzip
         wget
 

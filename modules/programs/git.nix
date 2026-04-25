@@ -47,6 +47,7 @@
           }
         ];
         settings = {
+          commit.gpgsign = true;
           user.name = lib.mkDefault config.systemConstants.name;
           user.email = lib.mkDefault config.systemConstants.email;
           user.signingkey = lib.mkDefault "CC711EAA4A1B02A7"; # YubiKey
@@ -59,7 +60,7 @@
             ca = "commit -a";
             cm = "commit -m";
             co = "checkout";
-            cd = "git diff --color | sed \"s/^\([^-+ ]*\)[-+ ]/\\1/\" | cat";
+            cd = "diff --color | sed \"s/^\([^-+ ]*\)[-+ ]/\\1/\" | cat";
             count = "shortlog -sn";
             undo = "reset --soft HEAD~";
             amend = "commit --amend";
