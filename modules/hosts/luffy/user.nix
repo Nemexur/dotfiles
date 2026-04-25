@@ -56,6 +56,7 @@
           # Secrets
           agenix
           age-rekey
+          luffy-secret
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants
