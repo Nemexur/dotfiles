@@ -26,7 +26,7 @@
           networkmanager
 
           # Browsers
-          chrome
+          chromium
           firefox
           zen-browser
 
@@ -41,6 +41,8 @@
           terminal
           tmux
           zsh
+          k8s
+          npm
           ai
 
           # Services
@@ -53,7 +55,7 @@
 
           # Secrets
           agenix
-          home-envs-secret
+          age-rekey
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants

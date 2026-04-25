@@ -21,6 +21,7 @@ return {
             yaml = { "yamlfmt" },
             -- Lsp Formatting
             nix = { lsp_format = "prefer" },
+            json = { lsp_format = "prefer" },
             jsonnnet = { lsp_format = "prefer" },
             libsonnet = { lsp_format = "prefer" },
             -- Use the "*" filetype to run formatters on all filetypes.

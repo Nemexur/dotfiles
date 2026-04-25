@@ -10,6 +10,7 @@ return {
             "saghen/blink.compat",
             { "nvim-mini/mini.icons", version = false },
             { "mikavilpas/blink-ripgrep.nvim", version = "*" },
+            { "marcoSven/blink-cmp-yanky" },
         },
         config = function()
             local blink = require("blink.cmp")
@@ -47,7 +48,7 @@ return {
                     nerd_font_variant = "mono",
                 },
                 sources = {
-                    default = { "lazydev", "lsp", "path", "buffer", "dadbod" },
+                    default = { "lazydev", "lsp", "path", "buffer", "dadbod", "yank" },
                     providers = {
                         lazydev = {
                             name = "LazyDev",
@@ -59,6 +60,16 @@ return {
                             name = "Ripgrep",
                             module = "blink-ripgrep",
                             opts = {},
+                        },
+                        yank = {
+                            name = "yank",
+                            module = "blink-yanky",
+                            opts = {
+                                minLength = 5,
+                                onlyCurrentFiletype = true,
+                                trigger_characters = { '"' },
+                                kind_icon = "󰅍",
+                            },
                         },
                     },
                 },

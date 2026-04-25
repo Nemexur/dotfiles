@@ -9,6 +9,7 @@
         systemPackages
 
         # System Settings
+        age-rekey
         docker
         fonts
         locale
@@ -22,6 +23,7 @@
         # Programs
         brew
         manpage
+        yubikey
       ]
       ++ (with inputs.self.modules.generic; [
         systemConstants

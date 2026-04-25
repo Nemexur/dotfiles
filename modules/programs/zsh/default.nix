@@ -10,7 +10,6 @@
       DOTFILES = "${config.home.homeDirectory}/.dotfiles";
       EDITOR = "nvim";
       FZF_DEFAULT_OPTS = "--bind=ctrl-n:down,ctrl-p:up,ctrl-y:accept";
-      GPG_TTY = "$(tty)";
       LANG = "en_US.UTF-8";
       LSCOLORS = "exfxcxdxbxegedabagacad";
       MANPAGER = "nvim +Man!";
@@ -28,6 +27,7 @@
         f = "fd";
         g = "rg";
         gco = "git checkout";
+        gs = "git status";
         icat = "kitty icat --align left";
         k = "kubectl";
         kctx = "kubectx";
@@ -145,6 +145,8 @@
       cursor = "standout";
     };
   in {
+    age.secrets.home-envs.rekeyFile = ./home-envs.age;
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -252,8 +254,17 @@
           zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
           zstyle ':fzf-tab:*' fzf-flags --bind=ctrl-n:down,ctrl-p:up,ctrl-y:accept
         '';
+        zshGpgSshEnvs = lib.mkOrder 1100 ''
+          export GPG_TTY="$(tty)"
+          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+        '';
+        zshHomeEnvs = lib.mkOrder 1100 ''
+          if [ -f ${config.age.secrets.home-envs.path} ]; then
+            source ${config.age.secrets.home-envs.path}
+          fi
+        '';
       in
-        lib.mkMerge [zshExtraCompletions zshConfig zshStyles];
+        lib.mkMerge [zshExtraCompletions zshConfig zshStyles zshGpgSshEnvs zshHomeEnvs];
     };
 
     programs.fzf.enableZshIntegration = true;

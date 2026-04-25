@@ -1,4 +1,5 @@
 {inputs, ...}: {
+  #NixOS
   flake.modules.nixos.containers = {pkgs, ...}: {
     virtualisation.containers.enable = true;
     environment.systemPackages = with pkgs; [
@@ -20,20 +21,25 @@
     };
     users.groups.podman = {};
   };
-  flake.modules.nixos.docker = {
+  flake.modules.nixos.docker = {pkgs, ...}: {
     imports = [inputs.self.modules.nixos.containers];
 
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      package = pkgs.docker.override {
+        buildxSupport = true;
+        composeSupport = true;
+      };
+    };
     users.groups.docker = {};
   };
 
+  # Darwin
   flake.modules.darwin.containers = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       lazydocker
-      orbstack
     ];
   };
-
   flake.modules.darwin.podman = {pkgs, ...}: {
     imports = [inputs.self.modules.darwin.containers];
 
@@ -46,8 +52,10 @@
     imports = [inputs.self.modules.darwin.containers];
 
     environment.systemPackages = with pkgs; [
-      docker
-      docker-compose
+      (docker.override {
+        buildxSupport = true;
+        composeSupport = true;
+      })
     ];
   };
 }

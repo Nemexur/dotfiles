@@ -169,7 +169,7 @@ return {
                 function()
                     Snacks.picker.highlights()
                 end,
-                desc = "Search Highlight Groups",
+                desc = "Highlight Groups",
             },
             {
                 "<leader>sj",
@@ -218,7 +218,7 @@ return {
                 function()
                     Snacks.picker.search_history()
                 end,
-                desc = "Search History",
+                desc = "History",
             },
             {
                 "<leader>su",
@@ -246,6 +246,7 @@ return {
                 function()
                     Snacks.notifier.show_history()
                 end,
+                desc = "Notifications",
             },
             {
                 "<leader>gl",

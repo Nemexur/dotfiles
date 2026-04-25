@@ -16,6 +16,7 @@
       viAlias = true;
       vimAlias = true;
       withPython3 = true;
+      package = pkgs.unstable.neovim-unwrapped;
       extraPackages = with pkgs.unstable; [
         (ripgrep.override {withPCRE2 = true;})
         codespell
@@ -30,7 +31,7 @@
         libxml2
         lua
         luajitPackages.luarocks
-        tree-sitter
+        pkgs.local.tree-sitter
         unzip
         wget
 
@@ -77,6 +78,7 @@
         yamllint
 
         # go
+        go
         gopls
         gotools
         gofumpt
@@ -93,7 +95,6 @@
         marksman
 
         # json
-        go-jsonnet
         jsonnet-language-server
         vscode-json-languageserver
 

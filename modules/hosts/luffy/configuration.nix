@@ -9,6 +9,7 @@
         systemPackages
 
         # System Settings
+        age-rekey
         audio
         bluetooth
         boot
@@ -36,13 +37,14 @@
         wayland
         manpage
         thunar
+        yubikey
       ]
       ++ (with inputs.self.modules.generic; [
         systemConstants
         pkgs-by-name
       ])
       ++ [
-        inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen5
+        inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen6
         {power-optim.service = "tuned";}
       ];
   };

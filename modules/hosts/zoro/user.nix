@@ -11,7 +11,7 @@
           agenix
 
           # Browsers
-          chrome
+          chromium
           zen-browser
 
           # Programs
@@ -23,11 +23,16 @@
           tmux
           zsh
           media
+          k8s
+          npm
           ai
 
           # Services
           gnupg
           karabiner
+
+          # Secrets
+          age-rekey
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants

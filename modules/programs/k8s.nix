@@ -5,7 +5,7 @@
       kubectl
       kubectx
       kustomize
-      helm
+      kubernetes-helm
     ];
   };
 }

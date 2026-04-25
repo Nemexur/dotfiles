@@ -69,6 +69,8 @@ in {
         onefetch
         moreutils
         imagemagick
+        go-jsonnet
+        python314Packages.ipython
         (lib.hiPrio parallel)
         (ripgrep.override {withPCRE2 = true;})
 

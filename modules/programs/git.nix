@@ -49,7 +49,7 @@
         settings = {
           user.name = lib.mkDefault config.systemConstants.name;
           user.email = lib.mkDefault config.systemConstants.email;
-          # TODO: Add gpg sign
+          user.signingkey = lib.mkDefault "CC711EAA4A1B02A7"; # YubiKey
 
           hub.protocol = "https";
           alias = {

@@ -1,7 +1,7 @@
 return {
-    { "tpope/vim-rsi",     lazy = false },
+    { "tpope/vim-rsi", lazy = false },
     { "tpope/vim-abolish", lazy = false },
-    { "tpope/vim-eunuch",  event = "VeryLazy" },
+    { "tpope/vim-eunuch", event = "VeryLazy" },
     {
         "nvim-mini/mini.indentscope",
         version = false,
@@ -29,12 +29,12 @@ return {
                         a = { "@block.outer", "@conditional.outer", "@loop.outer" },
                         i = { "@block.inner", "@conditional.inner", "@loop.inner" },
                     }),
-                    f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),   -- function
-                    c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),         -- class
+                    f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+                    c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
                     ["/"] = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }), -- comment
-                    t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },             -- tags
-                    d = { "%f[%d]%d+" },                                                            -- digits
-                    e = {                                                                           -- Word with case
+                    t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+                    d = { "%f[%d]%d+" }, -- digits
+                    e = { -- Word with case
                         {
                             "%u[%l%d]+%f[^%l%d]",
                             "%f[%S][%l%d]+%f[^%l%d]",
@@ -51,7 +51,7 @@ return {
                         }
                         return { from = from, to = to }
                     end,
-                    u = ai.gen_spec.function_call(),                           -- u for "Usage"
+                    u = ai.gen_spec.function_call(), -- u for "Usage"
                     U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
                 },
             }
@@ -175,7 +175,7 @@ return {
                     Snacks.picker.yanky()
                 end,
                 mode = { "n", "x" },
-                desc = "Open Yank History",
+                desc = "Yank History",
             },
             {
                 "y",
@@ -207,18 +207,18 @@ return {
                 mode = { "n", "x" },
                 desc = "Put yanked text before selection",
             },
-            { "<c-p>", "<Plug>(YankyPreviousEntry)",             desc = "Select previous entry through yank history" },
-            { "<c-n>", "<Plug>(YankyNextEntry)",                 desc = "Select next entry through yank history" },
-            { "]p",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-            { "[p",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-            { "]P",    "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-            { "[P",    "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-            { ">p",    "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
-            { "<p",    "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
-            { ">P",    "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-            { "<P",    "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
-            { "=p",    "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
-            { "=P",    "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
+            { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
+            { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
+            { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+            { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+            { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+            { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+            { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
+            { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
+            { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+            { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
+            { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
+            { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
         },
     },
     {
@@ -277,7 +277,7 @@ return {
         version = false,
         opts = {},
         keys = {
-            { "sa", desc = "Add Surrounding",       mode = { "n", "x" } },
+            { "sa", desc = "Add Surrounding", mode = { "n", "x" } },
             { "sd", desc = "Delete Surrounding" },
             { "sf", desc = "Find Right Surrounding" },
             { "sF", desc = "Find Left Surrounding" },
@@ -428,10 +428,10 @@ return {
             "TmuxNavigatePrevious",
         },
         keys = {
-            { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-            { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-            { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-            { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
+            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
             { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
         },
     },

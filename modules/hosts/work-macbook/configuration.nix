@@ -1,6 +1,10 @@
 {inputs, ...}: {
-  flake.modules.darwin.work-macbook = {
-    security.pki.certificateFiles = ["/etc/ssl/certs/work-bundle.crt"];
+  flake.modules.darwin.work-macbook = let
+    workCert = "/etc/ssl/certs/work-bundle.crt";
+  in {
+    nix.settings.ssl-cert-file = workCert;
+    security.pki.certificateFiles = [workCert];
+    environment.variables.NIX_SSL_CERT_FILE = workCert;
 
     imports = with inputs.self.modules.darwin;
       [
@@ -11,6 +15,7 @@
         systemPackages
 
         # System Settings
+        age-rekey
         docker
         fonts
         locale
@@ -24,6 +29,7 @@
         # Programs
         brew
         manpage
+        yubikey
       ]
       ++ (with inputs.self.modules.generic; [
         systemConstants

@@ -258,9 +258,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             :map(function(file)
                 return vim.fn.fnamemodify(file, ":t:r")
             end)
-            :filter(function(name)
-                return name ~= "ty"
-            end)
             :totable()
         vim.lsp.enable(servers)
     end,
@@ -283,7 +280,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gd",
             vim.lsp.buf.definition,
-            { desc = "[G]oto [D]efinition", lsp = { method = ms.textDocument_definition } }
+            { desc = "[G]oto [D]definition", lsp = { method = ms.textDocument_definition } }
         )
         Snacks.keymap.set(
             "n",
@@ -313,7 +310,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             "n",
             "gy",
             vim.lsp.buf.type_definition,
-            { desc = "Type [D]efinition", lsp = { method = ms.textDocument_typeDefinition } }
+            { desc = "Type [D]definition", lsp = { method = ms.textDocument_typeDefinition } }
         )
         Snacks.keymap.set(
             "n",
@@ -333,12 +330,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.codelens.run,
             { desc = "Run [C]odeLens", lsp = { method = ms.textDocument_codeLens } }
         )
-        Snacks.keymap.set(
-            "n",
-            "<leader>lC",
-            vim.lsp.codelens.refresh,
-            { desc = "Refersh & Display [C]odeLens", lsp = { method = ms.textDocument_codeLens } }
-        )
+        Snacks.keymap.set("n", "<leader>lC", function()
+            return vim.lsp.codelens.enable(true)
+        end, { desc = "Refersh & Display [C]odeLens", lsp = { method = ms.textDocument_codeLens } })
         Snacks.keymap.set("n", "gK", vim.diagnostic.open_float, { desc = "Line Diagnostic" })
         Snacks.keymap.set("n", "gf", function()
             local has_conform, conform = pcall(require, "conform")
@@ -385,11 +379,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end)
 
         Snacks.util.lsp.on({ method = ms.textDocument_codeLens }, function(buffer)
-            vim.lsp.codelens.refresh()
+            vim.lsp.codelens.enable(true, { bufnr = buffer })
             vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
                 group = augroup("codelens"),
                 buffer = buffer,
-                callback = vim.lsp.codelens.refresh,
+                callback = function(ev)
+                    return vim.lsp.codelens.enable(true, { bufnr = ev.buf })
+                end,
             })
         end)
 

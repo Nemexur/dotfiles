@@ -12,7 +12,7 @@
       imports = with inputs.self.modules.homeManager;
         [
           # Browsers
-          chrome
+          chromium
           zen-browser
 
           # Programs
@@ -24,6 +24,8 @@
           tmux
           zsh
           media
+          k8s
+          npm
           ai
 
           # Services
@@ -32,8 +34,8 @@
 
           # Secrets
           agenix
-          home-envs-secret
-          work-envs-secret
+          age-rekey
+          work-macbook-secret
         ]
         ++ (with inputs.self.modules.generic; [
           systemConstants
