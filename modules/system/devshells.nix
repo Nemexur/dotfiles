@@ -8,7 +8,7 @@
     poetry1Deps = with pkgs; [uv (import inputs.nixpkgs-24-11 {inherit system;}).poetry];
     poetry2Deps = with pkgs; [uv poetry];
     pythonDevShells =
-      ["python310" "python311" "python312"]
+      ["python310" "python311" "python312" "python313" "python314"]
       |> map (p: [
         rec {
           name = p;
