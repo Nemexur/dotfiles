@@ -7,7 +7,9 @@
   }: let
     poetry1Deps = with pkgs; [uv (import inputs.nixpkgs-24-11 {inherit system;}).poetry];
     poetry2Deps = with pkgs; [uv poetry];
-    pythonDevShells = builtins.listToAttrs (lib.lists.flatten (builtins.map (p: [
+    pythonDevShells =
+      ["python310" "python311" "python312"]
+      |> map (p: [
         rec {
           name = p;
           value = pkgs.mkShell {
@@ -30,7 +32,8 @@
           };
         }
       ])
-      ["python310" "python311" "python312"]));
+      |> lib.lists.flatten
+      |> builtins.listToAttrs;
   in {
     devShells =
       {

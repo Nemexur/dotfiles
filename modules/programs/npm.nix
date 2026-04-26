@@ -17,7 +17,7 @@
         then map (x: mkLine "${k}[]" x) v
         else [(mkLine k v)];
     in
-      attrs: lib.concatLines (lib.concatLists (lib.mapAttrsToList mkLines attrs));
+      attrs: lib.mapAttrsToList mkLines attrs |> lib.concatLists |> lib.concatLines;
   in {
     home = {
       packages = with pkgs.unstable; [nodejs_25];
