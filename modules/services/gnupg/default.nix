@@ -9,6 +9,12 @@
     programs.gpg = {
       enable = true;
       scdaemonSettings.disable-ccid = true;
+      publicKeys = [
+        {
+          source = ./yubikey.asc;
+          trust = "ultimate";
+        }
+      ];
       settings = {
         personal-cipher-preferences = "AES256 AES192 AES";
         personal-digest-preferences = "SHA512 SHA384 SHA256";
