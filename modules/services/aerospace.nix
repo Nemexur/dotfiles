@@ -24,9 +24,7 @@
             top = 8;
           };
         };
-        key-mapping = {
-          preset = "qwerty";
-        };
+        key-mapping.preset = "qwerty";
         mode = {
           main.binding = {
             alt-1 = "workspace W";
