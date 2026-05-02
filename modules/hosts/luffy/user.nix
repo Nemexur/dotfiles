@@ -46,6 +46,7 @@
           ai
 
           # Services
+          cron
           kdeconnect
           hypridle
           gnupg

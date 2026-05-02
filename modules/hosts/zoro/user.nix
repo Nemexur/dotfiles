@@ -7,9 +7,6 @@
     home-manager.users.nemexur = {
       imports = with inputs.self.modules.homeManager;
         [
-          # Secrets
-          agenix
-
           # Browsers
           chromium
           zen-browser
@@ -28,10 +25,12 @@
           ai
 
           # Services
+          cron
           gnupg
           karabiner
 
           # Secrets
+          agenix
           age-rekey
         ]
         ++ (with inputs.self.modules.generic; [

@@ -29,6 +29,7 @@
           ai
 
           # Services
+          cron
           gnupg
           karabiner
 
