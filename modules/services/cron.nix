@@ -26,7 +26,7 @@ let
               "${config.home.homeDirectory}/.local/bin/tmux-kill-session"
               "-v"
               "--filter"
-              "dotfiles|ssh|skip"
+              "'dotfiles|ssh|skip'"
               "--inactive-mins-max"
               "720"
             ];
