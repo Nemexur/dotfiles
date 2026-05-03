@@ -372,7 +372,7 @@ binds {
 
     // Browser
     Mod+W { spawn "zen-beta"; }
-    Mod+E { spawn "nautilus"; }
+    Mod+E { spawn "thunar"; }
 
     // Launcher
     Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
@@ -532,19 +532,13 @@ binds {
     Mod+3 { focus-workspace "chat"; }
     Mod+4 { focus-workspace "game"; }
     Mod+5 { focus-workspace "file"; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace "else"; }
+    Mod+6 { focus-workspace "else"; }
     Mod+Ctrl+1 { move-column-to-workspace "web"; }
     Mod+Ctrl+2 { move-column-to-workspace "term"; }
     Mod+Ctrl+3 { move-column-to-workspace "chat"; }
     Mod+Ctrl+4 { move-column-to-workspace "game"; }
-    Mod+Ctrl+5 { move-column-to-workspace "filee"; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace "else"; }
+    Mod+Ctrl+5 { move-column-to-workspace "file"; }
+    Mod+Ctrl+6 { move-column-to-workspace "else"; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
