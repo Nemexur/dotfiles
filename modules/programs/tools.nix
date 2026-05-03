@@ -100,6 +100,7 @@ in {
         dbeaver-bin
         sioyek
         winbox4
+        zotero
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [telegram-desktop]
       ++ lib.optionals pkgs.stdenv.isDarwin [
