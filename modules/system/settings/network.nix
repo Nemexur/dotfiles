@@ -5,6 +5,7 @@
 
   flake.modules.homeManager.networkmanager = {pkgs, ...}: {
     home.packages = with pkgs; [
+      wireguard-tools
       networkmanagerapplet
     ];
   };

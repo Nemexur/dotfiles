@@ -24,6 +24,7 @@
         enableMcpIntegration = true;
         settings = lib.mkMerge [
           {
+            theme = "system";
             permission = {
               read = {
                 "*" = "allow";

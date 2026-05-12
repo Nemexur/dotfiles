@@ -16,6 +16,7 @@
       systemctl-tui
 
       # system tools
+      kmod
       pciutils # lspci
       usbutils # lsusb
       hdparm # for disk performance, command

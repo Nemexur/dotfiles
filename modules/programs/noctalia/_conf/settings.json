@@ -172,6 +172,32 @@
                     "visualizerType": "linear"
                 },
                 {
+                    "defaultSettings": {
+                        "connectedColor": "primary",
+                        "disableToastNotifications": false,
+                        "disconnectedColor": "none",
+                        "displayMode": "onhover"
+                    },
+                    "id": "plugin:network-manager-vpn"
+                },
+                {
+                    "defaultSettings": {
+                        "autoPaste": false,
+                        "autoPasteDelay": 300,
+                        "autoPasteOnRightClick": false,
+                        "cardColors": {
+                        },
+                        "customColors": {
+                        },
+                        "enableTodoIntegration": false,
+                        "fullscreenMode": false,
+                        "hidePanelBackground": false,
+                        "notecardsEnabled": true,
+                        "panelHeight": 0,
+                        "panelWidth": 1450,
+                        "pincardsEnabled": true,
+                        "showCloseButton": true
+                    },
                     "id": "plugin:clipper"
                 },
                 {
@@ -189,6 +215,15 @@
                     "textColor": "none"
                 },
                 {
+                    "defaultSettings": {
+                        "autoMount": false,
+                        "fileBrowser": "yazi",
+                        "hideWhenEmpty": false,
+                        "iconColor": "none",
+                        "showBadge": false,
+                        "showNotifications": true,
+                        "terminalCommand": "kitty"
+                    },
                     "id": "plugin:usb-drive-manager"
                 },
                 {
@@ -204,9 +239,18 @@
                     "textColor": "none"
                 },
                 {
+                    "defaultSettings": {
+                        "mode": "region"
+                    },
                     "id": "plugin:screenshot"
                 },
                 {
+                    "defaultSettings": {
+                        "compactMode": false,
+                        "defaultDuration": 0,
+                        "iconColor": "none",
+                        "textColor": "none"
+                    },
                     "id": "plugin:timer"
                 },
                 {

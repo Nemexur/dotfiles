@@ -31,6 +31,7 @@
         kanata
         security
         ssh
+        v2raya
 
         # Programs
         niri

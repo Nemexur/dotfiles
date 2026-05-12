@@ -91,8 +91,16 @@ in {
         plantuml
         vault
         ffmpeg
-        ani-cli
         pre-commit
+        (ani-cli.overrideAttrs (oldAttrs: {
+          version = "4.14";
+          src = fetchFromGitHub {
+            owner = "pystardust";
+            repo = "ani-cli";
+            rev = "v4.14";
+            sha256 = "sha256-OyCKDN89sBz59+3JncMDyNOq8UMqqjara+A0Owo3oko=";
+          };
+        }))
 
         # GUI Apps
         discord
