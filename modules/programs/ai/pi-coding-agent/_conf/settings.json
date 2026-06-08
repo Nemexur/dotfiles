@@ -1,0 +1,41 @@
+{
+  "lastChangelogVersion": "0.79.0",
+  "packages": [
+    "npm:pi-subagents",
+    "npm:pi-simplify",
+    "npm:pi-claude-auth",
+    "npm:pi-observational-memory",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-btw",
+    "npm:@juicesharp/rpiv-web-tools",
+    "npm:@juicesharp/rpiv-advisor",
+    "npm:@gotgenes/pi-permission-system",
+    "npm:@narumitw/pi-goal",
+    "npm:@narumitw/pi-statusline",
+    "npm:pi-vim"
+  ],
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-7",
+  "defaultThinkingLevel": "medium",
+  "theme": "dark",
+  "quietStartup": true,
+  "treeFilterMode": "user-only",
+  "enableInstallTelemetry": false,
+  "observational-memory": {
+    "observeAfterTokens": 10000,
+    "reflectAfterTokens": 20000,
+    "compactAfterTokens": 81000,
+    "observationsPoolMaxTokens": 20000,
+    "observationsPoolTargetTokens": 10000,
+    "agentMaxTurns": 16,
+    "model": {
+      "provider": "anthropic",
+      "id": "claude-sonnet-4-6",
+      "thinking": "medium"
+    },
+    "passive": false,
+    "debugLog": false
+  },
+  "hideThinkingBlock": false
+}

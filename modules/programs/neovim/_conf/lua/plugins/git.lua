@@ -21,18 +21,6 @@ return {
         },
     },
     {
-        "ruifm/gitlinker.nvim",
-        opts = { mappings = nil },
-        keys = {
-            {
-                "<leader>gH",
-                "<cmd>lua require('gitlinker').get_repo_url({action_callback = require('gitlinker.actions').open_in_browser})<cr>",
-                desc = "Open homepage",
-                mode = "n",
-            },
-        },
-    },
-    {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
         opts = {

@@ -26,6 +26,7 @@
           autoUpdate = true; # fetch the newest stable branch of Homebrew's git repo
           upgrade = true; # upgrade outdated casks, formulae, and App Store apps
           cleanup = "zap";
+          extraFlags = ["--force-cleanup"];
         };
 
         # Applications to install from Mac App Store using mas.

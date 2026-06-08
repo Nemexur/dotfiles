@@ -20,7 +20,9 @@ return {
         "nvim-mini/mini.ai",
         version = false,
         event = "VeryLazy",
+        dependencies = { "nvim-mini/mini.extra" },
         opts = function()
+            require("mini.extra").setup()
             local ai = require("mini.ai")
             return {
                 n_lines = 500,
@@ -33,7 +35,6 @@ return {
                     c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
                     ["/"] = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }), -- comment
                     t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-                    d = { "%f[%d]%d+" }, -- digits
                     e = { -- Word with case
                         {
                             "%u[%l%d]+%f[^%l%d]",
@@ -43,16 +44,14 @@ return {
                         },
                         "^().*()$",
                     },
-                    g = function()
-                        local from = { line = 1, col = 1 }
-                        local to = {
-                            line = vim.fn.line("$"),
-                            col = math.max(vim.fn.getline("$"):len(), 1),
-                        }
-                        return { from = from, to = to }
-                    end,
                     u = ai.gen_spec.function_call(), -- u for "Usage"
                     U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+                    -- From MiniExtra
+                    B = MiniExtra.gen_ai_spec.buffer(),
+                    D = MiniExtra.gen_ai_spec.diagnostic(),
+                    I = MiniExtra.gen_ai_spec.indent(),
+                    L = MiniExtra.gen_ai_spec.line(),
+                    N = MiniExtra.gen_ai_spec.number(),
                 },
             }
         end,
@@ -252,19 +251,19 @@ return {
         },
         keys = {
             {
-                "<leader>ac",
+                "<leader>tc",
                 "<cmd>lua require('neogen').generate({ type = 'class' })<cr>",
                 desc = "[C]lass Doc",
                 mode = "n",
             },
             {
-                "<leader>af",
+                "<leader>tf",
                 "<cmd>lua require('neogen').generate({ type = 'func' })<cr>",
                 desc = "[F]unction Doc",
                 mode = "n",
             },
             {
-                "<leader>at",
+                "<leader>tt",
                 "<cmd>lua require('neogen').generate({ type = 'type' })<cr>",
                 desc = "[T]ype Doc",
                 mode = "n",

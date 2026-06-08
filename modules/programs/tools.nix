@@ -92,23 +92,16 @@ in {
         vault
         ffmpeg
         pre-commit
-        (ani-cli.overrideAttrs (oldAttrs: {
-          version = "4.14";
-          src = fetchFromGitHub {
-            owner = "pystardust";
-            repo = "ani-cli";
-            rev = "v4.14";
-            sha256 = "sha256-OyCKDN89sBz59+3JncMDyNOq8UMqqjara+A0Owo3oko=";
-          };
-        }))
+        ani-cli
+        pkgs.local.opendataloader-pdf
 
         # GUI Apps
-        discord
         obsidian
         dbeaver-bin
         sioyek
         winbox4
-        zotero
+        pkgs.stable.zotero
+        pkgs.stable.discord
       ]
       ++ lib.optionals pkgs.stdenv.isLinux [telegram-desktop]
       ++ lib.optionals pkgs.stdenv.isDarwin [

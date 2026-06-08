@@ -21,8 +21,12 @@
           zsh
           media
           k8s
-          npm
-          ai
+
+          # AI
+          claude-code
+          codex
+          opencode
+          pi-coding-agent
 
           # Services
           cron

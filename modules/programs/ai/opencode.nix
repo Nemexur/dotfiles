@@ -1,12 +1,12 @@
 {
-  flake.modules.homeManager.ai = {
+  flake.modules.homeManager.opencode = {
     lib,
     pkgs,
     config,
     ...
   }: {
-    options.homeAiSettings = {
-      opencodeProviders = lib.mkOption {
+    options.homeAiSettings.opencode = {
+      providers = lib.mkOption {
         type = lib.types.attrs;
         default = {};
         description = "Configuration of Custom Providers in OpenCode";
@@ -14,17 +14,17 @@
     };
 
     config = let
-      cfg = config.homeAiSettings;
+      cfg = config.homeAiSettings.opencode;
     in {
-      home.packages = [pkgs.local.opendataloader-pdf];
-
+      programs.npm.enable = true;
       programs.opencode = {
         enable = true;
         package = pkgs.unstable.opencode;
         enableMcpIntegration = true;
+        tui.theme = "system";
         settings = lib.mkMerge [
           {
-            theme = "system";
+            plugin = ["opencode-claude-auth@latest" "opencode-openai-codex-auth@latest"];
             permission = {
               read = {
                 "*" = "allow";
@@ -35,8 +35,8 @@
             };
           }
 
-          (lib.mkIf (cfg.opencodeProviders != {}) {
-            provider = cfg.opencodeProviders;
+          (lib.mkIf (cfg.providers != {}) {
+            provider = cfg.providers;
           })
         ];
       };

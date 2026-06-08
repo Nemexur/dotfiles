@@ -19,12 +19,17 @@
 
     age.secrets.work-envs.rekeyFile = ./work-envs.age;
     age.secrets.opencode-config.rekeyFile = ./opencode-config.age;
+    age.secrets."pi-agent-work-provider.ts".rekeyFile = ./pi-agent-work-provider.ts.age;
+
     programs.zsh.initContent = lib.mkOrder 1100 ''
       if [ -f ${config.age.secrets.work-envs.path} ]; then
         source ${config.age.secrets.work-envs.path}
       fi
       if [ -f ${config.age.secrets.opencode-config.path} ]; then
         export OPENCODE_CONFIG="${config.age.secrets.opencode-config.path}"
+      fi
+      if [ -f ${config.age.secrets."pi-agent-work-provider.ts".path} ]; then
+        export PI_WORK_PROVIDER="${config.age.secrets."pi-agent-work-provider.ts".path}"
       fi
     '';
   };

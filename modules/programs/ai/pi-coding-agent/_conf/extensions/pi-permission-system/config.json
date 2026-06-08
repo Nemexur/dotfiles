@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/gotgenes/pi-permission-system/main/schemas/permissions.schema.json",
+  "debugLog": false,
+  "permissionReviewLog": true,
+  "yoloMode": false,
+  "piInfrastructureReadPaths": [],
+  "permission": {
+    "*": "allow",
+    "read": "allow",
+    "write": "ask",
+    "edit": "ask",
+    "path": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny"
+    },
+    "bash": {
+      "rm -rf *": "deny",
+      "sudo *": "ask"
+    },
+    "mcp": {
+      "mcp_status": "allow"
+    },
+    "skill": {
+      "*": "ask"
+    },
+    "external_directory": "ask"
+  }
+}

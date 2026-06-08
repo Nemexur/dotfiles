@@ -4,7 +4,7 @@
     security.pam.services.sudo_local.touchIdAuth = true;
 
     system = {
-      stateVersion = 6;
+      stateVersion = 7;
 
       keyboard.enableKeyMapping = true; # enable key mapping so that we can use `option` as `control`};
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#
+# Convenient command to launch primary ai agent cli.
+
+pi "$@"
+tput cnorm # Bring back normal cursor in tmux/ghostty

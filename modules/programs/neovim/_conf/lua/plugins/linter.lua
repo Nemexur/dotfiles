@@ -5,7 +5,7 @@ return {
         events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         linters_by_ft = {
             dockerfile = { "hadolint" },
-            go = { "golangci-lint" },
+            go = { "golangcilint" },
             markdown = { "markdownlint-cli2" },
             sh = { "shellcheck" },
             sql = { "sqruff" },

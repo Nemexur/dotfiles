@@ -62,6 +62,10 @@
 
         # Super useful when using "grouped sessions" and multi-monitor setup
         setw -g aggressive-resize on
+
+        # For PI Coding Agent
+        set -g extended-keys on
+        set -g extended-keys-format csi-u
       ''
       + lib.optionalString pkgs.stdenv.isDarwin ''
         # Fix copy-mode on MacOS

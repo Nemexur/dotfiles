@@ -11,6 +11,7 @@ vim.opt.shell = "zsh"
 vim.opt.smoothscroll = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.spelllang = { "en" }
+vim.opt.smoothscroll = true
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -30,12 +31,15 @@ vim.opt.sessionoptions = {
     "folds",
 }
 vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
+vim.opt.laststatus = 3
 vim.opt.wildmode = "longest:full,full"
 vim.opt.virtualedit = "block"
 vim.opt.signcolumn = "yes"
 vim.opt.inccommand = "split"
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
 vim.opt.jumpoptions = "view"
+vim.opt.winminwidth = 5
+vim.opt.wrap = false
 vim.opt.timeoutlen = 300
 vim.opt.conceallevel = 2
 vim.opt.confirm = true

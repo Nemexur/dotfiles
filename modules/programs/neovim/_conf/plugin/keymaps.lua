@@ -1,3 +1,12 @@
+-- Use `<leader>na` and `<leader>ni` for incremental selection
+local copy_keymap = function(mode, from_lhs, to_lhs)
+    local keymap = vim.fn.maparg(from_lhs, mode, false, true)
+    local rhs = keymap.callback or keymap.rhs
+    vim.keymap.set(mode, to_lhs, rhs, { desc = keymap.desc })
+end
+copy_keymap("x", "an", "<leader>na")
+copy_keymap("x", "in", "<leader>ni")
+
 -- better up/down
 Snacks.keymap.set({ "n", "x", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 Snacks.keymap.set({ "n", "x", "v" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

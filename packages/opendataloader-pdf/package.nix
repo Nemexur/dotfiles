@@ -7,12 +7,12 @@
 with python313Packages;
   buildPythonPackage rec {
     pname = "opendataloader_pdf";
-    version = "2.3.0";
+    version = "2.4.7";
     pyproject = true;
 
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-SrsHN8cLa2pCsEdIlFtZjzd20q97sm7Sde0eHyZinuI=";
+      hash = "sha256-oW6ZXy9SbXBgRSGNnjWaMfUDcaC8DjuxvBWrtGfAj7c=";
     };
 
     propagatedBuildInputs = [jdk25_headless];

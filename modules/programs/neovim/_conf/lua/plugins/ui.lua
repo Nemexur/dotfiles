@@ -13,6 +13,7 @@ return {
             image = { enabled = true },
             toggle = { enabled = true },
             scratch = { enabled = true },
+            gh = { enabled = true },
             notifier = {
                 enabled = true,
                 style = "compact",
@@ -269,6 +270,34 @@ return {
                 end,
                 desc = "Select Scratch Buffer",
             },
+            {
+                "<leader>gi",
+                function()
+                    Snacks.picker.gh_issue()
+                end,
+                desc = "GitHub Issues (open)",
+            },
+            {
+                "<leader>gI",
+                function()
+                    Snacks.picker.gh_issue({ state = "all" })
+                end,
+                desc = "GitHub Issues (all)",
+            },
+            {
+                "<leader>gp",
+                function()
+                    Snacks.picker.gh_pr()
+                end,
+                desc = "GitHub Pull Requests (open)",
+            },
+            {
+                "<leader>gP",
+                function()
+                    Snacks.picker.gh_pr({ state = "all" })
+                end,
+                desc = "GitHub Pull Requests (all)",
+            },
         },
     },
     {
@@ -287,7 +316,6 @@ return {
         end,
         config = function()
             local lazy_status = require("lazy.status")
-
             local colors = require("eldritch.colors")
 
             local opts = {
@@ -495,6 +523,19 @@ return {
                     ["cmp.entry.get_documentation"] = true,
                 },
             },
+            routes = {
+                {
+                    filter = {
+                        event = "msg_show",
+                        any = {
+                            { find = "%d+L, %d+B" },
+                            { find = "; after #%d+" },
+                            { find = "; before #%d+" },
+                        },
+                    },
+                    view = "mini",
+                },
+            },
             presets = {
                 bottom_search = false,
                 command_palette = true,
@@ -561,10 +602,11 @@ return {
             defaults = {},
             triggers = {
                 { "<auto>", mode = "nxso" },
-                { "s",      mode = "nxso" },
+                { "s", mode = "nxso" },
             },
             spec = {
                 { "<leader><leader>", group = "Exec", icon = "" },
+                { "<leader>a", group = "[A]I", icon = "󰵰" },
                 { "<leader>c", group = "[C]oding", icon = "" },
                 { "<leader>o", group = "[O]bsidian", icon = "" },
                 { "<leader>r", group = "[R]eplace", icon = "" },
@@ -576,19 +618,19 @@ return {
                 { "<leader>f", group = "[F]ind", icon = "󰀶" },
                 { "<leader>s", group = "[S]earch", icon = "" },
                 { "<leader>l", group = "[L]SP", icon = "󰒋" },
-                { "<leader>a", group = "[A]nnotaions", icon = "" },
+                { "<leader>t", group = "Anno[T]aions", icon = "" },
                 { "<leader>d", group = "[D]ebug", icon = "" },
                 { "<leader>n", group = "[N]ode", icon = "" },
                 { "<leader>q", group = "[Q]uickFix Lists", icon = "󱉯" },
                 { "<leader>R", group = "[R]est", icon = "󰖟" },
                 { "<leader>u", group = "[U]I", icon = "" },
                 { "<leader><leader>l", "<cmd>. lua<cr>", desc = "Execute the current line", mode = "n" },
-                { "<leader><leader>x", "<cmd>source %<cr>", desc = "Exectue the current file", mode = "n" },
+                { "<leader><leader>x", "<cmd>source %<cr>", desc = "Execute the current file", mode = "n" },
                 { "<leader>bp", "<cmd>bprevious<cr>", desc = "Previous", mode = "n" },
                 { "<leader>bn", "<cmd>bnext<cr>", desc = "Next", mode = "n" },
                 { "<leader>bW", "<cmd>noautocmd w<cr>", desc = "Save without formatting (noautocmd)", mode = "n" },
                 { "<leader>bq", "<cmd>bd<cr>", desc = "[Q]uit [B]uffer", mode = "n" },
-                { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close" },
+                { "<leader>ut", "<cmd>tabclose<cr>", desc = "Tab Close" },
             },
         },
         keys = {

@@ -37,18 +37,17 @@ return {
                 },
                 keymap = {
                     preset = "default",
-                    ["<C-g>"] = {
-                        function(cmp)
-                            cmp.show({ providers = { "ripgrep", "lsp", "path", "buffer" } })
-                        end,
-                    },
                 },
                 appearance = {
                     use_nvim_cmp_as_default = true,
                     nerd_font_variant = "mono",
                 },
                 sources = {
-                    default = { "lazydev", "lsp", "path", "buffer", "dadbod", "yank" },
+                    default = { "lsp", "path", "snippets", "buffer", "yank", "ripgrep" },
+                    per_filetype = {
+                        sql = { inherit_defaults = true, "dadbod" },
+                        lua = { inherit_defaults = true, "lazydev" },
+                    },
                     providers = {
                         lazydev = {
                             name = "LazyDev",
@@ -59,11 +58,14 @@ return {
                         ripgrep = {
                             name = "Ripgrep",
                             module = "blink-ripgrep",
+                            async = true,
+                            score_offset = -10,
                             opts = {},
                         },
                         yank = {
                             name = "yank",
                             module = "blink-yanky",
+                            score_offset = -5,
                             opts = {
                                 minLength = 5,
                                 onlyCurrentFiletype = true,

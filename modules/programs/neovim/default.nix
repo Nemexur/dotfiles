@@ -17,6 +17,7 @@
       vimAlias = true;
       withPython3 = true;
       package = pkgs.unstable.neovim-unwrapped;
+      sideloadInitLua = true;
       extraPackages = with pkgs.unstable; [
         (ripgrep.override {withPCRE2 = true;})
         codespell
@@ -106,6 +107,7 @@
         rustup
 
         # sql
+        sqls
         sqruff
 
         # vim
@@ -113,6 +115,18 @@
 
         # zig
         zls
+
+        # k8s
+        helm-ls
+
+        # ai
+        opencode
+        codex
+        codex-acp
+        claude-code
+        claude-agent-acp
+        pkgs.local.pi-acp
+        pkgs.local.pi-coding-agent
       ];
     };
   };

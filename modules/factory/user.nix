@@ -1,5 +1,5 @@
 {self, ...}: let
-  stateVersion = "25.11";
+  stateVersion = "26.05";
 in {
   config.flake.factory.user = username: isAdmin: {
     nixos."${username}" = {

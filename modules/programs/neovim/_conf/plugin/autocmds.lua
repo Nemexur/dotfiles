@@ -62,17 +62,24 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_with_q"),
     pattern = {
-        "PlenaryTestPopup",
+        "checkhealth",
+        "dap-float",
+        "dbout",
+        "gitsigns-blame",
+        "grug-far",
         "help",
         "lspinfo",
+        "neotest-output-panel",
+        "neotest-output",
+        "neotest-summary",
         "notify",
+        "null-ls-info",
+        "PlenaryTestPopup",
         "qf",
         "query",
-        "null-ls-info",
         "spectre_panel",
         "startuptime",
-        "checkhealth",
-        "grug-far",
+        "tsplayground",
     },
     callback = function(ev)
         vim.bo[ev.buf].buflisted = false
@@ -155,18 +162,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = "*.gitlab-ci*.{yml,yaml}",
     callback = function()
         vim.bo.filetype = "yaml.gitlab"
-    end,
-})
-
--- auto create dir when saving a file, in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = augroup("auto_create_dir"),
-    callback = function(ev)
-        if ev.match:match("^%w%w+:[\\/][\\/]") then
-            return
-        end
-        local file = vim.uv.fs_realpath(ev.match) or ev.match
-        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })
 
@@ -258,6 +253,9 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
             :map(function(file)
                 return vim.fn.fnamemodify(file, ":t:r")
             end)
+            :filter(function(name)
+                return name ~= "pyright"
+            end)
             :totable()
         vim.lsp.enable(servers)
     end,
@@ -308,7 +306,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
         Snacks.keymap.set(
             "n",
-            "gy",
+            "grt",
             vim.lsp.buf.type_definition,
             { desc = "Type [D]definition", lsp = { method = ms.textDocument_typeDefinition } }
         )
@@ -326,12 +324,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
         )
         Snacks.keymap.set(
             "n",
-            "<leader>lc",
+            "grx",
             vim.lsp.codelens.run,
             { desc = "Run [C]odeLens", lsp = { method = ms.textDocument_codeLens } }
         )
-        Snacks.keymap.set("n", "<leader>lC", function()
-            return vim.lsp.codelens.enable(true)
+        Snacks.keymap.set("n", "<leader>lc", function()
+            return vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
         end, { desc = "Refersh & Display [C]odeLens", lsp = { method = ms.textDocument_codeLens } })
         Snacks.keymap.set("n", "gK", vim.diagnostic.open_float, { desc = "Line Diagnostic" })
         Snacks.keymap.set("n", "gf", function()
