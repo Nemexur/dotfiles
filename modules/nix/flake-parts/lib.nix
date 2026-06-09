@@ -2,9 +2,7 @@
   inputs,
   lib,
   ...
-}: let
-  stateVersion = "26.05";
-in {
+}: {
   options.flake.lib = lib.mkOption {
     type = lib.types.attrsOf lib.types.unspecified;
     default = {};
@@ -24,7 +22,9 @@ in {
           [
             inputs.self.modules.nixos.${name}
             {nixpkgs.hostPlatform = lib.mkDefault system;}
-            {system.stateVersion = lib.mkDefault stateVersion;}
+            ({config, ...}: {
+              system.stateVersion = lib.mkDefault config.systemConstants.stateVersion;
+            })
           ]
           ++ lib.optionals nameAsHostName [
             {networking.hostName = lib.mkDefault name;}

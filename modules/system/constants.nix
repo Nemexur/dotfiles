@@ -10,6 +10,8 @@
       name = "nemexur";
       email = "alex.milogradsky@gmail.com";
       userFullName = "Aleksandr Milogradskiy";
+      stateVersion = "26.05";
+      darwinStateVersion = 7;
     };
   };
 }

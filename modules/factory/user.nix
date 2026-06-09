@@ -1,6 +1,4 @@
-{self, ...}: let
-  stateVersion = "26.05";
-in {
+{self, ...}: {
   config.flake.factory.user = username: isAdmin: {
     nixos."${username}" = {
       lib,
@@ -51,9 +49,10 @@ in {
       system.primaryUser = lib.mkIf isAdmin "${username}";
     };
 
-    homeManager."${username}" = {
+    homeManager."${username}" = {config, ...}: {
       home = {
-        inherit username stateVersion;
+        inherit username;
+        inherit (config.systemConstants) stateVersion;
       };
     };
   };
