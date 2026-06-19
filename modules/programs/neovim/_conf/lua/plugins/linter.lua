@@ -10,6 +10,7 @@ return {
             sh = { "shellcheck" },
             sql = { "sqruff" },
             yaml = { "yamllint" },
+            zig = { "zlint" },
         },
     },
     config = function(_, opts)

@@ -12,25 +12,23 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-coding-agent";
-  version = "0.79.0";
+  version = "0.79.8";
 
   src = fetchFromGitHub {
     owner = "earendil-works";
     repo = "pi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mOgqwUdL6leyroHKfYHOEuEX+27pIZiaEvcGxlIj8NI=";
+    hash = "sha256-eH1+vHrKBu1GcUXnTdvRtNuLuf0EdReAnFit8UqiXB4=";
   };
 
-  npmDepsHash = "sha256-H+F/qzXilTXDHneKT3vms0MHi/E7+ahGh6zupFtMptU=";
+  npmDepsHash = "sha256-xrTpu4TkRmlflg7pMaw/QVsN+poQ41slVA5PET+NDoI=";
 
   npmWorkspace = "packages/coding-agent";
 
   # Skip native module rebuild for unneeded workspaces (e.g. canvas from web-ui)
   npmRebuildFlags = ["--ignore-scripts"];
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-  ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   # Build workspace dependencies in order, then the coding-agent.
   # We invoke tsgo directly for workspace deps to skip pi-ai's
@@ -85,10 +83,7 @@ buildNpmPackage (finalAttrs: {
   }";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [
-    writableTmpDirAsHomeHook
-    versionCheckHook
-  ];
+  nativeInstallCheckInputs = [writableTmpDirAsHomeHook versionCheckHook];
   versionCheckKeepEnvironment = ["HOME"];
   versionCheckProgram = "${placeholder "out"}/bin/pi";
   versionCheckProgramArg = "--version";

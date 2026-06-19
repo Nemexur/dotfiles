@@ -11,7 +11,9 @@
   };
 
   flake.modules.nixos.agenix = {pkgs, ...}: {
-    environment.systemPackages = [inputs.agenix-rekey.packages.${pkgs.stdenv.hostPlatform.system}.default];
+    environment.systemPackages = [
+      inputs.agenix-rekey.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
 
     imports = [
       inputs.agenix.nixosModules.default
@@ -19,7 +21,9 @@
     ];
   };
   flake.modules.darwin.agenix = {pkgs, ...}: {
-    environment.systemPackages = [inputs.agenix-rekey.packages.${pkgs.stdenv.hostPlatform.system}.default];
+    environment.systemPackages = [
+      inputs.agenix-rekey.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
 
     imports = [
       inputs.agenix.darwinModules.default

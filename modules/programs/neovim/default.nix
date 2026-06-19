@@ -115,6 +115,7 @@
 
         # zig
         zls
+        zig-zlint
 
         # k8s
         helm-ls

@@ -20,6 +20,7 @@ return {
             sql = { "sqruff" },
             yaml = { "yamlfmt" },
             -- Lsp Formatting
+            zig = { lsp_format = "prefer" },
             nix = { lsp_format = "prefer" },
             json = { lsp_format = "prefer" },
             jsonnet = { lsp_format = "prefer" },

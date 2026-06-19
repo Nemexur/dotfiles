@@ -199,14 +199,17 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = {
         "bash",
         "c",
+        "diff",
         "dockerfile",
         "gitcommit",
         "gitignore",
         "go",
         "gomod",
         "gosum",
+        "graphql",
         "helm",
         "html",
+        "http",
         "javascript",
         "jsdoc",
         "json",
@@ -218,8 +221,10 @@ vim.api.nvim_create_autocmd("FileType", {
         "make",
         "markdown_inline",
         "markdown",
+        "printf",
         "proto",
         "python",
+        "query",
         "regex",
         "sql",
         "toml",
@@ -232,6 +237,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "yaml.docker-compose",
         "yaml.gitlab",
         "yaml",
+        "zig",
         "zsh",
     },
     callback = function()
@@ -410,7 +416,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         local diagnostics_icons = { ERROR = "", WARN = "", HINT = "", INFO = "" }
         vim.diagnostic.config({
-            update_in_insert = true,
+            update_in_insert = false,
             signs = {
                 text = {
                     [vim.diagnostic.severity.ERROR] = diagnostics_icons.ERROR,

@@ -65,5 +65,9 @@
         nixpkgs.follows = "nixpkgs-unstable";
       };
     };
+    zig = {
+      url = "github:mitchellh/zig-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 }

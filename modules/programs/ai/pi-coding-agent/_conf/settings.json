@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.0",
+  "lastChangelogVersion": "0.79.8",
   "packages": [
     "npm:pi-subagents",
     "npm:pi-simplify",
@@ -16,7 +16,7 @@
     "npm:pi-vim"
   ],
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-7",
+  "defaultModel": "claude-sonnet-4-6",
   "defaultThinkingLevel": "medium",
   "theme": "dark",
   "quietStartup": true,

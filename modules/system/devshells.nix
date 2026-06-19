@@ -5,6 +5,7 @@
     pkgs,
     ...
   }: let
+    zigpkgs = inputs.zig.packages.${system};
     poetry1Deps = with pkgs; [uv (import inputs.nixpkgs-24-11 {inherit system;}).poetry];
     poetry2Deps = with pkgs; [uv poetry];
     pythonDevShells =
@@ -48,10 +49,6 @@
             gotools
           ];
         };
-        zig = pkgs.mkShell {
-          name = "zig";
-          packages = with pkgs; [zig];
-        };
         rust = pkgs.mkShell {
           name = "rust";
           packages = with pkgs; [rustc cargo];
@@ -59,6 +56,14 @@
         tex = pkgs.mkShell {
           name = "latex";
           packages = with pkgs; [texliveFull];
+        };
+        zig-latest = pkgs.mkShell {
+          name = "zig-latest";
+          packages = with zigpkgs; [default];
+        };
+        zig-nightly = pkgs.mkShell {
+          name = "zig-nightly";
+          packages = with zigpkgs; [master];
         };
       }
       // pythonDevShells;

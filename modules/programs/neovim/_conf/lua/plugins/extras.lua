@@ -1,6 +1,6 @@
 return {
-    { "vuciv/golf",              cmd = "Golf" },
-    { "romainl/vim-cool",        event = "VeryLazy" },
+    { "vuciv/golf", cmd = "Golf" },
+    { "romainl/vim-cool", event = "VeryLazy" },
     { "bullets-vim/bullets.vim", event = "VeryLazy" },
     {
         "obsidian-nvim/obsidian.nvim",
@@ -41,10 +41,10 @@ return {
             open_notes_in = "current",
         },
         keys = {
-            { "<leader>ol", "<cmd>Obsidian follow_link<cr>",  desc = "Follow [L]ink" },
-            { "<leader>on", "<cmd>Obsidian new<cr>",          desc = "New [F]ile" },
+            { "<leader>ol", "<cmd>Obsidian follow_link<cr>", desc = "Follow [L]ink" },
+            { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New [F]ile" },
             { "<leader>of", "<cmd>Obsidian quick_switch<cr>", desc = "Quick Switch" },
-            { "<leader>os", "<cmd>Obsidian search<cr>",       desc = "[S]earch Inside Notes" },
+            { "<leader>os", "<cmd>Obsidian search<cr>", desc = "[S]earch Inside Notes" },
             {
                 "<leader>oo",
                 string.format("<leader>o", "<cmd>edit %s<cr>", os.getenv("SECOND_BRAIN")),
@@ -116,8 +116,8 @@ return {
         ft = { "http", "rest" },
         keys = {
             { "<leader>Rb", "<cmd>lua require('kulala').scratchpad()<cr>", desc = "Open scratchpad", ft = "http" },
-            { "<leader>Rc", "<cmd>lua require('kulala').copy()<cr>",       desc = "Copy as cURL",    ft = "http" },
-            { "<leader>RC", "<cmd>lua require('kulala').from_curl()<cr>",  desc = "Paste from curl", ft = "http" },
+            { "<leader>Rc", "<cmd>lua require('kulala').copy()<cr>", desc = "Copy as cURL", ft = "http" },
+            { "<leader>RC", "<cmd>lua require('kulala').from_curl()<cr>", desc = "Paste from curl", ft = "http" },
             {
                 "<leader>Rg",
                 "<cmd>lua require('kulala').download_graphql_schema()<cr>",
@@ -172,13 +172,6 @@ return {
                 desc = "Toggle headers/body",
                 ft = "http",
             },
-        },
-        opts = {
-            -- lsp = {
-            --     on_attach = function(_, bufnr)
-            --         vim.keymap.set("n", "K", require("noice.lsp").hover, { buffer = bufnr, desc = "Hover" })
-            --     end,
-            -- },
         },
     },
 }

@@ -495,7 +495,7 @@ return {
         },
         keys = {
             {
-                "<leader>bw",
+                "<leader>uw",
                 "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>",
                 desc = "Toggle wrapping",
             },
