@@ -66,26 +66,6 @@ Snacks.keymap.set("n", "<M-s>", "<C-W>5-", { desc = "Decrease size of hsplit" })
 -- easily hit escape in terminal mode.
 Snacks.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
--- expand luasnip snippets
-Snacks.keymap.set({ "i", "s" }, "<c-k>", function()
-    local ls_ok, ls = pcall(require, "luasnip")
-    if not ls_ok then
-        return
-    end
-    if ls.expand_or_jumpable() then
-        ls.expand_or_jump()
-    end
-end, { desc = "Snippet Jump Next" })
-Snacks.keymap.set({ "i", "s" }, "<c-j>", function()
-    local ls_ok, ls = pcall(require, "luasnip")
-    if not ls_ok then
-        return
-    end
-    if ls.jumpable(-1) then
-        ls.jump(-1)
-    end
-end, { desc = "Snippet Jump Prev" })
-
 -- inspect treesitter
 Snacks.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 Snacks.keymap.set("n", "<leader>uI", function()

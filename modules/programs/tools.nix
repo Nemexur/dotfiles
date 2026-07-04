@@ -60,6 +60,7 @@ in {
         # Tools
         eza
         bat
+        devenv
         gopass
         manix
         trash-cli
@@ -144,13 +145,7 @@ in {
 
   flake.modules.homeManager.tools = {pkgs, ...}: {
     imports =
-      [
-        fzf
-        nh
-        starship
-        tealdeer
-        zoxide
-      ]
+      [fzf nh starship tealdeer zoxide]
       ++ [inputs.self.modules.homeManager.homePackages];
   };
 }

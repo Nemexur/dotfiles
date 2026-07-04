@@ -264,7 +264,13 @@
           fi
         '';
       in
-        lib.mkMerge [zshExtraCompletions zshConfig zshStyles zshGpgSshEnvs zshHomeEnvs];
+        lib.mkMerge [
+          zshExtraCompletions
+          zshConfig
+          zshStyles
+          zshGpgSshEnvs
+          zshHomeEnvs
+        ];
     };
 
     programs.fzf.enableZshIntegration = true;

@@ -18,26 +18,8 @@ return {
                 fuzzy = {
                     implementation = "prefer_rust_with_warning",
                 },
-                snippets = {
-                    preset = "mini_snippets",
-                    expand = function(snippet)
-                        local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
-                        insert({ body = snippet })
-                        blink.resubscribe()
-                    end,
-                    active = function()
-                        return MiniSnippets.session.get(false) ~= nil
-                    end,
-                    jump = function(direction)
-                        local is_active = MiniSnippets.session.get(false) ~= nil
-                        if is_active then
-                            MiniSnippets.session.jump(direction == -1 and "prev" or "next")
-                        end
-                    end,
-                },
-                keymap = {
-                    preset = "default",
-                },
+                snippets = { preset = "mini_snippets" },
+                keymap = { preset = "default" },
                 appearance = {
                     use_nvim_cmp_as_default = true,
                     nerd_font_variant = "mono",
@@ -49,6 +31,7 @@ return {
                         lua = { inherit_defaults = true, "lazydev" },
                     },
                     providers = {
+                        snippets = { score_offset = -5 },
                         lazydev = {
                             name = "LazyDev",
                             module = "lazydev.integrations.blink",
@@ -65,7 +48,7 @@ return {
                         yank = {
                             name = "yank",
                             module = "blink-yanky",
-                            score_offset = -5,
+                            score_offset = -8,
                             opts = {
                                 minLength = 5,
                                 onlyCurrentFiletype = true,
