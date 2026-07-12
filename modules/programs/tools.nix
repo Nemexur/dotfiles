@@ -85,7 +85,7 @@ in {
         # File Transfers
         s5cmd
         rsync
-        croc
+        pkgs.stable.croc
 
         # Misc
         ctop

@@ -43,7 +43,6 @@
       desktopManager.gnome.enable = lib.mkDefault true;
       displayManager.gdm = {
         enable = lib.mkDefault true;
-        wayland = true;
       };
     };
   };

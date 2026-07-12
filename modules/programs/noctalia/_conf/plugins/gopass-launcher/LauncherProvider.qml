@@ -8,7 +8,7 @@ Item {
 
   property var pluginApi: null
   property var launcher: null
-  property string name: "Gopass"
+  property string name: "GoPass"
   property bool handleSearch: true
   property string supportedLayouts: "list"
   property bool supportsAutoPaste: false
@@ -21,7 +21,7 @@ Item {
   }
 
   function onOpened() {
-    if (!loaded) loadEntries()
+    loadEntries()
   }
 
   function handleCommand(searchText) {

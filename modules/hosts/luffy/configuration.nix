@@ -13,6 +13,7 @@
         audio
         bluetooth
         boot
+        greeter
         fingerprint
         trackpoint
         firmware

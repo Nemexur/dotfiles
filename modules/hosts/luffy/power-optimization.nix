@@ -92,13 +92,13 @@
         {
           # Hybrid Sleep
           boot.kernelParams = ["resume=/dev/disk/by-uuid/891a3444-c438-46f8-9a38-f74d69623da5"];
-          systemd.sleep.extraConfig = ''
-            AllowSuspend=yes
-            AllowHibernation=yes
-            AllowHybridSleep=yes
-            AllowSuspendThenHibernate=yes
-            HibernateDelaySec=1800
-          '';
+          systemd.sleep.settings.Sleep = {
+            AllowSuspend = "yes";
+            AllowHibernation = "yes";
+            AllowHybridSleep = "yes";
+            AllowSuspendThenHibernate = "yes";
+            HibernateDelaySec = 1800;
+          };
           services.logind.settings.Login = {
             HandlePowerKey = "ignore";
             HandleLidSwitch = "suspend-then-hibernate";

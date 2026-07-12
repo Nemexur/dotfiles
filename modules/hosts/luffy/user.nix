@@ -10,7 +10,7 @@
 
     users.users.nemexur = {
       description = config.systemConstants.userFullName;
-      extraGroups = ["networkmanager" "podman"];
+      extraGroups = ["audio" "networkmanager" "podman"];
     };
 
     home-manager.users.nemexur = {
