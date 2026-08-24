@@ -5,7 +5,8 @@
       inputs = {
         # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
         nixpkgs.follows = "nixpkgs-unstable";
-        home-manager.follows = "home-manager";
+        # https://github.com/0xc000022070/zen-browser-flake/issues/368
+        # home-manager.follows = "home-manager";
       };
     };
   };

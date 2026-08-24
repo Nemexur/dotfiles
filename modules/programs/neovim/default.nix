@@ -126,8 +126,8 @@
         codex-acp
         claude-code
         claude-agent-acp
+        pi-coding-agent
         pkgs.local.pi-acp
-        pkgs.local.pi-coding-agent
       ];
     };
   };

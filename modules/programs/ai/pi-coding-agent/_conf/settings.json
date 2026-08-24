@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.8",
+  "lastChangelogVersion": "0.84.2",
   "packages": [
     "npm:pi-subagents",
     "npm:pi-simplify",
@@ -13,10 +13,12 @@
     "npm:@gotgenes/pi-permission-system",
     "npm:@narumitw/pi-goal",
     "npm:@narumitw/pi-statusline",
+    "npm:@hypabolic/pi-hypa",
+    "npm:bigpowers",
     "npm:pi-vim"
   ],
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-sonnet-4-6",
+  "defaultModel": "claude-opus-4-8",
   "defaultThinkingLevel": "medium",
   "theme": "dark",
   "quietStartup": true,
@@ -30,8 +32,8 @@
     "observationsPoolTargetTokens": 10000,
     "agentMaxTurns": 16,
     "model": {
-      "provider": "anthropic",
-      "id": "claude-sonnet-4-6",
+      "provider": "openai-codex",
+      "id": "gpt-5.6-luna",
       "thinking": "medium"
     },
     "passive": false,

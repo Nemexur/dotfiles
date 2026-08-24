@@ -57,10 +57,7 @@
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs-unstable";
-      };
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     zig = {
       url = "github:mitchellh/zig-overlay";

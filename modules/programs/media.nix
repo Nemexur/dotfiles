@@ -273,25 +273,35 @@
     };
   in {
     home.packages = with pkgs.unstable;
-      [jellyfin-desktop mpv-shim-default-shaders]
-      ++ (
-        if pkgs.stdenv.isLinux
-        then [
-          # Image Viewer
-          kdePackages.gwenview
-          imv
+      if pkgs.stdenv.isLinux
+      then [
+        # Image Viewer
+        kdePackages.gwenview
+        imv
 
-          # Audio Control
-          pavucontrol
-          pulsemixer
+        # Audio Control
+        pavucontrol
+        pulsemixer
 
-          # Video/Audio Tools
-          vlc
-          vulkan-tools
-          zoom-us
-        ]
-        else [iina]
-      );
+        # Video/Audio Tools
+        vlc
+        vulkan-tools
+        zoom-us
+
+        # Jellyfin
+        jellyfin-desktop
+        mpv-shim-default-shaders
+      ]
+      else [iina];
+
+    # Proper icons rendering for MacOS
+    xdg.configFile = let
+      uoscPackage = pkgs.unstable.mpvScripts.uosc;
+    in
+      lib.mkIf pkgs.stdenv.isDarwin {
+        "mpv/fonts/uosc_icons.otf".source = "${uoscPackage}/share/fonts/uosc_icons.otf";
+        "mpv/fonts/uosc_textures.ttf".source = "${uoscPackage}/share/fonts/uosc_textures.ttf";
+      };
 
     programs.mpv = {
       enable = true;
@@ -300,7 +310,7 @@
         # Video
         profile = "high-quality";
         vo = "gpu-next";
-        gpu-api = "vulkan,opengl";
+        gpu-api = "vulkan";
         fullscreen = true;
         force-seekable = true;
         hwdec = "auto";
@@ -333,8 +343,6 @@
       bindings = {
         "tab" = "script-binding uosc/toggle-ui";
         "Shift+ENTER" = "script-binding uosc/download-subtitles";
-        a = "cycle audio";
-        s = "cycle sub";
         "ctrl+p" = "script-binding uosc/menu";
       };
       extraInput = ''
@@ -406,23 +414,23 @@
           pause = true;
         };
       };
-      scripts = with pkgs.unstable.mpvScripts; [
-        pkgs.unstable.mpvScripts.builtins.autodeint
-        pkgs.unstable.mpvScripts.builtins.autoload
-        evafast
-        memo
-        mpris
-        thumbfast
-        uosc
-        quality-menu
-        chapterskip
-      ];
+      scripts = with pkgs.unstable.mpvScripts;
+        [
+          pkgs.unstable.mpvScripts.builtins.autodeint
+          pkgs.unstable.mpvScripts.builtins.autoload
+          evafast
+          memo
+          thumbfast
+          uosc
+          quality-menu
+          chapterskip
+        ]
+        ++ lib.optionals pkgs.stdenv.isLinux [mpris];
     };
 
     services.playerctld.enable = pkgs.stdenv.isLinux;
     services.jellyfin-mpv-shim = {
-      enable = true;
-      package = pkgs.unstable.jellyfin-mpv-shim;
+      enable = pkgs.stdenv.isLinux;
       settings = {
         enable_gui = true;
         enable_osc = false;

@@ -99,8 +99,8 @@ in {
         # GUI Apps
         obsidian
         dbeaver-bin
-        sioyek
         winbox4
+        pkgs.stable.sioyek
         pkgs.stable.zotero
         pkgs.stable.discord
       ]
@@ -109,10 +109,10 @@ in {
         # Tools
         m-cli
         numi
-        stats
+        pkgs.brewCasks.stats
 
         # GUI Apps
-        terminal-notifier
+        pkgs.stable.terminal-notifier
         pinentry_mac
 
         # Brew

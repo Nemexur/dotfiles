@@ -57,6 +57,10 @@
           name = "latex";
           packages = with pkgs; [texliveFull];
         };
+        odin = pkgs.mkShell {
+          name = "odin";
+          packages = with pkgs; [odin];
+        };
         zig-latest = pkgs.mkShell {
           name = "zig-latest";
           packages = with zigpkgs; [default];

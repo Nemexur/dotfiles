@@ -7,7 +7,7 @@
     programs.npm.enable = true;
 
     home = {
-      packages = [pkgs.local.pi-coding-agent];
+      packages = [pkgs.unstable.pi-coding-agent];
       sessionVariables = {
         PI_CODING_AGENT_DIR = "${config.xdg.configHome}/pi-agent";
         PI_STATUSLINE_PRESET="classic";
