@@ -1,3 +1,0 @@
----
-ranger_plugins_path: "{{ home_dir }}/.config/ranger/plugins"
-ranger_plugins: []

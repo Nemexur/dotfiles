@@ -1,0 +1,9 @@
+*
+!.gitignore
+!settings.json
+!keybindings.json
+
+!agent/
+!agent/**
+!extensions/
+!extensions/**

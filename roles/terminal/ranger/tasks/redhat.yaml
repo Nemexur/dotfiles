@@ -1,7 +1,0 @@
----
-- name: Ensure ranger exists
-  become: true
-  ansible.builtin.dnf:
-    name: ranger
-    state: present
-    update_cache: true
