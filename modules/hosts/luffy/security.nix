@@ -4,7 +4,7 @@
     config,
     ...
   }: {
-    networking.firewall.enable = false;
+    networking.firewall.enable = true;
 
     # PAM Order
     security.pam.services = let

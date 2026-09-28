@@ -8,6 +8,9 @@
       # powerful tracing tool
       bpftrace
 
+      # image processing
+      libsixel
+
       # system monitoring
       sysstat
       iotop-c

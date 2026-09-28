@@ -33,7 +33,7 @@
         "preferredPlayer": "",
         "spectrumFrameRate": 30,
         "spectrumMirrored": true,
-        "visualizerType": "linear",
+        "visualizerType": "none",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
         "volumeOverdrive": false,
@@ -155,22 +155,6 @@
                 }
             ],
             "right": [
-                {
-                    "compactMode": false,
-                    "hideMode": "hidden",
-                    "hideWhenIdle": false,
-                    "id": "MediaMini",
-                    "maxWidth": 145,
-                    "panelShowAlbumArt": true,
-                    "scrollingMode": "hover",
-                    "showAlbumArt": true,
-                    "showArtistFirst": true,
-                    "showProgressRing": true,
-                    "showVisualizer": true,
-                    "textColor": "none",
-                    "useFixedWidth": false,
-                    "visualizerType": "linear"
-                },
                 {
                     "defaultSettings": {
                         "connectedColor": "primary",
@@ -758,7 +742,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "mountain",
+        "wallhavenQuery": "",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

@@ -3,6 +3,24 @@
     # Kitty for icat command
     programs.kitty.enable = true;
 
+    programs.foot = {
+      enable = pkgs.stdenv.isLinux;
+      settings = {
+        main = {
+          term = "xterm-256color";
+          font = "JetBrainsMono NF:size=12";
+          include = "${pkgs.foot.themes}/share/foot/themes/dracula";
+          selection-target = "clipboard";
+          pad = "12x12";
+        };
+        colors-dark.alpha = 0.8;
+        scrollback = {
+          lines = 20000;
+          multiplier = 13.0;
+        };
+      };
+    };
+
     programs.ghostty = {
       enable = true;
       package =

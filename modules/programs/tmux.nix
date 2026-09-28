@@ -66,6 +66,15 @@
         # For PI Coding Agent
         set -g extended-keys on
         set -g extended-keys-format csi-u
+
+        # Sixel support
+        set -as terminal-features "xterm*:sixel,foot*:sixel"
+        set -g allow-passthrough on
+
+        # tmux discards any escape sequence longer than input-buffer-size
+        # (default 1 MiB), which silently kills all but the smallest sixel
+        # images. Raise it so `img2sixel photo.jpg` actually renders.
+        set -s input-buffer-size 16777216
       ''
       + lib.optionalString pkgs.stdenv.isDarwin ''
         # Fix copy-mode on MacOS

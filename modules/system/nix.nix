@@ -12,9 +12,6 @@
         };
       })
     ];
-    # enable flakes globally
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-    nix.settings.extra-experimental-features = ["pipe-operators"];
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -22,6 +19,8 @@
     nix.package = pkgs.nix;
 
     nix.settings = {
+      experimental-features = ["nix-command" "flakes"];
+      extra-experimental-features = ["pipe-operators"];
       substituters = [
         "https://nix-community.cachix.org"
         "https://nix-gaming.cachix.org"
@@ -33,15 +32,14 @@
         "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       ];
       builders-use-substitutes = true;
+      trusted-users =
+        ["root"]
+        ++ (
+          if pkgs.stdenv.isDarwin
+          then ["@admin"]
+          else ["@wheel"]
+        );
     };
-
-    nix.settings.trusted-users =
-      ["root"]
-      ++ (
-        if pkgs.stdenv.isDarwin
-        then ["@admin"]
-        else ["@wheel"]
-      );
   };
 in {
   flake.modules.nixos.nix = genericPkg;

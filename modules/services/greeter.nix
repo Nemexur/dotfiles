@@ -2,7 +2,7 @@
   flake.modules.nixos.greeter = {pkgs, ...}: {
     imports = [inputs.noctalia-greeter.nixosModules.default];
 
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
 
       # Optional configuration

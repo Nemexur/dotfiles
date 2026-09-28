@@ -48,7 +48,7 @@
       ])
       ++ [
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p14s-amd-gen6
-        {power-optim.service = "tuned";}
+        {power-optim.service = "tlp";}
       ];
   };
 }

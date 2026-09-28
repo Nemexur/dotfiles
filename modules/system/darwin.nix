@@ -1,10 +1,10 @@
 {
-  flake.modules.darwin.systemSettings = {config, ...}: {
+  flake.modules.darwin.systemSettings = {lib, config, ...}: {
     # Add ability to used TouchID for sudo authentication
     security.pam.services.sudo_local.touchIdAuth = true;
 
     system = {
-      stateVersion = config.systemConstants.darwinStateVersion;
+      stateVersion = lib.mkDefault config.systemConstants.darwinStateVersion;
 
       keyboard.enableKeyMapping = true; # enable key mapping so that we can use `option` as `control`};
 

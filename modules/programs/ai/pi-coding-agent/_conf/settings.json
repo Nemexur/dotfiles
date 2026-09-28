@@ -18,7 +18,7 @@
     "npm:pi-vim"
   ],
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-8",
+  "defaultModel": "claude-opus-5",
   "defaultThinkingLevel": "medium",
   "theme": "dark",
   "quietStartup": true,

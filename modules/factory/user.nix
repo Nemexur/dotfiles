@@ -11,9 +11,7 @@
         home = "/home/${username}";
         extraGroups =
           ["${username}" "users"]
-          ++ lib.optionals isAdmin [
-            "wheel"
-          ];
+          ++ lib.optionals isAdmin ["wheel"];
         shell = pkgs.zsh;
       };
       programs.zsh.enable = true;
@@ -49,10 +47,11 @@
       system.primaryUser = lib.mkIf isAdmin "${username}";
     };
 
-    homeManager."${username}" = {config, ...}: {
+    homeManager."${username}" = {lib, config, ...}: {
       home = {
         inherit username;
-        inherit (config.systemConstants) stateVersion;
+
+        stateVersion = lib.mkDefault config.systemConstants.stateVersion;
       };
     };
   };
